@@ -22,7 +22,7 @@ public class InteractionPromptUI : MonoBehaviour
     private void LateUpdate()
     {
         var rotation = mainCam.transform.rotation;
-
+        // Follow the player camera and tilt to face towards camera
         transform.position = mainCam.transform.TransformPoint(new Vector3(0, offsetY, distance));        
         transform.LookAt(transform.position + rotation * Vector3.forward,
             rotation * Vector3.up);
@@ -30,6 +30,7 @@ public class InteractionPromptUI : MonoBehaviour
 
     public bool isDisplayed = false;
 
+    // Set text and display
     public void SetUp(string promptText)
     {
         prompText.text = promptText;
@@ -37,6 +38,7 @@ public class InteractionPromptUI : MonoBehaviour
         isDisplayed = true;
     }
 
+    // Stop displaying
     public void Close()
     {
         uiPanel.SetActive(false);
