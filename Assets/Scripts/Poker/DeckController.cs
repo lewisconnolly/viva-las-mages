@@ -19,26 +19,21 @@ public class DeckController : MonoBehaviour
 
     public int drawCardCost = 1;
 
+    public float waitBetweenDrawingCards = 0.5f;
+
     // Start is called before the first frame update
     void Start()
     {
         SetUpDeck();
-        DrawCardToHand();
-        DrawCardToHand();
-        DrawCardToHand();
-        DrawCardToHand();
-        DrawCardToHand();
-        DrawCardToHand();
-        DrawCardToHand();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            DrawCardToHand();
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    DrawCardToHand();
+        //}
     }
 
     // Shuffle deck into active cards
@@ -80,5 +75,22 @@ public class DeckController : MonoBehaviour
     public void SwapCardsForHearts()
     {
 
+    }
+
+    public void DrawMultipleCards(int amountToDraw)
+    {
+        StartCoroutine(DrawMultipleCo(amountToDraw));
+    }
+
+    // Draw multiple cards coroutine
+    IEnumerator DrawMultipleCo(int amountToDraw)
+    {
+        for (int i = 0; i < amountToDraw; i++)
+        {
+            DrawCardToHand();
+
+            // Stop loop and suspend coroutine for wait time
+            yield return new WaitForSeconds(waitBetweenDrawingCards);
+        }
     }
 }
