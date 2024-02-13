@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DealerHealth : MonoBehaviour
 {
-    public int currentHealth;
-    public Health health;
-
+    public int currentHealth;            
+       
     // Start is called before the first frame update
     void Start()
     {
-        health.SetHealth(currentHealth);
+        UIDealerController.instance.SetHealthText(currentHealth);
     }
 
     // Update is called once per frame
@@ -19,12 +19,12 @@ public class DealerHealth : MonoBehaviour
 
     }
 
+    public int GetHealth() { return currentHealth; }    
+
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         if (currentHealth < 0) { currentHealth = 0; }
-        health.SetHealth(currentHealth);
+        UIDealerController.instance.SetHealthText(currentHealth);
     }
-
-    public int GetHealth() { return currentHealth; }
 }

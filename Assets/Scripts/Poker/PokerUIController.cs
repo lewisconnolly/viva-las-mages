@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UIController : MonoBehaviour
+public class PokerUIController : MonoBehaviour
 {
-    public static UIController instance;
+    public static PokerUIController instance;
 
     private void Awake()
     {

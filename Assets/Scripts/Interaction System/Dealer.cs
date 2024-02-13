@@ -18,7 +18,8 @@ public class Dealer : MonoBehaviour, IInteractable
         if (playerHealth == null) return false;
 
         // Remove two hearts from player
-        playerHealth.TakeDamage(2);
+        //playerHealth.TakeDamage(2);
+        playerHealth.PlaceBet(2);
         
         return true;
     }
