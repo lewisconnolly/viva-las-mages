@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 
 public class Card : MonoBehaviour
 {
     public CardScriptableObject cardSO;
+
+    public bool isPlayer;
 
     public int value;
     public string suit;
@@ -33,6 +36,12 @@ public class Card : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {        
+        if(targetPoint == Vector3.zero)
+        {
+            targetPoint = transform.position;
+            targetRot = transform.rotation;
+        }
+        
         SetUpCard();
         hc = FindObjectOfType<HandController>();
         col = GetComponent<Collider>();
@@ -76,7 +85,7 @@ public class Card : MonoBehaviour
             }
             
             // Stop card immediately being returned to hand if mouse was just clicked by checking justPressed
-            if (Input.GetMouseButtonDown(0) && !justPressed)
+            if (Input.GetMouseButtonDown(0) && !justPressed && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive)
             {
                 if (Physics.Raycast(ray, out hit, 100f, whatIsPlacement))
                 {
@@ -123,7 +132,7 @@ public class Card : MonoBehaviour
     // Pop up card towards camera on mouse hover
     private void OnMouseOver()
     {
-        if (inHand)
+        if (inHand && isPlayer)
         {
             MoveToPoint(hc.cardPositions[handPosition] + new Vector3(0f, 1f, .5f), Quaternion.identity);
         }
@@ -132,7 +141,7 @@ public class Card : MonoBehaviour
     // Move card back down if mouse is no longer hovering over
     private void OnMouseExit()
     {
-        if (inHand)
+        if (inHand && isPlayer)
         {
             MoveToPoint(hc.cardPositions[handPosition], hc.minPos.rotation);
         }
@@ -141,7 +150,7 @@ public class Card : MonoBehaviour
     // Prevent card being selected again on click
     private void OnMouseDown()
     {
-        if (inHand)
+        if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive && isPlayer)
         {
             isSelected = true;
             col.enabled = false;

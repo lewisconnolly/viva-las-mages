@@ -21,6 +21,11 @@ public class InteractionPromptUI : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (mainCam.IsDestroyed())
+        {
+            mainCam = Camera.main;
+        }
+
         var rotation = mainCam.transform.rotation;
         // Follow the player camera and tilt to face towards camera
         transform.position = mainCam.transform.TransformPoint(new Vector3(0, offsetY, distance));        

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d12eab495d09134fb2611a789c7641a, type: 3}
-  m_Name: JackHearts
+  m_Name: 7Clubs
   m_EditorClassIdentifier: 
-  value: 11
-  suit: Hearts
-  mesh: {fileID: 4300000, guid: 8e70cfa2499b0d242850d42b5ff84a2d, type: 3}
+  value: 7
+  suit: Clubs
+  mesh: {fileID: 4300000, guid: 464cdfddb63bd3c408457cb626984107, type: 3}

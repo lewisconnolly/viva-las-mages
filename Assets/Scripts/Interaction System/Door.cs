@@ -8,18 +8,18 @@ public class Door : MonoBehaviour, IInteractable
     [SerializeField] private string prompt;
 
     public string InteractionPrompt => prompt;
-    public ExitHealth exit;
+    //public ExitCost exit;
 
     public bool Interact(Interactor interactor)
     {        
         // If the exit health for this door is 0, allow player to open
-        if(exit.GetHealth() == 0 )
+        if(ExitCost.instance.GetHealth() == 0 )
         {
             Debug.Log("Opening door");
         }
         else
         {
-            Debug.Log("Door locked. Spend more health");
+            Debug.Log("Door locked. Bet more health");
         }
                 
         return true;

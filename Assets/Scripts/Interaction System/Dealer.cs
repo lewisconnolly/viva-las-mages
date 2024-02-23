@@ -10,16 +10,15 @@ public class Dealer : MonoBehaviour, IInteractable
 
     public bool Interact(Interactor interactor)
     {
-        Debug.Log("Draw Cards (-2 HP)");
-        
         // Get health component of interacting player        
-        var playerHealth = interactor.GetComponent<PlayerHealth>();
-        
-        if (playerHealth == null) return false;
+        //var playerHealth = interactor.GetComponent<PlayerHealth>();
+
+        //if (playerHealth == null) return false;
 
         // Remove two hearts from player
         //playerHealth.TakeDamage(2);
-        playerHealth.PlaceBet(2);
+        //playerHealth.PlaceBet(2);
+        SceneLoader.instance.LoadPoker();
         
         return true;
     }

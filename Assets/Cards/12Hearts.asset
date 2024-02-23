@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d12eab495d09134fb2611a789c7641a, type: 3}
-  m_Name: QueenDiamonds
+  m_Name: 12Hearts
   m_EditorClassIdentifier: 
   value: 12
-  suit: Diamonds
-  mesh: {fileID: 4300000, guid: 2b4b8c4bb0796f04093a50f8a8b21c6c, type: 3}
+  suit: Hearts
+  mesh: {fileID: 4300000, guid: 8fef523a36fb4384dbd542c31b34f451, type: 3}

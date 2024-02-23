@@ -13,6 +13,7 @@ public class MouseLook : MonoBehaviour
     {
         // Stop the cursor leaving the game view
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame

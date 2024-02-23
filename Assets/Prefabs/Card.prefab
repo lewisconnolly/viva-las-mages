@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardSO: {fileID: 11400000, guid: 050a124a0ba201640b137291178121da, type: 2}
+  isPlayer: 1
   value: 5
   suit: Spades
   model: {fileID: 1164943815230220384}
