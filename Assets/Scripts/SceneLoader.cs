@@ -20,7 +20,7 @@ public class SceneLoader : MonoBehaviour
     public Quaternion playerStartingRotation = Quaternion.AngleAxis(-90, Vector3.up);
 
     public GameObject enemyPrefab;
-    public Vector3 enemyStartingPosition = new Vector3(-0.166f, 0.75f, -1.96f);
+    public Vector3 enemyStartingPosition = new Vector3(-0.166f, 0.957f, -1.96f);
     public Quaternion enemyStartingRotation = Quaternion.identity;
 
     public GameObject exitCostPrefab;

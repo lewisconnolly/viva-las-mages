@@ -30,10 +30,6 @@ public class DeckController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.T))
-        //{
-        //    DrawCardToHand();
-        //}
     }
 
     // Shuffle deck into active cards

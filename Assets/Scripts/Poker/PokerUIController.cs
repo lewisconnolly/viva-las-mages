@@ -22,9 +22,9 @@ public class PokerUIController : MonoBehaviour
     private Vector3 betIconStart;
     public Transform betIconTarget;
     private bool showBetIcon;
-    public BetSlider BetSlider;
+    public BetSlider betSlider;
 
-    public GameObject placeBetButton, swapCardButton, endTurnButton;
+    public GameObject placeBetButton, swapCardButton, playHandButton;
 
     // Start is called before the first frame update
     void Start()
@@ -50,7 +50,7 @@ public class PokerUIController : MonoBehaviour
             SetExitHealthText(ExitCost.instance.GetHealth());
         }
 
-        if (GameObject.FindGameObjectWithTag("Player"))
+        if (GameObject.FindGameObjectWithTag("Player") != null)
         {
             SetHealthText(PlayerHealth.instance.GetHealth());
         }
@@ -98,15 +98,15 @@ public class PokerUIController : MonoBehaviour
         betIcon.SetActive(true);
         showBetIcon = true;
     }
-    public void PlaceBet()
+    public void PlayHand()
     {
-        BattleController.instance.PlaceBet(int.Parse(BetSlider.currentBet.text));
+        BattleController.instance.PlayHand();
     }
 
-    public void EndPlayerTurn()
+    public void PlaceBet()
     {
-        BattleController.instance.EndPlayerTurn();
-    }
+        BattleController.instance.PlaceBet(int.Parse(betSlider.currentBet.text));
+    }   
 
     public void SwapCards()
     {

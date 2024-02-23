@@ -74,8 +74,8 @@ public class Card : MonoBehaviour
             // Detect where the ray hits the desktop layer
             if(Physics.Raycast(ray, out hit, 100f, whatIsDesktop))
             {
-                // Move the card to the point of intersection but 2 units higher in the y-axis (to float above desktop)
-                MoveToPoint(hit.point + new Vector3(0f, 2f, 0f), Quaternion.identity);
+                // Move the card to the point of intersection but 0.5 units higher in the y-axis (to float above desktop)
+                MoveToPoint(hit.point + new Vector3(0f, 0.3f, 0f), hc.minPos.rotation);
             }
 
             // Right click to return card to hand
@@ -99,7 +99,7 @@ public class Card : MonoBehaviour
                         selectedPoint.activeCard = this;
                         assignedPlace = selectedPoint;
 
-                        MoveToPoint(selectedPoint.transform.position, Quaternion.identity);
+                        MoveToPoint(selectedPoint.transform.position, hc.minPos.rotation);
 
                         inHand = false;
                         isSelected = false;
@@ -134,7 +134,7 @@ public class Card : MonoBehaviour
     {
         if (inHand && isPlayer)
         {
-            MoveToPoint(hc.cardPositions[handPosition] + new Vector3(0f, 1f, .5f), Quaternion.identity);
+            MoveToPoint(hc.cardPositions[handPosition] + new Vector3(0f, .1f, .1f), hc.minPos.rotation);
         }
     }
 
@@ -155,6 +155,7 @@ public class Card : MonoBehaviour
             isSelected = true;
             col.enabled = false;
             justPressed = true;
+            HandController.instance.SelectCard(this);
         }
     }
    

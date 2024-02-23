@@ -12,6 +12,8 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        currentHealth = maxHealth;        
+        betCounter = 0;
     }
 
     public int maxHealth = 10;
@@ -21,12 +23,10 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
         if (SceneManager.GetActiveScene().name != "Poker")
         {
             UIController.instance.SetHealthText(currentHealth);
         }
-        betCounter = 0;
     }
 
     // Update is called once per frame

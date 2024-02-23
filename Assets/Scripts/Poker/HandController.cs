@@ -12,6 +12,7 @@ public class HandController : MonoBehaviour
     }
 
     public List<Card> heldCards = new List<Card>();
+    public List<Card> selectedCards = new List<Card>();
     public Transform minPos, maxPos;
     public List<Vector3> cardPositions = new List<Vector3>();
     
@@ -71,5 +72,10 @@ public class HandController : MonoBehaviour
     {
         heldCards.Add(cardToAdd);
         SetCardPositionsInHand();  
+    }
+
+    public void SelectCard(Card cardToSelect)
+    {
+        selectedCards.Add(cardToSelect);
     }
 }

@@ -23,17 +23,14 @@ public class BattleController : MonoBehaviour
     void Start()
     {
         PokerUIController.instance.placeBetButton.SetActive(true);
-        PokerUIController.instance.endTurnButton.SetActive(false);
+        PokerUIController.instance.betSlider.gameObject.SetActive(true);
+        PokerUIController.instance.playHandButton.SetActive(false);
         PokerUIController.instance.swapCardButton.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.T))
-        //{
-        //    AdvanceTurn();
-        //}
     }
 
     public void DrawHand()
@@ -43,18 +40,14 @@ public class BattleController : MonoBehaviour
         DeckController.instance.DrawMultipleCards(cardsToDraw);
     }
 
-    public void EndPlayerTurn()
+    public void PlayHand()
     {
-        PokerUIController.instance.placeBetButton.SetActive(false);
-        PokerUIController.instance.endTurnButton.SetActive(false);
-        PokerUIController.instance.swapCardButton.SetActive(false);
         AdvanceTurn();
     }
 
     public void PlaceBet(int bet)
     {
         PlayerHealth.instance.PlaceBet(bet);
-        DrawHand();
         AdvanceTurn();
     }
 
@@ -72,7 +65,8 @@ public class BattleController : MonoBehaviour
             case TurnOrder.playerBetting:
                 
                 PokerUIController.instance.placeBetButton.SetActive(true);
-                PokerUIController.instance.endTurnButton.SetActive(false);
+                PokerUIController.instance.betSlider.gameObject.SetActive(true);
+                PokerUIController.instance.playHandButton.SetActive(false);
                 PokerUIController.instance.swapCardButton.SetActive(false);
 
                 break;
@@ -80,10 +74,11 @@ public class BattleController : MonoBehaviour
             case TurnOrder.playerActive:
 
                 PokerUIController.instance.placeBetButton.SetActive(false);
-                PokerUIController.instance.endTurnButton.SetActive(true);
+                PokerUIController.instance.betSlider.gameObject.SetActive(false);
+                PokerUIController.instance.playHandButton.SetActive(true);
                 PokerUIController.instance.swapCardButton.SetActive(true);
 
-                //DrawHand();
+                DrawHand();
 
                 break;
                 
