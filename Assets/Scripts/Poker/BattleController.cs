@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleController : MonoBehaviour
 {
@@ -31,6 +32,10 @@ public class BattleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (HandController.instance.selectedCards.Count == 5)
+        {
+            PokerUIController.instance.playHandButton.GetComponent<Button>().interactable = true;
+        }
     }
 
     public void DrawHand()
@@ -42,6 +47,18 @@ public class BattleController : MonoBehaviour
 
     public void PlayHand()
     {
+        foreach (Card card in HandController.instance.selectedCards)
+        {
+            HandController.instance.AddCardToTable(card);
+        }
+
+        foreach (Card card in HandController.instance.selectedCards)
+        {
+            HandController.instance.RemoveCardFromHand(card);
+        }
+
+        //HandController.instance.selectedCards.Clear();
+
         AdvanceTurn();
     }
 
@@ -75,11 +92,13 @@ public class BattleController : MonoBehaviour
 
                 PokerUIController.instance.placeBetButton.SetActive(false);
                 PokerUIController.instance.betSlider.gameObject.SetActive(false);
-                PokerUIController.instance.playHandButton.SetActive(true);
+                PokerUIController.instance.playHandButton.SetActive(true);                
                 PokerUIController.instance.swapCardButton.SetActive(true);
 
                 DrawHand();
-
+                
+                PokerUIController.instance.playHandButton.GetComponent<Button>().interactable = false;
+               
                 break;
                 
             case TurnOrder.enemyActive:

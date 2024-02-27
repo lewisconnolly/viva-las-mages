@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HandController : MonoBehaviour
 {
@@ -13,8 +15,10 @@ public class HandController : MonoBehaviour
 
     public List<Card> heldCards = new List<Card>();
     public List<Card> selectedCards = new List<Card>();
+    public List<Card> playedCards = new List<Card>();
     public Transform minPos, maxPos;
     public List<Vector3> cardPositions = new List<Vector3>();
+    public List<Vector3> cardTablePositions = new List<Vector3>();
     
     // Start is called before the first frame update
     void Start()
@@ -24,8 +28,7 @@ public class HandController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        
+    {        
     }
 
     // Display cards in front of player
@@ -52,6 +55,27 @@ public class HandController : MonoBehaviour
             heldCards[i].handPosition = i;
         }
     }
+
+    public void SetCardPositionsOnTable()
+    {
+        CardPlacePoint[] placePoints = FindObjectsOfType<CardPlacePoint>();
+        List<CardPlacePoint> playerPlacePoints = new List<CardPlacePoint>();
+
+        for (int i = 0; i < placePoints.Length; i++)
+        {
+            if (placePoints[i].isPlayerPoint)
+            {
+                playerPlacePoints.Add(placePoints[i]);
+            }
+        }
+
+        List<CardPlacePoint> sortedPlayerPlacePoints = playerPlacePoints.OrderBy(p => p.transform.position.x).ToList();
+
+        for (int i = 0; i < selectedCards.Count; i++)
+        {
+            selectedCards[i].MoveToPoint(sortedPlayerPlacePoints[i].transform.position, minPos.rotation);            
+        }
+    }
     
     public void RemoveCardFromHand(Card cardToRemove)
     {
@@ -74,8 +98,20 @@ public class HandController : MonoBehaviour
         SetCardPositionsInHand();  
     }
 
+    public void AddCardToTable(Card cardToAdd)
+    {
+        playedCards.Add(cardToAdd);
+        SetCardPositionsOnTable();
+    }
+
     public void SelectCard(Card cardToSelect)
     {
         selectedCards.Add(cardToSelect);
+    }
+
+    public void SortSelectedCards()
+    {
+        List<Card> sortedSelectedCards = selectedCards.OrderBy(c => c.value).ToList();
+        selectedCards = sortedSelectedCards;
     }
 }

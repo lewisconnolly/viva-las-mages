@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3920938075814805569}
   - component: {fileID: 3341706635420343102}
   - component: {fileID: 3033433699413199402}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CardModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 854928152312033369}
   - component: {fileID: 5325722872523702766}
   - component: {fileID: 3875974508605623391}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,6 +144,9 @@ MonoBehaviour:
   whatIsPlacement:
     serializedVersion: 2
     m_Bits: 512
+  whatIsCard:
+    serializedVersion: 2
+    m_Bits: 8
   assignedPlace: {fileID: 0}
 --- !u!65 &3875974508605623391
 BoxCollider:

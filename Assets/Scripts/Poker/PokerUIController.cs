@@ -18,10 +18,14 @@ public class PokerUIController : MonoBehaviour
     public TextMeshProUGUI healthValueText, enemyHealthValueText, exitHealthValueText;
 
     public TextMeshProUGUI betValueText;
+    public TextMeshProUGUI enemyBetValueText;
     public GameObject betIcon;
-    private Vector3 betIconStart;
+    public GameObject enemyBetIcon;
+    private Vector3 betIconOrigin;
+    private Vector3 enemyBetIconOrigin;
     public Transform betIconTarget;
-    private bool showBetIcon;
+    public Transform enemyBetIconTarget;
+    private bool showBetIcons;
     public BetSlider betSlider;
 
     public GameObject placeBetButton, swapCardButton, playHandButton;
@@ -37,8 +41,9 @@ public class PokerUIController : MonoBehaviour
 
     void InitPokerUI()
     {
-        betIconStart = betIcon.transform.position;
-        HideBetIcon();
+        betIconOrigin = betIcon.transform.position;
+        enemyBetIconOrigin = enemyBetIcon.transform.position;
+        HideBetIcons();
         
         if (GameObject.FindGameObjectWithTag("Enemy") != null)
         {
@@ -69,13 +74,15 @@ public class PokerUIController : MonoBehaviour
             SetHealthText(PlayerHealth.instance.GetHealth());
         }        
 
-        if (showBetIcon)
+        if (showBetIcons)
         {
             betIcon.transform.position = Vector3.Lerp(betIcon.transform.position, betIconTarget.position, 5f * Time.deltaTime);
+            enemyBetIcon.transform.position = Vector3.Lerp(enemyBetIcon.transform.position, enemyBetIconTarget.position, 5f * Time.deltaTime);
         }
         else
         {
-            betIcon.transform.position = betIconStart;
+            betIcon.transform.position = betIconOrigin;
+            enemyBetIcon.transform.position = enemyBetIconOrigin;
         }
     }
 
@@ -85,18 +92,24 @@ public class PokerUIController : MonoBehaviour
 
     public void SetExitHealthText(int health) { exitHealthValueText.text = health.ToString(); }
 
-    public void SetBetText(int bet) { betValueText.text = "-" + bet.ToString(); }
-
-    public void HideBetIcon()
+    public void SetBetText(int bet)
     {
-        betIcon.SetActive(false);
-        showBetIcon = false;
+        betValueText.text = "-" + bet.ToString();
+        enemyBetValueText.text = "-" + bet.ToString();
     }
 
-    public void ShowBetIcon()
+    public void HideBetIcons()
+    {
+        betIcon.SetActive(false);
+        enemyBetIcon.SetActive(false);
+        showBetIcons = false;
+    }
+
+    public void ShowBetIcons()
     {
         betIcon.SetActive(true);
-        showBetIcon = true;
+        enemyBetIcon.SetActive(true);
+        showBetIcons = true;
     }
     public void PlayHand()
     {

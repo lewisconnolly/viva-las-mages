@@ -25,11 +25,12 @@ public class Card : MonoBehaviour
     private Camera mainCam;
 
     private bool isSelected;
+    private bool isInSelectedPosition;
     private Collider col;
 
     public LayerMask whatIsDesktop;
     public LayerMask whatIsPlacement;
-    private bool justPressed;
+    //private bool justPressed;
 
     public CardPlacePoint assignedPlace;
 
@@ -63,19 +64,40 @@ public class Card : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
         // Match target rotation in rotateSpeed increments
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotateSpeed * Time.deltaTime);
-
         
         if (isSelected)
         {
-            // Cast a ray from the camera to the mouse position
+            //// Cast a ray from the camera to the mouse position
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            // Detect where the ray hits the desktop layer
-            if(Physics.Raycast(ray, out hit, 100f, whatIsDesktop))
+
+            //// Detect where the ray hits the desktop layer
+            //if(Physics.Raycast(ray, out hit, 100f, whatIsDesktop))
+            //{
+            //    // Move the card to the point of intersection but 0.5 units higher in the y-axis (to float above desktop)
+            //    MoveToPoint(hit.point + new Vector3(0f, 0.3f, 0f), hc.minPos.rotation);
+            //}                        
+
+            if (Input.GetMouseButtonDown(0) && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive)
             {
-                // Move the card to the point of intersection but 0.5 units higher in the y-axis (to float above desktop)
-                MoveToPoint(hit.point + new Vector3(0f, 0.3f, 0f), hc.minPos.rotation);
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider == col)
+                    {
+                        if (!isInSelectedPosition)
+                        {
+                            MoveToPoint(hc.cardPositions[handPosition] + new Vector3(-.3f, .1f, .1f), hc.minPos.rotation);
+                            isInSelectedPosition = true;
+                            hc.SelectCard(this);
+                            hc.SortSelectedCards();
+                        }
+                        else
+                        {
+                            ReturnToHand();
+                        }
+                    }
+                }
             }
 
             // Right click to return card to hand
@@ -85,41 +107,41 @@ public class Card : MonoBehaviour
             }
             
             // Stop card immediately being returned to hand if mouse was just clicked by checking justPressed
-            if (Input.GetMouseButtonDown(0) && !justPressed && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive)
-            {
-                if (Physics.Raycast(ray, out hit, 100f, whatIsPlacement))
-                {
-                    // Get placement point that was clicked on
-                    CardPlacePoint selectedPoint = hit.collider.GetComponent<CardPlacePoint>();
+            //if (Input.GetMouseButtonDown(0) && !justPressed && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive)
+            //{
+            //    if (Physics.Raycast(ray, out hit, 100f, whatIsPlacement))
+            //    {
+            //        // Get placement point that was clicked on
+            //        CardPlacePoint selectedPoint = hit.collider.GetComponent<CardPlacePoint>();
 
-                    // If the selected point has an active card attribute and it is a player placement slot
-                    // then move this card to the placement slot and remove from hand
-                    if (selectedPoint.activeCard == null && selectedPoint.isPlayerPoint)
-                    {
-                        selectedPoint.activeCard = this;
-                        assignedPlace = selectedPoint;
+            //        // If the selected point has an active card attribute and it is a player placement slot
+            //        // then move this card to the placement slot and remove from hand
+            //        if (selectedPoint.activeCard == null && selectedPoint.isPlayerPoint)
+            //        {
+            //            selectedPoint.activeCard = this;
+            //            assignedPlace = selectedPoint;
 
-                        MoveToPoint(selectedPoint.transform.position, hc.minPos.rotation);
+            //            MoveToPoint(selectedPoint.transform.position, hc.minPos.rotation);
 
-                        inHand = false;
-                        isSelected = false;
+            //            inHand = false;
+            //            isSelected = false;
 
-                        hc.RemoveCardFromHand(this);
-                    }
-                    else
-                    {
-                        ReturnToHand();
-                    }
-                }
-                else
-                {
-                    ReturnToHand();
-                }
-            }
+            //            hc.RemoveCardFromHand(this);
+            //        }
+            //        else
+            //        {
+            //            ReturnToHand();
+            //        }
+            //    }
+            //    else
+            //    {
+            //        ReturnToHand();
+            //    }
+            //}
         }
 
         // Reset justPressed
-        justPressed = false;
+        //justPressed = false;
     }
 
     // Set point and rotation for card
@@ -132,7 +154,7 @@ public class Card : MonoBehaviour
     // Pop up card towards camera on mouse hover
     private void OnMouseOver()
     {
-        if (inHand && isPlayer)
+        if (inHand && isPlayer && !isSelected)
         {
             MoveToPoint(hc.cardPositions[handPosition] + new Vector3(0f, .1f, .1f), hc.minPos.rotation);
         }
@@ -141,7 +163,7 @@ public class Card : MonoBehaviour
     // Move card back down if mouse is no longer hovering over
     private void OnMouseExit()
     {
-        if (inHand && isPlayer)
+        if (inHand && isPlayer && !isSelected)
         {
             MoveToPoint(hc.cardPositions[handPosition], hc.minPos.rotation);
         }
@@ -150,20 +172,22 @@ public class Card : MonoBehaviour
     // Prevent card being selected again on click
     private void OnMouseDown()
     {
-        if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive && isPlayer)
+        if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive && isPlayer
+            && hc.selectedCards.Count < 5)
         {
             isSelected = true;
-            col.enabled = false;
-            justPressed = true;
-            HandController.instance.SelectCard(this);
+            //col.enabled = false;
+            //justPressed = true;                                       
         }
     }
    
     public void ReturnToHand()
     {
         isSelected = false;
+        isInSelectedPosition = false;
         col.enabled = true;
-
+        hc.selectedCards.Remove(this);
+        hc.SortSelectedCards();
         MoveToPoint(hc.cardPositions[handPosition], hc.minPos.rotation);
     }
 }
