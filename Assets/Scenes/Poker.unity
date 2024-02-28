@@ -2074,7 +2074,7 @@ GameObject:
   m_Component:
   - component: {fileID: 317209870}
   m_Layer: 0
-  m_Name: === CONTROLLERS ===
+  m_Name: === LOGIC ===
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4680,10 +4680,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deckToUse:
-  - {fileID: 11400000, guid: 8f401007ed97350489460232202d9811, type: 2}
-  - {fileID: 11400000, guid: dd5f1328e8d291a489d1b83e39f14d01, type: 2}
-  - {fileID: 11400000, guid: 03763edbf502d3e48be600e9ce26dff8, type: 2}
-  - {fileID: 11400000, guid: 050a124a0ba201640b137291178121da, type: 2}
   - {fileID: 11400000, guid: 9ae5234268888504a957b89574a6b168, type: 2}
   - {fileID: 11400000, guid: 60850efa2c39fe54cb6655088755d1d2, type: 2}
   - {fileID: 11400000, guid: 9eb905f82fb3f5540a92a6eec9b44ee0, type: 2}
@@ -4716,6 +4712,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5e1fe664f64b117418cf9e65da5b91db, type: 2}
   - {fileID: 11400000, guid: 5fdf06c5d86c8b14bb176043be102a25, type: 2}
   - {fileID: 11400000, guid: ed555dd8a8b90ea45a1a226586d4f981, type: 2}
+  - {fileID: 11400000, guid: fa31b16de6b075f4593696c89e8206d4, type: 2}
+  - {fileID: 11400000, guid: 9705792f20613334b9a43c1d72157dc7, type: 2}
+  - {fileID: 11400000, guid: 2a5b051507f2840439a276e4fd626b37, type: 2}
+  - {fileID: 11400000, guid: 4c77fa080367a3e469a8121b1fc8ca2f, type: 2}
   cardToSpawn: {fileID: 5325722872523702766, guid: b5afef1f13e33844082b19ef4b6cb36b,
     type: 3}
   drawCardCost: 1
@@ -7304,6 +7304,50 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1332735497}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1336502882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1336502883}
+  - component: {fileID: 1336502884}
+  m_Layer: 0
+  m_Name: HandEvaluator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1336502883
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336502882}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 13.6970005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1336502884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336502882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d74937581f76dae468f5795fe07492d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1352815802
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10864,7 +10908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1949928856
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12477,6 +12521,7 @@ SceneRoots:
   - {fileID: 2095895607}
   - {fileID: 4845185732754089391}
   - {fileID: 317209870}
+  - {fileID: 1336502883}
   - {fileID: 316681353}
   - {fileID: 1030555645}
   - {fileID: 989208024}

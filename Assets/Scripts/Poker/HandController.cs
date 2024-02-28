@@ -13,9 +13,9 @@ public class HandController : MonoBehaviour
         instance = this;
     }
 
-    public List<Card> heldCards = new List<Card>();
-    public List<Card> selectedCards = new List<Card>();
-    public List<Card> playedCards = new List<Card>();
+    [SerializeField] public List<Card> heldCards = new List<Card>();
+    [SerializeField] public List<Card> selectedCards = new List<Card>();
+    [SerializeField] public List<Card> playedCards = new List<Card>();
     public Transform minPos, maxPos;
     public List<Vector3> cardPositions = new List<Vector3>();
     public List<Vector3> cardTablePositions = new List<Vector3>();
@@ -89,7 +89,7 @@ public class HandController : MonoBehaviour
             Debug.LogError("Card at position " + cardToRemove.handPosition + " is not the card being removed from hand");
         }
 
-        SetCardPositionsInHand();
+        //SetCardPositionsInHand();
     }
 
     public void AddCardToHand(Card cardToAdd)
@@ -113,5 +113,17 @@ public class HandController : MonoBehaviour
     {
         List<Card> sortedSelectedCards = selectedCards.OrderBy(c => c.value).ToList();
         selectedCards = sortedSelectedCards;
+    }
+
+    public void PlayHand()
+    {
+        foreach (Card card in selectedCards)
+        {
+            AddCardToTable(card);
+            heldCards.Remove(card);
+        }
+            
+        selectedCards.Clear();
+        SetCardPositionsInHand();
     }
 }

@@ -87,10 +87,10 @@ public class Card : MonoBehaviour
                     {
                         if (!isInSelectedPosition)
                         {
-                            MoveToPoint(hc.cardPositions[handPosition] + new Vector3(-.3f, .1f, .1f), hc.minPos.rotation);
-                            isInSelectedPosition = true;
                             hc.SelectCard(this);
                             hc.SortSelectedCards();
+                            isInSelectedPosition = true;
+                            MoveToPoint(hc.cardPositions[handPosition] + new Vector3(-.3f, .1f, .1f), hc.minPos.rotation);
                         }
                         else
                         {
@@ -183,11 +183,11 @@ public class Card : MonoBehaviour
    
     public void ReturnToHand()
     {
-        isSelected = false;
-        isInSelectedPosition = false;
-        col.enabled = true;
         hc.selectedCards.Remove(this);
         hc.SortSelectedCards();
+        isSelected = false;
+        isInSelectedPosition = false;
+        //col.enabled = true;        
         MoveToPoint(hc.cardPositions[handPosition], hc.minPos.rotation);
     }
 }

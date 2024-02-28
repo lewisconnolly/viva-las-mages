@@ -16,7 +16,7 @@ public class BattleController : MonoBehaviour
     public int startingCardsAmount = 7;    
     public int currentBet;
 
-    public enum TurnOrder { playerBetting, playerActive, enemyActive}
+    public enum TurnOrder { playerBetting, playerActive, enemyActive, resolveBets}
     public TurnOrder currentPhase;
 
     
@@ -36,35 +36,28 @@ public class BattleController : MonoBehaviour
         {
             PokerUIController.instance.playHandButton.GetComponent<Button>().interactable = true;
         }
+        else
+        {
+            PokerUIController.instance.playHandButton.GetComponent<Button>().interactable = false;
+        }
     }
 
     public void DrawHand()
     {
         int cardsToDraw = startingCardsAmount - HandController.instance.heldCards.Count;
-
         DeckController.instance.DrawMultipleCards(cardsToDraw);
     }
 
     public void PlayHand()
     {
-        foreach (Card card in HandController.instance.selectedCards)
-        {
-            HandController.instance.AddCardToTable(card);
-        }
-
-        foreach (Card card in HandController.instance.selectedCards)
-        {
-            HandController.instance.RemoveCardFromHand(card);
-        }
-
-        //HandController.instance.selectedCards.Clear();
-
+        HandController.instance.PlayHand();       
         AdvanceTurn();
     }
 
     public void PlaceBet(int bet)
     {
         PlayerHealth.instance.PlaceBet(bet);
+        DrawHand();
         AdvanceTurn();
     }
 
@@ -84,7 +77,7 @@ public class BattleController : MonoBehaviour
                 PokerUIController.instance.placeBetButton.SetActive(true);
                 PokerUIController.instance.betSlider.gameObject.SetActive(true);
                 PokerUIController.instance.playHandButton.SetActive(false);
-                PokerUIController.instance.swapCardButton.SetActive(false);
+                //PokerUIController.instance.swapCardButton.SetActive(false);
 
                 break;
 
@@ -93,17 +86,19 @@ public class BattleController : MonoBehaviour
                 PokerUIController.instance.placeBetButton.SetActive(false);
                 PokerUIController.instance.betSlider.gameObject.SetActive(false);
                 PokerUIController.instance.playHandButton.SetActive(true);                
-                PokerUIController.instance.swapCardButton.SetActive(true);
-
-                DrawHand();
-                
+                //PokerUIController.instance.swapCardButton.SetActive(true);                                
                 PokerUIController.instance.playHandButton.GetComponent<Button>().interactable = false;
                
                 break;
                 
             case TurnOrder.enemyActive:
-
                 Debug.Log("Skipping enemy actions");
+                AdvanceTurn();
+                break;
+
+            case TurnOrder.resolveBets:
+                var handRank = HandEvaluator.instance.EvaluateHand(HandController.instance.playedCards);
+                Debug.Log($"Hand rank: {handRank}");
                 AdvanceTurn();
                 break;
         }
