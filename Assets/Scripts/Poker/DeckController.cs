@@ -12,8 +12,12 @@ public class DeckController : MonoBehaviour
     }
 
     public List<CardScriptableObject> deckToUse = new List<CardScriptableObject>();
+    
+    public List<CardScriptableObject> enemyDeckToUse = new List<CardScriptableObject>();
 
     private List<CardScriptableObject> activeCards = new List<CardScriptableObject>();
+    
+    private List<CardScriptableObject> enemyActiveCards = new List<CardScriptableObject>();
 
     public Card cardToSpawn;
 
@@ -25,6 +29,7 @@ public class DeckController : MonoBehaviour
     void Start()
     {
         SetUpDeck();
+        SetUpEnemyDeck();
     }
 
     // Update is called once per frame
@@ -50,6 +55,24 @@ public class DeckController : MonoBehaviour
         }
     }
 
+    // Shuffle deck into enemy active cards
+    public void SetUpEnemyDeck()
+    {
+        enemyActiveCards.Clear();
+
+        List<CardScriptableObject> tempDeck = new List<CardScriptableObject>();
+        tempDeck.AddRange(enemyDeckToUse);
+
+        int iterations = 0;
+        while (tempDeck.Count > 0 && iterations < 500)
+        {
+            int selected = Random.Range(0, tempDeck.Count);
+            enemyActiveCards.Add(tempDeck[selected]);
+            tempDeck.RemoveAt(selected);
+            iterations++;
+        }
+    }
+
     public void DrawCardToHand()
     {
         if (activeCards.Count == 0)
@@ -66,6 +89,20 @@ public class DeckController : MonoBehaviour
         activeCards.RemoveAt(0);
 
         HandController.instance.AddCardToHand(newCard);
+    }
+
+    public void DrawEnemyCards(int amountToDraw)
+    {
+        for (int i = 0; i < amountToDraw; i++)
+        {
+            Card newCard = Instantiate(cardToSpawn, transform.position + new Vector3(0, -5f, 0), transform.rotation);
+            newCard.cardSO = enemyActiveCards[0];
+            newCard.SetUpCard();
+            // Remove used active card
+            enemyActiveCards.RemoveAt(0);
+
+            HandController.instance.AddCardToEnemyHand(newCard);
+        }
     }
 
     public void SwapCardsForHearts()

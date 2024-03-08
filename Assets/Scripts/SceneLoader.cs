@@ -16,12 +16,16 @@ public class SceneLoader : MonoBehaviour
     public float transitionTime = 1f;
 
     public GameObject playerPrefab;
-    public Vector3 playerStartingPosition = new Vector3(1.875f, 0.617f, 0);
+    //public Vector3 playerStartingPosition = new Vector3(1.875f, 0.617f, 0);
+    public GameObject playerStartingPosition;
     public Quaternion playerStartingRotation = Quaternion.AngleAxis(-90, Vector3.up);
 
     public GameObject enemyPrefab;
     public Vector3 enemyStartingPosition = new Vector3(-0.166f, 0.957f, -1.96f);
     public Quaternion enemyStartingRotation = Quaternion.identity;
+    private List<Vector3> enemyStartingPositions = new List<Vector3>();
+    private List<Quaternion> enemyStartingRotations = new List<Quaternion>();
+    private List<int> enemyStartingHealthValues = new List<int>();
 
     public GameObject exitCostPrefab;
     public Vector3 exitCostStartingPosition = new Vector3(0f, 10f, 0f);
@@ -36,25 +40,24 @@ public class SceneLoader : MonoBehaviour
 
     public void InstantiatePlayer()
     {
-        GameObject[] proxyPlayer = GameObject.FindGameObjectsWithTag("ProxyPlayer");
-        if(proxyPlayer.Length > 0)
-        {            
-            foreach(GameObject p in proxyPlayer)
-            {
-                Destroy(p);
-            }           
-        }
-
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("Player");
-        if (objs.Length < 1)
-        {            
-            Instantiate(playerPrefab, playerStartingPosition, playerStartingRotation);
-        }
-
-        if (SceneManager.GetActiveScene().name == "Poker")
+        GameObject proxyPlayer = GameObject.FindGameObjectWithTag("ProxyPlayer");
+        if (proxyPlayer != null)
         {
-            PlayerMovement.instance.FreezePlayer();
-            PlayerCamera.instance.DisablePlayerCamera();
+            Destroy(proxyPlayer);
+        }
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+        {
+            Instantiate(playerPrefab, playerStartingPosition.transform.position, playerStartingRotation);
+        }
+        else
+        {
+            if(PlayerMovement.instance.moveToStartingPosition)
+            {
+                player.transform.position = playerStartingPosition.transform.position;
+                PlayerMovement.instance.moveToStartingPosition = false;
+            }
         }
     }
 
@@ -65,30 +68,28 @@ public class SceneLoader : MonoBehaviour
         {
             foreach (GameObject e in proxyEnemies)
             {
+                enemyStartingPositions.Add(e.transform.position);
+                enemyStartingRotations.Add(e.transform.rotation);
+                enemyStartingHealthValues.Add(e.GetComponent<DealerHealth>().currentHealth);
                 Destroy(e);
-            }
+            }            
         }
 
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("Enemy");
-        if (objs.Length < 1)
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies.Length == 0)
         {
-            Instantiate(enemyPrefab, enemyStartingPosition, enemyStartingRotation);
+            for (int i = 0; i < enemyStartingPositions.Count; i++)
+            {
+                GameObject enemy = Instantiate(enemyPrefab, enemyStartingPositions[i], enemyStartingRotations[i]);
+                enemy.GetComponent<DealerHealth>().currentHealth = enemyStartingHealthValues[i];
+            }
         }
     }
 
     public void InstantiateExitCost()
-    {
-        //GameObject[] exitCost = GameObject.FindGameObjectsWithTag("ProxyExitCost");
-        //if (exitCost.Length > 0)
-        //{
-        //    foreach (GameObject e in exitCost)
-        //    {
-        //        Destroy(e);
-        //    }
-        //}        
-        
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("ExitCost");
-        if (objs.Length < 1)
+    {             
+        GameObject exit = GameObject.FindGameObjectWithTag("ExitCost");
+        if (exit == null)
         {
             Instantiate(exitCostPrefab, exitCostStartingPosition, exitCostStartingRotation);
 
@@ -106,6 +107,29 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadNextScene("Room1"));        
     }
 
+    public void LoadRoom2()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies.Length > 0)
+        {
+           foreach (GameObject e in enemies)
+           {
+                Destroy(e);
+           }        
+        }
+
+        GameObject exit = GameObject.FindGameObjectWithTag("ExitCost");
+        if (exit != null)
+        {
+            Destroy(exit);
+        }
+        
+        PlayerMovement.instance.FreezePlayer();
+        PlayerMovement.instance.moveToStartingPosition = true;
+
+        StartCoroutine(LoadNextScene("Room2"));
+    }
+
     public void LoadPoker()
     {
         StartCoroutine(LoadNextScene("Poker"));
@@ -119,15 +143,42 @@ public class SceneLoader : MonoBehaviour
 
         SceneManager.LoadScene(sceneName);
 
+        GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
         if (sceneName == "Poker")
-        {            
+        {                       
+            if (enemy != null)
+            {
+                //enemy.SetActive(false);
+                enemy.GetComponentInChildren<MeshRenderer>().enabled = false;
+            }
+
+            if (player != null)
+            {
+                //player.SetActive(false);
+                player.GetComponentInChildren<MeshRenderer>().enabled = false;
+            }
+
             PlayerMovement.instance.FreezePlayer();
             PlayerCamera.instance.DisablePlayerCamera();
         }
         else
-        {
+        {            
+            if (enemy != null)
+            {
+                //enemy.SetActive(true);
+                enemy.GetComponentInChildren<MeshRenderer>().enabled = true;
+            }
+
+            if (player != null)
+            {
+                //player.SetActive(true);
+                player.GetComponentInChildren<MeshRenderer>().enabled = true;    
+            }
+
             PlayerMovement.instance.UnfreezePlayer();
             PlayerCamera.instance.EnablePlayerCamera();
         }
-    }
+    }    
 }

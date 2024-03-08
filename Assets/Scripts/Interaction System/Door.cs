@@ -5,23 +5,30 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractable
 {
-    [SerializeField] private string prompt;
+    [SerializeField] public string prompt;
 
     public string InteractionPrompt => prompt;
-    //public ExitCost exit;
+
+    void Start()
+    {
+        if(ExitCost.instance != null && ExitCost.instance.GetHealth() == 0)
+        {
+            prompt = "Open Door";
+        }
+        else
+        {
+            prompt = "Locked";
+        }
+    }
 
     public bool Interact(Interactor interactor)
     {        
         // If the exit health for this door is 0, allow player to open
-        if(ExitCost.instance.GetHealth() == 0 )
-        {
-            Debug.Log("Opening door");
-        }
-        else
-        {
-            Debug.Log("Door locked. Bet more health");
-        }
-                
+        if(ExitCost.instance.GetHealth() == 0)
+        {         
+            SceneLoader.instance.LoadRoom2();
+        }        
+
         return true;
     }
 }

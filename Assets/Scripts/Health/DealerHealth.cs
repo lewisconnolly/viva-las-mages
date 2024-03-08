@@ -13,15 +13,15 @@ public class DealerHealth : MonoBehaviour
         instance = this;
     }
 
-    public int currentHealth;            
-       
+    public int currentHealth;
+    private bool updateHealthText;
+
     // Start is called before the first frame update
     void Start()
     {
-        if (SceneManager.GetActiveScene().name != "Poker")
-        {
-            UIDealerController.instance.SetHealthText(currentHealth);
-        }
+        //SceneManager.activeSceneChanged += ChangedActiveScene;
+
+        UIDealerController.instance.SetHealthText(currentHealth);
     }
 
     // Update is called once per frame
@@ -30,20 +30,54 @@ public class DealerHealth : MonoBehaviour
 
     }
 
+    private void LateUpdate()
+    {
+        
+    }
+
     public int GetHealth() { return currentHealth; }    
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        if (currentHealth < 0) { currentHealth = 0; }
+        
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            Dealer dealerInteractable = GetComponentInChildren<Dealer>();
+            dealerInteractable.prompt = ""; 
+        }
+
+        UIDealerController.instance.SetHealthText(currentHealth);
+
+        if (SceneManager.GetActiveScene().name == "Poker")
+        {
+            PokerUIController.instance.SetEnemyHealthText(currentHealth);
+        }        
+    }
+
+    public void IncreaseHealth(int health)
+    {
+        currentHealth += health;
+        
+        UIDealerController.instance.SetHealthText(currentHealth);
+
         if (SceneManager.GetActiveScene().name == "Poker")
         {
             PokerUIController.instance.SetEnemyHealthText(currentHealth);
         }
-        else
-        {
-            UIDealerController.instance.SetHealthText(currentHealth);
-        }
-        
     }
+
+    //private void ChangedActiveScene(Scene current, Scene next)
+    //{
+    //    string currentName = current.name;
+    //    string nextName = next.name;
+
+    //    if (nextName == "Poker")
+    //    {
+    //    }
+    //    else
+    //    {
+    //    }
+    //}
 }

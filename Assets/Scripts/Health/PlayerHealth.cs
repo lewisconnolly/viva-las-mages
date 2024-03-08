@@ -12,17 +12,21 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        currentHealth = maxHealth;        
+        currentHealth = maxHealth;
         //betCounter = 0;
     }
 
     public int maxHealth = 10;
-    private int currentHealth;
+    public int currentHealth;
+    private int currentBet;
+    private bool updateHealthText;
     //private int betCounter;
         
     // Start is called before the first frame update
     void Start()
     {
+        SceneManager.activeSceneChanged += ChangedActiveScene;
+
         if (SceneManager.GetActiveScene().name != "Poker")
         {
             UIController.instance.SetHealthText(currentHealth);
@@ -32,7 +36,11 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (updateHealthText)
+        {
+            UIController.instance.SetHealthText(currentHealth);
+            updateHealthText = false;
+        }
     }
 
     public int GetHealth() { return currentHealth; }
@@ -51,11 +59,38 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void IncreaseHealth(int health)
+    {
+        currentHealth += health;
+        if (SceneManager.GetActiveScene().name == "Poker")
+        {
+            PokerUIController.instance.SetHealthText(currentHealth);
+        }
+        else
+        {
+            UIController.instance.SetHealthText(currentHealth);
+        }
+    }
+
     public void PlaceBet(int bet)
     {
-        //betCounter += bet;
+        currentBet = bet;
         PokerUIController.instance.SetBetText(bet);
         PokerUIController.instance.ShowBetIcons();
         ExitCost.instance.TakeDamage(bet);
+    }
+
+    private void ChangedActiveScene(Scene current, Scene next)
+    {
+        string currentName = current.name;
+        string nextName = next.name;
+
+        if (nextName == "Poker")
+        {
+        }
+        else
+        {
+            updateHealthText = true;
+        }
     }
 }

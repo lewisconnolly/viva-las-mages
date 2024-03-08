@@ -13,9 +13,13 @@ public class ExitCost : MonoBehaviour
 
     public int exitHealthCost = 2;
 
+    private void Update()
+    {        
+    }
+
     void Start()
     {               
-         UIExitController.instance.SetHealthText(exitHealthCost);
+        UIExitController.instance.SetHealthText(exitHealthCost);
     }
 
     public int GetHealth() { return exitHealthCost; }
@@ -25,7 +29,11 @@ public class ExitCost : MonoBehaviour
     public void TakeDamage(int damage)
     {
         exitHealthCost -= damage;
-        if (exitHealthCost < 0) { exitHealthCost = 0; }
+
+        if (exitHealthCost <= 0)
+        {
+            exitHealthCost = 0;
+        }
 
         if (SceneManager.GetActiveScene().name == "Poker")
         {

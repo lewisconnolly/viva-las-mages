@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -25,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
     private bool isFrozen = false;
+
+    public bool moveToStartingPosition = false;
 
     public void FreezePlayer()
     {
@@ -71,5 +75,5 @@ public class PlayerMovement : MonoBehaviour
             // Apply velocity vector to controller movement (gravity equation requires time squared so multiply by deltaTime again)
             controller.Move(velocity * Time.deltaTime);
         }
-    }
+    } 
 }

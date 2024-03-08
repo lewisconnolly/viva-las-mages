@@ -13,9 +13,14 @@ public class BetSlider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitSlider();
+    }
+
+    public void InitSlider()
+    {
         if (GameObject.FindGameObjectWithTag("Player") != null && GameObject.FindGameObjectWithTag("Enemy") != null)
         {
-            slider.maxValue = Mathf.Min(PlayerHealth.instance.GetHealth(), DealerHealth.instance.GetHealth());            
+            slider.maxValue = Mathf.Min(PlayerHealth.instance.GetHealth(), DealerHealth.instance.GetHealth());
         }
         else
         {

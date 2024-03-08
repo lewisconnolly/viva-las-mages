@@ -19,6 +19,9 @@ public class PokerUIController : MonoBehaviour
 
     public TextMeshProUGUI betValueText;
     public TextMeshProUGUI enemyBetValueText;
+    public TextMeshProUGUI playerHandText;
+    public TextMeshProUGUI enemyHandText;
+    public TextMeshProUGUI winnerText;
     public GameObject betIcon;
     public GameObject enemyBetIcon;
     private Vector3 betIconOrigin;
@@ -28,7 +31,7 @@ public class PokerUIController : MonoBehaviour
     private bool showBetIcons;
     public BetSlider betSlider;
 
-    public GameObject placeBetButton, swapCardButton, playHandButton;
+    public GameObject placeBetButton, swapCardButton, playHandButton, playAgainButton, leaveButton;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +46,7 @@ public class PokerUIController : MonoBehaviour
     {
         betIconOrigin = betIcon.transform.position;
         enemyBetIconOrigin = enemyBetIcon.transform.position;
+        leaveButton.SetActive(false);
         HideBetIcons();
         
         if (GameObject.FindGameObjectWithTag("Enemy") != null)
@@ -81,8 +85,8 @@ public class PokerUIController : MonoBehaviour
         }
         else
         {
-            betIcon.transform.position = betIconOrigin;
-            enemyBetIcon.transform.position = enemyBetIconOrigin;
+            betIcon.transform.position = Vector3.Lerp(betIcon.transform.position, betIconOrigin, 5f * Time.deltaTime);
+            enemyBetIcon.transform.position = Vector3.Lerp(enemyBetIcon.transform.position, enemyBetIconOrigin, 5f * Time.deltaTime);
         }
     }
 
@@ -91,6 +95,17 @@ public class PokerUIController : MonoBehaviour
     public void SetEnemyHealthText(int health) { enemyHealthValueText.text = health.ToString(); }
 
     public void SetExitHealthText(int health) { exitHealthValueText.text = health.ToString(); }
+
+    public void SetHandText(string playerHand, string enemyHand)
+    {
+        playerHandText.text = playerHand;
+        enemyHandText.text = enemyHand;
+    }
+
+    public void SetWinnerText(string text)
+    {
+        winnerText.text = text;
+    }
 
     public void SetBetText(int bet)
     {
@@ -119,7 +134,17 @@ public class PokerUIController : MonoBehaviour
     public void PlaceBet()
     {
         BattleController.instance.PlaceBet(int.Parse(betSlider.currentBet.text));
-    }   
+    }
+
+    public void PlayAgain()
+    {
+        BattleController.instance.PlayAgain();
+    }
+
+    public void Leave()
+    {
+        SceneLoader.instance.LoadRoom();
+    }
 
     public void SwapCards()
     {
