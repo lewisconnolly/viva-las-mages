@@ -94,7 +94,7 @@ public class EnemyController : MonoBehaviour
 
         for (int i = 0; i < selectedCards.Count; i++)
         {
-            selectedCards[i].MoveToPoint(sortedEnemyPlacePoints[i].transform.position, Quaternion.Euler(180, 0, 0));
+            selectedCards[i].MoveToPoint(sortedEnemyPlacePoints[i].transform.position, selectedCards[i].transform.rotation * Quaternion.Euler(0, 0, -90));
         }
     }
 
