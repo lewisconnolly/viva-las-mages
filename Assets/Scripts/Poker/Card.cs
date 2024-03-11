@@ -24,7 +24,7 @@ public class Card : MonoBehaviour
     private HandController hc;
     private Camera mainCam;
 
-    private bool isSelected;
+    public bool isSelected;
     private bool isInSelectedPosition;
     private Collider col;
 
@@ -33,6 +33,14 @@ public class Card : MonoBehaviour
     //private bool justPressed;
 
     public CardPlacePoint assignedPlace;
+
+    private Renderer cardRenderer;
+    private Color originalColour;
+    private Color targetColour;
+    private float transparentAlpha = 0.5f;
+    private Color lerpedColour;
+    private float alphaChangeSpeed = 6.75f;
+    private bool isMouseOverAndHasFadedOut = false;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +55,10 @@ public class Card : MonoBehaviour
         hc = FindObjectOfType<HandController>();
         col = GetComponent<Collider>();
         mainCam = Camera.main;
+        //cardRenderer = GetComponentInChildren<Renderer>();
+        cardRenderer = model.GetComponent<MeshRenderer>();
+        originalColour = cardRenderer.material.color;
+        targetColour = originalColour;
     }
 
     // Set the value, suit and mesh to display based on scriptable object
@@ -54,7 +66,7 @@ public class Card : MonoBehaviour
     {
         value = cardSO.value;
         suit = cardSO.suit;
-        model.GetComponent<MeshFilter>().mesh = cardSO.mesh;
+        model.GetComponent<MeshRenderer>().material = cardSO.material;
     }
 
     // Update is called once per frame
@@ -64,13 +76,22 @@ public class Card : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
         // Match target rotation in rotateSpeed increments
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotateSpeed * Time.deltaTime);
-        
+
+        // Match target colour in alphaChangeSpeed increments
+        lerpedColour = Color.Lerp(cardRenderer.material.color, targetColour, alphaChangeSpeed * Time.deltaTime);
+        cardRenderer.material.color = lerpedColour;
+
+        // If card has been made transparent, set target colour to opaque again
+        if (Mathf.Round(cardRenderer.material.color.a * 10) * 0.1 <= transparentAlpha)
+        {
+            MakeOpaque();
+        }
+
         if (isSelected)
         {
             //// Cast a ray from the camera to the mouse position
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
 
             //// Detect where the ray hits the desktop layer
             //if(Physics.Raycast(ray, out hit, 100f, whatIsDesktop))
@@ -87,10 +108,7 @@ public class Card : MonoBehaviour
                     {
                         if (!isInSelectedPosition)
                         {
-                            hc.SelectCard(this);
-                            hc.SortSelectedCards();
-                            isInSelectedPosition = true;
-                            MoveToPoint(hc.cardPositions[handPosition] + new Vector3(-.3f, .1f, .1f), hc.minPos.rotation);
+                            AddToSelection();
                         }
                         else
                         {
@@ -148,7 +166,7 @@ public class Card : MonoBehaviour
     public void MoveToPoint(Vector3 pointToMoveTo, Quaternion rotToMatch)
     {
         targetPoint = pointToMoveTo;
-        targetRot = rotToMatch;
+        targetRot = rotToMatch;        
     }
 
     // Pop up card towards camera on mouse hover
@@ -156,7 +174,15 @@ public class Card : MonoBehaviour
     {
         if (inHand && isPlayer && !isSelected)
         {
-            MoveToPoint(hc.cardPositions[handPosition] + new Vector3(0f, .1f, .1f), hc.minPos.rotation);
+            MoveToPoint(hc.cardPositions[handPosition] + new Vector3(-.1f, .1f, 0), hc.minPos.rotation);
+
+            // Make cards in hand next to this card transparent
+            if (!isMouseOverAndHasFadedOut)
+            {
+                hc.SetTransparency(this, "mouse over");
+                // Stop card cycling between transparent and opaque while mouse over
+                isMouseOverAndHasFadedOut = true;
+            }
         }
     }
 
@@ -166,28 +192,62 @@ public class Card : MonoBehaviour
         if (inHand && isPlayer && !isSelected)
         {
             MoveToPoint(hc.cardPositions[handPosition], hc.minPos.rotation);
-        }
+
+            isMouseOverAndHasFadedOut = false;
+
+            // Make cards in hand next to this card transparent
+            hc.SetTransparency(this, "mouse exit");
+        }       
     }
 
     // Prevent card being selected again on click
     private void OnMouseDown()
     {
         if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive && isPlayer
-            && hc.selectedCards.Count < 5)
-        {
-            isSelected = true;
+            && hc.selectedCards.Count < 5 && !isSelected)
+        {            
+            hc.SetTransparency(this, "select");
+
+            isSelected = true;            
             //col.enabled = false;
-            //justPressed = true;                                       
+            //justPressed = true;
         }
     }
-   
-    public void ReturnToHand()
+
+    public void AddToSelection()
     {
+        hc.SelectCard(this);
+        hc.SortSelectedCards();
+        
+        MoveToPoint(hc.cardPositions[handPosition] + new Vector3(-.3f, .2f, 0), hc.minPos.rotation);
+        
+        isInSelectedPosition = true;
+    }
+
+    public void ReturnToHand()
+    {        
+        hc.SetTransparency(this, "return");
+        
         hc.selectedCards.Remove(this);
         hc.SortSelectedCards();
         isSelected = false;
-        isInSelectedPosition = false;
-        //col.enabled = true;        
+
         MoveToPoint(hc.cardPositions[handPosition], hc.minPos.rotation);
+        
+        isInSelectedPosition = false;
+    }
+
+    public void MakeTransparent()
+    {        
+        var r = cardRenderer.material.color.r;
+        var g = cardRenderer.material.color.g;
+        var b = cardRenderer.material.color.b;
+
+        targetColour = new Color(r, g, b, transparentAlpha);
+    }
+
+    public void MakeOpaque()
+    {        
+        targetColour = originalColour;
     }
 }

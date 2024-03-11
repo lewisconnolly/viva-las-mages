@@ -7,5 +7,6 @@ public class CardScriptableObject : ScriptableObject
 {
     public int value;
     public string suit;
-    public Mesh mesh;
+    //public Mesh mesh;
+    public Material material;
 }

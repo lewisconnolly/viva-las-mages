@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 8
   suit: Clubs
-  mesh: {fileID: 4300000, guid: 2df549f656beb1c4da454bb838d8240e, type: 3}
+  material: {fileID: 2100000, guid: 5e8e6e263c6304b49bd1ddbca34f610c, type: 2}

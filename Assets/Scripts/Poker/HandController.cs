@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static BattleController;
 
 public class HandController : MonoBehaviour
 {
@@ -15,13 +17,12 @@ public class HandController : MonoBehaviour
 
     [SerializeField] public List<Card> heldCards = new List<Card>();
     [SerializeField] public List<Card> enemyHeldCards = new List<Card>();
-    [SerializeField] public List<Card> selectedCards = new List<Card>();
+    [SerializeField] public List<Card> selectedCards = new List<Card>();    
     [SerializeField] public List<Card> selectedEnemyCards = new List<Card>();
     [SerializeField] public List<Card> playedCards = new List<Card>();
     [SerializeField] public List<Card> enemyPlayedCards = new List<Card>();
     public Transform minPos, maxPos;
     public List<Vector3> cardPositions = new List<Vector3>();
-    public List<Vector3> cardTablePositions = new List<Vector3>();
     
     // Start is called before the first frame update
     void Start()
@@ -31,8 +32,8 @@ public class HandController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {        
-    }
+    {
+    }   
 
     // Display cards in front of player
     public void SetCardPositionsInHand()
@@ -76,72 +77,20 @@ public class HandController : MonoBehaviour
 
         for (int i = 0; i < selectedCards.Count; i++)
         {
-            selectedCards[i].MoveToPoint(sortedPlayerPlacePoints[i].transform.position, minPos.rotation);            
+            selectedCards[i].MoveToPoint(sortedPlayerPlacePoints[i].transform.position, minPos.rotation * Quaternion.Euler(0, 0, -45));            
         }
     }
-
-    public void SetEnemyCardPositionsOnTable()
-    {
-        CardPlacePoint[] placePoints = FindObjectsOfType<CardPlacePoint>();
-        List<CardPlacePoint> enemyPlacePoints = new List<CardPlacePoint>();
-
-        for (int i = 0; i < placePoints.Length; i++)
-        {
-            if (!placePoints[i].isPlayerPoint)
-            {
-                enemyPlacePoints.Add(placePoints[i]);
-            }
-        }
-
-        List<CardPlacePoint> sortedEnemyPlacePoints = enemyPlacePoints.OrderBy(p => p.transform.position.x).ToList();
-
-        for (int i = 0; i < selectedEnemyCards.Count; i++)
-        {
-            selectedEnemyCards[i].MoveToPoint(sortedEnemyPlacePoints[i].transform.position, minPos.rotation);
-        }
-    }
-
-    //public void SetCardPositionsOnTable(bool isEnemyCard)
-    //{
-    //    CardPlacePoint[] allPlacePoints = FindObjectsOfType<CardPlacePoint>();
-    //    List<CardPlacePoint> placePoints = new List<CardPlacePoint>();
-
-    //    for (int i = 0; i < allPlacePoints.Length; i++)
-    //    {
-    //        if (placePoints[i].isPlayerPoint && !isEnemyCard)
-    //        {
-    //            placePoints.Add(placePoints[i]);
-    //        }
-    //        else if (!placePoints[i].isPlayerPoint && isEnemyCard)
-    //        {
-    //            placePoints.Add(placePoints[i]);
-    //        }
-    //    }
-
-    //    List<CardPlacePoint> sortedPlacePoints = placePoints.OrderBy(p => p.transform.position.x).ToList();
-    //    List<Card> cardsToMove = selectedCards;
-        
-    //    if (isEnemyCard)
-    //    {
-    //        cardsToMove = selectedEnemyCards;
-    //    }
-
-    //    for (int i = 0; i < cardsToMove.Count; i++)
-    //    {
-    //        cardsToMove[i].MoveToPoint(sortedPlacePoints[i].transform.position, minPos.rotation);
-    //    }
-    //}
 
     public void RemoveCardFromHand(Card cardToRemove)
     {
         // Check card to remove is at correct hand position
         if (heldCards[cardToRemove.handPosition] == cardToRemove)
-        {
+        {        
             heldCards.RemoveAt(cardToRemove.handPosition);
         }
         else
         {
-            Debug.LogError("Card at position " + cardToRemove.handPosition + " is not the card being removed from hand");
+            Debug.LogError("Card at position " + cardToRemove.handPosition + " is not the card being removed from hand");            
         }
     }
 
@@ -151,31 +100,15 @@ public class HandController : MonoBehaviour
         SetCardPositionsInHand();  
     }
 
-    public void AddCardToEnemyHand(Card cardToAdd)
-    {
-        enemyHeldCards.Add(cardToAdd);
-    }
-
     public void AddCardToTable(Card cardToAdd)
     {
         playedCards.Add(cardToAdd);
         SetCardPositionsOnTable();
     }
 
-    public void AddEnemyCardToTable(Card cardToAdd)
-    {
-        enemyPlayedCards.Add(cardToAdd);
-        SetEnemyCardPositionsOnTable();
-    }
-
     public void SelectCard(Card cardToSelect)
     {
         selectedCards.Add(cardToSelect);
-    }
-
-    public void SelectEnemyCard(Card cardToSelect)
-    {
-        selectedEnemyCards.Add(cardToSelect);
     }
 
     public void SortSelectedCards()
@@ -184,45 +117,72 @@ public class HandController : MonoBehaviour
         selectedCards = sortedSelectedCards;
     }
 
-    public void SortEnemySelectedCards()
-    {
-        List<Card> sortedEnemySelectedCards = selectedEnemyCards.OrderBy(c => c.value).ToList();
-        selectedEnemyCards = sortedEnemySelectedCards;
-    }
-
     public void PlayHand()
     {
-        foreach (Card card in selectedCards)
+        foreach (Card card in selectedCards.OrderByDescending(c => c.handPosition).ToList())
         {
             AddCardToTable(card);
-            heldCards.Remove(card);
+            RemoveCardFromHand(card);
         }
             
         selectedCards.Clear();
         SetCardPositionsInHand();
     }
 
-    public void SelectEnemyHand()
-    {
-        for (int i = 0; i < 5; i++)
+    public void SetTransparency(Card card, string action)
+    {        
+        // Get cards that should or should not be made transparent
+        List<int> handPositionsToCheck = new List<int>();
+
+        if (card.handPosition == 0) // If card is leftmost in hand, check card to right
         {
-            int r = Random.Range(0, 4 - i);
-            Card selectedCard = enemyHeldCards[r];
-            SelectEnemyCard(selectedCard);
-            enemyHeldCards.Remove(selectedCard);
+            handPositionsToCheck.Add(card.handPosition + 1);
         }
-    }
-
-    public void PlayEnemyHand()
-    {
-        SelectEnemyHand();
-        SortEnemySelectedCards();
-
-        foreach (Card card in selectedEnemyCards)
+        else if (card.handPosition == heldCards.Count - 1) // If card is rightmost in hand, check card to left
         {
-            AddEnemyCardToTable(card);            
+            handPositionsToCheck.Add(card.handPosition - 1);
+        }
+        else // If card in middle of hand, check left and right neighbours
+        {
+            handPositionsToCheck.Add(card.handPosition + 1);
+            handPositionsToCheck.Add(card.handPosition - 1);
         }
 
-        selectedEnemyCards.Clear();
+        bool anyNeighbourNotSelected = false;
+        bool anyNeighbourSelected = false;
+
+        if (action == "mouse over" || action == "mouse exit" || action == "return")
+        {
+            foreach (int handPosition in handPositionsToCheck)
+            {
+                // Make a card transparent on mouse over, mouse exit, return to hand if any neighbour card is not selected 
+                if (cardPositions.Count == BattleController.instance.startingCardsAmount &&
+                    Mathf.Round(heldCards[handPosition].transform.position.x * 10) * 0.1 == Mathf.Round(cardPositions[0].x * 10) * 0.1)
+                {
+                    anyNeighbourNotSelected = true;
+                }
+            }
+
+            if (anyNeighbourNotSelected)
+            {
+                heldCards[card.handPosition].MakeTransparent();
+            }
+        }
+        else // action == "select"
+        {
+            foreach (int handPosition in handPositionsToCheck)
+            {
+                // Make a card transparent on select if any neighbour is selected
+                if (heldCards[handPosition].isSelected)
+                {
+                    anyNeighbourSelected = true;
+                }
+            }
+
+            if (anyNeighbourSelected)
+            {
+                heldCards[card.handPosition].MakeTransparent();
+            }
+        }
     }
 }

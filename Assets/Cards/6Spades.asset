@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 6
   suit: Spades
-  mesh: {fileID: 4300000, guid: 28120b6192fea2044b77e1f972bd9f92, type: 3}
+  material: {fileID: 2100000, guid: 9545755a00954b9479bd8c8e061e49fd, type: 2}

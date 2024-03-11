@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 13
   suit: Diamonds
-  mesh: {fileID: 4300000, guid: 90a50e6dbd636c84295b725a2bf625eb, type: 3}
+  material: {fileID: 2100000, guid: 4d315d7c31fa43a478908840e5076355, type: 2}

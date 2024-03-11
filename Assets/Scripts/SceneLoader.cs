@@ -59,6 +59,12 @@ public class SceneLoader : MonoBehaviour
                 PlayerMovement.instance.moveToStartingPosition = false;
             }
         }
+
+        if (SceneManager.GetActiveScene().name == "Poker")
+        {
+            PlayerMovement.instance.FreezePlayer();
+            PlayerCamera.instance.DisablePlayerCamera();
+        }
     }
 
     public void InstantiateEnemy()
@@ -93,7 +99,8 @@ public class SceneLoader : MonoBehaviour
         {
             Instantiate(exitCostPrefab, exitCostStartingPosition, exitCostStartingRotation);
 
-            int exitHealthCost = int.Parse(GameObject.FindGameObjectWithTag("Exit").GetComponentInChildren<TextMeshProUGUI>().text);
+            //int exitHealthCost = int.Parse(GameObject.FindGameObjectWithTag("Exit").GetComponentInChildren<TextMeshProUGUI>().text);
+            int exitHealthCost = int.Parse(GameObject.FindGameObjectWithTag("Exit").GetComponentInChildren<TextMeshPro>().text);
 
             if (ExitCost.instance != null)
             {
@@ -152,12 +159,16 @@ public class SceneLoader : MonoBehaviour
             {
                 //enemy.SetActive(false);
                 enemy.GetComponentInChildren<MeshRenderer>().enabled = false;
+                enemy.GetComponentInChildren<UIDealerController>().gameObject.SetActive(false);                
             }
 
             if (player != null)
             {
                 //player.SetActive(false);
                 player.GetComponentInChildren<MeshRenderer>().enabled = false;
+                player.GetComponent<Interactor>().interactionPromptUI.Close();
+                player.GetComponent<Interactor>().enabled = false;
+
             }
 
             PlayerMovement.instance.FreezePlayer();
@@ -169,12 +180,14 @@ public class SceneLoader : MonoBehaviour
             {
                 //enemy.SetActive(true);
                 enemy.GetComponentInChildren<MeshRenderer>().enabled = true;
+                enemy.GetComponentInChildren<UIDealerController>(true).gameObject.SetActive(true);
             }
 
             if (player != null)
             {
                 //player.SetActive(true);
-                player.GetComponentInChildren<MeshRenderer>().enabled = true;    
+                player.GetComponentInChildren<MeshRenderer>().enabled = true;
+                player.GetComponent<Interactor>().enabled = true;
             }
 
             PlayerMovement.instance.UnfreezePlayer();

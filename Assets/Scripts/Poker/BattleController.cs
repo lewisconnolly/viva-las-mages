@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using UnityEngine.UI;
 using static HandEvaluator;
@@ -20,6 +21,9 @@ public class BattleController : MonoBehaviour
     public enum TurnOrder { playerBetting, playerActive, enemyActive, resolveHands}
     public TurnOrder currentPhase;
 
+    public Transform playerDiscardPosition;
+    public Transform enemyDiscardPosition;
+    public bool checkCardsDiscarded;
     
     // Start is called before the first frame update
     void Start()
@@ -29,6 +33,8 @@ public class BattleController : MonoBehaviour
         PokerUIController.instance.playHandButton.SetActive(false);
         PokerUIController.instance.swapCardButton.SetActive(false);
         PokerUIController.instance.playAgainButton.SetActive(false);
+
+        checkCardsDiscarded = false;        
     }
 
     // Update is called once per frame
@@ -42,6 +48,29 @@ public class BattleController : MonoBehaviour
         {
             PokerUIController.instance.playHandButton.GetComponent<Button>().interactable = false;
         }
+
+        if (checkCardsDiscarded)
+        {            
+            bool allCardsDiscarded = true;
+
+            for (int i = 0; i < HandController.instance.playedCards.Count; i++)
+            {
+                double playerCardZPos = Mathf.Round(HandController.instance.playedCards[i].transform.position.z);
+                double enemyCardZPos = Mathf.Round(EnemyController.instance.playedCards[i].transform.position.z);
+                
+                if (playerCardZPos != Mathf.Round(playerDiscardPosition.position.z) ||
+                    enemyCardZPos != Mathf.Round(enemyDiscardPosition.position.z))
+                {
+                    allCardsDiscarded = false;
+                }
+            }
+
+            if (allCardsDiscarded)
+            {
+                ResetPlayedCards();
+                checkCardsDiscarded = false;
+            }
+        }
     }
 
     public void DrawHand()
@@ -52,8 +81,8 @@ public class BattleController : MonoBehaviour
 
     public void DrawEnemyHand()
     {
-        int cardsToDraw = startingCardsAmount - HandController.instance.enemyHeldCards.Count;
-        DeckController.instance.DrawEnemyCards(cardsToDraw);
+        int cardsToDraw = startingCardsAmount - EnemyController.instance.heldCards.Count;
+        EnemyController.instance.DrawMultipleCards(cardsToDraw);
     }
 
     public void PlayHand()
@@ -74,15 +103,36 @@ public class BattleController : MonoBehaviour
     public void PlayAgain()
     {
         currentBet = 0;
+        
+        PokerUIController.instance.playAgainButton.GetComponent<Button>().interactable = false;
 
+        DiscardPlayedCards();        
+    }
+
+    public void DiscardPlayedCards()
+    {
+        for (int i = 0; i < HandController.instance.playedCards.Count; i++)
+        {
+            HandController.instance.playedCards[i].moveSpeed = 1.75f;
+            HandController.instance.playedCards[i].MoveToPoint(playerDiscardPosition.position, playerDiscardPosition.rotation);
+
+            EnemyController.instance.playedCards[i].moveSpeed = 1.75f;
+            EnemyController.instance.playedCards[i].MoveToPoint(enemyDiscardPosition.position, enemyDiscardPosition.rotation);            
+        }
+        
+        checkCardsDiscarded = true;
+    }
+
+    public void ResetPlayedCards()
+    {
         for (int i = 0; i < HandController.instance.playedCards.Count; i++)
         {
             Destroy(HandController.instance.playedCards[i].gameObject);
-            Destroy(HandController.instance.enemyPlayedCards[i].gameObject);
+            Destroy(EnemyController.instance.playedCards[i].gameObject);
         }
 
         HandController.instance.playedCards.Clear();
-        HandController.instance.enemyPlayedCards.Clear();        
+        EnemyController.instance.playedCards.Clear();
         AdvanceTurn();
     }
 
@@ -145,13 +195,13 @@ public class BattleController : MonoBehaviour
 
             case TurnOrder.enemyActive:
                 PokerUIController.instance.playHandButton.SetActive(false);
-                HandController.instance.PlayEnemyHand();
+                EnemyController.instance.PlayHand();
                 AdvanceTurn();
                 break;
 
             case TurnOrder.resolveHands:
                 var playerHandRank = HandEvaluator.instance.EvaluateHand(HandController.instance.playedCards);
-                var enemyHandRank = HandEvaluator.instance.EvaluateHand(HandController.instance.enemyPlayedCards);
+                var enemyHandRank = HandEvaluator.instance.EvaluateHand(EnemyController.instance.playedCards);
 
                 ResolveHands(playerHandRank, enemyHandRank);
 
@@ -163,6 +213,7 @@ public class BattleController : MonoBehaviour
                 if (DealerHealth.instance.GetHealth() != 0)
                 {
                     PokerUIController.instance.playAgainButton.SetActive(true);
+                    PokerUIController.instance.playAgainButton.GetComponent<Button>().interactable = true;
                     PokerUIController.instance.leaveButton.SetActive(true);
                 }
                 else

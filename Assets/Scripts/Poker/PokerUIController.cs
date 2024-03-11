@@ -15,8 +15,8 @@ public class PokerUIController : MonoBehaviour
         instance = this;
     }
 
-    public TextMeshProUGUI healthValueText, enemyHealthValueText, exitHealthValueText;
-
+    public TextMeshProUGUI healthValueText, enemyHealthValueText;
+    public TextMeshPro exitHealthValueText;
     public TextMeshProUGUI betValueText;
     public TextMeshProUGUI enemyBetValueText;
     public TextMeshProUGUI playerHandText;

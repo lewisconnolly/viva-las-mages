@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 12
   suit: Hearts
-  mesh: {fileID: 4300000, guid: 8fef523a36fb4384dbd542c31b34f451, type: 3}
+  material: {fileID: 2100000, guid: d4bcafa68d7e89d4c8bb57dc5366dbc8, type: 2}

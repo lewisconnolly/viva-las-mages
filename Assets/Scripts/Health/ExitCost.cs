@@ -19,7 +19,8 @@ public class ExitCost : MonoBehaviour
 
     void Start()
     {               
-        UIExitController.instance.SetHealthText(exitHealthCost);
+        //UIExitController.instance.SetHealthText(exitHealthCost);
+        ExitController.instance.SetHealthText(exitHealthCost);
     }
 
     public int GetHealth() { return exitHealthCost; }
@@ -41,7 +42,8 @@ public class ExitCost : MonoBehaviour
         }
         else
         {
-            UIExitController.instance.SetHealthText(exitHealthCost);
+            //UIExitController.instance.SetHealthText(exitHealthCost);
+            ExitController.instance.SetHealthText(exitHealthCost);
         }   
     }
 }
