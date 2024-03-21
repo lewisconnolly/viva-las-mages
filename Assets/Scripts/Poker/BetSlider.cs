@@ -27,7 +27,7 @@ public class BetSlider : MonoBehaviour
             slider.maxValue = Mathf.Min(int.Parse(PokerUIController.instance.healthValueText.text), int.Parse(PokerUIController.instance.enemyHealthValueText.text));
         }
 
-        slider.minValue = 1;
+        slider.minValue = 0;
     }
 
     // Update is called once per frame

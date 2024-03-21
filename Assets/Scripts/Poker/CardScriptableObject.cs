@@ -9,4 +9,5 @@ public class CardScriptableObject : ScriptableObject
     public string suit;
     //public Mesh mesh;
     public Material material;
+    public PowerCardController.PowerCardType powerCardType;
 }

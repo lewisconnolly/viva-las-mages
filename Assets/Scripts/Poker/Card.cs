@@ -12,11 +12,14 @@ public class Card : MonoBehaviour
     public int value;
     public string suit;
     public GameObject model;
+    public PowerCardController.PowerCardType powerCardType;
 
     private Vector3 targetPoint;
     private Quaternion targetRot;
+    private Vector3 targetScale;
     public float moveSpeed = 5f;
     public float rotateSpeed = 540f;
+    public float growSpeed = 540f;
 
     public bool inHand;
     public int handPosition;
@@ -55,7 +58,6 @@ public class Card : MonoBehaviour
         hc = FindObjectOfType<HandController>();
         col = GetComponent<Collider>();
         mainCam = Camera.main;
-        //cardRenderer = GetComponentInChildren<Renderer>();
         cardRenderer = model.GetComponent<MeshRenderer>();
         originalColour = cardRenderer.material.color;
         targetColour = originalColour;
@@ -67,6 +69,7 @@ public class Card : MonoBehaviour
         value = cardSO.value;
         suit = cardSO.suit;
         model.GetComponent<MeshRenderer>().material = cardSO.material;
+        powerCardType = cardSO.powerCardType;
     }
 
     // Update is called once per frame
@@ -76,16 +79,15 @@ public class Card : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
         // Match target rotation in rotateSpeed increments
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotateSpeed * Time.deltaTime);
+        // Match target scale
+        //transform.localScale = Vector3.Lerp(transform.localScale, targetScale, growSpeed * Time.deltaTime);
 
         // Match target colour in alphaChangeSpeed increments
         lerpedColour = Color.Lerp(cardRenderer.material.color, targetColour, alphaChangeSpeed * Time.deltaTime);
         cardRenderer.material.color = lerpedColour;
 
         // If card has been made transparent, set target colour to opaque again
-        if (Mathf.Round(cardRenderer.material.color.a * 10) * 0.1 <= transparentAlpha)
-        {
-            MakeOpaque();
-        }
+        if (Mathf.Round(cardRenderer.material.color.a * 10) * 0.1 <= transparentAlpha) { MakeOpaque(); }
 
         if (isSelected)
         {
@@ -167,6 +169,11 @@ public class Card : MonoBehaviour
     {
         targetPoint = pointToMoveTo;
         targetRot = rotToMatch;        
+    }
+
+    public void GrowToScale(Vector3 scaleToGrowTo)
+    {
+        targetScale = scaleToGrowTo;
     }
 
     // Pop up card towards camera on mouse hover

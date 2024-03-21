@@ -28,7 +28,7 @@ public class BattleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PokerUIController.instance.placeBetButton.SetActive(true);
+        PokerUIController.instance.placeBetButton.SetActive(true);        
         PokerUIController.instance.betSlider.gameObject.SetActive(true);
         PokerUIController.instance.playHandButton.SetActive(false);
         PokerUIController.instance.swapCardButton.SetActive(false);
@@ -47,6 +47,15 @@ public class BattleController : MonoBehaviour
         else
         {
             PokerUIController.instance.playHandButton.GetComponent<Button>().interactable = false;
+        }
+
+        if (PokerUIController.instance.betSlider.GetComponent<Slider>().value > 0)
+        {
+            PokerUIController.instance.placeBetButton.GetComponent<Button>().interactable = true;
+        }
+        else
+        {
+            PokerUIController.instance.placeBetButton.GetComponent<Button>().interactable = false;
         }
 
         if (checkCardsDiscarded)
@@ -114,9 +123,11 @@ public class BattleController : MonoBehaviour
         for (int i = 0; i < HandController.instance.playedCards.Count; i++)
         {
             HandController.instance.playedCards[i].moveSpeed = 1.75f;
+            HandController.instance.playedCards[i].MakeTransparent();
             HandController.instance.playedCards[i].MoveToPoint(playerDiscardPosition.position, playerDiscardPosition.rotation);
 
             EnemyController.instance.playedCards[i].moveSpeed = 1.75f;
+            EnemyController.instance.playedCards[i].MakeTransparent();
             EnemyController.instance.playedCards[i].MoveToPoint(enemyDiscardPosition.position, enemyDiscardPosition.rotation);            
         }
         
@@ -170,6 +181,7 @@ public class BattleController : MonoBehaviour
         switch (currentPhase)
         {
             case TurnOrder.playerBetting:
+                RewardCardUI.instance.rewardCardObject.SetActive(false);
                 PokerUIController.instance.betSlider.GetComponent<BetSlider>().InitSlider();
                 PokerUIController.instance.playerHandText.gameObject.SetActive(false);
                 PokerUIController.instance.enemyHandText.gameObject.SetActive(false);
@@ -177,7 +189,7 @@ public class BattleController : MonoBehaviour
                 PokerUIController.instance.playAgainButton.SetActive(false);
                 PokerUIController.instance.leaveButton.SetActive(false);
                 PokerUIController.instance.placeBetButton.SetActive(true);
-                PokerUIController.instance.betSlider.gameObject.SetActive(true);
+                PokerUIController.instance.betSlider.gameObject.SetActive(true);                
                 PokerUIController.instance.playHandButton.SetActive(false);
                 //PokerUIController.instance.swapCardButton.SetActive(false);
 
@@ -200,24 +212,27 @@ public class BattleController : MonoBehaviour
                 break;
 
             case TurnOrder.resolveHands:
-                var playerHandRank = HandEvaluator.instance.EvaluateHand(HandController.instance.playedCards);
-                var enemyHandRank = HandEvaluator.instance.EvaluateHand(EnemyController.instance.playedCards);
+                var playerHandRank = HandEvaluator.instance.EvaluateHand(HandController.instance.playedCards, true);
+                var enemyHandRank = HandEvaluator.instance.EvaluateHand(EnemyController.instance.playedCards, true);
 
                 ResolveHands(playerHandRank, enemyHandRank);
 
                 PokerUIController.instance.playerHandText.gameObject.SetActive(true);
-                PokerUIController.instance.enemyHandText.gameObject.SetActive(true);
-                PokerUIController.instance.winnerText.gameObject.SetActive(true);
+                PokerUIController.instance.enemyHandText.gameObject.SetActive(true);                
                 PokerUIController.instance.HideBetIcons();
 
                 if (DealerHealth.instance.GetHealth() != 0)
                 {
+                    PokerUIController.instance.winnerText.gameObject.SetActive(true);
                     PokerUIController.instance.playAgainButton.SetActive(true);
                     PokerUIController.instance.playAgainButton.GetComponent<Button>().interactable = true;
                     PokerUIController.instance.leaveButton.SetActive(true);
                 }
                 else
-                {
+                {                
+                    RewardCardUI.instance.rewardCardObject.SetActive(true);
+                    //DeckController.instance.AddRewardCardtoDeck();
+                    PlayerInventory.instance.AddRewardCardtoDeck();
                     PokerUIController.instance.leaveButton.SetActive(true);
                 }
 

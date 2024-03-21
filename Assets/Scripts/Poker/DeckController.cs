@@ -1,6 +1,8 @@
+using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static PowerCardController;
 
 public class DeckController : MonoBehaviour
 {
@@ -11,7 +13,7 @@ public class DeckController : MonoBehaviour
         instance = this;
     }
 
-    public List<CardScriptableObject> deckToUse = new List<CardScriptableObject>();  
+    [SerializeField] private List<CardScriptableObject> deckToUse = new List<CardScriptableObject>();  
     private List<CardScriptableObject> activeCards = new List<CardScriptableObject>();    
     public Card cardToSpawn;
     public float waitBetweenDrawingCards = 0.5f;
@@ -30,6 +32,21 @@ public class DeckController : MonoBehaviour
     // Shuffle deck into active cards
     public void SetUpDeck()
     {
+        //deckToUse = PlayerInventory.instance.playerDeck;
+        List<CardScriptableObject> playerDeck = PlayerInventory.instance.playerDeck;
+        for (int i = 0; i < playerDeck.Count; i++)
+        {
+            CardScriptableObject newCard = ScriptableObject.CreateInstance<CardScriptableObject>();
+            string name = playerDeck[i].value.ToString() + playerDeck[i].suit + playerDeck[i].powerCardType.ToString();
+            newCard.name = playerDeck[i].name;
+            newCard.value = playerDeck[i].value;
+            newCard.suit = playerDeck[i].suit;
+            newCard.material = playerDeck[i].material;
+            newCard.powerCardType = playerDeck[i].powerCardType;
+
+            deckToUse.Add(newCard);
+        }
+
         activeCards.Clear();
 
         List<CardScriptableObject> tempDeck = new List<CardScriptableObject>();
@@ -62,6 +79,24 @@ public class DeckController : MonoBehaviour
     {
 
     } 
+
+    public void AddRewardCardtoDeck()
+    {
+        EnemyReward reward = FindObjectOfType<EnemyReward>();
+        CardScriptableObject rewardCard = reward.GetRewardCard();
+
+        int indexOfCardToReplace = 0;
+
+        for (int i = 0; i < deckToUse.Count; i++)
+        {
+            if (deckToUse[i].value == rewardCard.value && deckToUse[i].suit == rewardCard.suit)
+            {
+                indexOfCardToReplace = i;
+            }
+        }
+
+        deckToUse[indexOfCardToReplace] = rewardCard;
+    }
 
     public void DrawMultipleCards(int amountToDraw)
     {

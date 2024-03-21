@@ -1,7 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR;
+using static UnityEngine.Rendering.DebugUI;
 
 public class HandEvaluator : MonoBehaviour
 {
@@ -19,25 +23,134 @@ public class HandEvaluator : MonoBehaviour
         TwoPair,
         ThreeOfAKind,
         Straight,
-        Flush,
         FullHouse,
+        Flush,
         FourOfAKind,
         StraightFlush,
         RoyalFlush
     }
 
-    public HandRank EvaluateHand(List<Card> hand)
+    public HandRank EvaluateHand(List<Card> hand, bool evaluatePowerCards)
     {
-        if (IsRoyalFlush(hand)) return HandRank.RoyalFlush;
-        if (IsStraightFlush(hand)) return HandRank.StraightFlush;
-        if (IsFourOfAKind(hand)) return HandRank.FourOfAKind;
-        if (IsFullHouse(hand)) return HandRank.FullHouse;
-        if (IsFlush(hand)) return HandRank.Flush;
-        if (IsStraight(hand)) return HandRank.Straight;
-        if (IsThreeOfAKind(hand)) return HandRank.ThreeOfAKind;
-        if (IsTwoPair(hand)) return HandRank.TwoPair;
-        if (IsOnePair(hand)) return HandRank.OnePair;
+        List<Card> newHand = hand;
+
+        if (evaluatePowerCards)
+        {
+            newHand = PowerCardController.instance.EvaluatePowerCards(hand);
+        }
+        
+        if (IsRoyalFlush(newHand)) return HandRank.RoyalFlush;
+        if (IsStraightFlush(newHand)) return HandRank.StraightFlush;
+        if (IsFourOfAKind(newHand)) return HandRank.FourOfAKind;
+        if (IsFullHouse(newHand)) return HandRank.FullHouse;
+        if (IsFlush(newHand)) return HandRank.Flush;
+        if (IsStraight(newHand)) return HandRank.Straight;
+        if (IsThreeOfAKind(newHand)) return HandRank.ThreeOfAKind;
+        if (IsTwoPair(newHand)) return HandRank.TwoPair;
+        if (IsOnePair(newHand)) return HandRank.OnePair;
         return HandRank.HighCard;
+    }
+
+    public string CheckTie(List<Card> playerHand, List<Card> enemyHand)
+    {
+        HandRank rank = EvaluateHand(playerHand, false);
+
+        if (rank == HandRank.RoyalFlush) return "Tie";
+        
+        if (rank == HandRank.StraightFlush || rank == HandRank.Straight)
+        {
+            var sortedPlayerValues = playerHand.Select(card => card.value).OrderBy(value => value).ToList();
+            var sortedEnemyValues = enemyHand.Select(card => card.value).OrderBy(value => value).ToList();
+            
+            if (sortedPlayerValues.Last() == 14 && sortedPlayerValues.First() == 6)
+            {
+                // Handle A-6-7-8-9 as a valid straight (wheel)
+                sortedPlayerValues.Remove(sortedPlayerValues.Last());
+                sortedPlayerValues.Insert(0, 5);
+            }
+
+            if (sortedEnemyValues.Last() == 14 && sortedEnemyValues.First() == 6)
+            {
+                // Handle A-6-7-8-9 as a valid straight (wheel)
+                sortedEnemyValues.Remove(sortedEnemyValues.Last());
+                sortedEnemyValues.Insert(0, 5);
+            }
+
+            if (sortedPlayerValues.Last() > sortedEnemyValues.Last())
+            {
+                return "Player Wins";
+            }
+            else if (sortedPlayerValues.Last() < sortedEnemyValues.Last())
+            {
+                return "Enemy Wins";
+            }
+            else
+            {
+                return "Tie";
+            }
+        }
+
+        int playerFourOfAKindValue = 0;
+        int playerKickerValue = 0;
+        int enemyFourOfAKindValue = 0;
+        int enemyKickerValue = 0;
+
+        if (rank == HandRank.FourOfAKind)
+        {
+            var valueGroups = playerHand.GroupBy(card => card.value);
+            
+            foreach (var group in valueGroups)
+            {
+                if (group.Count() == 4)
+                {
+                    playerFourOfAKindValue = group.ToList().Select(card => card.value).ToList().First();
+                }
+                else
+                {
+                    playerKickerValue = group.ToList().Select(card => card.value).ToList().First();
+                }
+            }
+
+            valueGroups = enemyHand.GroupBy(card => card.value);
+
+            foreach (var group in valueGroups)
+            {
+                if (group.Count() == 4)
+                {
+                    enemyFourOfAKindValue = group.ToList().Select(card => card.value).ToList().First();
+                }
+                else
+                {
+                    enemyKickerValue = group.ToList().Select(card => card.value).ToList().First();
+                }
+            }
+
+            if (playerFourOfAKindValue > enemyFourOfAKindValue)
+            {
+                return "Player Wins";
+            }
+            else if (playerFourOfAKindValue < enemyFourOfAKindValue)
+            {
+                return "Enemy Wins";
+            }
+            else
+            {
+                if (playerKickerValue > enemyKickerValue)
+                {
+                    return "Player Wins";
+                }
+                else if (playerKickerValue < enemyKickerValue)
+                {
+                    return "Enemy Wins";
+                }
+                else
+                {
+                    return "Tie";
+                }
+            }
+        }
+
+        return "Tie";
     }
 
     private bool IsRoyalFlush(List<Card> hand)

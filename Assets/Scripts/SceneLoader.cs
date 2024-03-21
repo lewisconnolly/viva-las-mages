@@ -26,6 +26,7 @@ public class SceneLoader : MonoBehaviour
     private List<Vector3> enemyStartingPositions = new List<Vector3>();
     private List<Quaternion> enemyStartingRotations = new List<Quaternion>();
     private List<int> enemyStartingHealthValues = new List<int>();
+    private List<EnemyReward> enemyRewards = new List<EnemyReward>();
 
     public GameObject exitCostPrefab;
     public Vector3 exitCostStartingPosition = new Vector3(0f, 10f, 0f);
@@ -77,6 +78,7 @@ public class SceneLoader : MonoBehaviour
                 enemyStartingPositions.Add(e.transform.position);
                 enemyStartingRotations.Add(e.transform.rotation);
                 enemyStartingHealthValues.Add(e.GetComponent<DealerHealth>().currentHealth);
+                enemyRewards.Add(e.GetComponent<EnemyReward>());
                 Destroy(e);
             }            
         }
@@ -88,6 +90,9 @@ public class SceneLoader : MonoBehaviour
             {
                 GameObject enemy = Instantiate(enemyPrefab, enemyStartingPositions[i], enemyStartingRotations[i]);
                 enemy.GetComponent<DealerHealth>().currentHealth = enemyStartingHealthValues[i];
+                enemy.GetComponent<EnemyReward>().baseSO = enemyRewards[i].baseSO;
+                enemy.GetComponent<EnemyReward>().powerCardType = enemyRewards[i].powerCardType;
+                enemy.GetComponent<EnemyReward>().SetUpCard();
             }
         }
     }
