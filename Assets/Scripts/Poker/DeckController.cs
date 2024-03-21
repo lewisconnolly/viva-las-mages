@@ -32,19 +32,24 @@ public class DeckController : MonoBehaviour
     // Shuffle deck into active cards
     public void SetUpDeck()
     {
-        //deckToUse = PlayerInventory.instance.playerDeck;
-        List<CardScriptableObject> playerDeck = PlayerInventory.instance.playerDeck;
-        for (int i = 0; i < playerDeck.Count; i++)
-        {
-            CardScriptableObject newCard = ScriptableObject.CreateInstance<CardScriptableObject>();
-            string name = playerDeck[i].value.ToString() + playerDeck[i].suit + playerDeck[i].powerCardType.ToString();
-            newCard.name = playerDeck[i].name;
-            newCard.value = playerDeck[i].value;
-            newCard.suit = playerDeck[i].suit;
-            newCard.material = playerDeck[i].material;
-            newCard.powerCardType = playerDeck[i].powerCardType;
+        deckToUse = PlayerInventory.instance.playerDeck;
 
-            deckToUse.Add(newCard);
+        // Don't shuffle in cards still in hand
+        for (int i = 0; i < HandController.instance.heldCards.Count; i++)
+        {
+            for (int j = 0; j < deckToUse.Count; j++)
+            {
+                if (deckToUse[j].name == HandController.instance.heldCards[i].cardSO.name) { deckToUse.RemoveAt(j); }
+            }            
+        }
+
+        // Don't shuffle in cards still that are being swapped 
+        for (int i = 0; i < HandController.instance.swappedCards.Count; i++)
+        {
+            for (int j = 0; j < deckToUse.Count; j++)
+            {
+                if (deckToUse[j].name == HandController.instance.swappedCards[i].cardSO.name) { deckToUse.RemoveAt(j); }
+            }
         }
 
         activeCards.Clear();
@@ -74,11 +79,6 @@ public class DeckController : MonoBehaviour
 
         HandController.instance.AddCardToHand(newCard);
     }
-
-    public void SwapCardsForHearts()
-    {
-
-    } 
 
     public void AddRewardCardtoDeck()
     {

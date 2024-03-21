@@ -67,9 +67,18 @@ public class Card : MonoBehaviour
     public void SetUpCard()
     {
         value = cardSO.value;
-        suit = cardSO.suit;
-        model.GetComponent<MeshRenderer>().material = cardSO.material;
+        suit = cardSO.suit;        
         powerCardType = cardSO.powerCardType;
+
+        Material[] mats = model.GetComponent<MeshRenderer>().materials;
+        mats[0] = cardSO.material;
+
+        if (powerCardType == PowerCardController.PowerCardType.Wildcard)
+        {
+            mats[1] = PowerCardController.instance.wildcardMaterial;
+        }
+
+        model.GetComponent<MeshRenderer>().materials = mats;
     }
 
     // Update is called once per frame
@@ -91,16 +100,9 @@ public class Card : MonoBehaviour
 
         if (isSelected)
         {
-            //// Cast a ray from the camera to the mouse position
+            // Cast a ray from the camera to the mouse position
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            //// Detect where the ray hits the desktop layer
-            //if(Physics.Raycast(ray, out hit, 100f, whatIsDesktop))
-            //{
-            //    // Move the card to the point of intersection but 0.5 units higher in the y-axis (to float above desktop)
-            //    MoveToPoint(hit.point + new Vector3(0f, 0.3f, 0f), hc.minPos.rotation);
-            //}                        
+            RaycastHit hit;              
 
             if (Input.GetMouseButtonDown(0) && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive)
             {
@@ -108,60 +110,21 @@ public class Card : MonoBehaviour
                 {
                     if (hit.collider == col)
                     {
-                        if (!isInSelectedPosition)
-                        {
-                            AddToSelection();
-                        }
-                        else
-                        {
-                            ReturnToHand();
-                        }
+                        if (!isInSelectedPosition) { AddToSelection(); } else { ReturnToHand(); }
                     }
                 }
             }
 
             // Right click to return card to hand
-            if (Input.GetMouseButtonDown(1))
-            {
-                ReturnToHand();
-            }
-            
-            // Stop card immediately being returned to hand if mouse was just clicked by checking justPressed
-            //if (Input.GetMouseButtonDown(0) && !justPressed && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive)
-            //{
-            //    if (Physics.Raycast(ray, out hit, 100f, whatIsPlacement))
-            //    {
-            //        // Get placement point that was clicked on
-            //        CardPlacePoint selectedPoint = hit.collider.GetComponent<CardPlacePoint>();
-
-            //        // If the selected point has an active card attribute and it is a player placement slot
-            //        // then move this card to the placement slot and remove from hand
-            //        if (selectedPoint.activeCard == null && selectedPoint.isPlayerPoint)
-            //        {
-            //            selectedPoint.activeCard = this;
-            //            assignedPlace = selectedPoint;
-
-            //            MoveToPoint(selectedPoint.transform.position, hc.minPos.rotation);
-
-            //            inHand = false;
-            //            isSelected = false;
-
-            //            hc.RemoveCardFromHand(this);
-            //        }
-            //        else
-            //        {
-            //            ReturnToHand();
-            //        }
-            //    }
-            //    else
-            //    {
-            //        ReturnToHand();
-            //    }
-            //}
+            if (Input.GetMouseButtonDown(1)) { ReturnToHand(); }                        
         }
 
-        // Reset justPressed
-        //justPressed = false;
+        double zPos = Mathf.Round(transform.position.z);        
+        if (zPos == Mathf.Round(BattleController.instance.playerDiscardPosition.position.z) ||
+            zPos == Mathf.Round(BattleController.instance.enemyDiscardPosition.position.z))
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     // Set point and rotation for card

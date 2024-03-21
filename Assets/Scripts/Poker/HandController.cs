@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using static BattleController;
 
@@ -16,11 +17,10 @@ public class HandController : MonoBehaviour
     }
 
     [SerializeField] public List<Card> heldCards = new List<Card>();
-    [SerializeField] public List<Card> enemyHeldCards = new List<Card>();
     [SerializeField] public List<Card> selectedCards = new List<Card>();    
-    [SerializeField] public List<Card> selectedEnemyCards = new List<Card>();
     [SerializeField] public List<Card> playedCards = new List<Card>();
-    [SerializeField] public List<Card> enemyPlayedCards = new List<Card>();
+    [SerializeField] public List<Card> swappedCards = new List<Card>();
+
     public Transform minPos, maxPos;
     public List<Vector3> cardPositions = new List<Vector3>();
     
@@ -106,10 +106,7 @@ public class HandController : MonoBehaviour
         SetCardPositionsOnTable();
     }
 
-    public void SelectCard(Card cardToSelect)
-    {
-        selectedCards.Add(cardToSelect);
-    }
+    public void SelectCard(Card cardToSelect) { selectedCards.Add(cardToSelect); }
 
     public void SortSelectedCards()
     {
@@ -127,6 +124,29 @@ public class HandController : MonoBehaviour
             
         selectedCards.Clear();
         SetCardPositionsInHand();
+    }
+
+    public void SwapCards()
+    {
+        // Store swapped cards to check when reshuffling deck (don't swap a card for currently selected)
+        swappedCards.Clear();
+        swappedCards.AddRange(selectedCards);
+        
+        foreach (Card card in selectedCards.OrderByDescending(c => c.handPosition).ToList())
+        {
+            // Remove selected cards from hand first to prevent being moved into hand when cards are drawn
+            RemoveCardFromHand(card);
+            // Move to discard position
+            card.MoveToPoint(BattleController.instance.playerDiscardPosition.position, BattleController.instance.playerDiscardPosition.rotation);
+        }
+        
+        // Damage player for amount of swapped cards
+        PlayerHealth.instance.TakeDamage(swappedCards.Count);
+
+        // Draw new cards
+        DeckController.instance.DrawMultipleCards(selectedCards.Count);
+
+        selectedCards.Clear();
     }
 
     public void SetTransparency(Card card, string action)

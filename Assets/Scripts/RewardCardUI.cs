@@ -12,13 +12,24 @@ public class RewardCardUI : MonoBehaviour
         instance = this;
     }
 
-    public GameObject rewardCardObject;
+    public GameObject rewardCardParentObject;
+    public Card rewardCard;
+    public TextMeshPro rewardCardText;
 
     private Vector3 targetScale;
     public float growSpeed = 0.01f;
 
+    private void Start()
+    {
+        EnemyReward enemyReward = FindObjectOfType<EnemyReward>();
+        CardScriptableObject enemyRewardCard = enemyReward.GetRewardCard();        
+        rewardCard.cardSO = enemyRewardCard;
+        rewardCard.SetUpCard();
 
-    private void Update()
+        rewardCardText.text = rewardCard.powerCardType.ToString() + " Won";
+    }
+
+    void Update()
     {
         //transform.localScale = Vector3.Lerp(transform.localScale, targetScale, growSpeed * Time.deltaTime);
     }

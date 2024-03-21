@@ -3223,7 +3223,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7411765, g: 1, b: 0.6901961, a: 1}
   m_Intensity: 2
   m_Range: 210.96
   m_SpotAngle: 30
@@ -4371,7 +4371,7 @@ PrefabInstance:
         type: 3}
       propertyPath: baseSO
       value: 
-      objectReference: {fileID: 11400000, guid: 60850efa2c39fe54cb6655088755d1d2,
+      objectReference: {fileID: 11400000, guid: 4720dbc31e3b4ff4e928c2a810d5c6de,
         type: 2}
     - target: {fileID: 85312512235876811, guid: 2bb5b7f23d7eafb49acc403b9233c0fc,
         type: 3}
@@ -4462,6 +4462,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7807929761351031611, guid: 2bb5b7f23d7eafb49acc403b9233c0fc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 11.6
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7722570614426002391, guid: 2bb5b7f23d7eafb49acc403b9233c0fc, type: 3}
@@ -4575,6 +4580,7 @@ PrefabInstance:
     - {fileID: 3213130456771344190, guid: 9a2f4eebd1a3b3b4d859a9676e4ebfd5, type: 3}
     - {fileID: 3805858546031327053, guid: 9a2f4eebd1a3b3b4d859a9676e4ebfd5, type: 3}
     - {fileID: 1810605483035068754, guid: 9a2f4eebd1a3b3b4d859a9676e4ebfd5, type: 3}
+    - {fileID: 8524074421097672391, guid: 9a2f4eebd1a3b3b4d859a9676e4ebfd5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

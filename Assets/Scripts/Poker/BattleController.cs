@@ -58,6 +58,16 @@ public class BattleController : MonoBehaviour
             PokerUIController.instance.placeBetButton.GetComponent<Button>().interactable = false;
         }
 
+        // Allow player to swap cards if they have more health minus current bet than number of cards being swapped
+        if(HandController.instance.selectedCards.Count > 0 && (PlayerHealth.instance.currentHealth - currentBet) >= HandController.instance.selectedCards.Count)
+        {
+            PokerUIController.instance.swapCardButton.GetComponent<Button>().interactable = true;
+        }
+        else
+        {
+            PokerUIController.instance.swapCardButton.GetComponent<Button>().interactable = false;
+        }
+
         if (checkCardsDiscarded)
         {            
             bool allCardsDiscarded = true;
@@ -80,19 +90,7 @@ public class BattleController : MonoBehaviour
                 checkCardsDiscarded = false;
             }
         }
-    }
-
-    public void DrawHand()
-    {
-        int cardsToDraw = startingCardsAmount - HandController.instance.heldCards.Count;
-        DeckController.instance.DrawMultipleCards(cardsToDraw);
-    }
-
-    public void DrawEnemyHand()
-    {
-        int cardsToDraw = startingCardsAmount - EnemyController.instance.heldCards.Count;
-        EnemyController.instance.DrawMultipleCards(cardsToDraw);
-    }
+    } 
 
     public void PlayHand()
     {
@@ -103,9 +101,9 @@ public class BattleController : MonoBehaviour
     public void PlaceBet(int bet)
     {
         currentBet = bet;
-        PlayerHealth.instance.PlaceBet(bet);
-        DrawHand();
-        DrawEnemyHand();
+        PlayerHealth.instance.PlaceBet(bet);        
+        DeckController.instance.DrawMultipleCards(startingCardsAmount - HandController.instance.heldCards.Count);
+        EnemyController.instance.DrawMultipleCards(startingCardsAmount - EnemyController.instance.heldCards.Count);
         AdvanceTurn();
     }
 
@@ -173,15 +171,12 @@ public class BattleController : MonoBehaviour
     {
         currentPhase++;
 
-        if((int)currentPhase >= System.Enum.GetValues(typeof(TurnOrder)).Length)
-        {
-            currentPhase = 0;
-        }
+        if((int)currentPhase >= System.Enum.GetValues(typeof(TurnOrder)).Length) { currentPhase = 0; }
 
         switch (currentPhase)
         {
             case TurnOrder.playerBetting:
-                RewardCardUI.instance.rewardCardObject.SetActive(false);
+                RewardCardUI.instance.rewardCardParentObject.SetActive(false);
                 PokerUIController.instance.betSlider.GetComponent<BetSlider>().InitSlider();
                 PokerUIController.instance.playerHandText.gameObject.SetActive(false);
                 PokerUIController.instance.enemyHandText.gameObject.SetActive(false);
@@ -191,7 +186,7 @@ public class BattleController : MonoBehaviour
                 PokerUIController.instance.placeBetButton.SetActive(true);
                 PokerUIController.instance.betSlider.gameObject.SetActive(true);                
                 PokerUIController.instance.playHandButton.SetActive(false);
-                //PokerUIController.instance.swapCardButton.SetActive(false);
+                PokerUIController.instance.swapCardButton.SetActive(false);
 
                 break;
 
@@ -201,7 +196,7 @@ public class BattleController : MonoBehaviour
                 PokerUIController.instance.betSlider.gameObject.SetActive(false);
                 PokerUIController.instance.playHandButton.SetActive(true);
                 PokerUIController.instance.playHandButton.GetComponent<Button>().interactable = false;
-                //PokerUIController.instance.swapCardButton.SetActive(true);                                
+                PokerUIController.instance.swapCardButton.SetActive(true);                                
 
                 break;
 
@@ -226,12 +221,12 @@ public class BattleController : MonoBehaviour
                     PokerUIController.instance.winnerText.gameObject.SetActive(true);
                     PokerUIController.instance.playAgainButton.SetActive(true);
                     PokerUIController.instance.playAgainButton.GetComponent<Button>().interactable = true;
+                    PokerUIController.instance.swapCardButton.SetActive(false);
                     PokerUIController.instance.leaveButton.SetActive(true);
                 }
                 else
                 {                
-                    RewardCardUI.instance.rewardCardObject.SetActive(true);
-                    //DeckController.instance.AddRewardCardtoDeck();
+                    RewardCardUI.instance.rewardCardParentObject.SetActive(true);
                     PlayerInventory.instance.AddRewardCardtoDeck();
                     PokerUIController.instance.leaveButton.SetActive(true);
                 }

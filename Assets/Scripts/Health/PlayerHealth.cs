@@ -12,15 +12,13 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        currentHealth = maxHealth;
-        //betCounter = 0;
+        currentHealth = maxHealth;        
     }
 
     public int maxHealth = 10;
     public int currentHealth;
-    private int currentBet;
+    //private int currentBet;
     private bool updateHealthText;
-    //private int betCounter;
         
     // Start is called before the first frame update
     void Start()
@@ -74,7 +72,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void PlaceBet(int bet)
     {
-        currentBet = bet;
+        //currentBet = bet;
         PokerUIController.instance.SetBetText(bet);
         PokerUIController.instance.ShowBetIcons();
         ExitCost.instance.TakeDamage(bet);

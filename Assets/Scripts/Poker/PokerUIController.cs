@@ -49,20 +49,11 @@ public class PokerUIController : MonoBehaviour
         leaveButton.SetActive(false);
         HideBetIcons();
         
-        if (GameObject.FindGameObjectWithTag("Enemy") != null)
-        {
-            SetEnemyHealthText(DealerHealth.instance.GetHealth());
-        }
+        if (GameObject.FindGameObjectWithTag("Enemy") != null) { SetEnemyHealthText(DealerHealth.instance.GetHealth()); }
 
-        if (GameObject.FindGameObjectWithTag("ExitCost") != null)
-        {
-            SetExitHealthText(ExitCost.instance.GetHealth());
-        }
+        if (GameObject.FindGameObjectWithTag("ExitCost") != null) { SetExitHealthText(ExitCost.instance.GetHealth()); }
 
-        if (GameObject.FindGameObjectWithTag("Player") != null)
-        {
-            SetHealthText(PlayerHealth.instance.GetHealth());
-        }
+        if (GameObject.FindGameObjectWithTag("Player") != null) { SetHealthText(PlayerHealth.instance.GetHealth()); }
     }
 
     // Update is called once per frame
@@ -102,10 +93,7 @@ public class PokerUIController : MonoBehaviour
         enemyHandText.text = enemyHand;
     }
 
-    public void SetWinnerText(string text)
-    {
-        winnerText.text = text;
-    }
+    public void SetWinnerText(string text) { winnerText.text = text; }
 
     public void SetBetText(int bet)
     {
@@ -126,28 +114,13 @@ public class PokerUIController : MonoBehaviour
         enemyBetIcon.SetActive(true);
         showBetIcons = true;
     }
-    public void PlayHand()
-    {
-        BattleController.instance.PlayHand();
-    }
+    public void PlayHand() { BattleController.instance.PlayHand(); }
 
-    public void PlaceBet()
-    {
-        BattleController.instance.PlaceBet(int.Parse(betSlider.currentBet.text));
-    }
+    public void PlaceBet() { BattleController.instance.PlaceBet(int.Parse(betSlider.currentBet.text)); }
 
-    public void PlayAgain()
-    {
-        BattleController.instance.PlayAgain();
-    }
+    public void PlayAgain() { BattleController.instance.PlayAgain(); }
 
-    public void Leave()
-    {
-        SceneLoader.instance.LoadRoom();
-    }
+    public void Leave() { SceneLoader.instance.LoadRoom(); }
 
-    public void SwapCards()
-    {
-        Debug.Log("Swapping card(s)");
-    }       
+    public void SwapCards() { HandController.instance.SwapCards(); }
 }

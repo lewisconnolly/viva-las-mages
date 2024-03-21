@@ -311,7 +311,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7411765, g: 1, b: 0.6901961, a: 1}
   m_Intensity: 2
   m_Range: 210.96
   m_SpotAngle: 30
@@ -1743,7 +1743,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Swap
 
-    (-1 Heart per Card)'
+    (-1 Heart)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1770,7 +1770,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.05
+  m_fontSize: 50.4
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2250,11 +2250,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heldCards: []
-  enemyHeldCards: []
   selectedCards: []
-  selectedEnemyCards: []
   playedCards: []
-  enemyPlayedCards: []
+  swappedCards: []
   minPos: {fileID: 1681905273}
   maxPos: {fileID: 1310853127}
   cardPositions: []
@@ -3565,7 +3563,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7411765, g: 1, b: 0.6901961, a: 1}
   m_Intensity: 35
   m_Range: 8
   m_SpotAngle: 30
@@ -6950,7 +6948,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dafb5141dbb352844844ac40fbbff816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardCardObject: {fileID: 197310040}
+  rewardCardParentObject: {fileID: 197310040}
+  rewardCard: {fileID: 1460051390}
+  rewardCardText: {fileID: 1660672132}
   growSpeed: 0.9
 --- !u!1 &1272690117
 GameObject:
@@ -7756,6 +7756,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b70303e279d9f04ba73d6d101a00b11, type: 3}
+--- !u!114 &1460051390 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1869501704160709902, guid: 9b70303e279d9f04ba73d6d101a00b11,
+    type: 3}
+  m_PrefabInstance: {fileID: 1460051389}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a9ddfdbcdf25542b84f18d583e81df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1489255187
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8224,6 +8236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c2dfdb5781dc64c91637b3105e8e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wildcardMaterial: {fileID: 2100000, guid: f0dcf69891ec4ab41b0855d031992bb0, type: 2}
 --- !u!4 &1575212178
 Transform:
   m_ObjectHideFlags: 0
@@ -8490,7 +8503,7 @@ GameObject:
   - component: {fileID: 1660672133}
   - component: {fileID: 1660672132}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: RewardCardText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8535,7 +8548,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wildcard Won
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10316,7 +10329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1949928856
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10334,8 +10347,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -261, y: 195.227}
-  m_SizeDelta: {x: 450.07007, y: 117.96}
+  m_AnchoredPosition: {x: -207, y: 374}
+  m_SizeDelta: {x: 290.1664, y: 143.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1949928857
 MonoBehaviour:
@@ -10383,7 +10396,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 135591889}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_TargetAssemblyTypeName: PokerUIController, Assembly-CSharp
         m_MethodName: SwapCards
         m_Mode: 1
         m_Arguments:
@@ -11486,42 +11499,42 @@ MonoBehaviour:
   minPos: {fileID: 388751230}
   maxPos: {fileID: 1221167715}
   deckToUse:
-  - {fileID: 11400000, guid: 9ae5234268888504a957b89574a6b168, type: 2}
-  - {fileID: 11400000, guid: 60850efa2c39fe54cb6655088755d1d2, type: 2}
-  - {fileID: 11400000, guid: 9eb905f82fb3f5540a92a6eec9b44ee0, type: 2}
-  - {fileID: 11400000, guid: ceef43fa81fdd4e4ca3df282aecbd114, type: 2}
-  - {fileID: 11400000, guid: 704767337cc927b4c97e0360c066fcd0, type: 2}
-  - {fileID: 11400000, guid: bdbd0285ae31c90478ed0719574fa51b, type: 2}
-  - {fileID: 11400000, guid: 4685751b10366fc41ba0cde49746b9c0, type: 2}
-  - {fileID: 11400000, guid: 035a66b633f1f664796871206a5c582c, type: 2}
-  - {fileID: 11400000, guid: 41d5dd23435eb024eb47fd3220c97adc, type: 2}
-  - {fileID: 11400000, guid: c01094278e3be204b838e4fe2e42a635, type: 2}
-  - {fileID: 11400000, guid: ae6d98ecf3078bf46aa075b0fd663927, type: 2}
-  - {fileID: 11400000, guid: 7c716ff400308434498b33aa152048eb, type: 2}
-  - {fileID: 11400000, guid: fd10f4f602850b54c82ae1243a5e0afc, type: 2}
-  - {fileID: 11400000, guid: f81a3692dd19368458729db8d5837068, type: 2}
-  - {fileID: 11400000, guid: 638e9101d01ee1043abb5585765f3221, type: 2}
-  - {fileID: 11400000, guid: ee241aca2eb9a1e4d852ea6c56fa8ff6, type: 2}
-  - {fileID: 11400000, guid: a23f5cbb3c34efa4d949ac539be9fe32, type: 2}
-  - {fileID: 11400000, guid: f5c5d053d1671424788148b82375b6a4, type: 2}
-  - {fileID: 11400000, guid: 74f0fb919ddcc65489009cbc90964a32, type: 2}
-  - {fileID: 11400000, guid: a82d69999961d9d43bbc79b6603a5e89, type: 2}
-  - {fileID: 11400000, guid: e036241bf17e81e41b7e73b9ad7f5490, type: 2}
-  - {fileID: 11400000, guid: 74d10a26dae3a0e4ba0db74aa69c26f4, type: 2}
-  - {fileID: 11400000, guid: 8c28f4239112c8f4597c443ed5d303b0, type: 2}
-  - {fileID: 11400000, guid: a54e7c31a3488db41b044a7836d32794, type: 2}
-  - {fileID: 11400000, guid: 45c393ff41c834942ad2927b3243c9db, type: 2}
-  - {fileID: 11400000, guid: e64f293d489c04a4d90c25dac4a123be, type: 2}
-  - {fileID: 11400000, guid: 44b50004185e0bd4cb16bda1c798c562, type: 2}
-  - {fileID: 11400000, guid: 5045eab53f4d6564589f419d62dcddd6, type: 2}
-  - {fileID: 11400000, guid: 95d755aa3e5681748b26b1d6f79a998f, type: 2}
-  - {fileID: 11400000, guid: 5e1fe664f64b117418cf9e65da5b91db, type: 2}
-  - {fileID: 11400000, guid: 5fdf06c5d86c8b14bb176043be102a25, type: 2}
-  - {fileID: 11400000, guid: ed555dd8a8b90ea45a1a226586d4f981, type: 2}
-  - {fileID: 11400000, guid: fa31b16de6b075f4593696c89e8206d4, type: 2}
-  - {fileID: 11400000, guid: 9705792f20613334b9a43c1d72157dc7, type: 2}
-  - {fileID: 11400000, guid: 2a5b051507f2840439a276e4fd626b37, type: 2}
-  - {fileID: 11400000, guid: 4c77fa080367a3e469a8121b1fc8ca2f, type: 2}
+  - {fileID: 11400000, guid: 4f509b053c437094c8b54b12906520ea, type: 2}
+  - {fileID: 11400000, guid: 4720dbc31e3b4ff4e928c2a810d5c6de, type: 2}
+  - {fileID: 11400000, guid: c8f59e6aad5134246af8809c154510fe, type: 2}
+  - {fileID: 11400000, guid: b239477f716ad46479dae91d771b44bc, type: 2}
+  - {fileID: 11400000, guid: 3d3b861dbe7c98543a24822c98faf9dd, type: 2}
+  - {fileID: 11400000, guid: b0ebaa5ca599dfa499c0ae0450e0be63, type: 2}
+  - {fileID: 11400000, guid: 8cc09969e90fe074da047544a4578bc0, type: 2}
+  - {fileID: 11400000, guid: 0dc7f4a6e1a05804a8b1b0401543de12, type: 2}
+  - {fileID: 11400000, guid: 5598dc9b914765348800afe2fb73bc45, type: 2}
+  - {fileID: 11400000, guid: 0ae91f88db533534a90e95d21ff98752, type: 2}
+  - {fileID: 11400000, guid: 41d377f63479eae47a006e63af823536, type: 2}
+  - {fileID: 11400000, guid: 3874cf526944992409f5df99574d8a24, type: 2}
+  - {fileID: 11400000, guid: 7c0f8dcc161a32a4e899552e2b499581, type: 2}
+  - {fileID: 11400000, guid: 1693043dec23f5749be4669b5dcb7ddd, type: 2}
+  - {fileID: 11400000, guid: 9c861e5fc3b719540a2f62c9d4ecad65, type: 2}
+  - {fileID: 11400000, guid: 8e3562d62956c5e4a9f503001be3a3e0, type: 2}
+  - {fileID: 11400000, guid: 44f2b0a54d3211744a65bf6df252f76f, type: 2}
+  - {fileID: 11400000, guid: 00d9c4e7d1e490340b2544feefc3581f, type: 2}
+  - {fileID: 11400000, guid: 13ad6f686bca56941af944301fa20b83, type: 2}
+  - {fileID: 11400000, guid: cd4bb3cc54430e047a56bd2a873ef8fb, type: 2}
+  - {fileID: 11400000, guid: 505bde8f126e050489e1b72c69d80764, type: 2}
+  - {fileID: 11400000, guid: 92850de62bf5b0f4c871072ad3bad597, type: 2}
+  - {fileID: 11400000, guid: 9830ab4bba72e1f45b6977670fda7c2a, type: 2}
+  - {fileID: 11400000, guid: 6ddaaad1fc1ff5e4087a768fc7240c71, type: 2}
+  - {fileID: 11400000, guid: 30ad734ef7c34474fa29c6ee8f211b5e, type: 2}
+  - {fileID: 11400000, guid: a163af0cc78bacc4e8bcf7827bbac532, type: 2}
+  - {fileID: 11400000, guid: 5688271ee8a684f40bbdeca098e55687, type: 2}
+  - {fileID: 11400000, guid: 6be0dce26972c24479fa58788a714961, type: 2}
+  - {fileID: 11400000, guid: 92e39b23028855141927955eee919a5c, type: 2}
+  - {fileID: 11400000, guid: 0f2f7c2a9aa07494d9be0f7e5562b22b, type: 2}
+  - {fileID: 11400000, guid: 9a472293a1251b1429671bcfae68d22e, type: 2}
+  - {fileID: 11400000, guid: 133d4dc25187a5e40bf7b5c07b06699e, type: 2}
+  - {fileID: 11400000, guid: 93828bb549d631b49954b6f552786338, type: 2}
+  - {fileID: 11400000, guid: 9c52207c473eadf49a4d7210743c5dbb, type: 2}
+  - {fileID: 11400000, guid: ee16aa9aa2a3d924eb64c44b592504f7, type: 2}
+  - {fileID: 11400000, guid: 25a648487434bfc4ebd4054d9fdd9394, type: 2}
   cardToSpawn: {fileID: 1869501704160709902, guid: 9b70303e279d9f04ba73d6d101a00b11,
     type: 3}
   drawFrom: {fileID: 217731707}
@@ -11551,16 +11564,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1739014776496702768, guid: 9b70303e279d9f04ba73d6d101a00b11,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739014776496702768, guid: 9b70303e279d9f04ba73d6d101a00b11,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: bdae3502d111855459caf6e539451b21, type: 2}
     - target: {fileID: 1869501704160709902, guid: 9b70303e279d9f04ba73d6d101a00b11,
         type: 3}
       propertyPath: cardSO
       value: 
-      objectReference: {fileID: 11400000, guid: 9ae5234268888504a957b89574a6b168,
+      objectReference: {fileID: 11400000, guid: 4f509b053c437094c8b54b12906520ea,
         type: 2}
+    - target: {fileID: 1869501704160709902, guid: 9b70303e279d9f04ba73d6d101a00b11,
+        type: 3}
+      propertyPath: powerCardType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4333913995545487401, guid: 9b70303e279d9f04ba73d6d101a00b11,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.017
+      value: 0.454
       objectReference: {fileID: 0}
     - target: {fileID: 4333913995545487401, guid: 9b70303e279d9f04ba73d6d101a00b11,
         type: 3}
@@ -11570,7 +11598,7 @@ PrefabInstance:
     - target: {fileID: 4333913995545487401, guid: 9b70303e279d9f04ba73d6d101a00b11,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.405
+      value: 1.397
       objectReference: {fileID: 0}
     - target: {fileID: 4333913995545487401, guid: 9b70303e279d9f04ba73d6d101a00b11,
         type: 3}
