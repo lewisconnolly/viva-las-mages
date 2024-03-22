@@ -4376,7 +4376,7 @@ PrefabInstance:
     - target: {fileID: 85312512235876811, guid: 2bb5b7f23d7eafb49acc403b9233c0fc,
         type: 3}
       propertyPath: powerCardType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2086981561263383459, guid: 2bb5b7f23d7eafb49acc403b9233c0fc,
         type: 3}
@@ -4669,7 +4669,7 @@ PrefabInstance:
     - target: {fileID: 4692873130177280151, guid: da3bf4bbf934a894898c7289ae39e4b8,
         type: 3}
       propertyPath: enemyStartingPosition.x
-      value: -1.839
+      value: -2.636
       objectReference: {fileID: 0}
     - target: {fileID: 4692873130177280151, guid: da3bf4bbf934a894898c7289ae39e4b8,
         type: 3}
@@ -4679,7 +4679,17 @@ PrefabInstance:
     - target: {fileID: 4692873130177280151, guid: da3bf4bbf934a894898c7289ae39e4b8,
         type: 3}
       propertyPath: enemyStartingPosition.z
-      value: -1.965
+      value: 1.481
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692873130177280151, guid: da3bf4bbf934a894898c7289ae39e4b8,
+        type: 3}
+      propertyPath: enemyStartingRotation.w
+      value: 0.8802
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692873130177280151, guid: da3bf4bbf934a894898c7289ae39e4b8,
+        type: 3}
+      propertyPath: enemyStartingRotation.y
+      value: 0.47460294
       objectReference: {fileID: 0}
     - target: {fileID: 4692873130177280151, guid: da3bf4bbf934a894898c7289ae39e4b8,
         type: 3}

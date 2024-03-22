@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Threading;
 using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -35,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void UnfreezePlayer()
-    {
+    {        
         if (isFrozen) { isFrozen = false; }
     }
 
@@ -48,10 +49,7 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
             // If in contact with the ground and y velocity is still decreasing, set to -2f (not 0 in case still falling)
-            if (isGrounded && velocity.y < 0)
-            {
-                velocity.y = -2f;
-            }
+            if (isGrounded && velocity.y < 0) { velocity.y = -2f; }
 
             // Get input for moving left, right, forward and backward
             float x = Input.GetAxis("Horizontal");
@@ -74,5 +72,5 @@ public class PlayerMovement : MonoBehaviour
             // Apply velocity vector to controller movement (gravity equation requires time squared so multiply by deltaTime again)
             controller.Move(velocity * Time.deltaTime);
         }
-    } 
+    }      
 }

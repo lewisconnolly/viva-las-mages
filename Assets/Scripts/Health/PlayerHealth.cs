@@ -38,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
         {
             UIController.instance.SetHealthText(currentHealth);
             updateHealthText = false;
-        }
+        }        
     }
 
     public int GetHealth() { return currentHealth; }

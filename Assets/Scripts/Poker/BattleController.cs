@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using static HandEvaluator;
+using System.Linq;
+//using static HandEvaluator;
 
 public class BattleController : MonoBehaviour
 {
@@ -58,8 +60,11 @@ public class BattleController : MonoBehaviour
             PokerUIController.instance.placeBetButton.GetComponent<Button>().interactable = false;
         }
 
-        // Allow player to swap cards if they have more health minus current bet than number of cards being swapped
-        if(HandController.instance.selectedCards.Count > 0 && (PlayerHealth.instance.currentHealth - currentBet) >= HandController.instance.selectedCards.Count)
+        // Get number of free swaps in selected cards
+        int numFreeSwaps = HandController.instance.selectedCards.Where(card => card.powerCardType == PowerCardController.PowerCardType.FreeSwap).ToList().Count;
+
+        // Allow player to swap cards if they have more health minus current bet than number of cards being swapped - free swaps
+        if (HandController.instance.selectedCards.Count > 0 && (PlayerHealth.instance.currentHealth - currentBet) >= (HandController.instance.selectedCards.Count - numFreeSwaps))
         {
             PokerUIController.instance.swapCardButton.GetComponent<Button>().interactable = true;
         }
@@ -128,8 +133,12 @@ public class BattleController : MonoBehaviour
             EnemyController.instance.playedCards[i].MakeTransparent();
             EnemyController.instance.playedCards[i].MoveToPoint(enemyDiscardPosition.position, enemyDiscardPosition.rotation);            
         }
-        
-        checkCardsDiscarded = true;
+
+        HandController.instance.playedCards.Clear();
+        EnemyController.instance.playedCards.Clear();
+        AdvanceTurn();
+
+        //checkCardsDiscarded = true;
     }
 
     public void ResetPlayedCards()
@@ -228,7 +237,8 @@ public class BattleController : MonoBehaviour
                 {                
                     RewardCardUI.instance.rewardCardParentObject.SetActive(true);
                     PlayerInventory.instance.AddRewardCardtoDeck();
-                    PokerUIController.instance.leaveButton.SetActive(true);
+                    PokerUIController.instance.swapCardButton.SetActive(false);
+                    PokerUIController.instance.leaveButton.SetActive(true);                    
                 }
 
                 break;

@@ -61,7 +61,7 @@ public class PokerUIController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneLoader.instance.LoadRoom();
+            SceneLoader.instance.LoadRoom(PlayerInventory.instance.prevScene);
         }
 
         if (Input.GetKeyDown(KeyCode.H))
@@ -120,7 +120,7 @@ public class PokerUIController : MonoBehaviour
 
     public void PlayAgain() { BattleController.instance.PlayAgain(); }
 
-    public void Leave() { SceneLoader.instance.LoadRoom(); }
+    public void Leave() { SceneLoader.instance.LoadRoom(PlayerInventory.instance.prevScene); }
 
     public void SwapCards() { HandController.instance.SwapCards(); }
 }

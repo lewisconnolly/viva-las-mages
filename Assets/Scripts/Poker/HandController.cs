@@ -139,9 +139,10 @@ public class HandController : MonoBehaviour
             // Move to discard position
             card.MoveToPoint(BattleController.instance.playerDiscardPosition.position, BattleController.instance.playerDiscardPosition.rotation);
         }
-        
-        // Damage player for amount of swapped cards
-        PlayerHealth.instance.TakeDamage(swappedCards.Count);
+
+        // Damage player for amount of swapped cards - free swaps
+        int numFreeSwaps = selectedCards.Where(card => card.powerCardType == PowerCardController.PowerCardType.FreeSwap).ToList().Count;        
+        PlayerHealth.instance.TakeDamage(swappedCards.Count - numFreeSwaps);
 
         // Draw new cards
         DeckController.instance.DrawMultipleCards(selectedCards.Count);

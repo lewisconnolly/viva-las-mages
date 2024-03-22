@@ -16,7 +16,6 @@ public class SceneLoader : MonoBehaviour
     public float transitionTime = 1f;
 
     public GameObject playerPrefab;
-    //public Vector3 playerStartingPosition = new Vector3(1.875f, 0.617f, 0);
     public GameObject playerStartingPosition;
     public Quaternion playerStartingRotation = Quaternion.AngleAxis(-90, Vector3.up);
 
@@ -32,11 +31,24 @@ public class SceneLoader : MonoBehaviour
     public Vector3 exitCostStartingPosition = new Vector3(0f, 10f, 0f);
     public Quaternion exitCostStartingRotation = Quaternion.identity;
 
-    private void Start()
+    void Start()
     {        
         InstantiatePlayer();
         InstantiateEnemy();
-        InstantiateExitCost();
+        InstantiateExitCost();        
+    }
+
+    void Update()
+    {
+
+        if (PlayerMovement.instance.moveToStartingPosition)
+        {
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+            {
+                PlayerMovement.instance.UnfreezePlayer();
+                PlayerMovement.instance.moveToStartingPosition = false;
+            }
+        }
     }
 
     public void InstantiatePlayer()
@@ -54,10 +66,9 @@ public class SceneLoader : MonoBehaviour
         }
         else
         {
-            if(PlayerMovement.instance.moveToStartingPosition)
+            if (PlayerMovement.instance.moveToStartingPosition)
             {
-                player.transform.position = playerStartingPosition.transform.position;
-                PlayerMovement.instance.moveToStartingPosition = false;
+                player.transform.position = playerStartingPosition.transform.position;                                
             }
         }
 
@@ -65,6 +76,10 @@ public class SceneLoader : MonoBehaviour
         {
             PlayerMovement.instance.FreezePlayer();
             PlayerCamera.instance.DisablePlayerCamera();
+        }
+        else
+        { 
+            PlayerCamera.instance.EnablePlayerCamera();
         }
     }
 
@@ -103,8 +118,7 @@ public class SceneLoader : MonoBehaviour
         if (exit == null)
         {
             Instantiate(exitCostPrefab, exitCostStartingPosition, exitCostStartingRotation);
-
-            //int exitHealthCost = int.Parse(GameObject.FindGameObjectWithTag("Exit").GetComponentInChildren<TextMeshProUGUI>().text);
+            
             int exitHealthCost = int.Parse(GameObject.FindGameObjectWithTag("Exit").GetComponentInChildren<TextMeshPro>().text);
 
             if (ExitCost.instance != null)
@@ -114,43 +128,42 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    public void LoadRoom()
+    public void LoadRoom(string nextSceneName)
     {        
-        StartCoroutine(LoadNextScene("Room1"));        
-    }
-
-    public void LoadRoom2()
-    {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (enemies.Length > 0)
+        if (SceneManager.GetActiveScene().name.StartsWith("Room") && nextSceneName.StartsWith("Room"))
         {
-           foreach (GameObject e in enemies)
-           {
-                Destroy(e);
-           }        
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            if (enemies.Length > 0)
+            {
+                foreach (GameObject e in enemies)
+                {
+                    Destroy(e);
+                }
+            }
+
+            GameObject exit = GameObject.FindGameObjectWithTag("ExitCost");
+            if (exit != null)
+            {
+                Destroy(exit);
+            }
+
+            PlayerMovement.instance.FreezePlayer();
+            PlayerMovement.instance.moveToStartingPosition = true;            
         }
 
-        GameObject exit = GameObject.FindGameObjectWithTag("ExitCost");
-        if (exit != null)
-        {
-            Destroy(exit);
-        }
-        
-        PlayerMovement.instance.FreezePlayer();
-        PlayerMovement.instance.moveToStartingPosition = true;
-
-        StartCoroutine(LoadNextScene("Room2"));
+        StartCoroutine(LoadNextScene(nextSceneName));
     }
 
     public void LoadPoker()
-    {
+    {        
+        PlayerInventory.instance.prevScene = SceneManager.GetActiveScene().name;        
         StartCoroutine(LoadNextScene("Poker"));
     }
 
     IEnumerator LoadNextScene(string sceneName)
     {
-        transition.SetTrigger("Start");
-
+        transition.SetTrigger("Start");        
+        
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadScene(sceneName);
@@ -162,14 +175,12 @@ public class SceneLoader : MonoBehaviour
         {                       
             if (enemy != null)
             {
-                //enemy.SetActive(false);
                 enemy.GetComponentInChildren<MeshRenderer>().enabled = false;
                 enemy.GetComponentInChildren<UIDealerController>().gameObject.SetActive(false);                
             }
 
             if (player != null)
             {
-                //player.SetActive(false);
                 player.GetComponentInChildren<MeshRenderer>().enabled = false;
                 player.GetComponent<Interactor>().interactionPromptUI.Close();
                 player.GetComponent<Interactor>().enabled = false;
@@ -183,20 +194,15 @@ public class SceneLoader : MonoBehaviour
         {            
             if (enemy != null)
             {
-                //enemy.SetActive(true);
                 enemy.GetComponentInChildren<MeshRenderer>().enabled = true;
                 enemy.GetComponentInChildren<UIDealerController>(true).gameObject.SetActive(true);
             }
 
             if (player != null)
             {
-                //player.SetActive(true);
                 player.GetComponentInChildren<MeshRenderer>().enabled = true;
                 player.GetComponent<Interactor>().enabled = true;
-            }
-
-            PlayerMovement.instance.UnfreezePlayer();
-            PlayerCamera.instance.EnablePlayerCamera();
+            }            
         }
     }    
 }

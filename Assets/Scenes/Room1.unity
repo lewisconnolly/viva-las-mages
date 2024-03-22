@@ -1171,6 +1171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wildcardMaterial: {fileID: 0}
+  freeSwapMaterial: {fileID: 0}
 --- !u!4 &591253661
 Transform:
   m_ObjectHideFlags: 0
@@ -3520,6 +3521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: Locked
+  sceneName: Room2
 --- !u!1 &1532688107
 GameObject:
   m_ObjectHideFlags: 0

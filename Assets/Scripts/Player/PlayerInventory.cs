@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -17,17 +18,21 @@ public class PlayerInventory : MonoBehaviour
     }
 
     public List<CardScriptableObject> playerDeck;
+    public string prevScene;
+
+    private void Start()
+    {     
+    }
+
+    private void Update()
+    {        
+    }
 
     public void LoadDeck()
     {
         CardScriptableObject[] baseCards = Resources.LoadAll<CardScriptableObject>("Cards/PlayerDeck");
 
         foreach (CardScriptableObject baseCard in baseCards) { playerDeck.Add(baseCard); }
-    }
-
-    public void SaveDeck()
-    {               
-        
     }
 
     public void ResetDeck()

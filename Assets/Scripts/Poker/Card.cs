@@ -78,6 +78,11 @@ public class Card : MonoBehaviour
             mats[1] = PowerCardController.instance.wildcardMaterial;
         }
 
+        if (powerCardType == PowerCardController.PowerCardType.FreeSwap)
+        {
+            mats[1] = PowerCardController.instance.freeSwapMaterial;
+        }
+
         model.GetComponent<MeshRenderer>().materials = mats;
     }
 

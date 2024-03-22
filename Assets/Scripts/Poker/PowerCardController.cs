@@ -15,6 +15,7 @@ public class PowerCardController : MonoBehaviour
     public enum PowerCardType { None, Wildcard, FreeSwap }
 
     public Material wildcardMaterial;
+    public Material freeSwapMaterial;
 
     public List<Card> EvaluatePowerCards(List<Card> hand)
     {
