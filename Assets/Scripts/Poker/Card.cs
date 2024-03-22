@@ -33,7 +33,6 @@ public class Card : MonoBehaviour
 
     public LayerMask whatIsDesktop;
     public LayerMask whatIsPlacement;
-    //private bool justPressed;
 
     public CardPlacePoint assignedPlace;
 
@@ -93,9 +92,6 @@ public class Card : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
         // Match target rotation in rotateSpeed increments
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotateSpeed * Time.deltaTime);
-        // Match target scale
-        //transform.localScale = Vector3.Lerp(transform.localScale, targetScale, growSpeed * Time.deltaTime);
-
         // Match target colour in alphaChangeSpeed increments
         lerpedColour = Color.Lerp(cardRenderer.material.color, targetColour, alphaChangeSpeed * Time.deltaTime);
         cardRenderer.material.color = lerpedColour;
@@ -183,9 +179,7 @@ public class Card : MonoBehaviour
         {            
             hc.SetTransparency(this, "select");
 
-            isSelected = true;            
-            //col.enabled = false;
-            //justPressed = true;
+            isSelected = true;
         }
     }
 

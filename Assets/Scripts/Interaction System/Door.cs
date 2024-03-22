@@ -25,10 +25,7 @@ public class Door : MonoBehaviour, IInteractable
     public bool Interact(Interactor interactor)
     {        
         // If the exit health for this door is 0, allow player to open
-        if(ExitCost.instance.GetHealth() == 0)
-        {         
-            SceneLoader.instance.LoadRoom(sceneName);
-        }        
+        if(ExitCost.instance.GetHealth() == 0) { SceneLoader.instance.LoadRoom(sceneName); }        
 
         return true;
     }

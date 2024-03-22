@@ -11,6 +11,7 @@ public class Dealer : MonoBehaviour, IInteractable
 
     public bool Interact(Interactor interactor)
     {
+        GetComponentInParent<DealerHealth>().activeEnemy = true;
         SceneLoader.instance.LoadPoker();
         
         return true;

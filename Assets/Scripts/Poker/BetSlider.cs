@@ -19,8 +19,8 @@ public class BetSlider : MonoBehaviour
     public void InitSlider()
     {
         if (GameObject.FindGameObjectWithTag("Player") != null && GameObject.FindGameObjectWithTag("Enemy") != null)
-        {
-            slider.maxValue = Mathf.Min(PlayerHealth.instance.GetHealth(), DealerHealth.instance.GetHealth());
+        {            
+            slider.maxValue = Mathf.Min(PlayerHealth.instance.GetHealth(), BattleController.instance.activeEnemy.GetHealth());
         }
         else
         {

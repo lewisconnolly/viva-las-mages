@@ -82,11 +82,7 @@ public class PlayerInventory : MonoBehaviour
             string[] splitData = path.Split('/');
             string name = splitData[splitData.Length - 1].Replace("None.asset", string.Empty);
 
-            if(name == (rewardCard.value.ToString() + rewardCard.suit))
-            {
-                Debug.Log(name);
-                AssetDatabase.DeleteAsset(path);                
-            }
+            if(name == (rewardCard.value.ToString() + rewardCard.suit)) { AssetDatabase.DeleteAsset(path); }
         }
 
         // Create a new card from the reward card

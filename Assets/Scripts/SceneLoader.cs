@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -17,15 +18,13 @@ public class SceneLoader : MonoBehaviour
 
     public GameObject playerPrefab;
     public GameObject playerStartingPosition;
-    public Quaternion playerStartingRotation = Quaternion.AngleAxis(-90, Vector3.up);
 
-    public GameObject enemyPrefab;
-    public Vector3 enemyStartingPosition = new Vector3(-0.166f, 0.957f, -1.96f);
-    public Quaternion enemyStartingRotation = Quaternion.identity;
+    public GameObject[] enemyPrefabs;
+    private List<string> enemyNames = new List<string>();
     private List<Vector3> enemyStartingPositions = new List<Vector3>();
     private List<Quaternion> enemyStartingRotations = new List<Quaternion>();
     private List<int> enemyStartingHealthValues = new List<int>();
-    private List<EnemyReward> enemyRewards = new List<EnemyReward>();
+    private List<EnemyReward> enemyRewards = new List<EnemyReward>();    
 
     public GameObject exitCostPrefab;
     public Vector3 exitCostStartingPosition = new Vector3(0f, 10f, 0f);
@@ -62,7 +61,7 @@ public class SceneLoader : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
         {
-            Instantiate(playerPrefab, playerStartingPosition.transform.position, playerStartingRotation);
+            Instantiate(playerPrefab, playerStartingPosition.transform.position, playerStartingPosition.transform.rotation);
         }
         else
         {
@@ -78,7 +77,8 @@ public class SceneLoader : MonoBehaviour
             PlayerCamera.instance.DisablePlayerCamera();
         }
         else
-        { 
+        {
+            PlayerMovement.instance.moveToStartingPosition = true;
             PlayerCamera.instance.EnablePlayerCamera();
         }
     }
@@ -89,7 +89,8 @@ public class SceneLoader : MonoBehaviour
         if (proxyEnemies.Length > 0)
         {
             foreach (GameObject e in proxyEnemies)
-            {
+            {                
+                enemyNames.Add(e.name);
                 enemyStartingPositions.Add(e.transform.position);
                 enemyStartingRotations.Add(e.transform.rotation);
                 enemyStartingHealthValues.Add(e.GetComponent<DealerHealth>().currentHealth);
@@ -103,8 +104,10 @@ public class SceneLoader : MonoBehaviour
         {
             for (int i = 0; i < enemyStartingPositions.Count; i++)
             {
+                GameObject enemyPrefab = enemyPrefabs.Where(prefab => prefab.name == enemyNames[i]).ToList<GameObject>().First();
                 GameObject enemy = Instantiate(enemyPrefab, enemyStartingPositions[i], enemyStartingRotations[i]);
                 enemy.GetComponent<DealerHealth>().currentHealth = enemyStartingHealthValues[i];
+                enemy.GetComponent<DealerHealth>().SetHealthText();
                 enemy.GetComponent<EnemyReward>().baseSO = enemyRewards[i].baseSO;
                 enemy.GetComponent<EnemyReward>().powerCardType = enemyRewards[i].powerCardType;
                 enemy.GetComponent<EnemyReward>().SetUpCard();
@@ -131,21 +134,15 @@ public class SceneLoader : MonoBehaviour
     public void LoadRoom(string nextSceneName)
     {        
         if (SceneManager.GetActiveScene().name.StartsWith("Room") && nextSceneName.StartsWith("Room"))
-        {
+        {            
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
             if (enemies.Length > 0)
             {
-                foreach (GameObject e in enemies)
-                {
-                    Destroy(e);
-                }
+                foreach (GameObject e in enemies) { Destroy(e); }
             }
 
             GameObject exit = GameObject.FindGameObjectWithTag("ExitCost");
-            if (exit != null)
-            {
-                Destroy(exit);
-            }
+            if (exit != null) { Destroy(exit); }
 
             PlayerMovement.instance.FreezePlayer();
             PlayerMovement.instance.moveToStartingPosition = true;            
@@ -168,15 +165,19 @@ public class SceneLoader : MonoBehaviour
 
         SceneManager.LoadScene(sceneName);
 
-        GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         if (sceneName == "Poker")
-        {                       
-            if (enemy != null)
+        {
+
+            foreach (GameObject enemy in enemies)
             {
-                enemy.GetComponentInChildren<MeshRenderer>().enabled = false;
-                enemy.GetComponentInChildren<UIDealerController>().gameObject.SetActive(false);                
+                if (enemy != null)
+                {
+                    enemy.GetComponentInChildren<MeshRenderer>().enabled = false;
+                    enemy.GetComponentInChildren<UIDealerController>().gameObject.SetActive(false);
+                }
             }
 
             if (player != null)
@@ -191,11 +192,18 @@ public class SceneLoader : MonoBehaviour
             PlayerCamera.instance.DisablePlayerCamera();
         }
         else
-        {            
-            if (enemy != null)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            foreach (GameObject enemy in enemies)
             {
-                enemy.GetComponentInChildren<MeshRenderer>().enabled = true;
-                enemy.GetComponentInChildren<UIDealerController>(true).gameObject.SetActive(true);
+                if (enemy != null)
+                {
+                    enemy.GetComponentInChildren<MeshRenderer>().enabled = true;
+                    enemy.GetComponentInChildren<UIDealerController>(true).gameObject.SetActive(true);
+                    enemy.GetComponent<DealerHealth>().SetHealthText();
+                }
             }
 
             if (player != null)

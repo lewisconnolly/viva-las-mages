@@ -47,9 +47,9 @@ public class PokerUIController : MonoBehaviour
         betIconOrigin = betIcon.transform.position;
         enemyBetIconOrigin = enemyBetIcon.transform.position;
         leaveButton.SetActive(false);
-        HideBetIcons();
-        
-        if (GameObject.FindGameObjectWithTag("Enemy") != null) { SetEnemyHealthText(DealerHealth.instance.GetHealth()); }
+        HideBetIcons();        
+
+        if (GameObject.FindGameObjectWithTag("Enemy") != null) { SetEnemyHealthText(BattleController.instance.activeEnemy.GetHealth()); }
 
         if (GameObject.FindGameObjectWithTag("ExitCost") != null) { SetExitHealthText(ExitCost.instance.GetHealth()); }
 
@@ -61,7 +61,8 @@ public class PokerUIController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneLoader.instance.LoadRoom(PlayerInventory.instance.prevScene);
+            BattleController.instance.activeEnemy.activeEnemy = false;
+            SceneLoader.instance.LoadRoom(PlayerInventory.instance.prevScene);            
         }
 
         if (Input.GetKeyDown(KeyCode.H))
@@ -120,7 +121,11 @@ public class PokerUIController : MonoBehaviour
 
     public void PlayAgain() { BattleController.instance.PlayAgain(); }
 
-    public void Leave() { SceneLoader.instance.LoadRoom(PlayerInventory.instance.prevScene); }
+    public void Leave()
+    {
+        BattleController.instance.activeEnemy.activeEnemy = false;
+        SceneLoader.instance.LoadRoom(PlayerInventory.instance.prevScene);
+    }
 
     public void SwapCards() { HandController.instance.SwapCards(); }
 }

@@ -6,15 +6,20 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using Unity.VisualScripting;
+using TMPro;
 //using static HandEvaluator;
 
 public class BattleController : MonoBehaviour
 {
     public static BattleController instance;
+    public DealerHealth activeEnemy;
 
     private void Awake()
     {
         instance = this;
+        List<DealerHealth> dealers = FindObjectsOfType<DealerHealth>().Where(dealer => dealer.activeEnemy == true).ToList<DealerHealth>();
+        activeEnemy = dealers.First();
     }
 
     public int startingCardsAmount = 7;    
@@ -36,7 +41,7 @@ public class BattleController : MonoBehaviour
         PokerUIController.instance.swapCardButton.SetActive(false);
         PokerUIController.instance.playAgainButton.SetActive(false);
 
-        checkCardsDiscarded = false;        
+        checkCardsDiscarded = false;
     }
 
     // Update is called once per frame
@@ -62,14 +67,19 @@ public class BattleController : MonoBehaviour
 
         // Get number of free swaps in selected cards
         int numFreeSwaps = HandController.instance.selectedCards.Where(card => card.powerCardType == PowerCardController.PowerCardType.FreeSwap).ToList().Count;
+        int swapCost = (HandController.instance.selectedCards.Count - numFreeSwaps);
 
         // Allow player to swap cards if they have more health minus current bet than number of cards being swapped - free swaps
-        if (HandController.instance.selectedCards.Count > 0 && (PlayerHealth.instance.currentHealth - currentBet) >= (HandController.instance.selectedCards.Count - numFreeSwaps))
-        {
+        if (HandController.instance.selectedCards.Count > 0 && (PlayerHealth.instance.currentHealth - currentBet) >= swapCost)
+        {            
+            string buttonText = "Swap\n(-" + swapCost.ToString() + " Heart";
+            if (swapCost > 1){ buttonText += "s)"; } else { buttonText += ")"; }
+            PokerUIController.instance.swapCardButton.GetComponentInChildren<TextMeshProUGUI>().text = buttonText;
             PokerUIController.instance.swapCardButton.GetComponent<Button>().interactable = true;
         }
         else
         {
+            PokerUIController.instance.swapCardButton.GetComponentInChildren<TextMeshProUGUI>().text = "Swap";
             PokerUIController.instance.swapCardButton.GetComponent<Button>().interactable = false;
         }
 
@@ -161,8 +171,8 @@ public class BattleController : MonoBehaviour
         if (playerHandRank > enemyHandRank)
         {
             PokerUIController.instance.SetWinnerText("Player Wins!");
-            PlayerHealth.instance.IncreaseHealth(currentBet);
-            DealerHealth.instance.TakeDamage(currentBet);
+            PlayerHealth.instance.IncreaseHealth(currentBet);           
+            activeEnemy.TakeDamage(currentBet);
 
         }
         else if (playerHandRank < enemyHandRank)
@@ -225,7 +235,7 @@ public class BattleController : MonoBehaviour
                 PokerUIController.instance.enemyHandText.gameObject.SetActive(true);                
                 PokerUIController.instance.HideBetIcons();
 
-                if (DealerHealth.instance.GetHealth() != 0)
+                if (activeEnemy.GetHealth() != 0)
                 {
                     PokerUIController.instance.winnerText.gameObject.SetActive(true);
                     PokerUIController.instance.playAgainButton.SetActive(true);

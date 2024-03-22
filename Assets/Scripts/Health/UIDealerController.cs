@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class UIDealerController : MonoBehaviour
 {
-    public static UIDealerController instance;
+    //public static UIDealerController instance;
     
     private void Awake()
     {
-        instance = this;
+        //instance = this;
     }
 
     public TextMeshProUGUI healthValueText;

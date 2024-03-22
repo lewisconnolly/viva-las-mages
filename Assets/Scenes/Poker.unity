@@ -1741,9 +1741,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Swap
-
-    (-1 Heart)'
+  m_text: Swap
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1770,7 +1768,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50.4
+  m_fontSize: 72
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5539,6 +5537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12584b477d4a62429cfee0c1e902bc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeEnemy: {fileID: 0}
   startingCardsAmount: 7
   currentBet: 0
   currentPhase: 0
@@ -6899,6 +6898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: 
+  sceneName: 
 --- !u!1 &1237091089
 GameObject:
   m_ObjectHideFlags: 0
@@ -8237,6 +8237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wildcardMaterial: {fileID: 2100000, guid: f0dcf69891ec4ab41b0855d031992bb0, type: 2}
+  freeSwapMaterial: {fileID: 2100000, guid: b4e6dcae81f24a74d9b43a213bb30d40, type: 2}
 --- !u!4 &1575212178
 Transform:
   m_ObjectHideFlags: 0
