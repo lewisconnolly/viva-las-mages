@@ -35,8 +35,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void UnfreezePlayer()
-    {        
-        if (isFrozen) { isFrozen = false; }
+    {
+        if (isFrozen) { StartCoroutine(UnfreezeCo()); }
+    }
+
+    IEnumerator UnfreezeCo()
+    {
+        yield return new WaitForSeconds((float)0.5);
+
+        isFrozen = false;
     }
 
     // Update is called once per frame

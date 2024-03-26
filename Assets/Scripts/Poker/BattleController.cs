@@ -1,12 +1,8 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
-using Unity.VisualScripting;
 using TMPro;
 //using static HandEvaluator;
 
@@ -65,15 +61,27 @@ public class BattleController : MonoBehaviour
             PokerUIController.instance.placeBetButton.GetComponent<Button>().interactable = false;
         }
 
-        // Get number of free swaps in selected cards
+        // Get number of hand swaps and free swaps in selected cards
+        int numHandSwaps = HandController.instance.selectedCards.Where(card => card.powerCardType == PowerCardController.PowerCardType.HandSwap).ToList().Count;
         int numFreeSwaps = HandController.instance.selectedCards.Where(card => card.powerCardType == PowerCardController.PowerCardType.FreeSwap).ToList().Count;
         int swapCost = (HandController.instance.selectedCards.Count - numFreeSwaps);
 
         // Allow player to swap cards if they have more health minus current bet than number of cards being swapped - free swaps
-        if (HandController.instance.selectedCards.Count > 0 && (PlayerHealth.instance.currentHealth - currentBet) >= swapCost)
-        {            
-            string buttonText = "Swap\n(-" + swapCost.ToString() + " Heart";
-            if (swapCost > 1){ buttonText += "s)"; } else { buttonText += ")"; }
+        if ((HandController.instance.selectedCards.Count > 0 && (PlayerHealth.instance.currentHealth - currentBet) >= swapCost) || numHandSwaps > 0)
+        {
+            string buttonText = "";
+
+            // Change button text to display cost of swaps            
+            if (numHandSwaps > 0)
+            {
+                buttonText = "Swap Hand";
+            }
+            else
+            {
+                buttonText = "Swap Selected\n(-" + swapCost.ToString() + " Heart";
+                if (swapCost > 1) { buttonText += "s)"; } else { buttonText += ")"; }                
+            }
+
             PokerUIController.instance.swapCardButton.GetComponentInChildren<TextMeshProUGUI>().text = buttonText;
             PokerUIController.instance.swapCardButton.GetComponent<Button>().interactable = true;
         }

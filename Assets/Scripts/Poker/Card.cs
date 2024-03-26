@@ -16,7 +16,7 @@ public class Card : MonoBehaviour
 
     private Vector3 targetPoint;
     private Quaternion targetRot;
-    private Vector3 targetScale;
+    //private Vector3 targetScale;
     public float moveSpeed = 5f;
     public float rotateSpeed = 540f;
     public float growSpeed = 540f;
@@ -82,6 +82,11 @@ public class Card : MonoBehaviour
             mats[1] = PowerCardController.instance.freeSwapMaterial;
         }
 
+        if (powerCardType == PowerCardController.PowerCardType.HandSwap)
+        {
+            mats[1] = PowerCardController.instance.handSwapMaterial;
+        }
+
         model.GetComponent<MeshRenderer>().materials = mats;
     }
 
@@ -135,10 +140,10 @@ public class Card : MonoBehaviour
         targetRot = rotToMatch;        
     }
 
-    public void GrowToScale(Vector3 scaleToGrowTo)
-    {
-        targetScale = scaleToGrowTo;
-    }
+    //public void GrowToScale(Vector3 scaleToGrowTo)
+    //{
+    //    targetScale = scaleToGrowTo;
+    //}
 
     // Pop up card towards camera on mouse hover
     private void OnMouseOver()

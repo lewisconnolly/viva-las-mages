@@ -37,19 +37,6 @@ public class SceneLoader : MonoBehaviour
         InstantiateExitCost();        
     }
 
-    void Update()
-    {
-
-        if (PlayerMovement.instance.moveToStartingPosition)
-        {
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
-            {
-                PlayerMovement.instance.UnfreezePlayer();
-                PlayerMovement.instance.moveToStartingPosition = false;
-            }
-        }
-    }
-
     public void InstantiatePlayer()
     {
         GameObject proxyPlayer = GameObject.FindGameObjectWithTag("ProxyPlayer");
@@ -67,7 +54,8 @@ public class SceneLoader : MonoBehaviour
         {
             if (PlayerMovement.instance.moveToStartingPosition)
             {
-                player.transform.position = playerStartingPosition.transform.position;                                
+                player.transform.position = playerStartingPosition.transform.position;
+                PlayerMovement.instance.moveToStartingPosition = false;
             }
         }
 
@@ -78,7 +66,8 @@ public class SceneLoader : MonoBehaviour
         }
         else
         {
-            PlayerMovement.instance.moveToStartingPosition = true;
+            //PlayerMovement.instance.moveToStartingPosition = true;
+            PlayerMovement.instance.UnfreezePlayer();
             PlayerCamera.instance.EnablePlayerCamera();
         }
     }

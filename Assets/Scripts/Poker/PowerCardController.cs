@@ -12,10 +12,11 @@ public class PowerCardController : MonoBehaviour
         instance = this;
     }
 
-    public enum PowerCardType { None, Wildcard, FreeSwap }
+    public enum PowerCardType { None, Wildcard, FreeSwap, HandSwap }
 
     public Material wildcardMaterial;
     public Material freeSwapMaterial;
+    public Material handSwapMaterial;
 
     public List<Card> EvaluatePowerCards(List<Card> hand)
     {

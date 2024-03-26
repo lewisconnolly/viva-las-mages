@@ -128,27 +128,37 @@ public class HandController : MonoBehaviour
 
     public void SwapCards()
     {
+        int numHandSwaps = selectedCards.Where(card => card.powerCardType == PowerCardController.PowerCardType.HandSwap).ToList().Count;
+        
+        // If swapping whole hand, add unselected cards to selected and don't take damage
+        if (numHandSwaps > 0)
+        {
+            foreach (Card card in heldCards) { if (!card.isSelected) { SelectCard(card); } }            
+        }
+        else
+        {
+            // Damage player for amount of swapped cards - free swaps
+            int numFreeSwaps = selectedCards.Where(card => card.powerCardType == PowerCardController.PowerCardType.FreeSwap).ToList().Count;
+            PlayerHealth.instance.TakeDamage(selectedCards.Count - numFreeSwaps);
+        }
+                
         // Store swapped cards to check when reshuffling deck (don't swap a card for currently selected)
         swappedCards.Clear();
         swappedCards.AddRange(selectedCards);
-        
+
         foreach (Card card in selectedCards.OrderByDescending(c => c.handPosition).ToList())
         {
             // Remove selected cards from hand first to prevent being moved into hand when cards are drawn
             RemoveCardFromHand(card);
             // Move to discard position
             card.MoveToPoint(BattleController.instance.playerDiscardPosition.position, BattleController.instance.playerDiscardPosition.rotation);
-        }
-
-        // Damage player for amount of swapped cards - free swaps
-        int numFreeSwaps = selectedCards.Where(card => card.powerCardType == PowerCardController.PowerCardType.FreeSwap).ToList().Count;        
-        PlayerHealth.instance.TakeDamage(swappedCards.Count - numFreeSwaps);
+        }        
 
         // Draw new cards
         DeckController.instance.DrawMultipleCards(selectedCards.Count);
 
         selectedCards.Clear();
-    }
+    }    
 
     public void SetTransparency(Card card, string action)
     {        

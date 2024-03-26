@@ -550,7 +550,7 @@ PrefabInstance:
     - target: {fileID: 85312512235876811, guid: 2bc5d9fe6ebd29e41a421464f37feda2,
         type: 3}
       propertyPath: powerCardType
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2605336053951358928, guid: 2bc5d9fe6ebd29e41a421464f37feda2,
         type: 3}
