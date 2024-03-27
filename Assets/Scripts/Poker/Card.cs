@@ -69,22 +69,47 @@ public class Card : MonoBehaviour
         suit = cardSO.suit;        
         powerCardType = cardSO.powerCardType;
 
+        AddPowerCardMaterial();
+    }
+
+    void AddPowerCardMaterial()
+    {
         Material[] mats = model.GetComponent<MeshRenderer>().materials;
         mats[0] = cardSO.material;
 
-        if (powerCardType == PowerCardController.PowerCardType.Wildcard)
+        switch (powerCardType)
         {
-            mats[1] = PowerCardController.instance.wildcardMaterial;
-        }
+            case PowerCardController.PowerCardType.None:
+                mats[1] = PowerCardController.instance.noneMaterial;
+                break;
 
-        if (powerCardType == PowerCardController.PowerCardType.FreeSwap)
-        {
-            mats[1] = PowerCardController.instance.freeSwapMaterial;
-        }
+            case PowerCardController.PowerCardType.Wildcard:
+                mats[1] = PowerCardController.instance.wildcardMaterial;
+                break;
 
-        if (powerCardType == PowerCardController.PowerCardType.HandSwap)
-        {
-            mats[1] = PowerCardController.instance.handSwapMaterial;
+            case PowerCardController.PowerCardType.FreeSwap:
+                mats[1] = PowerCardController.instance.freeSwapMaterial;
+                break;
+
+            case PowerCardController.PowerCardType.HandSwap:
+                mats[1] = PowerCardController.instance.handSwapMaterial;
+                break;
+
+            case PowerCardController.PowerCardType.HalfClubs:
+                mats[1] = PowerCardController.instance.halfClubsMaterial;
+                break;
+
+            case PowerCardController.PowerCardType.HalfSpades:
+                mats[1] = PowerCardController.instance.halfSpadesMaterial;
+                break;
+
+            case PowerCardController.PowerCardType.HalfHearts:
+                mats[1] = PowerCardController.instance.halfHeartsMaterial;
+                break;
+
+            case PowerCardController.PowerCardType.HalfDiamonds:
+                mats[1] = PowerCardController.instance.halfDiamondsMaterial;
+                break;
         }
 
         model.GetComponent<MeshRenderer>().materials = mats;

@@ -55,6 +55,7 @@ public class SceneLoader : MonoBehaviour
             if (PlayerMovement.instance.moveToStartingPosition)
             {
                 player.transform.position = playerStartingPosition.transform.position;
+                player.transform.rotation = playerStartingPosition.transform.rotation;
                 PlayerMovement.instance.moveToStartingPosition = false;
             }
         }
@@ -66,7 +67,6 @@ public class SceneLoader : MonoBehaviour
         }
         else
         {
-            //PlayerMovement.instance.moveToStartingPosition = true;
             PlayerMovement.instance.UnfreezePlayer();
             PlayerCamera.instance.EnablePlayerCamera();
         }
@@ -164,8 +164,11 @@ public class SceneLoader : MonoBehaviour
             {
                 if (enemy != null)
                 {
-                    enemy.GetComponentInChildren<MeshRenderer>().enabled = false;
+                    MeshRenderer[] enemyMeshRenderers = enemy.GetComponentsInChildren<MeshRenderer>();
+                    foreach (MeshRenderer mr in enemyMeshRenderers) { mr.enabled = false; };
+
                     enemy.GetComponentInChildren<UIDealerController>().gameObject.SetActive(false);
+                    enemy.GetComponentInChildren<CapsuleCollider>().enabled = false;
                 }
             }
 
@@ -189,8 +192,12 @@ public class SceneLoader : MonoBehaviour
             {
                 if (enemy != null)
                 {
-                    enemy.GetComponentInChildren<MeshRenderer>().enabled = true;
+                    MeshRenderer[] enemyMeshRenderers = enemy.GetComponentsInChildren<MeshRenderer>();
+                    foreach (MeshRenderer mr in enemyMeshRenderers) { mr.enabled = true; };
+
                     enemy.GetComponentInChildren<UIDealerController>(true).gameObject.SetActive(true);
+                    enemy.GetComponentInChildren<CapsuleCollider>().enabled = true;
+
                     enemy.GetComponent<DealerHealth>().SetHealthText();
                 }
             }

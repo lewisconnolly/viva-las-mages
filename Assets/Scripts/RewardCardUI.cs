@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System.Linq;
 
 public class RewardCardUI : MonoBehaviour
 {
@@ -21,7 +22,10 @@ public class RewardCardUI : MonoBehaviour
 
     private void Start()
     {
-        EnemyReward enemyReward = FindObjectOfType<EnemyReward>();
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject activeEnemy = enemies.Where(enemy => enemy.GetComponent<DealerHealth>().activeEnemy == true).ToList().First();
+        EnemyReward enemyReward = activeEnemy.GetComponent<EnemyReward>();         
+
         CardScriptableObject enemyRewardCard = enemyReward.GetRewardCard();        
         rewardCard.cardSO = enemyRewardCard;
         rewardCard.SetUpCard();

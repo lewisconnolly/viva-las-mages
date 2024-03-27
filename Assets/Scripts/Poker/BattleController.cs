@@ -203,6 +203,7 @@ public class BattleController : MonoBehaviour
         switch (currentPhase)
         {
             case TurnOrder.playerBetting:
+
                 RewardCardUI.instance.rewardCardParentObject.SetActive(false);
                 PokerUIController.instance.betSlider.GetComponent<BetSlider>().InitSlider();
                 PokerUIController.instance.playerHandText.gameObject.SetActive(false);
@@ -228,12 +229,15 @@ public class BattleController : MonoBehaviour
                 break;
 
             case TurnOrder.enemyActive:
+
                 PokerUIController.instance.playHandButton.SetActive(false);
                 EnemyController.instance.PlayHand();
                 AdvanceTurn();
+                
                 break;
 
             case TurnOrder.resolveHands:
+
                 var playerHandRank = HandEvaluator.instance.EvaluateHand(HandController.instance.playedCards, true);
                 var enemyHandRank = HandEvaluator.instance.EvaluateHand(EnemyController.instance.playedCards, true);
 
@@ -254,7 +258,7 @@ public class BattleController : MonoBehaviour
                 else
                 {                
                     RewardCardUI.instance.rewardCardParentObject.SetActive(true);
-                    PlayerInventory.instance.AddRewardCardtoDeck();
+                    PlayerInventory.instance.AddRewardCardtoDeck(RewardCardUI.instance.rewardCard.cardSO);
                     PokerUIController.instance.swapCardButton.SetActive(false);
                     PokerUIController.instance.leaveButton.SetActive(true);                    
                 }

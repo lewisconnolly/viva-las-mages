@@ -29,9 +29,9 @@ public class PlayerInventory : MonoBehaviour
     }
 
     public void LoadDeck()
-    {
-        CardScriptableObject[] baseCards = Resources.LoadAll<CardScriptableObject>("Cards/PlayerDeck");
-
+    {                
+        CardScriptableObject[] baseCards = Resources.LoadAll<CardScriptableObject>("Cards/PlayerDeck");        
+        playerDeck.Clear();
         foreach (CardScriptableObject baseCard in baseCards) { playerDeck.Add(baseCard); }
     }
 
@@ -63,47 +63,41 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public void DeleteCard(string cardName)
-    {
-
-    }
-
-    public void AddRewardCardtoDeck()
-    {
-        // Get reward card on enemy
-        EnemyReward reward = FindObjectOfType<EnemyReward>();
-        CardScriptableObject rewardCard = reward.GetRewardCard();
-
+    public void AddRewardCardtoDeck(CardScriptableObject cardToAdd)
+    {        
         // Find asset file for card of same suit and value of reward card then delete it
         string[] playerDeckFolder = { "Assets/Resources/Cards/PlayerDeck" };
         foreach (var asset in AssetDatabase.FindAssets("", playerDeckFolder))
         {
-            var path = AssetDatabase.GUIDToAssetPath(asset);
-            string[] splitData = path.Split('/');
-            string name = splitData[splitData.Length - 1].Replace("None.asset", string.Empty);
+            string path = AssetDatabase.GUIDToAssetPath(asset);
 
-            if(name == (rewardCard.value.ToString() + rewardCard.suit)) { AssetDatabase.DeleteAsset(path); }
+            CardScriptableObject existingCard = Resources.Load<CardScriptableObject>(path.Replace("Assets/Resources/", "").Replace(".asset",""));
+
+            if (existingCard.value == cardToAdd.value && existingCard.suit == cardToAdd.suit) { AssetDatabase.DeleteAsset(path); }
         }
 
         // Create a new card from the reward card
         CardScriptableObject newCard = ScriptableObject.CreateInstance<CardScriptableObject>();
-        newCard.value = rewardCard.value;
-        newCard.suit = rewardCard.suit;
-        newCard.material = rewardCard.material;
-        newCard.powerCardType = rewardCard.powerCardType;
+        newCard.value = cardToAdd.value;
+        newCard.suit = cardToAdd.suit;
+        newCard.material = cardToAdd.material;
+        newCard.powerCardType = cardToAdd.powerCardType;
         string newCardName = newCard.value.ToString() + newCard.suit + newCard.powerCardType.ToString();
 
         // Save the new card as an asset file and then load it
         AssetDatabase.CreateAsset(newCard, "Assets/Resources/Cards/PlayerDeck/" + newCardName + ".asset");
-        CardScriptableObject baseCard = Resources.Load<CardScriptableObject>("Cards/PlayerDeck/" + newCardName);                
 
-        // Replace the card in the deck with the same suit and value as the new card (created from the reward card)
-        int indexOfCardToReplace = 0;
-        for (int i = 0; i < playerDeck.Count; i++)
-        {
-            if (playerDeck[i].value == rewardCard.value && playerDeck[i].suit == rewardCard.suit) { indexOfCardToReplace = i; }
-        }
+        LoadDeck();
 
-        playerDeck[indexOfCardToReplace] = baseCard;
+        //CardScriptableObject baseCard = Resources.Load<CardScriptableObject>("Cards/PlayerDeck/" + newCardName);                
+
+        //// Replace the card in the deck with the same suit and value as the new card (created from the reward card)
+        //int indexOfCardToReplace = 0;
+        //for (int i = 0; i < playerDeck.Count; i++)
+        //{
+        //    if (playerDeck[i].value == rewardCard.value && playerDeck[i].suit == rewardCard.suit) { indexOfCardToReplace = i; }
+        //}
+
+        //playerDeck[indexOfCardToReplace] = baseCard;
     }
 }

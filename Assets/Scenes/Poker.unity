@@ -8236,9 +8236,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c2dfdb5781dc64c91637b3105e8e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noneMaterial: {fileID: 2100000, guid: bdae3502d111855459caf6e539451b21, type: 2}
   wildcardMaterial: {fileID: 2100000, guid: f0dcf69891ec4ab41b0855d031992bb0, type: 2}
   freeSwapMaterial: {fileID: 2100000, guid: b4e6dcae81f24a74d9b43a213bb30d40, type: 2}
   handSwapMaterial: {fileID: 2100000, guid: 6987d3458e20a0641be50687cbb0f368, type: 2}
+  halfClubsMaterial: {fileID: 2100000, guid: e3204f5898de9964d9be18dd59bd1dd6, type: 2}
+  halfSpadesMaterial: {fileID: 2100000, guid: 3ba98dd5cecde0545b30bcccef3bab98, type: 2}
+  halfHeartsMaterial: {fileID: 2100000, guid: ed255d0c3c812664b8fc5a023ea25fe7, type: 2}
+  halfDiamondsMaterial: {fileID: 2100000, guid: 656eb73fc9ad9124fbde91b14bd0bc19,
+    type: 2}
 --- !u!4 &1575212178
 Transform:
   m_ObjectHideFlags: 0
