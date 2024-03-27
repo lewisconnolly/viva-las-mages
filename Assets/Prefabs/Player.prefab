@@ -465,6 +465,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 128
+  isFrozen: 0
   moveToStartingPosition: 0
 --- !u!114 &7236942848423895543
 MonoBehaviour:
@@ -524,6 +525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDeck: []
+  prevScene: 
 --- !u!1 &6485078001255206360
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -21,13 +22,19 @@ public class HandController : MonoBehaviour
     [SerializeField] public List<Card> playedCards = new List<Card>();
     [SerializeField] public List<Card> swappedCards = new List<Card>();
 
-    public Transform minPos, maxPos;
-    public List<Vector3> cardPositions = new List<Vector3>();
-    
+    public Transform minHandPos, maxHandPos;
+    public Transform minTablePos, maxTablePos;
+    public List<Vector3> cardHandPositions = new List<Vector3>();
+    public List<Quaternion> cardHandRotations = new List<Quaternion>();
+    public List<Vector3> cardTablePositions = new List<Vector3>();
+
+    public int numCardsRequiredToPlay = 5;
+
     // Start is called before the first frame update
     void Start()
     {
-        SetCardPositionsInHand();
+        //SetCardPositionsInHand();
+        SetCardPositionsInHandCentered(false);
     }
 
     // Update is called once per frame
@@ -38,23 +45,79 @@ public class HandController : MonoBehaviour
     // Display cards in front of player
     public void SetCardPositionsInHand()
     {
-        cardPositions.Clear();
+        cardHandPositions.Clear();
 
         Vector3 distanceBetweenPoints = Vector3.zero;
         
         // Calculate space between cards
         if (heldCards.Count > 1)
         {
-            distanceBetweenPoints = (maxPos.position - minPos.position) / (heldCards.Count - 1);
+            distanceBetweenPoints = (maxHandPos.position - minHandPos.position) / (heldCards.Count - 1);
         }
 
         // Evenly space cards based on minimum and maximum positions
         for (int i = 0; i < heldCards.Count; i++)
         {
-            cardPositions.Add(minPos.position + (distanceBetweenPoints * i));
+            cardHandPositions.Add(minHandPos.position + (distanceBetweenPoints * i));
 
-            heldCards[i].MoveToPoint(cardPositions[i], minPos.rotation);
+            heldCards[i].MoveToPoint(cardHandPositions[i], minHandPos.rotation);
 
+            heldCards[i].inHand = true;
+            heldCards[i].handPosition = i;
+        }
+    }
+
+    public void SetCardPositionsInHandCentered(bool justPlayedHand)
+    {
+        cardHandPositions.Clear();
+        cardHandRotations.Clear();
+
+        float distanceBetweenPoints = (maxHandPos.position.z - minHandPos.position.z) / BattleController.instance.startingCardsAmount;
+        Vector3 midHandPos = new Vector3(minHandPos.position.x, maxHandPos.position.y, minHandPos.position.z + (maxHandPos.position.z - minHandPos.position.z) / 2);
+        
+        // Shift mid point to right by half a card if even number of cards held
+        midHandPos = new Vector3(midHandPos.x, midHandPos.y, midHandPos.z + distanceBetweenPoints / 2 * Mathf.Max(0, 1 - heldCards.Count % 2));
+        
+        // Start from mid point and move left times the number of cards
+        Vector3 firstCardPos = new Vector3(midHandPos.x, midHandPos.y, midHandPos.z - distanceBetweenPoints * Mathf.Floor(heldCards.Count / 2));
+        
+        // Rotation lerp variables
+        float startingRotation = 7.5f;
+        float rotation = startingRotation;
+        float t = 0;
+
+        // Y offsets required because as each subsequent card is moved back to be under the previous, it appears higher up due to perspective
+        // Additional first and last offsets required to create fan of cards
+        float yOffset = 0.0f;
+        float yOffsetFirstAndLast;
+        float yPos;
+        int j = 0;
+        
+        for (int i = 0; i < heldCards.Count; i++)
+        {
+            // Start moving cards down in Y after middle card
+            if (i > Mathf.Ceil((heldCards.Count - 1) / 2))
+            {
+                yOffset = 0.0325f;
+                j++;
+            }
+
+            if (i == 0 || i == heldCards.Count - 1) { yOffsetFirstAndLast = 0.0125f; } else { yOffsetFirstAndLast = 0; }
+
+            // Gradually move rotate cards in opposite direction
+            rotation = Mathf.Lerp(rotation, -startingRotation, t);
+            if (heldCards.Count > 1) { t += 1.0f / (float)(heldCards.Count - 1); }
+
+            yPos = firstCardPos.y - yOffset * j - yOffsetFirstAndLast;
+            Vector3 cardPos = new Vector3(firstCardPos.x - 0.0125f * i, yPos, firstCardPos.z + distanceBetweenPoints * i);
+            
+            if (justPlayedHand) { cardPos += new Vector3(0.2f, -0.2f, 0); }           
+
+            cardHandPositions.Add(cardPos);
+            cardHandRotations.Add(minHandPos.rotation * Quaternion.Euler(0, rotation, 0));
+
+            heldCards[i].MoveToPoint(cardHandPositions[i], cardHandRotations[i]);
+            
             heldCards[i].inHand = true;
             heldCards[i].handPosition = i;
         }
@@ -62,22 +125,21 @@ public class HandController : MonoBehaviour
 
     public void SetCardPositionsOnTable()
     {
-        CardPlacePoint[] placePoints = FindObjectsOfType<CardPlacePoint>();
-        List<CardPlacePoint> playerPlacePoints = new List<CardPlacePoint>();
+        cardTablePositions.Clear();
 
-        for (int i = 0; i < placePoints.Length; i++)
-        {
-            if (placePoints[i].isPlayerPoint)
-            {
-                playerPlacePoints.Add(placePoints[i]);
-            }
-        }
+        float distanceBetweenPoints = (maxTablePos.position.z - minTablePos.position.z) / numCardsRequiredToPlay;
+        Vector3 midTablePos = new Vector3(minTablePos.position.x, minTablePos.position.y, minTablePos.position.z + (maxTablePos.position.z - minTablePos.position.z) / 2);
 
-        List<CardPlacePoint> sortedPlayerPlacePoints = playerPlacePoints.OrderBy(p => p.transform.position.x).ToList();
+        // Shift mid point to right by half a card if number of cards being played is even
+        midTablePos = new Vector3(midTablePos.x, midTablePos.y, midTablePos.z + distanceBetweenPoints / 2 * Mathf.Max(0, 1 - selectedCards.Count % 2));
+
+        // Start from mid point and move left times the number of cards
+        Vector3 firstCardPos = new Vector3(midTablePos.x, midTablePos.y, midTablePos.z - distanceBetweenPoints * Mathf.Floor(selectedCards.Count / 2));
 
         for (int i = 0; i < selectedCards.Count; i++)
         {
-            selectedCards[i].MoveToPoint(sortedPlayerPlacePoints[i].transform.position, minPos.rotation * Quaternion.Euler(0, 0, -45));            
+            cardTablePositions.Add(new Vector3(firstCardPos.x, firstCardPos.y, firstCardPos.z + distanceBetweenPoints * i));
+            selectedCards[i].MoveToPoint(cardTablePositions[i], minHandPos.rotation * Quaternion.Euler(0, 0, -45));
         }
     }
 
@@ -97,7 +159,8 @@ public class HandController : MonoBehaviour
     public void AddCardToHand(Card cardToAdd)
     {
         heldCards.Add(cardToAdd);
-        SetCardPositionsInHand();  
+        //SetCardPositionsInHand();  
+        SetCardPositionsInHandCentered(false);
     }
 
     public void AddCardToTable(Card cardToAdd)
@@ -123,7 +186,8 @@ public class HandController : MonoBehaviour
         }
             
         selectedCards.Clear();
-        SetCardPositionsInHand();
+        //SetCardPositionsInHand();
+        SetCardPositionsInHandCentered(true);
     }
 
     public void SwapCards()
@@ -187,8 +251,8 @@ public class HandController : MonoBehaviour
             foreach (int handPosition in handPositionsToCheck)
             {
                 // Make a card transparent on mouse over, mouse exit, return to hand if any neighbour card is not selected 
-                if (cardPositions.Count == BattleController.instance.startingCardsAmount &&
-                    Mathf.Round(heldCards[handPosition].transform.position.x * 10) * 0.1 == Mathf.Round(cardPositions[0].x * 10) * 0.1)
+                if (cardHandPositions.Count == BattleController.instance.startingCardsAmount &&
+                    Mathf.Round(heldCards[handPosition].transform.position.x * 10) * 0.1 == Mathf.Round(cardHandPositions[0].x * 10) * 0.1)
                 {
                     anyNeighbourNotSelected = true;
                 }

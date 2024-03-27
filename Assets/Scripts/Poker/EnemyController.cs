@@ -14,20 +14,27 @@ public class EnemyController : MonoBehaviour
     [SerializeField] public List<Card> heldCards = new List<Card>();
     [SerializeField] public List<Card> selectedCards = new List<Card>();
     [SerializeField] public List<Card> playedCards = new List<Card>();
-    public List<Vector3> cardPositions = new List<Vector3>();
+
+    public List<Vector3> cardHandPositions = new List<Vector3>();
+    public List<Quaternion> cardHandRotations = new List<Quaternion>();
+    public List<Vector3> cardTablePositions = new List<Vector3>();
     public float waitBetweenDrawingCards = 0.5f;
-    public Transform minPos, maxPos;
+    public Transform minHandPos, maxHandPos;
+    public Transform minTablePos, maxTablePos;
 
     public List<CardScriptableObject> deckToUse = new List<CardScriptableObject>();
     private List<CardScriptableObject> activeCards = new List<CardScriptableObject>();
     public Card cardToSpawn;
     public Transform drawFrom;
 
+    private int numCardsRequiredToPlay = 5;
+
     // Start is called before the first frame update
     void Start()
     {
         SetUpDeck();
-        SetCardPositionsInHand();
+        //SetCardPositionsInHand();
+        SetCardPositionsInHandCentered();
     }
 
     // Update is called once per frame
@@ -55,22 +62,96 @@ public class EnemyController : MonoBehaviour
 
     public void SetCardPositionsInHand()
     {
-        cardPositions.Clear();
+        cardHandPositions.Clear();
 
         Vector3 distanceBetweenPoints = Vector3.zero;
 
         // Calculate space between cards
         if (heldCards.Count > 1)
         {
-            distanceBetweenPoints = (maxPos.position - minPos.position) / (heldCards.Count - 1);
+            distanceBetweenPoints = (maxHandPos.position - minHandPos.position) / (heldCards.Count - 1);
         }
 
         // Evenly space cards based on minimum and maximum positions
         for (int i = 0; i < heldCards.Count; i++)
         {
-            cardPositions.Add(minPos.position + (distanceBetweenPoints * i));
+            cardHandPositions.Add(minHandPos.position + (distanceBetweenPoints * i));
 
-            heldCards[i].MoveToPoint(cardPositions[i], minPos.rotation);
+            heldCards[i].MoveToPoint(cardHandPositions[i], minHandPos.rotation);
+
+            heldCards[i].inHand = true;
+            heldCards[i].handPosition = i;
+        }
+    }
+
+    //public void SetCardPositionsOnTable()
+    //{
+    //    CardPlacePoint[] placePoints = FindObjectsOfType<CardPlacePoint>();
+    //    List<CardPlacePoint> enemyPlacePoints = new List<CardPlacePoint>();
+
+    //    for (int i = 0; i < placePoints.Length; i++)
+    //    {
+    //        if (!placePoints[i].isPlayerPoint)
+    //        {
+    //            enemyPlacePoints.Add(placePoints[i]);
+    //        }
+    //    }
+
+    //    List<CardPlacePoint> sortedEnemyPlacePoints = enemyPlacePoints.OrderBy(p => p.transform.position.x).ToList();
+
+    //    for (int i = 0; i < selectedCards.Count; i++)
+    //    {
+    //        selectedCards[i].MoveToPoint(sortedEnemyPlacePoints[i].transform.position, selectedCards[i].transform.rotation * Quaternion.Euler(0, 0, -90));
+    //    }
+    //}
+
+    public void SetCardPositionsInHandCentered()
+    {
+        cardHandPositions.Clear();
+        cardHandRotations.Clear();
+
+        float distanceBetweenPoints = (maxHandPos.position.z - minHandPos.position.z) / BattleController.instance.startingCardsAmount;
+        Vector3 midHandPos = new Vector3(minHandPos.position.x, maxHandPos.position.y, minHandPos.position.z + (maxHandPos.position.z - minHandPos.position.z) / 2);
+
+        // Shift mid point to right by half a card if even number of cards held
+        midHandPos = new Vector3(midHandPos.x, midHandPos.y, midHandPos.z + distanceBetweenPoints / 2 * Mathf.Max(0, 1 - heldCards.Count % 2));
+
+        // Start from mid point and move left times the number of cards
+        Vector3 firstCardPos = new Vector3(midHandPos.x, midHandPos.y, midHandPos.z - distanceBetweenPoints * Mathf.Floor(heldCards.Count / 2));
+
+        // Rotation lerp variables
+        float startingRotation = 7.5f;
+        float rotation = startingRotation;
+        float t = 0;
+
+        // Y offsets required because as each subsequent card is moved back to be under the previous, it appears higher up due to perspective
+        // Additional first and last offsets required to create fan of cards
+        float yOffset = 0.0f;
+        float yOffsetFirstAndLast;
+        float yPos;
+        int j = 0;
+
+        for (int i = 0; i < heldCards.Count; i++)
+        {
+            // Start moving cards down in Y after middle card
+            if (i > Mathf.Ceil((heldCards.Count - 1) / 2))
+            {
+                yOffset = 0.0325f;
+                j++;
+            }
+
+            if (i == 0 || i == heldCards.Count - 1) { yOffsetFirstAndLast = 0.0125f / 2; } else { yOffsetFirstAndLast = 0; }
+
+            // Gradually move rotate cards in opposite direction
+            rotation = Mathf.Lerp(rotation, -startingRotation, t);
+            if (heldCards.Count > 1) { t += 1.0f / (float)(heldCards.Count - 1); }
+
+            yPos = firstCardPos.y - yOffset * j - yOffsetFirstAndLast;
+
+            cardHandPositions.Add(new Vector3(firstCardPos.x - 0.0125f * i, yPos, firstCardPos.z + distanceBetweenPoints * i));
+            cardHandRotations.Add(minHandPos.rotation * Quaternion.Euler(0, rotation, 0));
+
+            heldCards[i].MoveToPoint(cardHandPositions[i], cardHandRotations[i]);
 
             heldCards[i].inHand = true;
             heldCards[i].handPosition = i;
@@ -79,35 +160,36 @@ public class EnemyController : MonoBehaviour
 
     public void SetCardPositionsOnTable()
     {
-        CardPlacePoint[] placePoints = FindObjectsOfType<CardPlacePoint>();
-        List<CardPlacePoint> enemyPlacePoints = new List<CardPlacePoint>();
+        cardTablePositions.Clear();
 
-        for (int i = 0; i < placePoints.Length; i++)
-        {
-            if (!placePoints[i].isPlayerPoint)
-            {
-                enemyPlacePoints.Add(placePoints[i]);
-            }
-        }
+        float distanceBetweenPoints = (maxTablePos.position.z - minTablePos.position.z) / numCardsRequiredToPlay;
+        Vector3 midTablePos = new Vector3(minTablePos.position.x, minTablePos.position.y, minTablePos.position.z + (maxTablePos.position.z - minTablePos.position.z) / 2);
 
-        List<CardPlacePoint> sortedEnemyPlacePoints = enemyPlacePoints.OrderBy(p => p.transform.position.x).ToList();
+        // Shift mid point to right by half a card if number of cards being played is even
+        midTablePos = new Vector3(midTablePos.x, midTablePos.y, midTablePos.z + distanceBetweenPoints / 2 * Mathf.Max(0, 1 - selectedCards.Count % 2));
+
+        // Start from mid point and move left times the number of cards
+        Vector3 firstCardPos = new Vector3(midTablePos.x, midTablePos.y, midTablePos.z - distanceBetweenPoints * Mathf.Floor(selectedCards.Count / 2));
 
         for (int i = 0; i < selectedCards.Count; i++)
         {
-            selectedCards[i].MoveToPoint(sortedEnemyPlacePoints[i].transform.position, selectedCards[i].transform.rotation * Quaternion.Euler(0, 0, -90));
+            cardTablePositions.Add(new Vector3(firstCardPos.x, firstCardPos.y, firstCardPos.z + distanceBetweenPoints * i));
+            selectedCards[i].MoveToPoint(cardTablePositions[i], minHandPos.rotation * Quaternion.Euler(0, 0, -90));
         }
     }
+
 
     public void AddCardToHand(Card cardToAdd)
     {
         heldCards.Add(cardToAdd);
-        SetCardPositionsInHand();
+        //SetCardPositionsInHand();
+        SetCardPositionsInHandCentered();
     }
 
     public void AddCardToTable(Card cardToAdd)
     {
         playedCards.Add(cardToAdd);
-        SetCardPositionsOnTable();
+        SetCardPositionsOnTable();        
     }
 
     public void SelectCard(Card cardToSelect)
@@ -144,7 +226,8 @@ public class EnemyController : MonoBehaviour
         }
 
         selectedCards.Clear();
-        SetCardPositionsInHand();
+        //SetCardPositionsInHand();
+        SetCardPositionsInHandCentered();
     }
     public void DrawCardToHand()
     {        

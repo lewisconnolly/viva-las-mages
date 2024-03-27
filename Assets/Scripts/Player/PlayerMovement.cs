@@ -9,9 +9,13 @@ public class PlayerMovement : MonoBehaviour
 {
     public static PlayerMovement instance;
 
+    float unfreezeWait = 3.0f;
+
     private void Awake()
     {
-        instance = this;
+        instance = this;        
+        UnfreezePlayer();
+        unfreezeWait = 0.5f;
     }
 
     public float speed = 12f;
@@ -25,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     
     private Vector3 velocity;
     private bool isGrounded;
-    private bool isFrozen = false;
+    public bool isFrozen = true;
 
     public bool moveToStartingPosition = false;
 
@@ -41,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator UnfreezeCo()
     {
-        yield return new WaitForSeconds((float)0.5);
+        yield return new WaitForSeconds(unfreezeWait);
 
         isFrozen = false;
     }

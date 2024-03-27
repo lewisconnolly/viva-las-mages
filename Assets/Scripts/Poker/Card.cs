@@ -179,12 +179,13 @@ public class Card : MonoBehaviour
     {
         if (inHand && isPlayer && !isSelected)
         {
-            MoveToPoint(hc.cardPositions[handPosition] + new Vector3(-.1f, .1f, 0), hc.minPos.rotation);
+            //MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(-.1f, .1f, 0), hc.minHandPos.rotation);
+            MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(0.1f, 0.1f, 0), hc.cardHandRotations[handPosition]);
 
             // Make cards in hand next to this card transparent
             if (!isMouseOverAndHasFadedOut)
             {
-                hc.SetTransparency(this, "mouse over");
+                //hc.SetTransparency(this, "mouse over");
                 // Stop card cycling between transparent and opaque while mouse over
                 isMouseOverAndHasFadedOut = true;
             }
@@ -196,12 +197,13 @@ public class Card : MonoBehaviour
     {
         if (inHand && isPlayer && !isSelected)
         {
-            MoveToPoint(hc.cardPositions[handPosition], hc.minPos.rotation);
+            //MoveToPoint(hc.cardHandPositions[handPosition], hc.minHandPos.rotation);
+            MoveToPoint(hc.cardHandPositions[handPosition], hc.cardHandRotations[handPosition]);
 
             isMouseOverAndHasFadedOut = false;
 
             // Make cards in hand next to this card transparent
-            hc.SetTransparency(this, "mouse exit");
+            //hc.SetTransparency(this, "mouse exit");
         }       
     }
 
@@ -211,7 +213,7 @@ public class Card : MonoBehaviour
         if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive && isPlayer
             && hc.selectedCards.Count < 5 && !isSelected)
         {            
-            hc.SetTransparency(this, "select");
+            //hc.SetTransparency(this, "select");
 
             isSelected = true;
         }
@@ -222,21 +224,23 @@ public class Card : MonoBehaviour
         hc.SelectCard(this);
         hc.SortSelectedCards();
         
-        MoveToPoint(hc.cardPositions[handPosition] + new Vector3(-.3f, .2f, 0), hc.minPos.rotation);
+        //MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(-.3f, .2f, 0), hc.minHandPos.rotation);
+        MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(-0.3f, 0.2f, 0), hc.cardHandRotations[handPosition]);
         
         isInSelectedPosition = true;
     }
 
     public void ReturnToHand()
     {        
-        hc.SetTransparency(this, "return");
+        //hc.SetTransparency(this, "return");
         
         hc.selectedCards.Remove(this);
         hc.SortSelectedCards();
         isSelected = false;
 
-        MoveToPoint(hc.cardPositions[handPosition], hc.minPos.rotation);
-        
+        //MoveToPoint(hc.cardHandPositions[handPosition], hc.minHandPos.rotation);
+        MoveToPoint(hc.cardHandPositions[handPosition], hc.cardHandRotations[handPosition]);
+
         isInSelectedPosition = false;
     }
 
