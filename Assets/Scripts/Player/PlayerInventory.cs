@@ -20,14 +20,6 @@ public class PlayerInventory : MonoBehaviour
     public List<CardScriptableObject> playerDeck;
     public string prevScene;
 
-    private void Start()
-    {     
-    }
-
-    private void Update()
-    {        
-    }
-
     public void LoadDeck()
     {                
         CardScriptableObject[] baseCards = Resources.LoadAll<CardScriptableObject>("Cards/PlayerDeck");        
@@ -37,19 +29,24 @@ public class PlayerInventory : MonoBehaviour
 
     public void ResetDeck()
     {
-        DeleteDeck();
+        //DeleteDeck();
         
         CardScriptableObject[] baseCards = Resources.LoadAll<CardScriptableObject>("Cards");
-        
-        foreach (CardScriptableObject baseCard in baseCards)
-        {                        
-            CardScriptableObject newCard = ScriptableObject.CreateInstance<CardScriptableObject>();
-            newCard.value = baseCard.value;
-            newCard.suit = baseCard.suit;
-            newCard.material = baseCard.material;
-            newCard.powerCardType = baseCard.powerCardType;
 
-            AssetDatabase.CreateAsset(newCard, "Assets/Resources/Cards/PlayerDeck/" + newCard.value.ToString() + newCard.suit + newCard.powerCardType.ToString() + ".asset");
+        //foreach (CardScriptableObject baseCard in baseCards)
+        //{
+        //    CardScriptableObject newCard = ScriptableObject.CreateInstance<CardScriptableObject>();
+        //    newCard.value = baseCard.value;
+        //    newCard.suit = baseCard.suit;
+        //    newCard.material = baseCard.material;
+        //    newCard.powerCardType = baseCard.powerCardType;
+
+        //    AssetDatabase.CreateAsset(newCard, "Assets/Resources/Cards/PlayerDeck/" + newCard.value.ToString() + newCard.suit + ".asset");
+        //}
+
+        foreach (CardScriptableObject baseCard in baseCards)
+        {
+            baseCard.powerCardType = 0;
         }
     }
 
@@ -64,30 +61,38 @@ public class PlayerInventory : MonoBehaviour
     }
 
     public void AddRewardCardtoDeck(CardScriptableObject cardToAdd)
-    {        
-        // Find asset file for card of same suit and value of reward card then delete it
-        string[] playerDeckFolder = { "Assets/Resources/Cards/PlayerDeck" };
-        foreach (var asset in AssetDatabase.FindAssets("", playerDeckFolder))
+    {
+        for (int i = 0; i < playerDeck.Count; i++)
         {
-            string path = AssetDatabase.GUIDToAssetPath(asset);
-
-            CardScriptableObject existingCard = Resources.Load<CardScriptableObject>(path.Replace("Assets/Resources/", "").Replace(".asset",""));
-
-            if (existingCard.value == cardToAdd.value && existingCard.suit == cardToAdd.suit) { AssetDatabase.DeleteAsset(path); }
+            if (playerDeck[i].value == cardToAdd.value && playerDeck[i].suit == cardToAdd.suit)
+            {
+                playerDeck[i].powerCardType = cardToAdd.powerCardType;
+            }
         }
 
+        // Find asset file for card of same suit and value of reward card then delete it
+        //string[] playerDeckFolder = { "Assets/Resources/Cards/PlayerDeck" };
+        //foreach (var asset in AssetDatabase.FindAssets("", playerDeckFolder))
+        //{
+        //    string path = AssetDatabase.GUIDToAssetPath(asset);
+
+        //    CardScriptableObject existingCard = Resources.Load<CardScriptableObject>(path.Replace("Assets/Resources/", "").Replace(".asset",""));
+
+        //    if (existingCard.value == cardToAdd.value && existingCard.suit == cardToAdd.suit) { AssetDatabase.DeleteAsset(path); }
+        //}
+
         // Create a new card from the reward card
-        CardScriptableObject newCard = ScriptableObject.CreateInstance<CardScriptableObject>();
-        newCard.value = cardToAdd.value;
-        newCard.suit = cardToAdd.suit;
-        newCard.material = cardToAdd.material;
-        newCard.powerCardType = cardToAdd.powerCardType;
-        string newCardName = newCard.value.ToString() + newCard.suit + newCard.powerCardType.ToString();
+        //CardScriptableObject newCard = ScriptableObject.CreateInstance<CardScriptableObject>();
+        //newCard.value = cardToAdd.value;
+        //newCard.suit = cardToAdd.suit;
+        //newCard.material = cardToAdd.material;
+        //newCard.powerCardType = cardToAdd.powerCardType;
+        //string newCardName = newCard.value.ToString() + newCard.suit + newCard.powerCardType.ToString();
 
         // Save the new card as an asset file and then load it
-        AssetDatabase.CreateAsset(newCard, "Assets/Resources/Cards/PlayerDeck/" + newCardName + ".asset");
+        //AssetDatabase.CreateAsset(newCard, "Assets/Resources/Cards/PlayerDeck/" + newCardName + ".asset");
 
-        LoadDeck();
+        //LoadDeck();
 
         //CardScriptableObject baseCard = Resources.Load<CardScriptableObject>("Cards/PlayerDeck/" + newCardName);                
 

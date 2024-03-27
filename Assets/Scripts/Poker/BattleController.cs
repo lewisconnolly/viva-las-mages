@@ -27,6 +27,8 @@ public class BattleController : MonoBehaviour
     public Transform playerDiscardPosition;
     public Transform enemyDiscardPosition;
     public bool checkCardsDiscarded;
+
+    private int numCardsRequiredToPlay = 5;
     
     // Start is called before the first frame update
     void Start()
@@ -43,7 +45,10 @@ public class BattleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (HandController.instance.selectedCards.Count == 5)
+        // Get number of auto pairs in selected cards
+        int numAutoPairs = HandController.instance.selectedCards.Where(card => card.powerCardType == PowerCardController.PowerCardType.AutoPair).ToList().Count;
+
+        if (HandController.instance.selectedCards.Count == (numCardsRequiredToPlay - numAutoPairs))
         {
             PokerUIController.instance.playHandButton.GetComponent<Button>().interactable = true;
         }

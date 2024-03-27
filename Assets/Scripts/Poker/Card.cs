@@ -110,6 +110,10 @@ public class Card : MonoBehaviour
             case PowerCardController.PowerCardType.HalfDiamonds:
                 mats[1] = PowerCardController.instance.halfDiamondsMaterial;
                 break;
+
+            case PowerCardController.PowerCardType.AutoPair:
+                mats[1] = PowerCardController.instance.autoPairMaterial;
+                break;
         }
 
         model.GetComponent<MeshRenderer>().materials = mats;
