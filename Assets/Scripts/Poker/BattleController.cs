@@ -184,7 +184,6 @@ public class BattleController : MonoBehaviour
             PokerUIController.instance.SetWinnerText("Player Wins!");
             PlayerHealth.instance.IncreaseHealth(currentBet);           
             activeEnemy.TakeDamage(currentBet);
-
         }
         else if (playerHandRank < enemyHandRank)
         {

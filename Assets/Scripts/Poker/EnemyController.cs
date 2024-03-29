@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -208,13 +209,137 @@ public class EnemyController : MonoBehaviour
 
     public void SelectHand()
     {
+        List<List<Card>> handCombinations = GenerateSelections(heldCards);
+        
+        List<List<Card>> GenerateSelections(List<Card> cardsInHand)
+        {
+            // Make an array to tell whether
+            // an item is in the current selection.
+            bool[] inSelection = new bool[cardsInHand.Count];
+
+            // Make a result list.
+            List<List<Card>> potentialHands = new List<List<Card>>();
+
+            // Build the combinations recursively.
+            SelectItems(cardsInHand, inSelection, potentialHands, numCardsRequiredToPlay, 0);
+
+            // Return the results.
+            return potentialHands;
+        }
+
+        // Recursively select n additional items with indexes >= firstItem.
+        // If n == 0, add the current combination to the results.
+        void SelectItems(List<Card> cardsInHand, bool[] inSelection, List<List<Card>> potentialHands, int numCards, int firstItem)
+        {
+            if (numCards == 0)
+            {
+                // Add the current selection to the results.
+                List<Card> selection = new List<Card>();
+                for (int i = 0; i < cardsInHand.Count; i++)
+                {
+                    // If this item is selected, add it to the selection.
+                    if (inSelection[i]) selection.Add(cardsInHand[i]);
+                }
+                potentialHands.Add(selection);
+            }
+            else
+            {
+                // Try adding each of the remaining items.
+                for (int i = firstItem; i < cardsInHand.Count; i++)
+                {
+                    // Try adding this item.
+                    inSelection[i] = true;
+
+                    // Recursively add the rest of the required items.
+                    SelectItems(cardsInHand, inSelection, potentialHands, numCards - 1, i + 1);
+
+                    // Remove this item from the selection.
+                    inSelection[i] = false;
+                }
+            }
+        }
+
+        for (int i = 0; i < handCombinations.Count; i++)
+        {
+            string card1 = handCombinations[i][0].value + handCombinations[i][0].name + handCombinations[i][0].powerCardType.ToString();
+            string card2 = handCombinations[i][1].value + handCombinations[i][1].name + handCombinations[i][1].powerCardType.ToString();
+            string card3 = handCombinations[i][2].value + handCombinations[i][2].name + handCombinations[i][2].powerCardType.ToString();
+            string card4 = handCombinations[i][3].value + handCombinations[i][3].name + handCombinations[i][3].powerCardType.ToString();
+            string card5 = handCombinations[i][4].value + handCombinations[i][4].name + handCombinations[i][4].powerCardType.ToString();
+
+            int card1i = heldCards.IndexOf(handCombinations[i][0]);
+            int card2i = heldCards.IndexOf(handCombinations[i][1]);
+            int card3i = heldCards.IndexOf(handCombinations[i][2]);
+            int card4i = heldCards.IndexOf(handCombinations[i][3]);
+            int card5i = heldCards.IndexOf(handCombinations[i][4]);
+
+
+            Debug.Log(i + ": " + card1i + card2i + card3i + card4i + card5i);
+        }
+
+        //List<Card> triedCards = new List<Card>();        
+        //List<Card> potentialHand = new List<Card>();
+
+        //int[,] allPermutations = { {0, 1, 2, 3, 4},
+        //                            {0, 1, 2, 3, 5},
+        //                            {0, 1, 2, 3, 6 },
+        //                            {0, 1, 2, 4, 5 },
+        //                            { 0, 1, 2, 4, 6 },
+        //                            { 0, 1, 2, 5, 6 },01345,01346,01356,01456,02345,02346,02356,02456,03456,12345,12346,12356,12456,13456,23456".split(",");       
+
+        //for (int i = 0; i < heldCards.Count; i++)
+        //{            
+        //    if (!triedCards.Any(card => card == heldCards[i]))
+        //    {
+        //        SelectCard(heldCards[i]);
+        //        triedCards.Add(heldCards[i]);
+        //    }
+
+        //    for (int j = 0; j < heldCards.Count; j++)
+        //    {
+        //        if (!triedCards.Any(card => card == heldCards[j]))
+        //        {
+        //            SelectCard(heldCards[j]);
+        //            triedCards.Add(heldCards[j]);
+        //        }
+
+        //        for (int k = 0; k < heldCards.Count; k++)
+        //        {
+        //            if (!triedCards.Any(card => card == heldCards[j]))
+        //            {
+        //                SelectCard(heldCards[i]);
+        //                triedCards.Add(heldCards[i]);
+        //            }
+
+        //            for (int l = 0; l < heldCards.Count; l++)
+        //            {
+        //                if (!triedCards.Any(card => card == heldCards[i]))
+        //                {
+        //                    SelectCard(heldCards[i]);
+        //                    triedCards.Add(heldCards[i]);
+        //                }
+
+        //                for (int m = 0; m < heldCards.Count; m++)
+        //                {
+        //                    if (!triedCards.Any(card => card == heldCards[i]))
+        //                    {
+        //                        SelectCard(heldCards[i]);
+        //                        triedCards.Add(heldCards[i]);
+        //                    }
+
+        //                    var playerHandRank = HandEvaluator.instance.EvaluateHand(selectedCards, true);
+        //                }
+        //            }
+        //        }
+        //    }
+        
         for (int i = 0; i < 5; i++)
         {
             int r = Random.Range(0, 4 - i);
             Card selectedCard = heldCards[r];
             SelectCard(selectedCard);
             heldCards.Remove(selectedCard);
-        }
+        } 
     }
 
     public void PlayHand()
