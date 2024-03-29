@@ -17,7 +17,7 @@ public class Card : MonoBehaviour
     private Vector3 targetPoint;
     private Quaternion targetRot;
     //private Vector3 targetScale;
-    public float moveSpeed = 5f;
+    public float moveSpeed = 7.5f;
     public float rotateSpeed = 540f;
     public float growSpeed = 540f;
 
@@ -36,7 +36,7 @@ public class Card : MonoBehaviour
 
     public CardPlacePoint assignedPlace;
 
-    private Renderer cardRenderer;
+    private MeshRenderer cardRenderer;
     private Color originalColour;
     private Color targetColour;
     private float transparentAlpha = 0.5f;
@@ -46,13 +46,13 @@ public class Card : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {        
-        if(targetPoint == Vector3.zero)
+    {
+        if (targetPoint == Vector3.zero)
         {
             targetPoint = transform.position;
             targetRot = transform.rotation;
         }
-        
+
         SetUpCard();
         hc = FindObjectOfType<HandController>();
         col = GetComponent<Collider>();
@@ -128,7 +128,7 @@ public class Card : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotateSpeed * Time.deltaTime);
         // Match target colour in alphaChangeSpeed increments
         lerpedColour = Color.Lerp(cardRenderer.material.color, targetColour, alphaChangeSpeed * Time.deltaTime);
-        cardRenderer.material.color = lerpedColour;
+        cardRenderer.material.color = lerpedColour;       
 
         // If card has been made transparent, set target colour to opaque again
         if (Mathf.Round(cardRenderer.material.color.a * 10) * 0.1 <= transparentAlpha) { MakeOpaque(); }

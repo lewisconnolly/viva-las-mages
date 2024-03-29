@@ -18,7 +18,7 @@ public class HandController : MonoBehaviour
     }
 
     [SerializeField] public List<Card> heldCards = new List<Card>();
-    [SerializeField] public List<Card> selectedCards = new List<Card>();    
+    [SerializeField] public List<Card> selectedCards = new List<Card>();
     [SerializeField] public List<Card> playedCards = new List<Card>();
     [SerializeField] public List<Card> swappedCards = new List<Card>();
 
@@ -40,7 +40,7 @@ public class HandController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    }   
+    }
 
     // Display cards in front of player
     public void SetCardPositionsInHand()
@@ -48,7 +48,7 @@ public class HandController : MonoBehaviour
         cardHandPositions.Clear();
 
         Vector3 distanceBetweenPoints = Vector3.zero;
-        
+
         // Calculate space between cards
         if (heldCards.Count > 1)
         {
@@ -72,52 +72,54 @@ public class HandController : MonoBehaviour
         cardHandPositions.Clear();
         cardHandRotations.Clear();
 
-        float distanceBetweenPoints = (maxHandPos.position.z - minHandPos.position.z) / BattleController.instance.startingCardsAmount;
+        Vector3 distanceBetweenPoints = (maxHandPos.position - minHandPos.position) / BattleController.instance.startingCardsAmount;
         Vector3 midHandPos = new Vector3(minHandPos.position.x, maxHandPos.position.y, minHandPos.position.z + (maxHandPos.position.z - minHandPos.position.z) / 2);
-        
+
         // Shift mid point to right by half a card if even number of cards held
-        midHandPos = new Vector3(midHandPos.x, midHandPos.y, midHandPos.z + distanceBetweenPoints / 2 * Mathf.Max(0, 1 - heldCards.Count % 2));
-        
-        // Start from mid point and move left times the number of cards
-        Vector3 firstCardPos = new Vector3(midHandPos.x, midHandPos.y, midHandPos.z - distanceBetweenPoints * Mathf.Floor(heldCards.Count / 2));
-        
+        midHandPos = new Vector3(midHandPos.x, midHandPos.y, midHandPos.z) + distanceBetweenPoints / 2 * Mathf.Max(0, 1 - heldCards.Count % 2);
+
+        // Start from mid point and move left times the number of cards        
+        Vector3 firstCardPos = new Vector3(midHandPos.x, midHandPos.y, midHandPos.z) - distanceBetweenPoints * Mathf.Floor(heldCards.Count / 2);
+
+        Vector3 cardPos = firstCardPos;
+        Quaternion cardRotation;
+
+        // Rotate cards in x to prevent z-fighting
+        float startingFanAngle = 0.4f;
+        float fanAngle;
+
         // Rotation lerp variables
         float startingRotation = 7.5f;
         float rotation = startingRotation;
-        float t = 0;
+        float t2 = 0;
 
-        // Y offsets required because as each subsequent card is moved back to be under the previous, it appears higher up due to perspective
-        // Additional first and last offsets required to create fan of cards
-        float yOffset = 0.0f;
-        float yOffsetFirstAndLast;
-        float yPos;
-        int j = 0;
-        
         for (int i = 0; i < heldCards.Count; i++)
         {
-            // Start moving cards down in Y after middle card
-            if (i > Mathf.Ceil((heldCards.Count - 1) / 2))
+            // Gradually offset cards in x and y to create fan. Offset first card by more so that it looks right
+            if (i == 0)
             {
-                yOffset = 0.0325f;
-                j++;
+                cardPos = new Vector3(firstCardPos.x + 0.009f, firstCardPos.y - 0.025f * Mathf.Pow(1.5f, (float)i), firstCardPos.z) + distanceBetweenPoints * i;
+            }
+            else
+            {
+                cardPos = new Vector3(firstCardPos.x - 0.0075f * i, firstCardPos.y - 0.0075f * Mathf.Pow(1.5f, (float)i), firstCardPos.z) + distanceBetweenPoints * i;
             }
 
-            if (i == 0 || i == heldCards.Count - 1) { yOffsetFirstAndLast = 0.0125f; } else { yOffsetFirstAndLast = 0; }
+            if (justPlayedHand) { cardPos += new Vector3(0.2f, -0.2f, 0); }
 
-            // Gradually move rotate cards in opposite direction
-            rotation = Mathf.Lerp(rotation, -startingRotation, t);
-            if (heldCards.Count > 1) { t += 1.0f / (float)(heldCards.Count - 1); }
+            // Gradually rotate cards in opposite direction and x-axis
+            rotation = Mathf.Lerp(rotation, -startingRotation, t2);
+            fanAngle = startingFanAngle + i * 0.2f;
+            cardRotation = minHandPos.rotation * Quaternion.Euler(fanAngle, rotation, 0);
 
-            yPos = firstCardPos.y - yOffset * j - yOffsetFirstAndLast;
-            Vector3 cardPos = new Vector3(firstCardPos.x - 0.0125f * i, yPos, firstCardPos.z + distanceBetweenPoints * i);
-            
-            if (justPlayedHand) { cardPos += new Vector3(0.2f, -0.2f, 0); }           
+            // Increase interpolation degree
+            if (heldCards.Count > 1) { t2 += 1.0f / (float)(heldCards.Count - 1); }
 
             cardHandPositions.Add(cardPos);
-            cardHandRotations.Add(minHandPos.rotation * Quaternion.Euler(0, rotation, 0));
+            cardHandRotations.Add(cardRotation);
 
             heldCards[i].MoveToPoint(cardHandPositions[i], cardHandRotations[i]);
-            
+
             heldCards[i].inHand = true;
             heldCards[i].handPosition = i;
         }
@@ -147,12 +149,12 @@ public class HandController : MonoBehaviour
     {
         // Check card to remove is at correct hand position
         if (heldCards[cardToRemove.handPosition] == cardToRemove)
-        {        
+        {
             heldCards.RemoveAt(cardToRemove.handPosition);
         }
         else
         {
-            Debug.LogError("Card at position " + cardToRemove.handPosition + " is not the card being removed from hand");            
+            Debug.LogError("Card at position " + cardToRemove.handPosition + " is not the card being removed from hand");
         }
     }
 
@@ -160,7 +162,7 @@ public class HandController : MonoBehaviour
     {
         heldCards.Add(cardToAdd);
         //SetCardPositionsInHand();  
-        SetCardPositionsInHandCentered(false);
+        SetCardPositionsInHandCentered(false);     
     }
 
     public void AddCardToTable(Card cardToAdd)
