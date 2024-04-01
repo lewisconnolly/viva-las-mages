@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -29,6 +28,8 @@ public class EnemyController : MonoBehaviour
     public Transform drawFrom;
 
     private int numCardsRequiredToPlay = 5;
+
+    public int pcntChanceOfRandomHand = 50;
 
     // Start is called before the first frame update
     void Start()
@@ -209,86 +210,87 @@ public class EnemyController : MonoBehaviour
 
     public void SelectHand()
     {
-        List<List<Card>> handCombinations = GenerateSelections(heldCards);
-        List<int> handRanks = new List<int>(new int[handCombinations.Count]);
-        
-        List<List<Card>> GenerateSelections(List<Card> cardsInHand)
+        int randomNumToTest = Random.Range(1, 101);
+
+        // pcntChanceOfRandomHand% of time number will be less than pcntChanceOfRandomHand, resulting in a random hand to be chosen
+        if (randomNumToTest > pcntChanceOfRandomHand)
         {
-            // Make an array to tell whether
-            // an item is in the current selection.
-            bool[] inSelection = new bool[cardsInHand.Count];
+            List<List<Card>> handCombinations = GenerateSelections(heldCards);
+            List<int> handRanks = new List<int>(new int[handCombinations.Count]);
 
-            // Make a result list.
-            List<List<Card>> handCombinations = new List<List<Card>>();
-
-            // Build the combinations recursively.
-            SelectItems(cardsInHand, inSelection, handCombinations, numCardsRequiredToPlay, 0);
-
-            // Return the results.
-            return handCombinations;
-        }
-
-        // Recursively select n additional items with indexes >= firstItem.
-        // If n == 0, add the current combination to the results.
-        void SelectItems(List<Card> cardsInHand, bool[] inSelection, List<List<Card>> handCombinations, int numCards, int firstItem)
-        {
-            if (numCards == 0)
+            List<List<Card>> GenerateSelections(List<Card> cardsInHand)
             {
-                // Add the current selection to the results.
-                List<Card> selection = new List<Card>();
-                for (int i = 0; i < cardsInHand.Count; i++)
-                {
-                    // If this item is selected, add it to the selection.
-                    if (inSelection[i]) selection.Add(cardsInHand[i]);
-                }
-                handCombinations.Add(selection);
+                // Make an array to tell whether
+                // an item is in the current selection.
+                bool[] inSelection = new bool[cardsInHand.Count];
+
+                // Make a result list.
+                List<List<Card>> handCombinations = new List<List<Card>>();
+
+                // Build the combinations recursively.
+                SelectItems(cardsInHand, inSelection, handCombinations, numCardsRequiredToPlay, 0);
+
+                // Return the results.
+                return handCombinations;
             }
-            else
+
+            // Recursively select n additional items with indexes >= firstItem.
+            // If n == 0, add the current combination to the results.
+            void SelectItems(List<Card> cardsInHand, bool[] inSelection, List<List<Card>> handCombinations, int numCards, int firstItem)
             {
-                // Try adding each of the remaining items.
-                for (int i = firstItem; i < cardsInHand.Count; i++)
+                if (numCards == 0)
                 {
-                    // Try adding this item.
-                    inSelection[i] = true;
+                    // Add the current selection to the results.
+                    List<Card> selection = new List<Card>();
+                    for (int i = 0; i < cardsInHand.Count; i++)
+                    {
+                        // If this item is selected, add it to the selection.
+                        if (inSelection[i]) selection.Add(cardsInHand[i]);
+                    }
+                    handCombinations.Add(selection);
+                }
+                else
+                {
+                    // Try adding each of the remaining items.
+                    for (int i = firstItem; i < cardsInHand.Count; i++)
+                    {
+                        // Try adding this item.
+                        inSelection[i] = true;
 
-                    // Recursively add the rest of the required items.
-                    SelectItems(cardsInHand, inSelection, handCombinations, numCards - 1, i + 1);
+                        // Recursively add the rest of the required items.
+                        SelectItems(cardsInHand, inSelection, handCombinations, numCards - 1, i + 1);
 
-                    // Remove this item from the selection.
-                    inSelection[i] = false;
+                        // Remove this item from the selection.
+                        inSelection[i] = false;
+                    }
                 }
             }
-        }
 
-        for (int i = 0; i < handCombinations.Count; i++)
+            // Rank each hand combination
+            for (int i = 0; i < handCombinations.Count; i++)
+            {
+                var handRank = HandEvaluator.instance.EvaluateHand(handCombinations[i], true);
+                handRanks[i] = (int)handRank;
+            }
+
+            // Play hand with highest rank
+            int handIndex = handRanks.IndexOf(handRanks.Max());
+            for (int i = 0; i < handCombinations[handIndex].Count; i++)
+            {
+                selectedCards.Add(handCombinations[handIndex][i]);
+                heldCards.Remove(handCombinations[handIndex][i]);
+            }
+        }
+        else
         {
-            //int card1i = heldCards.IndexOf(handCombinations[i][0]);
-            //int card2i = heldCards.IndexOf(handCombinations[i][1]);
-            //int card3i = heldCards.IndexOf(handCombinations[i][2]);
-            //int card4i = heldCards.IndexOf(handCombinations[i][3]);
-            //int card5i = heldCards.IndexOf(handCombinations[i][4]);
-
-            //Debug.Log(i + ": " + card1i + card2i + card3i + card4i + card5i);
-
-            var handRank = HandEvaluator.instance.EvaluateHand(handCombinations[i], true);
-            handRanks[i] = (int)handRank;
+            // Select 5 random cards
+            for (int i = 0; i < 5; i++)
+            {
+                int ri = Random.Range(0, 7 - i);
+                selectedCards.Add(heldCards[ri]);
+                heldCards.Remove(heldCards[ri]);
+            }
         }
-
-        int handIndex = handRanks.IndexOf(handRanks.Max());
-
-        for (int i = 0; i < handCombinations[handIndex].Count; i++)
-        {
-            SelectCard(handCombinations[handIndex][i]);
-            heldCards.Remove(handCombinations[handIndex][i]);
-        }
-
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    int r = Random.Range(0, 4 - i);
-        //    Card selectedCard = heldCards[r];
-        //    SelectCard(selectedCard);
-        //    heldCards.Remove(selectedCard);
-        //} 
     }
 
     public void PlayHand()

@@ -16,7 +16,7 @@ public class DeckController : MonoBehaviour
     [SerializeField] private List<CardScriptableObject> deckToUse = new List<CardScriptableObject>();  
     private List<CardScriptableObject> activeCards = new List<CardScriptableObject>();    
     public Card cardToSpawn;
-    public float waitBetweenDrawingCards = 0.5f;
+    public float waitBetweenDrawingCards = 0f;
 
     // Start is called before the first frame update
     void Start()

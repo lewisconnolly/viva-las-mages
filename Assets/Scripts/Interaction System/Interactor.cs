@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class Interactor : MonoBehaviour
 {
     [SerializeField] private Transform interactionPoint;
-    [SerializeField] private float interactionPointRadius = 0.5f;
+    [SerializeField] private float interactionPointRadius = 15f;
     [SerializeField] private LayerMask interactableMask;
     [SerializeField] public InteractionPromptUI interactionPromptUI;
 

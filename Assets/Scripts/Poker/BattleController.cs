@@ -192,7 +192,25 @@ public class BattleController : MonoBehaviour
         }
         else
         {
-            PokerUIController.instance.SetWinnerText("Tie");
+            HandEvaluator.TieWinner tieWinner = HandEvaluator.instance.BreakTie(HandController.instance.playedCards.OrderBy(c => c.value).ToList(),
+                                            EnemyController.instance.playedCards.OrderBy(c => c.value).ToList(), 
+                                            playerHandRank);
+            
+            if (tieWinner == HandEvaluator.TieWinner.Player)
+            {
+                PokerUIController.instance.SetWinnerText("Player Wins!");
+                PlayerHealth.instance.IncreaseHealth(currentBet);
+                activeEnemy.TakeDamage(currentBet);
+            }
+            else if (tieWinner == HandEvaluator.TieWinner.Enemy)
+            {
+                PokerUIController.instance.SetWinnerText("Enemy Wins!");
+                PlayerHealth.instance.TakeDamage(currentBet);
+            }
+            else
+            {
+                PokerUIController.instance.SetWinnerText("Tie");
+            }
         }
     }
 
