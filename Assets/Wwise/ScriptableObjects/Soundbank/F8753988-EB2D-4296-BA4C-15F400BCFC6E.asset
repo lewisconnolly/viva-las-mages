@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64007d51328afa24c88709926558e8a1, type: 3}
+  m_Name: F8753988-EB2D-4296-BA4C-15F400BCFC6E
+  m_EditorClassIdentifier: 
+  objectName: Poker
+  id: 1859141876
+  guid: F8753988-EB2D-4296-BA4C-15F400BCFC6E

@@ -1,6 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{A66E9D4F-FFAB-42CD-961A-AF51BCBE2AF2}" SchemaVersion="119">
 	<AudioObjects>
-		<WorkUnit Name="Default Work Unit" ID="{A66E9D4F-FFAB-42CD-961A-AF51BCBE2AF2}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{A66E9D4F-FFAB-42CD-961A-AF51BCBE2AF2}" PersistMode="Standalone">
+			<ChildrenList>
+				<RandomSequenceContainer Name="CardPlay" ID="{9EB06334-BB99-4E9E-8771-D7214B98B1D4}" ShortID="440177658">
+					<PropertyList>
+						<Property Name="Pitch" Type="int32">
+							<ModifierList>
+								<ModifierInfo>
+									<Modifier Name="" ID="{BE4EDAE2-1620-450B-9214-13652496BCC6}">
+										<PropertyList>
+											<Property Name="Enabled" Type="bool" Value="True"/>
+											<Property Name="Max" Type="Real64" Value="300"/>
+											<Property Name="Min" Type="Real64" Value="-300"/>
+										</PropertyList>
+									</Modifier>
+								</ModifierInfo>
+							</ModifierList>
+						</Property>
+						<Property Name="Volume" Type="Real64">
+							<ModifierList>
+								<ModifierInfo>
+									<Modifier Name="" ID="{D6C75B4D-0B06-473F-BB29-A65EDE71C7AB}">
+										<PropertyList>
+											<Property Name="Enabled" Type="bool" Value="True"/>
+											<Property Name="Min" Type="Real64" Value="-5"/>
+										</PropertyList>
+									</Modifier>
+								</ModifierInfo>
+							</ModifierList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{433DF976-E3E2-4655-B861-FDA3B6A3F61A}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{E4EF2065-D6EB-415D-BEDC-CCFEC1A2DB7F}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="CardPlay1" ID="{897B787C-1CFD-4326-96A2-EAC92FC6C432}" ShortID="1068624878">
+							<PropertyList>
+								<Property Name="Pitch" Type="int32">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{98930801-8EDC-477C-B959-C39ABE072389}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="100"/>
+													<Property Name="Min" Type="Real64" Value="-100"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-2</Value>
+									</ValueList>
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{4ABF43C5-1424-4AC8-942C-D7597084AF63}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Min" Type="Real64" Value="-3"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{433DF976-E3E2-4655-B861-FDA3B6A3F61A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{E4EF2065-D6EB-415D-BEDC-CCFEC1A2DB7F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="CardPlay1" ID="{DD5369AF-12DE-4B5B-8F49-C91615583C28}">
+									<Language>SFX</Language>
+									<AudioFile>CardPlay1.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="655079680"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="CardPlay1" ID="{DD5369AF-12DE-4B5B-8F49-C91615583C28}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="CardPlay2" ID="{133A9F34-AFF6-45DE-99B8-69ABEE7B4FFE}" ShortID="836775065">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{433DF976-E3E2-4655-B861-FDA3B6A3F61A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{E4EF2065-D6EB-415D-BEDC-CCFEC1A2DB7F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="CardPlay2" ID="{8CE88B59-930A-4640-9857-4EDC7385C1D2}">
+									<Language>SFX</Language>
+									<AudioFile>CardPlay2.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="281327463"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="CardPlay2" ID="{8CE88B59-930A-4640-9857-4EDC7385C1D2}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="CardPlay3" ID="{9F37B013-7092-49F0-9D7C-9E6FA5B790AA}" ShortID="968134344">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{433DF976-E3E2-4655-B861-FDA3B6A3F61A}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{E4EF2065-D6EB-415D-BEDC-CCFEC1A2DB7F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="CardPlay3" ID="{F647E883-80FC-4FE3-86B9-0E1C5D3CB38F}">
+									<Language>SFX</Language>
+									<AudioFile>CardPlay3.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="522322369"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="CardPlay3" ID="{F647E883-80FC-4FE3-86B9-0E1C5D3CB38F}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+				</RandomSequenceContainer>
+			</ChildrenList>
+		</WorkUnit>
 	</AudioObjects>
 </WwiseDocument>

@@ -4,7 +4,10 @@
 		<WorkUnit Name="Default Work Unit" ID="{C77E44F2-6960-42E8-BC90-E2A3C1BC6A0D}" PersistMode="Standalone">
 			<ChildrenList>
 				<SoundBank Name="Main_Soundbank" ID="{71E5DB76-0363-4AEA-86C8-5ABF37133F27}">
-					<ObjectInclusionList/>
+					<ObjectInclusionList>
+						<ObjectRef Name="BasementMusic" ID="{10B7AA19-A934-451A-9C0E-DC84DB8E6C68}" WorkUnitID="{9F312CD6-E763-49F3-B6BC-73E971905B50}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="CardPlay" ID="{7844582E-63D1-451C-8138-14193A9E57DA}" WorkUnitID="{9F312CD6-E763-49F3-B6BC-73E971905B50}" Origin="Manual" Filter="7"/>
+					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>
 				</SoundBank>

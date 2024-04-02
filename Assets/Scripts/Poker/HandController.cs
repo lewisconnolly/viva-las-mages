@@ -12,6 +12,8 @@ public class HandController : MonoBehaviour
 {
     public static HandController instance;
 
+    public AK.Wwise.Event CardSound;
+
     private void Awake()
     {
         instance = this;
@@ -162,7 +164,8 @@ public class HandController : MonoBehaviour
     {
         heldCards.Add(cardToAdd);
         //SetCardPositionsInHand();  
-        SetCardPositionsInHandCentered(false);     
+        SetCardPositionsInHandCentered(false);
+        CardSound.Post(gameObject);
     }
 
     public void AddCardToTable(Card cardToAdd)

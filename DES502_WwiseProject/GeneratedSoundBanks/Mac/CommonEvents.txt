@@ -1,0 +1,8 @@
+Event	ID	Name			Wwise Object Path	Notes
+	4206845685	CardPlay			\Default Work Unit\CardPlay	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	281327463	CardPlay2	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Mac\SFX\CardPlay2_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\CardPlay\CardPlay2		44564
+	522322369	CardPlay3	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Mac\SFX\CardPlay3_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\CardPlay\CardPlay3		35816
+	655079680	CardPlay1	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Mac\SFX\CardPlay1_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\CardPlay\CardPlay1		46524
+

@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{B6CBD692-12EC-CDBA-0932-48F63C40C91F}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{512CE9FC-6AEA-86D5-DA24-2FC42EE1BCB8}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -19,13 +19,96 @@
 				</AudioDevices>
 			</Plugins>
 			<Busses>
+				<Bus Id="493417818" Name="Music Audio Bus"/>
 				<Bus Id="3803692087" Name="Master Audio Bus"/>
 			</Busses>
 		</SoundBank>
-		<SoundBank Id="2228651116" Type="User" Language="SFX" Hash="{2ABD40C5-574D-7741-6576-5BCDA6B6C56A}">
-			<ShortName>Main_Soundbank</ShortName>
-			<Path>Main_Soundbank.bnk</Path>
+		<SoundBank Id="1859141876" Type="User" Language="SFX" Hash="{B5DF8DD7-8598-1D75-60AB-62E6AC805B7F}">
+			<ShortName>Poker</ShortName>
+			<Path>Poker.bnk</Path>
+			<Media>
+				<File Id="598450605" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PokerMusic.wav</ShortName>
+					<CachePath>SFX/PokerMusic_FBC78EF0.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="1452491837" Name="PokerMusic" DurationType="OneShot" DurationMin="83.47826" DurationMax="83.47826">
+					<MediaRefs>
+						<MediaRef Id="598450605"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
+		<SoundBank Id="2159622017" Type="User" Language="SFX" Hash="{29F4D0DF-1272-3D87-51A5-94D219FFF8EB}">
+			<ShortName>CommonEvents</ShortName>
+			<Path>CommonEvents.bnk</Path>
+			<Media>
+				<File Id="281327463" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>CardPlay2.wav</ShortName>
+					<CachePath>SFX/CardPlay2_818F3B66.wem</CachePath>
+				</File>
+				<File Id="522322369" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>CardPlay3.wav</ShortName>
+					<CachePath>SFX/CardPlay3_818F3B66.wem</CachePath>
+				</File>
+				<File Id="655079680" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>CardPlay1.wav</ShortName>
+					<CachePath>SFX/CardPlay1_818F3B66.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="4206845685" Name="CardPlay" DurationType="OneShot" DurationMin="0.17027676" DurationMax="0.3316078">
+					<MediaRefs>
+						<MediaRef Id="281327463"/>
+						<MediaRef Id="522322369"/>
+						<MediaRef Id="655079680"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
+		<SoundBank Id="2678230382" Type="User" Language="SFX" Hash="{216E461F-B9B2-D2A5-D219-DCA71486B35D}">
+			<ShortName>Level1</ShortName>
+			<Path>Level1.bnk</Path>
+			<Media>
+				<File Id="88510531" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>BasementSong_Intro.wav</ShortName>
+					<CachePath>SFX/BasementSong_Intro_FBC78EF0.wem</CachePath>
+				</File>
+				<File Id="250834479" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>BasementSong_Verse1.wav</ShortName>
+					<CachePath>SFX/BasementSong_Verse1_FBC78EF0.wem</CachePath>
+				</File>
+				<File Id="525041063" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>BasementSong_Verse2.wav</ShortName>
+					<CachePath>SFX/BasementSong_Verse2_FBC78EF0.wem</CachePath>
+				</File>
+				<File Id="535572142" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>BasementSong_Verse3.wav</ShortName>
+					<CachePath>SFX/BasementSong_Verse3_FBC78EF0.wem</CachePath>
+				</File>
+				<File Id="738323399" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>BasementSong_Chorus.wav</ShortName>
+					<CachePath>SFX/BasementSong_Chorus_FBC78EF0.wem</CachePath>
+				</File>
+				<File Id="783837694" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>BasementSong_Outro.wav</ShortName>
+					<CachePath>SFX/BasementSong_Outro_FBC78EF0.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="214542171" Name="BasementMusic" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="88510531"/>
+						<MediaRef Id="250834479"/>
+						<MediaRef Id="525041063"/>
+						<MediaRef Id="535572142"/>
+						<MediaRef Id="738323399"/>
+						<MediaRef Id="783837694"/>
+					</MediaRefs>
+				</Event>
+			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{94C47EDA-5465-3CF6-AAF1-5CDB046110C3}</FileHash>
+	<FileHash>{9F57888B-CFC9-E792-48C1-696B7BD60632}</FileHash>
 </SoundBanksInfo>

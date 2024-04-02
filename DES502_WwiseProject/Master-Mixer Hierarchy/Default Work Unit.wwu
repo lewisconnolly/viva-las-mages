@@ -10,6 +10,42 @@
 						</Reference>
 					</ReferenceList>
 				</Bus>
+				<Bus Name="Music Audio Bus" ID="{F37E8E95-E5CC-4130-8138-6B2E7AFD441F}">
+					<PropertyList>
+						<Property Name="BusVolume" Type="Real64">
+							<ValueList>
+								<Value>-7</Value>
+							</ValueList>
+						</Property>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="AudioDevice" PluginName="System" CompanyID="0" PluginID="174" PluginType="7">
+							<ObjectRef Name="System" ID="{5F258392-71EE-4681-BE63-9508FBCC896D}" WorkUnitID="{3EFD8CF8-0E77-4CAB-889E-CF2993DF73CD}"/>
+						</Reference>
+					</ReferenceList>
+					<ObjectLists>
+						<ObjectList Name="Effects">
+							<Reference>
+								<Local>
+									<EffectSlot Name="" ID="{94281C3C-46E6-4BB5-8580-59225DD9AD37}" ShortID="262755428">
+										<ReferenceList>
+											<Reference Name="Effect">
+												<Custom>
+													<Effect Name="Parametric EQ (Custom)" ID="{D94CDC3F-A089-4D22-87A4-C9198EFE38A6}" ShortID="86645997" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+														<PropertyList>
+															<Property Name="FrequencyBand2" Type="Real32" Value="4588"/>
+															<Property Name="GainBand2" Type="Real32" Value="-24"/>
+														</PropertyList>
+													</Effect>
+												</Custom>
+											</Reference>
+										</ReferenceList>
+									</EffectSlot>
+								</Local>
+							</Reference>
+						</ObjectList>
+					</ObjectLists>
+				</Bus>
 			</ChildrenList>
 		</WorkUnit>
 	</Busses>

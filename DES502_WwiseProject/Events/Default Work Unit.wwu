@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{9F312CD6-E763-49F3-B6BC-73E971905B50}" SchemaVersion="119">
 	<Events>
-		<WorkUnit Name="Default Work Unit" ID="{9F312CD6-E763-49F3-B6BC-73E971905B50}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{9F312CD6-E763-49F3-B6BC-73E971905B50}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="BasementMusic" ID="{10B7AA19-A934-451A-9C0E-DC84DB8E6C68}">
+					<ChildrenList>
+						<Action Name="" ID="{1303FD02-5F32-4F86-A328-8E5B472CD103}" ShortID="500332310">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="BasementPlay" ID="{9A32BC67-E1C9-47A3-A4D1-6271FAAB11D0}" WorkUnitID="{00020684-9038-4340-967F-FB63239E9098}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="CardPlay" ID="{7844582E-63D1-451C-8138-14193A9E57DA}">
+					<ChildrenList>
+						<Action Name="" ID="{2CA62204-9557-40EE-B7F6-8A3172A88C32}" ShortID="688699329">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CardPlay" ID="{9EB06334-BB99-4E9E-8771-D7214B98B1D4}" WorkUnitID="{A66E9D4F-FFAB-42CD-961A-AF51BCBE2AF2}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
 	</Events>
 </WwiseDocument>
