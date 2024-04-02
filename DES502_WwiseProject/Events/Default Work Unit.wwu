@@ -25,6 +25,17 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="PokerMusic" ID="{09C224E0-4FE7-42C1-A25F-75A29AA96B49}">
+					<ChildrenList>
+						<Action Name="" ID="{2516BF88-2D3D-409C-A99A-0911C507D0D1}" ShortID="203146043">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="PokerMusic" ID="{068EA928-FC23-4604-B6F9-55EFCBA68C4B}" WorkUnitID="{00020684-9038-4340-967F-FB63239E9098}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

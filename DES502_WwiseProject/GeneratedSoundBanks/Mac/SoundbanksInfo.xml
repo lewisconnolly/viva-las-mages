@@ -9,67 +9,9 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{4E2FE2EA-BC15-0FE0-E3D5-98A5A283D0E7}">
-			<ShortName>Init</ShortName>
-			<Path>Init.bnk</Path>
-			<Plugins>
-				<AudioDevices>
-					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
-					<Plugin Id="3859886410" Name="System" LibName="System" LibId="11403271"/>
-				</AudioDevices>
-			</Plugins>
-			<Busses>
-				<Bus Id="493417818" Name="Music Audio Bus"/>
-				<Bus Id="3803692087" Name="Master Audio Bus"/>
-			</Busses>
-		</SoundBank>
-		<SoundBank Id="1859141876" Type="User" Language="SFX" Hash="{B5DF8DD7-8598-1D75-60AB-62E6AC805B7F}">
-			<ShortName>Poker</ShortName>
-			<Path>Poker.bnk</Path>
-			<Media>
-				<File Id="598450605" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>PokerMusic.wav</ShortName>
-					<CachePath>SFX/PokerMusic_FBC78EF0.wem</CachePath>
-				</File>
-			</Media>
-			<Events>
-				<Event Id="1452491837" Name="PokerMusic" DurationType="OneShot" DurationMin="83.47826" DurationMax="83.47826">
-					<MediaRefs>
-						<MediaRef Id="598450605"/>
-					</MediaRefs>
-				</Event>
-			</Events>
-		</SoundBank>
-		<SoundBank Id="2159622017" Type="User" Language="SFX" Hash="{29F4D0DF-1272-3D87-51A5-94D219FFF8EB}">
-			<ShortName>CommonEvents</ShortName>
-			<Path>CommonEvents.bnk</Path>
-			<Media>
-				<File Id="281327463" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>CardPlay2.wav</ShortName>
-					<CachePath>SFX/CardPlay2_818F3B66.wem</CachePath>
-				</File>
-				<File Id="522322369" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>CardPlay3.wav</ShortName>
-					<CachePath>SFX/CardPlay3_818F3B66.wem</CachePath>
-				</File>
-				<File Id="655079680" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>CardPlay1.wav</ShortName>
-					<CachePath>SFX/CardPlay1_818F3B66.wem</CachePath>
-				</File>
-			</Media>
-			<Events>
-				<Event Id="4206845685" Name="CardPlay" DurationType="OneShot" DurationMin="0.17027676" DurationMax="0.3316078">
-					<MediaRefs>
-						<MediaRef Id="281327463"/>
-						<MediaRef Id="522322369"/>
-						<MediaRef Id="655079680"/>
-					</MediaRefs>
-				</Event>
-			</Events>
-		</SoundBank>
-		<SoundBank Id="2678230382" Type="User" Language="SFX" Hash="{216E461F-B9B2-D2A5-D219-DCA71486B35D}">
-			<ShortName>Level1</ShortName>
-			<Path>Level1.bnk</Path>
+		<SoundBank Id="214542171" Type="User" Language="SFX" Hash="{49E9D97A-53F8-017D-2BFC-BF86AD7CB05D}">
+			<ShortName>BasementMusic</ShortName>
+			<Path>BasementMusic.bnk</Path>
 			<Media>
 				<File Id="88510531" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>BasementSong_Intro.wav</ShortName>
@@ -109,6 +51,64 @@
 				</Event>
 			</Events>
 		</SoundBank>
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{3D6810DF-35ED-DDB3-2A36-127EA5F6CCF6}">
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+			<Plugins>
+				<AudioDevices>
+					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
+					<Plugin Id="3859886410" Name="System" LibName="System" LibId="11403271"/>
+				</AudioDevices>
+			</Plugins>
+			<Busses>
+				<Bus Id="493417818" Name="Music Audio Bus"/>
+				<Bus Id="3803692087" Name="Master Audio Bus"/>
+			</Busses>
+		</SoundBank>
+		<SoundBank Id="1452491837" Type="User" Language="SFX" Hash="{F7894376-1A84-CC80-A8C9-81ACF9164CFD}">
+			<ShortName>PokerMusic</ShortName>
+			<Path>PokerMusic.bnk</Path>
+			<Media>
+				<File Id="924852720" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PokerMusic.wav</ShortName>
+					<CachePath>SFX/PokerMusic_FBC78EF0.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="1452491837" Name="PokerMusic" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="924852720"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
+		<SoundBank Id="2159622017" Type="User" Language="SFX" Hash="{29F4D0DF-1272-3D87-51A5-94D219FFF8EB}">
+			<ShortName>CommonEvents</ShortName>
+			<Path>CommonEvents.bnk</Path>
+			<Media>
+				<File Id="281327463" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>CardPlay2.wav</ShortName>
+					<CachePath>SFX/CardPlay2_818F3B66.wem</CachePath>
+				</File>
+				<File Id="522322369" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>CardPlay3.wav</ShortName>
+					<CachePath>SFX/CardPlay3_818F3B66.wem</CachePath>
+				</File>
+				<File Id="655079680" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>CardPlay1.wav</ShortName>
+					<CachePath>SFX/CardPlay1_818F3B66.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="4206845685" Name="CardPlay" DurationType="OneShot" DurationMin="0.17027676" DurationMax="0.3316078">
+					<MediaRefs>
+						<MediaRef Id="281327463"/>
+						<MediaRef Id="522322369"/>
+						<MediaRef Id="655079680"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
 	</SoundBanks>
-	<FileHash>{367D2FBD-07DC-5A04-16FF-9CE90642B66B}</FileHash>
+	<FileHash>{DA59B7FF-036F-549C-891D-FCB7BE6A6375}</FileHash>
 </SoundBanksInfo>

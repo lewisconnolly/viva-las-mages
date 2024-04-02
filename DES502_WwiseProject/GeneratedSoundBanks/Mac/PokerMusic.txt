@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	1452491837	PokerMusic			\Default Work Unit\PokerMusic	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	924852720	PokerMusic	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Mac\SFX\PokerMusic_FBC78EF0.wem		\Interactive Music Hierarchy\Default Work Unit\PokerMusic\PokerMusic\PokerMusic		14725708
+

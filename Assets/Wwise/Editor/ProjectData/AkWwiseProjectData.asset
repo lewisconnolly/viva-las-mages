@@ -24,7 +24,7 @@ MonoBehaviour:
     ParentPath: Virtual Acoustics\Default Work Unit
     guid: 8d6184b3b4cb804ba79f8ca51f872126
     GuidInternal: 
-    m_lastTime: -8584896074212264232
+    m_lastTime: -8584895275618966076
     List: []
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
@@ -38,7 +38,7 @@ MonoBehaviour:
     ParentPath: Master-Mixer Hierarchy\Default Work Unit
     guid: 6520efe4ebd65d41bedcccfec1a2db7f
     GuidInternal: 
-    m_lastTime: -8584896054788575190
+    m_lastTime: -8584895272795097349
     List:
     - name: Master Audio Bus
       guid: d8a41415a61d2a41a17e75ca0c2149f3
@@ -80,11 +80,11 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: f2447ec76069e842bc90e2a3c1bc6a0d
     GuidInternal: 
-    m_lastTime: -8584895966697286526
+    m_lastTime: -8584895270204714182
     List:
-    - name: Main_Soundbank
-      guid: 76dbe5716303ea4a86c85abf37133f27
-      id: 2228651116
+    - name: BasementMusic
+      guid: 68a0f8608ffb6c4abba0b1ead131545a
+      id: 214542171
       PathAndIcons:
       - ElementName: SoundBanks
         ObjectType: 5
@@ -92,10 +92,38 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: f2447ec76069e842bc90e2a3c1bc6a0d
-      - ElementName: Main_Soundbank
+      - ElementName: BasementMusic
+        ObjectType: 7
+        guid: 68a0f8608ffb6c4abba0b1ead131545a
+      Path: SoundBanks\Default Work Unit\BasementMusic
+    - name: CommonEvents
+      guid: 76dbe5716303ea4a86c85abf37133f27
+      id: 2159622017
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: f2447ec76069e842bc90e2a3c1bc6a0d
+      - ElementName: CommonEvents
         ObjectType: 7
         guid: 76dbe5716303ea4a86c85abf37133f27
-      Path: SoundBanks\Default Work Unit\Main_Soundbank
+      Path: SoundBanks\Default Work Unit\CommonEvents
+    - name: PokerMusic
+      guid: 852fb932b65c684a8099293f8ceca75d
+      id: 1452491837
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: f2447ec76069e842bc90e2a3c1bc6a0d
+      - ElementName: PokerMusic
+        ObjectType: 7
+        guid: 852fb932b65c684a8099293f8ceca75d
+      Path: SoundBanks\Default Work Unit\PokerMusic
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     PathAndIcons:
@@ -108,7 +136,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: d62c319f63e7f349b6bc73e971905b50
     GuidInternal: 
-    m_lastTime: -8584895966697336635
+    m_lastTime: -8584895270204668884
     List:
     - name: BasementMusic
       guid: 19aab71034a91a459c0edc84db8e6c68
@@ -144,6 +172,23 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0.3316078
       minDuration: 0.17027676
+    - name: PokerMusic
+      guid: e024c209e74fc142a25f75a29aa96b49
+      id: 1452491837
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: PokerMusic
+        ObjectType: 3
+        guid: e024c209e74fc142a25f75a29aa96b49
+      Path: Events\Default Work Unit\PokerMusic
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     PathAndIcons:
@@ -156,7 +201,7 @@ MonoBehaviour:
     ParentPath: Game Parameters\Default Work Unit
     guid: c159986efaa2f44fbc8fd3326b0eccf3
     GuidInternal: 
-    m_lastTime: -8584896074214439346
+    m_lastTime: -8584895275627913375
     List: []
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
@@ -170,7 +215,7 @@ MonoBehaviour:
     ParentPath: States\Default Work Unit
     guid: c737ba394227fb4987b02262ac8cd691
     GuidInternal: 
-    m_lastTime: -8584896074212284179
+    m_lastTime: -8584895275620178896
     List: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
@@ -184,7 +229,7 @@ MonoBehaviour:
     ParentPath: Switches\Default Work Unit
     guid: e4f17a2baafe08438b260dec0f798937
     GuidInternal: 
-    m_lastTime: -8584896074212274207
+    m_lastTime: -8584895275620178896
     List: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
@@ -198,7 +243,7 @@ MonoBehaviour:
     ParentPath: Triggers\Default Work Unit
     guid: 592e04adbd854748adfd9d5aa3905808
     GuidInternal: 
-    m_lastTime: -8584896074212274207
+    m_lastTime: -8584895275620168925
     List: []
   ExpandedFileSystemItemIds: 
   ExpandedWaapiItemIds: 01000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e000000
