@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static BattleController;
-using static PowerCardController;
 
 public class PowerCardController : MonoBehaviour
 {
@@ -14,7 +11,7 @@ public class PowerCardController : MonoBehaviour
         instance = this;
     }
 
-    public enum PowerCardType { None, Wildcard, FreeSwap, HandSwap, HalfClubs, HalfSpades, HalfHearts, HalfDiamonds, AutoPair }
+    public enum PowerCardType { None, Wildcard, FreeSwap, HandSwap, HalfClubs, HalfSpades, HalfHearts, HalfDiamonds, AutoPair, UpgradeRank, GainHeart }
 
     public Material noneMaterial;
     public Material wildcardMaterial;
@@ -25,16 +22,23 @@ public class PowerCardController : MonoBehaviour
     public Material halfHeartsMaterial;
     public Material halfDiamondsMaterial;
     public Material autoPairMaterial;
+    public Material upgradeRankMaterial;
+    public Material gainHeartMaterial;
 
     public Transform autoPairSpawnPosition;
+
+    public int numRanksToUpgrade;
+    public int numHeartsToGain;
 
     public List<Card> EvaluatePowerCards(List<Card> hand)
     {
         List<Card> newHand = hand;
+        numRanksToUpgrade = 0;
+        numHeartsToGain = 0;
 
         // Change each power card based on its type
         // Separate loop for each type because power cards can be stacked/act multiplicatively
-        
+
         // Auto pairs first because they change number of each suit in hand,
         // so will change what suits wild card and half and half become
         for (int i = 0; i < hand.Count; i++)
@@ -56,7 +60,14 @@ public class PowerCardController : MonoBehaviour
         for (int i = 0; i < hand.Count; i++)
         {
             if (hand[i].powerCardType == PowerCardType.Wildcard) { newHand = ChooseWildcardSuit(newHand, i); }
-        }        
+        }
+
+        // Determine number of ranks to upgrade and hearts to gain
+        for (int i = 0; i < hand.Count; i++)
+        {
+            if (hand[i].powerCardType == PowerCardType.UpgradeRank) { numRanksToUpgrade++; }
+            if (hand[i].powerCardType == PowerCardType.GainHeart) { numHeartsToGain++; }
+        }
 
         return newHand;
     }
@@ -64,18 +75,18 @@ public class PowerCardController : MonoBehaviour
     List<Card> ChooseWildcardSuit(List<Card> hand, int cardIndex)
     {
         List<Card> newHand = hand;
-        HandEvaluator.HandRank handRank = HandEvaluator.instance.EvaluateHand(hand, false);
+        //HandEvaluator.HandRank handRank = HandEvaluator.instance.EvaluateHand(hand, false);
 
         // Wildcard only affects straight and high card hands
         //if (handRank == HandEvaluator.HandRank.Straight ||
         //    handRank == HandEvaluator.HandRank.HighCard)
         //{
-            // Get the suit that appears the most in the hand
-            var suitGroups = hand.GroupBy(card => card.suit).OrderByDescending(group => group.Count());
-            string topSuit = suitGroups.First().ToList().First().suit;
+        // Get the suit that appears the most in the hand
+        var suitGroups = hand.GroupBy(card => card.suit).OrderByDescending(group => group.Count());
+        string topSuit = suitGroups.First().ToList().First().suit;
 
-            // Set suit of wildcard to be the top suit
-            newHand[cardIndex].suit = topSuit;
+        // Set suit of wildcard to be the top suit
+        newHand[cardIndex].suit = topSuit;
         //}
 
         return newHand;
@@ -84,24 +95,24 @@ public class PowerCardController : MonoBehaviour
     List<Card> ChooseHalfAndHalfSuit(List<Card> hand, int cardIndex)
     {
         List<Card> newHand = hand;
-        HandEvaluator.HandRank handRank = HandEvaluator.instance.EvaluateHand(hand, false);
+        //HandEvaluator.HandRank handRank = HandEvaluator.instance.EvaluateHand(hand, false);
 
         // Half and half only affects straight and high card hands
         //if (handRank == HandEvaluator.HandRank.Straight ||
         //    handRank == HandEvaluator.HandRank.HighCard)
         //{
-            // Get the suit that appears the most in the hand
-            var suitGroups = hand.GroupBy(card => card.suit).OrderByDescending(group => group.Count());
-            string topSuit = suitGroups.First().ToList().First().suit;
-            
-            // Get added suit
-            string addedSuit = newHand[cardIndex].powerCardType.ToString().Replace("Half","");
+        // Get the suit that appears the most in the hand
+        var suitGroups = hand.GroupBy(card => card.suit).OrderByDescending(group => group.Count());
+        string topSuit = suitGroups.First().ToList().First().suit;
 
-            // If the original suit of the card isn't the top suit already and the added suit is the same as top suit, make the original suit the top suit
-            if (newHand[cardIndex].suit != topSuit && addedSuit == topSuit)
-            {
-                newHand[cardIndex].suit = topSuit; // suit will be reset back to original on cardSO when card is drawn again
-            }
+        // Get added suit
+        string addedSuit = newHand[cardIndex].powerCardType.ToString().Replace("Half", "");
+
+        // If the original suit of the card isn't the top suit already and the added suit is the same as top suit, make the original suit the top suit
+        if (newHand[cardIndex].suit != topSuit && addedSuit == topSuit)
+        {
+            newHand[cardIndex].suit = topSuit; // suit will be reset back to original on cardSO when card is drawn again
+        }
         //}
 
         return newHand;

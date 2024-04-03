@@ -192,7 +192,25 @@ public class BattleController : MonoBehaviour
         }
         else
         {
-            PokerUIController.instance.SetWinnerText("Tie");
+            HandEvaluator.TieWinner tieWinner = HandEvaluator.instance.BreakTie(HandController.instance.playedCards.OrderBy(c => c.value).ToList(),
+                                EnemyController.instance.playedCards.OrderBy(c => c.value).ToList(),
+                                playerHandRank);
+
+            if (tieWinner == HandEvaluator.TieWinner.Player)
+            {
+                PokerUIController.instance.SetWinnerText("Player Wins!");
+                PlayerHealth.instance.IncreaseHealth(currentBet);
+                activeEnemy.TakeDamage(currentBet);
+            }
+            else if (tieWinner == HandEvaluator.TieWinner.Enemy)
+            {
+                PokerUIController.instance.SetWinnerText("Enemy Wins!");
+                PlayerHealth.instance.TakeDamage(currentBet);
+            }
+            else
+            {
+                PokerUIController.instance.SetWinnerText("Tie");
+            }
         }
     }
 
@@ -240,8 +258,14 @@ public class BattleController : MonoBehaviour
 
             case TurnOrder.resolveHands:
 
-                var playerHandRank = HandEvaluator.instance.EvaluateHand(HandController.instance.playedCards, true);
-                var enemyHandRank = HandEvaluator.instance.EvaluateHand(EnemyController.instance.playedCards, true);
+                HandEvaluator.HandRank playerHandRank = HandEvaluator.instance.EvaluateHand(HandController.instance.playedCards, true);
+
+                // Increase rank by number of UpgradeRank power cards
+                playerHandRank += PowerCardController.instance.numRanksToUpgrade;
+                // Gain heart for each GainHeart power card
+                PlayerHealth.instance.IncreaseHealth(PowerCardController.instance.numHeartsToGain);
+
+                HandEvaluator.HandRank enemyHandRank = HandEvaluator.instance.EvaluateHand(EnemyController.instance.playedCards, true);
 
                 ResolveHands(playerHandRank, enemyHandRank);
 

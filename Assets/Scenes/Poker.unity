@@ -3348,37 +3348,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &513322447
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 513322448}
-  m_Layer: 0
-  m_Name: EditorController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &513322448
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 513322447}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8159351, y: 1.1015687, z: 1.3159546}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &535278396
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5546,7 +5515,7 @@ MonoBehaviour:
   deckToUse: []
   cardToSpawn: {fileID: 1869501704160709902, guid: 9b70303e279d9f04ba73d6d101a00b11,
     type: 3}
-  waitBetweenDrawingCards: 0.25
+  waitBetweenDrawingCards: 0.5
 --- !u!4 &989208024
 Transform:
   m_ObjectHideFlags: 0
@@ -8755,7 +8724,11 @@ MonoBehaviour:
   halfDiamondsMaterial: {fileID: 2100000, guid: 656eb73fc9ad9124fbde91b14bd0bc19,
     type: 2}
   autoPairMaterial: {fileID: 2100000, guid: ee76e88a3354c6247a7182cacf162498, type: 2}
+  upgradeRankMaterial: {fileID: 2100000, guid: 45dc706f025d73647920ff05f5d38833, type: 2}
+  gainHeartMaterial: {fileID: 2100000, guid: e60aae738be6caa488666ee175ddec04, type: 2}
   autoPairSpawnPosition: {fileID: 2065612846}
+  numRanksToUpgrade: 0
+  numHeartsToGain: 0
 --- !u!4 &1575212178
 Transform:
   m_ObjectHideFlags: 0
@@ -10895,6 +10868,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1897869253}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1904908586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1904908587}
+  m_Layer: 0
+  m_Name: === AUDIO ===
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1904908587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904908586}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.4395332, y: 1.3730345, z: 0.3125712}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1913474609
 GameObject:
   m_ObjectHideFlags: 0
@@ -12367,6 +12371,7 @@ MonoBehaviour:
   cardToSpawn: {fileID: 1869501704160709902, guid: 9b70303e279d9f04ba73d6d101a00b11,
     type: 3}
   drawFrom: {fileID: 217731707}
+  pcntChanceOfRandomHand: 50
 --- !u!4 &2135608934
 Transform:
   m_ObjectHideFlags: 0
@@ -12505,6 +12510,6 @@ SceneRoots:
   - {fileID: 135591888}
   - {fileID: 146358461}
   - {fileID: 725154680}
-  - {fileID: 513322448}
+  - {fileID: 1904908587}
   - {fileID: 1370565049}
   - {fileID: 1067290992}
