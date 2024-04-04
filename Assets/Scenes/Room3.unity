@@ -1435,12 +1435,17 @@ PrefabInstance:
     - target: {fileID: 2086981561263383459, guid: 5178f75b45786c64597041750aa8b1e7,
         type: 3}
       propertyPath: currentHealth
-      value: 10
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2086981561263383459, guid: 5178f75b45786c64597041750aa8b1e7,
+        type: 3}
+      propertyPath: pcntChanceOfRandomHand
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2442539153024538672, guid: 5178f75b45786c64597041750aa8b1e7,
         type: 3}
       propertyPath: m_text
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2605336053951358928, guid: 5178f75b45786c64597041750aa8b1e7,
         type: 3}

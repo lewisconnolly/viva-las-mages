@@ -552,6 +552,11 @@ PrefabInstance:
       propertyPath: powerCardType
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2086981561263383459, guid: 2bc5d9fe6ebd29e41a421464f37feda2,
+        type: 3}
+      propertyPath: pcntChanceOfRandomHand
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 2605336053951358928, guid: 2bc5d9fe6ebd29e41a421464f37feda2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1248,7 +1253,12 @@ PrefabInstance:
     - target: {fileID: 2086981561263383459, guid: 2bb5b7f23d7eafb49acc403b9233c0fc,
         type: 3}
       propertyPath: currentHealth
-      value: 5
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2086981561263383459, guid: 2bb5b7f23d7eafb49acc403b9233c0fc,
+        type: 3}
+      propertyPath: pcntChanceOfRandomHand
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2442539153024538672, guid: 2bb5b7f23d7eafb49acc403b9233c0fc,
         type: 3}

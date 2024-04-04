@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 11
   suit: Hearts
-  material: {fileID: 2100000, guid: b9440f89b36185741aace7b5412b563b, type: 2}
+  material: {fileID: 2100000, guid: 790c73c8d0597a54a96b96b499fab5e5, type: 2}
   powerCardType: 0

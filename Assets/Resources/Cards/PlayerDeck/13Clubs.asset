@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 13
   suit: Clubs
-  material: {fileID: 2100000, guid: 568da27f06592cb488b35af8e1738707, type: 2}
+  material: {fileID: 2100000, guid: 99fcf8306576aa241bc33d8b6336e335, type: 2}
   powerCardType: 0

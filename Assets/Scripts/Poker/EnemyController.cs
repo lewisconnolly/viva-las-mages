@@ -37,6 +37,8 @@ public class EnemyController : MonoBehaviour
         SetUpDeck();
         //SetCardPositionsInHand();
         SetCardPositionsInHandCentered();
+
+        pcntChanceOfRandomHand = BattleController.instance.activeEnemy.pcntChanceOfRandomHand;
     }
 
     // Update is called once per frame

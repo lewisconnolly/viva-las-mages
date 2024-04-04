@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4696250288062245132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6550311955584407363}
+  - component: {fileID: 7125385067354761326}
+  m_Layer: 0
+  m_Name: PowerCardController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6550311955584407363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4696250288062245132}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7125385067354761326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4696250288062245132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c2dfdb5781dc64c91637b3105e8e0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noneMaterial: {fileID: 2100000, guid: bdae3502d111855459caf6e539451b21, type: 2}
+  wildcardMaterial: {fileID: 2100000, guid: 703aedf727b086d40a49ecb24d46fa6d, type: 2}
+  freeSwapMaterial: {fileID: 2100000, guid: d15ae18daef262f41b578311b7935a4f, type: 2}
+  handSwapMaterial: {fileID: 2100000, guid: 4fb832505d6cd864b965f1b84078141b, type: 2}
+  halfClubsMaterial: {fileID: 2100000, guid: bb4ab439cfda141469c25f6926c6d5f3, type: 2}
+  halfSpadesMaterial: {fileID: 2100000, guid: 7dd63d2b952451143bb409ee10953f3f, type: 2}
+  halfHeartsMaterial: {fileID: 2100000, guid: c301ba389db58ed47bed081f06fc248d, type: 2}
+  halfDiamondsMaterial: {fileID: 2100000, guid: 228d1c067d7a4714685af8082b282b5f,
+    type: 2}
+  autoPairMaterial: {fileID: 2100000, guid: 213885e0ed3dfb84abc71e84f6a98b7a, type: 2}
+  upgradeRankMaterial: {fileID: 2100000, guid: 047261af78714274dac4621b25b16ac0, type: 2}
+  gainHeartMaterial: {fileID: 2100000, guid: a07c45d9ee2a1994fb50ca6f21e70686, type: 2}
+  autoPairSpawnPosition: {fileID: 0}
+  numRanksToUpgrade: 0
+  numHeartsToGain: 0

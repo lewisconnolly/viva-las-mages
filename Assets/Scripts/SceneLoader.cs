@@ -24,6 +24,7 @@ public class SceneLoader : MonoBehaviour
     private List<Vector3> enemyStartingPositions = new List<Vector3>();
     private List<Quaternion> enemyStartingRotations = new List<Quaternion>();
     private List<int> enemyStartingHealthValues = new List<int>();
+    private List<int> enemyDifficultyValues = new List<int>();
     private List<EnemyReward> enemyRewards = new List<EnemyReward>();    
 
     public GameObject exitCostPrefab;
@@ -83,6 +84,7 @@ public class SceneLoader : MonoBehaviour
                 enemyStartingPositions.Add(e.transform.position);
                 enemyStartingRotations.Add(e.transform.rotation);
                 enemyStartingHealthValues.Add(e.GetComponent<DealerHealth>().currentHealth);
+                enemyDifficultyValues.Add(e.GetComponent<DealerHealth>().pcntChanceOfRandomHand);
                 enemyRewards.Add(e.GetComponent<EnemyReward>());
                 Destroy(e);
             }            
@@ -97,6 +99,7 @@ public class SceneLoader : MonoBehaviour
                 GameObject enemy = Instantiate(enemyPrefab, enemyStartingPositions[i], enemyStartingRotations[i]);
                 enemy.GetComponent<DealerHealth>().currentHealth = enemyStartingHealthValues[i];
                 enemy.GetComponent<DealerHealth>().SetHealthText();
+                enemy.GetComponent<DealerHealth>().pcntChanceOfRandomHand = enemyDifficultyValues[i];
                 enemy.GetComponent<EnemyReward>().baseSO = enemyRewards[i].baseSO;
                 enemy.GetComponent<EnemyReward>().powerCardType = enemyRewards[i].powerCardType;
                 enemy.GetComponent<EnemyReward>().SetUpCard();
@@ -141,7 +144,7 @@ public class SceneLoader : MonoBehaviour
     }
 
     public void LoadPoker()
-    {        
+    {                
         PlayerInventory.instance.prevScene = SceneManager.GetActiveScene().name;        
         StartCoroutine(LoadNextScene("Poker"));
     }

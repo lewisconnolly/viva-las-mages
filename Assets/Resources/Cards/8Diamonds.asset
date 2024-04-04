@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 8
   suit: Diamonds
-  material: {fileID: 2100000, guid: 4b8dbd2f0f498a141aaefd7d67f341dd, type: 2}
+  material: {fileID: 2100000, guid: 126d5a0cc79b0ce43a7fe42b09c910a6, type: 2}
+  powerCardType: 0

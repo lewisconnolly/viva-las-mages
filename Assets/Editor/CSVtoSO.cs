@@ -20,8 +20,9 @@ public class CSVtoSO
             card.value = int.Parse(splitData[0]);
             card.suit = splitData[1];
             card.material = Resources.Load<Material>(cardMaterialsPath + splitData[2]);
+            card.powerCardType = PowerCardController.PowerCardType.None;
 
-            AssetDatabase.CreateAsset(card, "Assets/Cards/" + card.value + card.suit + ".asset");
+            AssetDatabase.CreateAsset(card, "Assets/Resources/Cards/PlayerDeck/" + card.value + card.suit + ".asset");
         }
 
         AssetDatabase.SaveAssets();

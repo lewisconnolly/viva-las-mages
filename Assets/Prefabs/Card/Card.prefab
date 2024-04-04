@@ -46,13 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a9ddfdbcdf25542b84f18d583e81df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardSO: {fileID: 11400000, guid: 4f509b053c437094c8b54b12906520ea, type: 2}
+  cardSO: {fileID: 11400000, guid: e918b7345b984e241a6c2d6e0fc9c523, type: 2}
   isPlayer: 1
   value: 6
   suit: Clubs
   model: {fileID: 225959301214266597}
   powerCardType: 0
-  moveSpeed: 20
+  moveSpeed: 15
   rotateSpeed: 540
   inHand: 0
   handPosition: 0
@@ -157,7 +157,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d339a0c7b81cc5441b4bced1c8727be2, type: 2}
+      objectReference: {fileID: 2100000, guid: a16200fa2642814499d6dd00ed300fc4, type: 2}
     - target: {fileID: 8909160462230565056, guid: 191bf7aed57e7f0488a819ae5a566444,
         type: 3}
       propertyPath: m_Materials.Array.data[1]

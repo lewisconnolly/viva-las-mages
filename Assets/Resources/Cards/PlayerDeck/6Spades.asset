@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 6
   suit: Spades
-  material: {fileID: 2100000, guid: 9545755a00954b9479bd8c8e061e49fd, type: 2}
+  material: {fileID: 2100000, guid: 366df54fdf9e4154387c56eb3e63a8f8, type: 2}
   powerCardType: 0

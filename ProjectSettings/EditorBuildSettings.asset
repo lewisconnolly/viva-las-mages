@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Poker.unity
-    guid: dad3bbc7645423a47ae40bbf8f6bd497
+    path: Assets/Scenes/MainMenu.unity
+    guid: 6b446a866a00c0344ba92a13a7e75b0e
   - enabled: 1
     path: Assets/Scenes/Room1.unity
     guid: 99c9720ab356a0642a771bea13969a05
@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Room3.unity
     guid: 6f3f805c4457e2e4b8cdc98c463945ad
+  - enabled: 1
+    path: Assets/Scenes/Poker.unity
+    guid: dad3bbc7645423a47ae40bbf8f6bd497
   m_configObjects: {}
