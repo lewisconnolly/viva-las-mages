@@ -32,11 +32,15 @@ public class HandController : MonoBehaviour
 
     public int numCardsRequiredToPlay = 5;
 
+    Camera mainCam;
+    public AnimationCurve cardFanWidthCurve;
+    public AnimationCurve cardFanHeightCurve;
+    public AnimationCurve cardFanRotationCurve;
+
     // Start is called before the first frame update
     void Start()
     {
-        //SetCardPositionsInHand();
-        SetCardPositionsInHandCentered(false);
+        mainCam = Camera.main;
     }
 
     // Update is called once per frame
@@ -73,51 +77,26 @@ public class HandController : MonoBehaviour
     {
         cardHandPositions.Clear();
         cardHandRotations.Clear();
-
-        Vector3 distanceBetweenPoints = (maxHandPos.position - minHandPos.position) / BattleController.instance.startingCardsAmount;
-        Vector3 midHandPos = new Vector3(minHandPos.position.x, maxHandPos.position.y, minHandPos.position.z + (maxHandPos.position.z - minHandPos.position.z) / 2);
-
-        // Shift mid point to right by half a card if even number of cards held
-        midHandPos = new Vector3(midHandPos.x, midHandPos.y, midHandPos.z) + distanceBetweenPoints / 2 * Mathf.Max(0, 1 - heldCards.Count % 2);
-
-        // Start from mid point and move left times the number of cards        
-        Vector3 firstCardPos = new Vector3(midHandPos.x, midHandPos.y, midHandPos.z) - distanceBetweenPoints * Mathf.Floor(heldCards.Count / 2);
-
-        Vector3 cardPos = firstCardPos;
+        
+        Vector3 startingPos = mainCam.WorldToViewportPoint(minHandPos.position);
+        Vector3 cardPos = startingPos;
+        Quaternion startingRotation = minHandPos.rotation;
         Quaternion cardRotation;
-
-        // Rotate cards in x to prevent z-fighting
-        float startingFanAngle = 0.4f;
-        float fanAngle;
-
-        // Rotation lerp variables
-        float startingRotation = 7.5f;
-        float rotation = startingRotation;
-        float t2 = 0;
 
         for (int i = 0; i < heldCards.Count; i++)
         {
-            // Gradually offset cards in x and y to create fan. Offset first card by more so that it looks right
-            if (i == 0)
-            {
-                cardPos = new Vector3(firstCardPos.x + 0.009f, firstCardPos.y - 0.025f * Mathf.Pow(1.5f, (float)i), firstCardPos.z) + distanceBetweenPoints * i;
-            }
-            else
-            {
-                cardPos = new Vector3(firstCardPos.x - 0.0075f * i, firstCardPos.y - 0.0075f * Mathf.Pow(1.5f, (float)i), firstCardPos.z) + distanceBetweenPoints * i;
-            }
+            float handRatio = 0.0f;
 
-            if (justPlayedHand) { cardPos += new Vector3(0.2f, -0.2f, 0); }
+            if (heldCards.Count > 1) { handRatio = (float)i / ((float)heldCards.Count - 1); }
 
-            // Gradually rotate cards in opposite direction and x-axis
-            rotation = Mathf.Lerp(rotation, -startingRotation, t2);
-            fanAngle = startingFanAngle + i * 0.2f;
-            cardRotation = minHandPos.rotation * Quaternion.Euler(fanAngle, rotation, 0);
+            cardPos.x = startingPos.x + cardFanWidthCurve.Evaluate(handRatio) * 0.65f;
+            cardPos.y = startingPos.y + cardFanHeightCurve.Evaluate(handRatio) * 0.05f;
+            cardPos.z = startingPos.z - cardFanWidthCurve.Evaluate(handRatio) * 0.05f;
+            cardRotation = startingRotation * Quaternion.Euler(0, cardFanRotationCurve.Evaluate(handRatio) * 10f, 0);
+            
+            if (justPlayedHand) { cardPos += new Vector3(0, -0.2f, 0); }
 
-            // Increase interpolation degree
-            if (heldCards.Count > 1) { t2 += 1.0f / (float)(heldCards.Count - 1); }
-
-            cardHandPositions.Add(cardPos);
+            cardHandPositions.Add(mainCam.ViewportToWorldPoint(cardPos));
             cardHandRotations.Add(cardRotation);
 
             heldCards[i].MoveToPoint(cardHandPositions[i], cardHandRotations[i]);
@@ -163,7 +142,6 @@ public class HandController : MonoBehaviour
     public void AddCardToHand(Card cardToAdd)
     {
         heldCards.Add(cardToAdd);
-        //SetCardPositionsInHand();  
         SetCardPositionsInHandCentered(false);
         CardSound.Post(gameObject);
     }
@@ -191,7 +169,6 @@ public class HandController : MonoBehaviour
         }
             
         selectedCards.Clear();
-        //SetCardPositionsInHand();
         SetCardPositionsInHandCentered(true);
     }
 

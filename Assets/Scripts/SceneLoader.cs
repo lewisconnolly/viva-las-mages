@@ -149,6 +149,11 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadNextScene("Poker"));
     }
 
+    public void LoadMainMenu()
+    {
+        StartCoroutine(LoadNextScene("MainMenu"));
+    }
+
     IEnumerator LoadNextScene(string sceneName)
     {
         transition.SetTrigger("Start");        
@@ -160,7 +165,20 @@ public class SceneLoader : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        if (sceneName == "Poker")
+        if (sceneName == "MainMenu")
+        {
+            GameObject exit = GameObject.FindGameObjectWithTag("ExitCost");
+
+            foreach (GameObject enemy in enemies)
+            {
+                if (enemy != null) { Destroy(enemy); }
+            }
+
+            if (player != null) { Destroy(player); }
+
+            if (exit != null) { Destroy(exit); }
+        }
+        else if (sceneName == "Poker")
         {
 
             foreach (GameObject enemy in enemies)

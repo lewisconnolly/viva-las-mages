@@ -19,6 +19,6 @@ public class Billboard : MonoBehaviour
             mainCam = Camera.main;
         }
 
-        transform.LookAt(transform.position + mainCam.transform.forward);
+        transform.LookAt(transform.position + mainCam.transform.forward);        
     }
 }

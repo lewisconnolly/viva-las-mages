@@ -33,6 +33,11 @@ public class PokerUIController : MonoBehaviour
 
     public GameObject placeBetButton, swapCardButton, playHandButton, playAgainButton, leaveButton;
 
+    public GameObject pauseScreen;
+    public static bool isPaused = false;
+    public Animator transition;
+    public float transitionTime = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,16 +64,13 @@ public class PokerUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)) { PauseUnpause(); }
+
+        if (Input.GetKeyDown(KeyCode.L))
         {
             BattleController.instance.activeEnemy.activeEnemy = false;
             SceneLoader.instance.LoadRoom(PlayerInventory.instance.prevScene);            
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            SetHealthText(PlayerHealth.instance.GetHealth());
-        }        
+        }     
 
         if (showBetIcons)
         {
@@ -115,17 +117,56 @@ public class PokerUIController : MonoBehaviour
         enemyBetIcon.SetActive(true);
         showBetIcons = true;
     }
-    public void PlayHand() { BattleController.instance.PlayHand(); }
+    public void PlayHand()
+    {
+        if (!isPaused) { BattleController.instance.PlayHand(); }
+    }
 
-    public void PlaceBet() { BattleController.instance.PlaceBet(int.Parse(betSlider.currentBet.text)); }
+    public void PlaceBet()
+    {
+        if (!isPaused) { BattleController.instance.PlaceBet(int.Parse(betSlider.currentBet.text)); }
+    }
 
-    public void PlayAgain() { BattleController.instance.PlayAgain(); }
+    public void PlayAgain()
+    {     
+        if (!isPaused) { BattleController.instance.PlayAgain(); }
+    }
 
     public void Leave()
     {
-        BattleController.instance.activeEnemy.activeEnemy = false;
-        SceneLoader.instance.LoadRoom(PlayerInventory.instance.prevScene);
+        if (!isPaused)
+        {
+            BattleController.instance.activeEnemy.activeEnemy = false;
+            SceneLoader.instance.LoadRoom(PlayerInventory.instance.prevScene);
+        }
     }
 
-    public void SwapCards() { HandController.instance.SwapCards(); }
+    public void SwapCards()
+    {
+        if (!isPaused) { HandController.instance.SwapCards(); }
+    }
+
+    public void PauseUnpause()
+    {
+        if (pauseScreen.activeSelf == false)
+        {
+            pauseScreen.SetActive(true);
+            Time.timeScale = 0f;
+            isPaused = true;
+        }
+        else
+        {
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1f;
+            isPaused = false;
+        }
+    }
+
+    public void QuitToMainMenu()
+    {
+        pauseScreen.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
+        SceneLoader.instance.LoadMainMenu();
+    }
 }

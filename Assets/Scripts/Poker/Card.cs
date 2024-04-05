@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Card : MonoBehaviour
 {
@@ -16,7 +18,6 @@ public class Card : MonoBehaviour
 
     private Vector3 targetPoint;
     private Quaternion targetRot;
-    //private Vector3 targetScale;
     public float moveSpeed = 7.5f;
     public float rotateSpeed = 540f;
 
@@ -146,7 +147,7 @@ public class Card : MonoBehaviour
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;              
 
-            if (Input.GetMouseButtonDown(0) && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive)
+            if (Input.GetMouseButtonDown(0) && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive && !PokerUIController.isPaused)
             {
                 if (Physics.Raycast(ray, out hit))
                 {
@@ -158,7 +159,7 @@ public class Card : MonoBehaviour
             }
 
             // Right click to return card to hand
-            if (Input.GetMouseButtonDown(1)) { ReturnToHand(); }                        
+            if (Input.GetMouseButtonDown(1) && !PokerUIController.isPaused) { ReturnToHand(); }                        
         }
 
         double zPos = Mathf.Round(transform.position.z);        
@@ -179,11 +180,10 @@ public class Card : MonoBehaviour
     // Pop up card towards camera on mouse hover
     private void OnMouseOver()
     {
-        if (inHand && isPlayer && !isSelected)
+        if (inHand && isPlayer && !isSelected && !PokerUIController.isPaused)
         {
-            //MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(-.1f, .1f, 0), hc.minHandPos.rotation);
             MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(0.1f, 0.1f, 0), hc.cardHandRotations[handPosition]);
-
+            
             // Make cards in hand next to this card transparent
             if (!isMouseOverAndHasFadedOut)
             {
@@ -197,9 +197,8 @@ public class Card : MonoBehaviour
     // Move card back down if mouse is no longer hovering over
     private void OnMouseExit()
     {
-        if (inHand && isPlayer && !isSelected)
+        if (inHand && isPlayer && !isSelected && !PokerUIController.isPaused)
         {
-            //MoveToPoint(hc.cardHandPositions[handPosition], hc.minHandPos.rotation);
             MoveToPoint(hc.cardHandPositions[handPosition], hc.cardHandRotations[handPosition]);
 
             isMouseOverAndHasFadedOut = false;
@@ -213,7 +212,7 @@ public class Card : MonoBehaviour
     private void OnMouseDown()
     {
         if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive && isPlayer
-            && hc.selectedCards.Count < 5 && !isSelected)
+            && hc.selectedCards.Count < 5 && !isSelected && !PokerUIController.isPaused)
         {            
             //hc.SetTransparency(this, "select");
 
@@ -225,9 +224,8 @@ public class Card : MonoBehaviour
     {
         hc.SelectCard(this);
         hc.SortSelectedCards();
-        
-        //MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(-.3f, .2f, 0), hc.minHandPos.rotation);
-        MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(-0.3f, 0.2f, 0), hc.cardHandRotations[handPosition]);
+               
+        MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(-0.2f, 0.4f, 0), hc.cardHandRotations[handPosition]);
         
         isInSelectedPosition = true;
     }
@@ -240,7 +238,6 @@ public class Card : MonoBehaviour
         hc.SortSelectedCards();
         isSelected = false;
 
-        //MoveToPoint(hc.cardHandPositions[handPosition], hc.minHandPos.rotation);
         MoveToPoint(hc.cardHandPositions[handPosition], hc.cardHandRotations[handPosition]);
 
         isInSelectedPosition = false;

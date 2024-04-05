@@ -31,14 +31,19 @@ public class EnemyController : MonoBehaviour
 
     public int pcntChanceOfRandomHand = 50;
 
+    Camera mainCam;
+    public AnimationCurve cardFanWidthCurve;
+    public AnimationCurve cardFanHeightCurve;
+    public AnimationCurve cardFanRotationCurve;
+
     // Start is called before the first frame update
     void Start()
     {
-        SetUpDeck();
-        //SetCardPositionsInHand();
-        SetCardPositionsInHandCentered();
+        SetUpDeck();        
 
         pcntChanceOfRandomHand = BattleController.instance.activeEnemy.pcntChanceOfRandomHand;
+
+        mainCam = Camera.main;
     }
 
     // Update is called once per frame
@@ -88,74 +93,28 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    //public void SetCardPositionsOnTable()
-    //{
-    //    CardPlacePoint[] placePoints = FindObjectsOfType<CardPlacePoint>();
-    //    List<CardPlacePoint> enemyPlacePoints = new List<CardPlacePoint>();
-
-    //    for (int i = 0; i < placePoints.Length; i++)
-    //    {
-    //        if (!placePoints[i].isPlayerPoint)
-    //        {
-    //            enemyPlacePoints.Add(placePoints[i]);
-    //        }
-    //    }
-
-    //    List<CardPlacePoint> sortedEnemyPlacePoints = enemyPlacePoints.OrderBy(p => p.transform.position.x).ToList();
-
-    //    for (int i = 0; i < selectedCards.Count; i++)
-    //    {
-    //        selectedCards[i].MoveToPoint(sortedEnemyPlacePoints[i].transform.position, selectedCards[i].transform.rotation * Quaternion.Euler(0, 0, -90));
-    //    }
-    //}
-
     public void SetCardPositionsInHandCentered()
     {
         cardHandPositions.Clear();
         cardHandRotations.Clear();
 
-        Vector3 distanceBetweenPoints = (maxHandPos.position - minHandPos.position) / BattleController.instance.startingCardsAmount;
-        Vector3 midHandPos = new Vector3(minHandPos.position.x, maxHandPos.position.y, minHandPos.position.z + (maxHandPos.position.z - minHandPos.position.z) / 2);
-
-        // Shift mid point to right by half a card if even number of cards held
-        midHandPos = new Vector3(midHandPos.x, midHandPos.y, midHandPos.z) + distanceBetweenPoints / 2 * Mathf.Max(0, 1 - heldCards.Count % 2);
-
-        // Start from mid point and move left times the number of cards        
-        Vector3 firstCardPos = new Vector3(midHandPos.x, midHandPos.y, midHandPos.z) - distanceBetweenPoints * Mathf.Floor(heldCards.Count / 2);
-
-        Vector3 cardPos = firstCardPos;
+        Vector3 startingPos = mainCam.WorldToViewportPoint(maxHandPos.position);
+        Vector3 cardPos = startingPos;
+        Quaternion startingRotation = maxHandPos.rotation;
         Quaternion cardRotation;
-
-        // Rotate cards in x to prevent z-fighting
-        float startingFanAngle = 0.4f;
-        float fanAngle;
-
-        // Rotation lerp variables
-        float startingRotation = 7.5f;
-        float rotation = startingRotation;
-        float t2 = 0;
 
         for (int i = 0; i < heldCards.Count; i++)
         {
-            // Gradually offset cards in x and y to create fan. Offset first card by more so that it looks right
-            if (i == 0)
-            {
-                cardPos = new Vector3(firstCardPos.x + 0.009f, firstCardPos.y - 0.025f * Mathf.Pow(1.5f, (float)i), firstCardPos.z) + distanceBetweenPoints * i;
-            }
-            else
-            {
-                cardPos = new Vector3(firstCardPos.x - 0.0075f * i, firstCardPos.y - 0.0075f * Mathf.Pow(1.5f, (float)i), firstCardPos.z) + distanceBetweenPoints * i;
-            }
+            float handRatio = 0.0f;
 
-            // Gradually rotate cards in opposite direction and x-axis
-            rotation = Mathf.Lerp(rotation, -startingRotation, t2);
-            fanAngle = startingFanAngle + i * 0.2f;
-            cardRotation = minHandPos.rotation * Quaternion.Euler(fanAngle, rotation, 0);
+            if (heldCards.Count > 1) { handRatio = (float)i / ((float)heldCards.Count - 1); }
 
-            // Increase interpolation degree
-            if (heldCards.Count > 1) { t2 += 1.0f / (float)(heldCards.Count - 1); }
+            cardPos.x = startingPos.x + cardFanWidthCurve.Evaluate(handRatio) * 0.285f;
+            cardPos.y = startingPos.y + cardFanHeightCurve.Evaluate(handRatio) * 0.025f;
+            cardPos.z = startingPos.z - cardFanWidthCurve.Evaluate(handRatio) * 0.125f;
+            cardRotation = startingRotation * Quaternion.Euler(0, cardFanRotationCurve.Evaluate(handRatio) * -10f, 0);
 
-            cardHandPositions.Add(cardPos);
+            cardHandPositions.Add(mainCam.ViewportToWorldPoint(cardPos));
             cardHandRotations.Add(cardRotation);
 
             heldCards[i].MoveToPoint(cardHandPositions[i], cardHandRotations[i]);
@@ -189,7 +148,6 @@ public class EnemyController : MonoBehaviour
     public void AddCardToHand(Card cardToAdd)
     {
         heldCards.Add(cardToAdd);
-        //SetCardPositionsInHand();
         SetCardPositionsInHandCentered();
     }
 
@@ -307,7 +265,6 @@ public class EnemyController : MonoBehaviour
         }
 
         selectedCards.Clear();
-        //SetCardPositionsInHand();
         SetCardPositionsInHandCentered();
     }
     public void DrawCardToHand()

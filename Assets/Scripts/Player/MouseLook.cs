@@ -10,7 +10,7 @@ public class MouseLook : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {        
         // Stop the cursor leaving the game view
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -31,6 +31,6 @@ public class MouseLook : MonoBehaviour
         // Rotate the camera around the x-axis
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         // Rotate the camera around the y-axis
-        playerBody.Rotate(Vector3.up, mouseX);        
+        playerBody.Rotate(Vector3.up, mouseX);
     }
 }
