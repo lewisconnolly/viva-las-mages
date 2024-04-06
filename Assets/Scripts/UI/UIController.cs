@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static System.TimeZoneInfo;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.Audio;
+using System.Collections.Generic;
 
 public class UIController : MonoBehaviour
 {
@@ -12,16 +11,66 @@ public class UIController : MonoBehaviour
     {
         instance = this;
     }
-
-    public GameObject PauseScreen;
+    
     public static bool isPaused = false;
+
+    public GameObject pauseScreen;
+    public GameObject settingsScreen;
+
+    public Slider sensitivitySlider;
+    public Slider volumeSlider;
+    public TextMeshProUGUI currentSensitivity;
+    public TextMeshProUGUI currentVolume;
+    
+    public AudioMixer audioMixer;
+
     public Animator transition;
     public float transitionTime = 1f;
+
+    Resolution[] resolutions;
+    public TMP_Dropdown resolutionDropdown;
+
+    private void Start()
+    {
+        resolutions = Screen.resolutions;
+        resolutionDropdown.ClearOptions();
+        List<string> options = new List<string>();
+
+        int currentResolutionIndex = 0;
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + "x" + resolutions[i].height;
+            options.Add(option);
+
+            if (resolutions[i].height == Screen.currentResolution.height && resolutions[i].width == Screen.currentResolution.width)
+            {
+                currentResolutionIndex = i; 
+            }
+        }
+
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue(); 
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) { PauseUnpause(); }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused && !pauseScreen.activeSelf)
+            {
+                settingsScreen.SetActive(false);
+                pauseScreen.SetActive(true);
+            }
+            else
+            {
+                PauseUnpause();
+            }
+        }
+
+        currentSensitivity.text = Mathf.Round((sensitivitySlider.value - 10f) / 10f).ToString();
+        currentVolume.text = Mathf.Round((volumeSlider.value + 80f) * 1.25f).ToString();
     }
 
     public TextMeshProUGUI healthValueText;
@@ -30,9 +79,9 @@ public class UIController : MonoBehaviour
 
     public void PauseUnpause()
     {
-        if (PauseScreen.activeSelf == false)
+        if (pauseScreen.activeSelf == false)
         {
-            PauseScreen.SetActive(true);
+            pauseScreen.SetActive(true);
             Time.timeScale = 0f;
             isPaused = true;
             Cursor.lockState = CursorLockMode.None;
@@ -40,7 +89,7 @@ public class UIController : MonoBehaviour
         }
         else
         {
-            PauseScreen.SetActive(false);
+            pauseScreen.SetActive(false);
             Time.timeScale = 1f;
             isPaused = false;
             Cursor.lockState = CursorLockMode.Locked;
@@ -48,11 +97,53 @@ public class UIController : MonoBehaviour
         }
     }
 
+    public void GoToSettings()
+    {
+        pauseScreen.SetActive(false);
+        settingsScreen.SetActive(true);
+
+    }
+
     public void QuitToMainMenu()
     {
-        PauseScreen.SetActive(false);
+        pauseScreen.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
         SceneLoader.instance.LoadMainMenu();
+    }
+
+    public void SetVolume(float volume)
+    {
+        audioMixer.SetFloat("volume", volume);
+    }
+
+    public void SetGraphicsQuality(int qualityIndex)
+    {
+        int level = 2;
+
+        if (qualityIndex == 1) { level = 1; }
+
+        QualitySettings.SetQualityLevel(level);
+    }
+
+    public void SetFullscreen(bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
+    }
+
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void SetLookSensitivity(float sensitivity)
+    {
+        MouseLook playerMouseLook = FindObjectOfType<MouseLook>();
+        
+        if (playerMouseLook != null)
+        {
+            playerMouseLook.mouseSensitivity = sensitivity;
+        }
     }
 }

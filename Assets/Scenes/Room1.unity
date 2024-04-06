@@ -4382,10 +4382,60 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 944115180589850347, guid: 06ffa74b928c0c044acbd6a902ffd9d0,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 944115180589850347, guid: 06ffa74b928c0c044acbd6a902ffd9d0,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367475169616222660, guid: 06ffa74b928c0c044acbd6a902ffd9d0,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367475169616222660, guid: 06ffa74b928c0c044acbd6a902ffd9d0,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367475169616222660, guid: 06ffa74b928c0c044acbd6a902ffd9d0,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3825970495184901965, guid: 06ffa74b928c0c044acbd6a902ffd9d0,
         type: 3}
       propertyPath: m_Name
       value: UICanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3965000411632733886, guid: 06ffa74b928c0c044acbd6a902ffd9d0,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3965000411632733886, guid: 06ffa74b928c0c044acbd6a902ffd9d0,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3965000411632733886, guid: 06ffa74b928c0c044acbd6a902ffd9d0,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6799212758565257927, guid: 06ffa74b928c0c044acbd6a902ffd9d0,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6799212758565257927, guid: 06ffa74b928c0c044acbd6a902ffd9d0,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7678659675024136991, guid: 06ffa74b928c0c044acbd6a902ffd9d0,
         type: 3}
@@ -4900,6 +4950,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 6758951409123983672}
   - {fileID: 832575519}
+  - {fileID: 1890443988}
   - {fileID: 909895108}
   - {fileID: 1807741576}
   - {fileID: 1532688110}
@@ -4911,7 +4962,6 @@ SceneRoots:
   - {fileID: 7700203660137847122}
   - {fileID: 1901189871}
   - {fileID: 2044950149832660633}
-  - {fileID: 1890443988}
   - {fileID: 1192555198}
   - {fileID: 1045086560}
   - {fileID: 1292752334458054490}

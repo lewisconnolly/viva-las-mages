@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class PokerUIController : MonoBehaviour
 {
@@ -33,8 +34,21 @@ public class PokerUIController : MonoBehaviour
 
     public GameObject placeBetButton, swapCardButton, playHandButton, playAgainButton, leaveButton;
 
-    public GameObject pauseScreen;
     public static bool isPaused = false;
+
+    public GameObject pauseScreen;
+    public GameObject settingsScreen;
+
+    public Slider sensitivitySlider;
+    public Slider volumeSlider;
+    public TextMeshProUGUI currentSensitivity;
+    public TextMeshProUGUI currentVolume;
+
+    public AudioMixer audioMixer;
+
+    Resolution[] resolutions;
+    public TMP_Dropdown resolutionDropdown;
+
     public Animator transition;
     public float transitionTime = 1f;
 
@@ -43,6 +57,26 @@ public class PokerUIController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        resolutions = Screen.resolutions;
+        resolutionDropdown.ClearOptions();
+        List<string> options = new List<string>();
+
+        int currentResolutionIndex = 0;
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + "x" + resolutions[i].height;
+            options.Add(option);
+
+            if (resolutions[i].height == Screen.currentResolution.height && resolutions[i].width == Screen.currentResolution.width)
+            {
+                currentResolutionIndex = i;
+            }
+        }
+
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
 
         InitPokerUI();
     }
@@ -64,7 +98,18 @@ public class PokerUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) { PauseUnpause(); }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused && !pauseScreen.activeSelf)
+            {
+                settingsScreen.SetActive(false);
+                pauseScreen.SetActive(true);
+            }
+            else
+            {
+                PauseUnpause();
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
@@ -82,6 +127,9 @@ public class PokerUIController : MonoBehaviour
             betIcon.transform.position = Vector3.Lerp(betIcon.transform.position, betIconOrigin, 5f * Time.deltaTime);
             enemyBetIcon.transform.position = Vector3.Lerp(enemyBetIcon.transform.position, enemyBetIconOrigin, 5f * Time.deltaTime);
         }
+
+        currentSensitivity.text = Mathf.Round((sensitivitySlider.value - 10f) / 10f).ToString();
+        currentVolume.text = Mathf.Round((volumeSlider.value + 80f) * 1.25f).ToString();
     }
 
     public void SetHealthText(int health) { healthValueText.text = health.ToString(); }
@@ -153,6 +201,8 @@ public class PokerUIController : MonoBehaviour
             pauseScreen.SetActive(true);
             Time.timeScale = 0f;
             isPaused = true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         else
         {
@@ -161,6 +211,12 @@ public class PokerUIController : MonoBehaviour
             isPaused = false;
         }
     }
+    public void GoToSettings()
+    {
+        pauseScreen.SetActive(false);
+        settingsScreen.SetActive(true);
+
+    }
 
     public void QuitToMainMenu()
     {
@@ -168,5 +224,40 @@ public class PokerUIController : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
         SceneLoader.instance.LoadMainMenu();
+    }
+
+    public void SetVolume(float volume)
+    {
+        audioMixer.SetFloat("volume", volume);
+    }
+
+    public void SetGraphicsQuality(int qualityIndex)
+    {
+        int level = 2;
+
+        if (qualityIndex == 1) { level = 1; }
+
+        QualitySettings.SetQualityLevel(level);
+    }
+
+    public void SetFullscreen(bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
+    }
+
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void SetLookSensitivity(float sensitivity)
+    {
+        MouseLook playerMouseLook = FindObjectOfType<MouseLook>();
+
+        if (playerMouseLook != null)
+        {
+            playerMouseLook.mouseSensitivity = sensitivity;
+        }
     }
 }

@@ -312,7 +312,7 @@ public class HandEvaluator : MonoBehaviour
         {
             return TieWinner.Enemy;
         }
-        else if (ePairs[0].value > ePairs[0].value)
+        else if (pPairs[0].value > ePairs[0].value)
         {
             return TieWinner.Player;
         }

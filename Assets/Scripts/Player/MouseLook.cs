@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    public float mouseSensitivity = 100f;
+    public float mouseSensitivity = 120f;
     public Transform playerBody;
     private float xRotation = 0f;
 
@@ -14,6 +14,8 @@ public class MouseLook : MonoBehaviour
         // Stop the cursor leaving the game view
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        mouseSensitivity = UIController.instance.sensitivitySlider.value;
     }
 
     // Update is called once per frame
