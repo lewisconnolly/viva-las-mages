@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class UIController : MonoBehaviour
 
     public GameObject pauseScreen;
     public GameObject settingsScreen;
+    public GameObject gameOverScreen;
 
     public Slider sensitivitySlider;
     public Slider volumeSlider;
@@ -24,8 +26,7 @@ public class UIController : MonoBehaviour
     
     public AudioMixer audioMixer;
 
-    public Animator transition;
-    public float transitionTime = 1f;
+    public Animator gameOverTransition;
 
     Resolution[] resolutions;
     public TMP_Dropdown resolutionDropdown;
@@ -106,10 +107,11 @@ public class UIController : MonoBehaviour
 
     public void QuitToMainMenu()
     {
+        gameOverScreen.SetActive(false);
         pauseScreen.SetActive(false);
-        Time.timeScale = 1f;
         isPaused = false;
         SceneLoader.instance.LoadMainMenu();
+        Time.timeScale = 1f;
     }
 
     public void SetVolume(float volume)
@@ -145,5 +147,29 @@ public class UIController : MonoBehaviour
         {
             playerMouseLook.mouseSensitivity = sensitivity;
         }
+    }
+
+    public void RestartGame()
+    {
+        gameOverScreen.SetActive(false);
+
+        // Delete DontDestroyOnLoad objects
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject exit = GameObject.FindGameObjectWithTag("ExitCost");
+
+        foreach (GameObject enemy in enemies) { if (enemy != null) { Destroy(enemy); } }
+        if (player != null) { Destroy(player); }
+        if (exit != null) { Destroy(exit); }
+
+        SceneManager.LoadScene("Room1");
+    }
+
+    public void GameOver()
+    {
+        gameOverScreen.SetActive(true);
+        gameOverTransition.Play(0);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;        
     }
 }

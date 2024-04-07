@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static System.TimeZoneInfo;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -12,14 +13,15 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        currentHealth = maxHealth;        
+        currentHealth = maxHealth;
     }
 
     public int maxHealth = 10;
     public int currentHealth;
-    //private int currentBet;
     private bool updateHealthText;
-        
+
+    public bool isGameOver = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,15 +40,21 @@ public class PlayerHealth : MonoBehaviour
         {
             UIController.instance.SetHealthText(currentHealth);
             updateHealthText = false;
-        }        
+        }
     }
 
     public int GetHealth() { return currentHealth; }
-    
+
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        if (currentHealth < 0) { currentHealth = 0; }
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            isGameOver = true;
+        }
+
         if (SceneManager.GetActiveScene().name == "Poker")
         {
             PokerUIController.instance.SetHealthText(currentHealth);
@@ -54,7 +62,20 @@ public class PlayerHealth : MonoBehaviour
         else
         {
             UIController.instance.SetHealthText(currentHealth);
+            if (isGameOver) { EndGame(); }
         }
+    }
+
+    private void EndGame()
+    {
+        StartCoroutine(EndGame(2f));
+    }
+
+    IEnumerator EndGame(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        UIController.instance.GameOver();
     }
 
     public void IncreaseHealth(int health)
@@ -72,7 +93,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void PlaceBet(int bet)
     {
-        //currentBet = bet;
         PokerUIController.instance.SetBetText(bet);
         PokerUIController.instance.ShowBetIcons();
         ExitCost.instance.TakeDamage(bet);

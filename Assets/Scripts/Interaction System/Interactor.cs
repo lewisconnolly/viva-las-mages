@@ -32,7 +32,7 @@ public class Interactor : MonoBehaviour
                 if (!interactionPromptUI.isDisplayed) interactionPromptUI.SetUp(interactable.InteractionPrompt);
 
                 // Interact with the interactable if e was pressed this frame
-                if (Keyboard.current.eKey.wasPressedThisFrame && !UIController.isPaused) interactable.Interact(this);
+                if (Keyboard.current.eKey.wasPressedThisFrame && !UIController.isPaused && !PlayerHealth.instance.isGameOver) interactable.Interact(this);
             }            
         }
         else

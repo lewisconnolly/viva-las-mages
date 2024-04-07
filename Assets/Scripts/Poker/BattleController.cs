@@ -181,7 +181,7 @@ public class BattleController : MonoBehaviour
 
         if (playerHandRank > enemyHandRank)
         {
-            PokerUIController.instance.SetWinnerText("Player Wins!");
+            PokerUIController.instance.SetWinnerText("You Win!");
             PlayerHealth.instance.IncreaseHealth(currentBet);           
             activeEnemy.TakeDamage(currentBet);
         }
@@ -198,13 +198,13 @@ public class BattleController : MonoBehaviour
 
             if (tieWinner == HandEvaluator.TieWinner.Player)
             {
-                PokerUIController.instance.SetWinnerText("Player Wins!");
+                PokerUIController.instance.SetWinnerText("You Win!");
                 PlayerHealth.instance.IncreaseHealth(currentBet);
                 activeEnemy.TakeDamage(currentBet);
             }
             else if (tieWinner == HandEvaluator.TieWinner.Enemy)
             {
-                PokerUIController.instance.SetWinnerText("Enemy Wins!");
+                PokerUIController.instance.SetWinnerText("Enemy Wins");
                 PlayerHealth.instance.TakeDamage(currentBet);
             }
             else
@@ -273,14 +273,22 @@ public class BattleController : MonoBehaviour
                 PokerUIController.instance.enemyHandText.gameObject.SetActive(true);                
                 PokerUIController.instance.HideBetIcons();
 
-                if (activeEnemy.GetHealth() != 0)
+                if (PlayerHealth.instance.isGameOver)
+                {
+                    string winnerText = PokerUIController.instance.winnerText.text;
+                    PokerUIController.instance.SetWinnerText(winnerText + "\nYou've Gone Bust!");
+                    PokerUIController.instance.winnerText.gameObject.SetActive(true);
+                    PokerUIController.instance.swapCardButton.SetActive(false);
+                    PokerUIController.instance.endGameButton.SetActive(true);                    
+                }
+                else if (activeEnemy.GetHealth() != 0)
                 {
                     PokerUIController.instance.winnerText.gameObject.SetActive(true);
                     PokerUIController.instance.playAgainButton.SetActive(true);
                     PokerUIController.instance.playAgainButton.GetComponent<Button>().interactable = true;
                     PokerUIController.instance.swapCardButton.SetActive(false);
                     PokerUIController.instance.leaveButton.SetActive(true);
-                }
+                }                                
                 else
                 {                
                     RewardCardUI.instance.rewardCardParentObject.SetActive(true);

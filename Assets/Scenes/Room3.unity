@@ -1234,7 +1234,7 @@ PrefabInstance:
         type: 3}
       propertyPath: baseSO
       value: 
-      objectReference: {fileID: 11400000, guid: b239477f716ad46479dae91d771b44bc,
+      objectReference: {fileID: 11400000, guid: 2a24ec2d307b4da42ad1043e0fae0608,
         type: 2}
     - target: {fileID: 85312512235876811, guid: 5178f75b45786c64597041750aa8b1e7,
         type: 3}

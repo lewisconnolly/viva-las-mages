@@ -147,7 +147,8 @@ public class Card : MonoBehaviour
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;              
 
-            if (Input.GetMouseButtonDown(0) && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive && !PokerUIController.isPaused)
+            if (Input.GetMouseButtonDown(0) && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive &&
+                !PokerUIController.isPaused && !PlayerHealth.instance.isGameOver)
             {
                 if (Physics.Raycast(ray, out hit))
                 {
@@ -180,7 +181,7 @@ public class Card : MonoBehaviour
     // Pop up card towards camera on mouse hover
     private void OnMouseOver()
     {
-        if (inHand && isPlayer && !isSelected && !PokerUIController.isPaused)
+        if (inHand && isPlayer && !isSelected && !PokerUIController.isPaused && !PlayerHealth.instance.isGameOver)
         {
             MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(0.1f, 0.1f, 0), hc.cardHandRotations[handPosition]);
             
@@ -212,7 +213,7 @@ public class Card : MonoBehaviour
     private void OnMouseDown()
     {
         if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive && isPlayer
-            && hc.selectedCards.Count < 5 && !isSelected && !PokerUIController.isPaused)
+            && hc.selectedCards.Count < 5 && !isSelected && !PokerUIController.isPaused && !PlayerHealth.instance.isGameOver)
         {            
             //hc.SetTransparency(this, "select");
 

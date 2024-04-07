@@ -32,12 +32,13 @@ public class PokerUIController : MonoBehaviour
     private bool showBetIcons;
     public BetSlider betSlider;
 
-    public GameObject placeBetButton, swapCardButton, playHandButton, playAgainButton, leaveButton;
+    public GameObject placeBetButton, swapCardButton, playHandButton, playAgainButton, leaveButton, endGameButton;
 
     public static bool isPaused = false;
 
     public GameObject pauseScreen;
     public GameObject settingsScreen;
+    public GameObject gameOverScreen;
 
     public Slider sensitivitySlider;
     public Slider volumeSlider;
@@ -49,8 +50,7 @@ public class PokerUIController : MonoBehaviour
     Resolution[] resolutions;
     public TMP_Dropdown resolutionDropdown;
 
-    public Animator transition;
-    public float transitionTime = 1f;
+    public Animator gameOverTransition;
 
     // Start is called before the first frame update
     void Start()
@@ -220,6 +220,7 @@ public class PokerUIController : MonoBehaviour
 
     public void QuitToMainMenu()
     {
+        gameOverScreen.SetActive(false);
         pauseScreen.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
@@ -259,5 +260,27 @@ public class PokerUIController : MonoBehaviour
         {
             playerMouseLook.mouseSensitivity = sensitivity;
         }
+    }
+
+    public void RestartGame()
+    {
+        gameOverScreen.SetActive(false);
+
+        // Delete DontDestroyOnLoad objects
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject exit = GameObject.FindGameObjectWithTag("ExitCost");
+
+        foreach (GameObject enemy in enemies) { if (enemy != null) { Destroy(enemy); } }
+        if (player != null) { Destroy(player); }
+        if (exit != null) { Destroy(exit); }
+
+        SceneManager.LoadScene("Room1");
+    }
+
+    public void GameOver()
+    {
+        gameOverScreen.SetActive(true);
+        gameOverTransition.Play(0);
     }
 }
