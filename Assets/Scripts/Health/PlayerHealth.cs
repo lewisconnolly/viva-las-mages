@@ -79,8 +79,9 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void IncreaseHealth(int health)
-    {
+    {        
         currentHealth += health;
+
         if (SceneManager.GetActiveScene().name == "Poker")
         {
             PokerUIController.instance.SetHealthText(currentHealth);

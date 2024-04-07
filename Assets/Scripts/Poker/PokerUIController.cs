@@ -92,7 +92,9 @@ public class PokerUIController : MonoBehaviour
 
         if (GameObject.FindGameObjectWithTag("ExitCost") != null) { SetExitHealthText(ExitCost.instance.GetHealth()); }
 
-        if (GameObject.FindGameObjectWithTag("Player") != null) { SetHealthText(PlayerHealth.instance.GetHealth()); }
+        if (GameObject.FindGameObjectWithTag("Player") != null) {
+            Debug.Log(PlayerHealth.instance.GetHealth());
+            SetHealthText(PlayerHealth.instance.GetHealth()); }
     }
 
     // Update is called once per frame

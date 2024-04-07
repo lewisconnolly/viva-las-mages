@@ -498,8 +498,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d938ceb6fa488a43a5f5ed1c0cdff40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 4
-  currentHealth: 0
+  maxHealth: 5
+  currentHealth: 5
   isGameOver: 0
 --- !u!114 &1810605483035068754
 MonoBehaviour:
