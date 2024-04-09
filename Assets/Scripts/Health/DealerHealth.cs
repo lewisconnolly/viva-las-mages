@@ -23,6 +23,7 @@ public class DealerHealth : MonoBehaviour
     public int GetHealth() { return currentHealth; }    
 
     public void SetHealthText() { this.gameObject.GetComponentInChildren<UIDealerController>().SetHealthText(currentHealth); }
+
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;

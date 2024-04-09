@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEngine.GraphicsBuffer;
 
 public class Card : MonoBehaviour
@@ -32,9 +33,7 @@ public class Card : MonoBehaviour
     private Collider col;
 
     public LayerMask whatIsDesktop;
-    public LayerMask whatIsPlacement;
-
-    public CardPlacePoint assignedPlace;
+    public LayerMask whatIsPlacement;  
 
     private MeshRenderer cardRenderer;
     private Color originalColour;
@@ -148,7 +147,7 @@ public class Card : MonoBehaviour
             RaycastHit hit;              
 
             if (Input.GetMouseButtonDown(0) && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive &&
-                !PokerUIController.isPaused && !PlayerHealth.instance.isGameOver)
+                !PokerUIController.isPaused && !PlayerHealth.instance.isGameOver && !DeckViewer.instance.deckViewerParent.activeSelf)
             {
                 if (Physics.Raycast(ray, out hit))
                 {
@@ -160,14 +159,17 @@ public class Card : MonoBehaviour
             }
 
             // Right click to return card to hand
-            if (Input.GetMouseButtonDown(1) && !PokerUIController.isPaused) { ReturnToHand(); }                        
+            if (Input.GetMouseButtonDown(1) && !PokerUIController.isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { ReturnToHand(); }                        
         }
 
-        double zPos = Mathf.Round(transform.position.z);        
-        if (zPos == Mathf.Round(BattleController.instance.playerDiscardPosition.position.z) ||
-            zPos == Mathf.Round(BattleController.instance.enemyDiscardPosition.position.z))
+        if (SceneManager.GetActiveScene().name == "Poker")
         {
-            Destroy(this.gameObject);
+            double zPos = Mathf.Round(transform.position.z);
+            if (zPos == Mathf.Round(BattleController.instance.playerDiscardPosition.position.z) ||
+                zPos == Mathf.Round(BattleController.instance.enemyDiscardPosition.position.z))
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 
@@ -181,7 +183,8 @@ public class Card : MonoBehaviour
     // Pop up card towards camera on mouse hover
     private void OnMouseOver()
     {
-        if (inHand && isPlayer && !isSelected && !PokerUIController.isPaused && !PlayerHealth.instance.isGameOver)
+        if (inHand && isPlayer && !isSelected && !PokerUIController.isPaused &&
+            !PlayerHealth.instance.isGameOver && !DeckViewer.instance.deckViewerParent.activeSelf)
         {
             MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(0.1f, 0.1f, 0), hc.cardHandRotations[handPosition]);
             
@@ -198,7 +201,7 @@ public class Card : MonoBehaviour
     // Move card back down if mouse is no longer hovering over
     private void OnMouseExit()
     {
-        if (inHand && isPlayer && !isSelected && !PokerUIController.isPaused)
+        if (inHand && isPlayer && !isSelected && !PokerUIController.isPaused && !DeckViewer.instance.deckViewerParent.activeSelf)
         {
             MoveToPoint(hc.cardHandPositions[handPosition], hc.cardHandRotations[handPosition]);
 
@@ -213,7 +216,8 @@ public class Card : MonoBehaviour
     private void OnMouseDown()
     {
         if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive && isPlayer
-            && hc.selectedCards.Count < 5 && !isSelected && !PokerUIController.isPaused && !PlayerHealth.instance.isGameOver)
+            && hc.selectedCards.Count < 5 && !isSelected && !PokerUIController.isPaused && !PlayerHealth.instance.isGameOver
+            && !DeckViewer.instance.deckViewerParent.activeSelf)
         {            
             //hc.SetTransparency(this, "select");
 

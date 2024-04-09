@@ -10,6 +10,7 @@ TagManager:
   - ExitCost
   - Exit
   - MusicObj
+  - SlotMachine
   layers:
   - Default
   - TransparentFX

@@ -21,18 +21,21 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Get mouse input and multiply by sensitivity variable and delta time to be frame rate independent
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        if (!DeckViewer.instance.deckViewerParent.activeSelf)
+        {
+            // Get mouse input and multiply by sensitivity variable and delta time to be frame rate independent
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        // Decrease xRotation variable by mouse y-axis movement
-        xRotation -= mouseY;
-        // Prevent player loooking behind themselves
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            // Decrease xRotation variable by mouse y-axis movement
+            xRotation -= mouseY;
+            // Prevent player loooking behind themselves
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        // Rotate the camera around the x-axis
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        // Rotate the camera around the y-axis
-        playerBody.Rotate(Vector3.up, mouseX);
+            // Rotate the camera around the x-axis
+            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            // Rotate the camera around the y-axis
+            playerBody.Rotate(Vector3.up, mouseX);
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class RewardCardUI : MonoBehaviour
 {
@@ -17,26 +18,46 @@ public class RewardCardUI : MonoBehaviour
     public Card rewardCard;
     public TextMeshPro rewardCardText;
 
-    private Vector3 targetScale;
     public float growSpeed = 0.01f;
 
     private void Start()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject activeEnemy = enemies.Where(enemy => enemy.GetComponent<DealerHealth>().activeEnemy == true).ToList().First();
-        EnemyReward enemyReward = activeEnemy.GetComponent<EnemyReward>();         
+        List<GameObject> activeEnemies = enemies.Where(enemy => enemy.GetComponent<DealerHealth>().activeEnemy == true).ToList();
 
-        CardScriptableObject enemyRewardCard = enemyReward.GetRewardCard();        
-        rewardCard.cardSO = enemyRewardCard;
+        if (activeEnemies.Count > 0)
+        {
+            GameObject activeEnemy = activeEnemies.First();
+            EnemyReward enemyReward = activeEnemy.GetComponent<EnemyReward>();
+
+            CardScriptableObject enemyRewardCard = enemyReward.GetRewardCard();
+            rewardCard.cardSO = enemyRewardCard;
+            rewardCard.SetUpCard();
+
+            rewardCardText.text = rewardCard.powerCardType.ToString() + " Won";
+        }
+    }
+
+    private void Update()
+    {
+        bool isPaused;
+        if (SceneManager.GetActiveScene().name != "Poker") { isPaused = UIController.isPaused; } else { isPaused = PokerUIController.isPaused; }
+        
+        if(Input.GetMouseButtonDown(0) && !isPaused) { rewardCardParentObject.SetActive(false); }
+    }
+
+    public void SlotMachineReward(CardScriptableObject smRewardCard)
+    {
+        //GameObject[] slotMachines = GameObject.FindGameObjectsWithTag("SlotMachine");
+        //SlotMachine activeSlotMachine = slotMachines.Where(sm => sm.GetComponentInChildren<SlotMachine>().activeSlotMachine == true).ToList().First().GetComponentInChildren<SlotMachine>();
+
+        //CardScriptableObject smRewardCard = activeSlotMachine.GetRewardCard();
+        rewardCard.cardSO = smRewardCard;
         rewardCard.SetUpCard();
 
         rewardCardText.text = rewardCard.powerCardType.ToString() + " Won";
-    }
 
-    void Update()
-    {
-        //transform.localScale = Vector3.Lerp(transform.localScale, targetScale, growSpeed * Time.deltaTime);
+        rewardCardParentObject.SetActive(true);
+        PlayerInventory.instance.AddRewardCardtoDeck(rewardCard.cardSO);
     }
-
-    public void GrowToScale(Vector3 scaleToGrowTo) { targetScale = scaleToGrowTo; }
 }

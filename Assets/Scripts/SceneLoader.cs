@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using UnityEngine.Rendering.Universal;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class SceneLoader : MonoBehaviour
     public Vector3 exitCostStartingPosition = new Vector3(0f, 10f, 0f);
     public Quaternion exitCostStartingRotation = Quaternion.identity;
 
+    public Camera canvasCamera;
+
     void Start()
     {        
         InstantiatePlayer();
@@ -49,7 +52,7 @@ public class SceneLoader : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
         {
-            Instantiate(playerPrefab, playerStartingPosition.transform.position, playerStartingPosition.transform.rotation);
+            Instantiate(playerPrefab, playerStartingPosition.transform.position, playerStartingPosition.transform.rotation);                     
         }
         else
         {
@@ -70,6 +73,10 @@ public class SceneLoader : MonoBehaviour
         {
             PlayerMovement.instance.UnfreezePlayer();
             PlayerCamera.instance.EnablePlayerCamera();
+
+            player = GameObject.FindGameObjectWithTag("Player");
+            Camera mainCam = player.GetComponentsInChildren<Camera>().First();
+            mainCam.GetUniversalAdditionalCameraData().cameraStack.Add(canvasCamera);
         }
     }
 

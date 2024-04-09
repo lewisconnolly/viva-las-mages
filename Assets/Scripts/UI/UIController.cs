@@ -93,8 +93,12 @@ public class UIController : MonoBehaviour
             pauseScreen.SetActive(false);
             Time.timeScale = 1f;
             isPaused = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+
+            if (!DeckViewer.instance.deckViewerParent.activeSelf)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
     }
 

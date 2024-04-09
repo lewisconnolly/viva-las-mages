@@ -92,9 +92,7 @@ public class PokerUIController : MonoBehaviour
 
         if (GameObject.FindGameObjectWithTag("ExitCost") != null) { SetExitHealthText(ExitCost.instance.GetHealth()); }
 
-        if (GameObject.FindGameObjectWithTag("Player") != null) {
-            Debug.Log(PlayerHealth.instance.GetHealth());
-            SetHealthText(PlayerHealth.instance.GetHealth()); }
+        if (GameObject.FindGameObjectWithTag("Player") != null) { SetHealthText(PlayerHealth.instance.GetHealth()); }
     }
 
     // Update is called once per frame
@@ -169,17 +167,17 @@ public class PokerUIController : MonoBehaviour
     }
     public void PlayHand()
     {
-        if (!isPaused) { BattleController.instance.PlayHand(); }
+        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { BattleController.instance.PlayHand(); }
     }
 
     public void PlaceBet()
     {
-        if (!isPaused) { BattleController.instance.PlaceBet(int.Parse(betSlider.currentBet.text)); }
+        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { BattleController.instance.PlaceBet(int.Parse(betSlider.currentBet.text)); }
     }
 
     public void PlayAgain()
     {     
-        if (!isPaused) { BattleController.instance.PlayAgain(); }
+        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { BattleController.instance.PlayAgain(); }
     }
 
     public void Leave()
@@ -193,7 +191,7 @@ public class PokerUIController : MonoBehaviour
 
     public void SwapCards()
     {
-        if (!isPaused) { HandController.instance.SwapCards(); }
+        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { HandController.instance.SwapCards(); }
     }
 
     public void PauseUnpause()
