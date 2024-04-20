@@ -87,7 +87,7 @@ public class SceneLoader : MonoBehaviour
         {
             foreach (GameObject e in proxyEnemies)
             {                
-                enemyNames.Add(e.name);
+                enemyNames.Add(e.name.Replace("Proxy",""));
                 enemyStartingPositions.Add(e.transform.position);
                 enemyStartingRotations.Add(e.transform.rotation);
                 enemyStartingHealthValues.Add(e.GetComponent<DealerHealth>().currentHealth);
