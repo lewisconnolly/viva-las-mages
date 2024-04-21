@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{39BA37C7-2742-49FB-87B0-2262AC8CD691}" SchemaVersion="119">
 	<States>
-		<WorkUnit Name="Default Work Unit" ID="{39BA37C7-2742-49FB-87B0-2262AC8CD691}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{39BA37C7-2742-49FB-87B0-2262AC8CD691}" PersistMode="Standalone">
+			<ChildrenList>
+				<StateGroup Name="Music" ID="{87C617ED-EF22-4E0E-8C96-3C274E06A23F}">
+					<ChildrenList>
+						<State Name="None" ID="{420A4B20-F032-4A83-B88C-2A0EDD732762}"/>
+						<State Name="Poker" ID="{CEF5FF35-E37B-424D-8C99-692A43825169}"/>
+						<State Name="Basement" ID="{87A5B1F0-7868-4725-B444-663DCE01744F}"/>
+					</ChildrenList>
+				</StateGroup>
+			</ChildrenList>
+		</WorkUnit>
 	</States>
 </WwiseDocument>

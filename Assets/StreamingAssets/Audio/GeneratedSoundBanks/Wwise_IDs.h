@@ -13,17 +13,31 @@ namespace AK
 {
     namespace EVENTS
     {
-        static const AkUniqueID BASEMENTMUSIC = 214542171U;
         static const AkUniqueID CARDPLAY = 4206845685U;
-        static const AkUniqueID POKERMUSIC = 1452491837U;
+        static const AkUniqueID MUSIC = 3991942870U;
     } // namespace EVENTS
+
+    namespace STATES
+    {
+        namespace MUSIC
+        {
+            static const AkUniqueID GROUP = 3991942870U;
+
+            namespace STATE
+            {
+                static const AkUniqueID BASEMENT = 1413413702U;
+                static const AkUniqueID NONE = 748895195U;
+                static const AkUniqueID POKER = 1859141876U;
+            } // namespace STATE
+        } // namespace MUSIC
+
+    } // namespace STATES
 
     namespace BANKS
     {
         static const AkUniqueID INIT = 1355168291U;
-        static const AkUniqueID BASEMENTMUSIC = 214542171U;
         static const AkUniqueID COMMONEVENTS = 2159622017U;
-        static const AkUniqueID POKERMUSIC = 1452491837U;
+        static const AkUniqueID MUSIC = 3991942870U;
     } // namespace BANKS
 
     namespace BUSSES

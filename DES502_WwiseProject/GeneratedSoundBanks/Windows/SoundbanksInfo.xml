@@ -9,49 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="214542171" Type="User" Language="SFX" Hash="{49E9D97A-53F8-017D-2BFC-BF86AD7CB05D}">
-			<ShortName>BasementMusic</ShortName>
-			<Path>BasementMusic.bnk</Path>
-			<Media>
-				<File Id="88510531" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>BasementSong_Intro.wav</ShortName>
-					<CachePath>SFX/BasementSong_Intro_FBC78EF0.wem</CachePath>
-				</File>
-				<File Id="250834479" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>BasementSong_Verse1.wav</ShortName>
-					<CachePath>SFX/BasementSong_Verse1_FBC78EF0.wem</CachePath>
-				</File>
-				<File Id="525041063" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>BasementSong_Verse2.wav</ShortName>
-					<CachePath>SFX/BasementSong_Verse2_FBC78EF0.wem</CachePath>
-				</File>
-				<File Id="535572142" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>BasementSong_Verse3.wav</ShortName>
-					<CachePath>SFX/BasementSong_Verse3_FBC78EF0.wem</CachePath>
-				</File>
-				<File Id="738323399" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>BasementSong_Chorus.wav</ShortName>
-					<CachePath>SFX/BasementSong_Chorus_FBC78EF0.wem</CachePath>
-				</File>
-				<File Id="783837694" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>BasementSong_Outro.wav</ShortName>
-					<CachePath>SFX/BasementSong_Outro_FBC78EF0.wem</CachePath>
-				</File>
-			</Media>
-			<Events>
-				<Event Id="214542171" Name="BasementMusic" DurationType="Infinite">
-					<MediaRefs>
-						<MediaRef Id="88510531"/>
-						<MediaRef Id="250834479"/>
-						<MediaRef Id="525041063"/>
-						<MediaRef Id="535572142"/>
-						<MediaRef Id="738323399"/>
-						<MediaRef Id="783837694"/>
-					</MediaRefs>
-				</Event>
-			</Events>
-		</SoundBank>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{5335DD19-F4FF-3DC7-E4C5-0A8C72CC6327}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{DF1F743A-CF45-1178-E7D8-B20334E1F8DE}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -64,23 +22,15 @@
 				<Bus Id="493417818" Name="Music Audio Bus"/>
 				<Bus Id="3803692087" Name="Master Audio Bus"/>
 			</Busses>
-		</SoundBank>
-		<SoundBank Id="1452491837" Type="User" Language="SFX" Hash="{F7894376-1A84-CC80-A8C9-81ACF9164CFD}">
-			<ShortName>PokerMusic</ShortName>
-			<Path>PokerMusic.bnk</Path>
-			<Media>
-				<File Id="924852720" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>PokerMusic.wav</ShortName>
-					<CachePath>SFX/PokerMusic_FBC78EF0.wem</CachePath>
-				</File>
-			</Media>
-			<Events>
-				<Event Id="1452491837" Name="PokerMusic" DurationType="Infinite">
-					<MediaRefs>
-						<MediaRef Id="924852720"/>
-					</MediaRefs>
-				</Event>
-			</Events>
+			<StateGroups>
+				<StateGroup Id="3991942870" Name="Music">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="1413413702" Name="Basement"/>
+						<State Id="1859141876" Name="Poker"/>
+					</States>
+				</StateGroup>
+			</StateGroups>
 		</SoundBank>
 		<SoundBank Id="2159622017" Type="User" Language="SFX" Hash="{29F4D0DF-1272-3D87-51A5-94D219FFF8EB}">
 			<ShortName>CommonEvents</ShortName>
@@ -109,6 +59,47 @@
 				</Event>
 			</Events>
 		</SoundBank>
+		<SoundBank Id="3991942870" Type="User" Language="SFX" Hash="{C17074B8-1C2A-FD61-727C-F0375F522EEF}">
+			<ShortName>Music</ShortName>
+			<Path>Music.bnk</Path>
+			<Media>
+				<File Id="203706025" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>BasementMusic.wav</ShortName>
+					<CachePath>SFX/BasementMusic_FBC78EF0.wem</CachePath>
+				</File>
+				<File Id="924852720" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PokerMusic.wav</ShortName>
+					<CachePath>SFX/PokerMusic_FBC78EF0.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="3991942870" Name="Music" DurationType="Infinite">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="3991942870" Id="1413413702"/>
+							<MediaRefs>
+								<MediaRef Id="203706025"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="3991942870" Id="1859141876"/>
+							<MediaRefs>
+								<MediaRef Id="924852720"/>
+							</MediaRefs>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
+			</Events>
+			<StateGroups>
+				<StateGroup Id="3991942870" Name="Music">
+					<States>
+						<State Id="748895195" Name="None"/>
+						<State Id="1413413702" Name="Basement"/>
+						<State Id="1859141876" Name="Poker"/>
+					</States>
+				</StateGroup>
+			</StateGroups>
+		</SoundBank>
 	</SoundBanks>
-	<FileHash>{41DE0E50-34F7-8FD2-895C-1E71EA349366}</FileHash>
+	<FileHash>{9A94E483-6D93-3EFF-3702-C622CD25532E}</FileHash>
 </SoundBanksInfo>

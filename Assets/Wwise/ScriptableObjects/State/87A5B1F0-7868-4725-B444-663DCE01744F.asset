@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 229ffe514349d444381442aaa094aff5, type: 3}
+  m_Name: 87A5B1F0-7868-4725-B444-663DCE01744F
+  m_EditorClassIdentifier: 
+  objectName: Basement
+  id: 1413413702
+  guid: 87A5B1F0-7868-4725-B444-663DCE01744F
+  WwiseStateGroupReference: {fileID: 11400000, guid: 0ad18979119ae3f408cd10a5c230de28,
+    type: 2}

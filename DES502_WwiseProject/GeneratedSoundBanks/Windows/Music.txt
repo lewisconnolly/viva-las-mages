@@ -1,0 +1,15 @@
+Event	ID	Name			Wwise Object Path	Notes
+	3991942870	Music			\Default Work Unit\Music	
+
+State Group	ID	Name			Wwise Object Path	Notes
+	3991942870	Music			\Default Work Unit\Music	
+
+State	ID	Name	State Group			Notes
+	748895195	None	Music			
+	1413413702	Basement	Music			
+	1859141876	Poker	Music			
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	203706025	BasementMusic	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\BasementMusic_FBC78EF0.wem		\Interactive Music Hierarchy\Default Work Unit\Music\Music\Basement\BasementMusic\BasementMusic		11953840
+	924852720	PokerMusic	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\PokerMusic_FBC78EF0.wem		\Interactive Music Hierarchy\Default Work Unit\Music\Music\Poker\PokerMusic\PokerMusic		14725708
+

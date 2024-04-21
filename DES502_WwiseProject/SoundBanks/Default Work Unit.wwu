@@ -10,16 +10,9 @@
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>
 				</SoundBank>
-				<SoundBank Name="BasementMusic" ID="{60F8A068-FB8F-4A6C-BBA0-B1EAD131545A}">
+				<SoundBank Name="Music" ID="{DC6710A6-C8D2-4C94-ACF2-B3964275CF0F}">
 					<ObjectInclusionList>
-						<ObjectRef Name="BasementMusic" ID="{10B7AA19-A934-451A-9C0E-DC84DB8E6C68}" WorkUnitID="{9F312CD6-E763-49F3-B6BC-73E971905B50}" Origin="Manual" Filter="7"/>
-					</ObjectInclusionList>
-					<ObjectExclusionList/>
-					<GameSyncExclusionList/>
-				</SoundBank>
-				<SoundBank Name="PokerMusic" ID="{32B92F85-5CB6-4A68-8099-293F8CECA75D}">
-					<ObjectInclusionList>
-						<ObjectRef Name="PokerMusic" ID="{09C224E0-4FE7-42C1-A25F-75A29AA96B49}" WorkUnitID="{9F312CD6-E763-49F3-B6BC-73E971905B50}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Music" ID="{8B4E1967-A862-4E08-B21F-DDD0060C0E92}" WorkUnitID="{9F312CD6-E763-49F3-B6BC-73E971905B50}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>
