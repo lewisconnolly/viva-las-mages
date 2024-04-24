@@ -11,6 +11,7 @@ TagManager:
   - Exit
   - MusicObj
   - SlotMachine
+  - TVC
   layers:
   - Default
   - TransparentFX

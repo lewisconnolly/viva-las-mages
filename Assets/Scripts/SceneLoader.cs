@@ -32,6 +32,8 @@ public class SceneLoader : MonoBehaviour
     public Vector3 exitCostStartingPosition = new Vector3(0f, 10f, 0f);
     public Quaternion exitCostStartingRotation = Quaternion.identity;
 
+    public GameObject tvcPrefab;
+
     public Camera canvasCamera;
 
     void Start()
@@ -39,6 +41,7 @@ public class SceneLoader : MonoBehaviour
         InstantiatePlayer();
         InstantiateEnemy();
         InstantiateExitCost();        
+        InstantiateTVC();        
     }
 
     public void InstantiatePlayer()
@@ -127,6 +130,15 @@ public class SceneLoader : MonoBehaviour
             {
                 ExitCost.instance.SetHealth(exitHealthCost);
             }
+        }
+    }
+
+    private void InstantiateTVC()
+    {
+        GameObject tvc = GameObject.FindGameObjectWithTag("TVC");
+        if (tvc == null)
+        {
+            //Instantiate(tvcPrefab, Vector3.zero, Quaternion.identity);            
         }
     }
 

@@ -594,6 +594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: Enter Poker Game
+  transitionVideoUrl: Assets/TransitionVideos/Rat_Transition.mp4
 --- !u!4 &4437031077081016160 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3891972695116180082, guid: eec3139ec2b412d4096f6945e5162e19,
