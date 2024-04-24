@@ -13,8 +13,14 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID BET = 446279794U;
         static const AkUniqueID CARDPLAY = 4206845685U;
+        static const AkUniqueID CARDSHUFFLE = 723374694U;
+        static const AkUniqueID FOOTSTEPS = 2385628198U;
         static const AkUniqueID MUSIC = 3991942870U;
+        static const AkUniqueID SLOTMACHINEWIN = 2127906762U;
+        static const AkUniqueID SPLASHSCREEN = 3140745524U;
+        static const AkUniqueID VIVALASMAGES = 3760300016U;
     } // namespace EVENTS
 
     namespace STATES
@@ -26,6 +32,7 @@ namespace AK
             namespace STATE
             {
                 static const AkUniqueID BASEMENT = 1413413702U;
+                static const AkUniqueID MAINMENU = 3604647259U;
                 static const AkUniqueID NONE = 748895195U;
                 static const AkUniqueID POKER = 1859141876U;
             } // namespace STATE
@@ -44,6 +51,7 @@ namespace AK
     {
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
         static const AkUniqueID MUSIC_AUDIO_BUS = 493417818U;
+        static const AkUniqueID SFX_AUDIO_BUS = 4084199202U;
     } // namespace BUSSES
 
     namespace AUDIO_DEVICES

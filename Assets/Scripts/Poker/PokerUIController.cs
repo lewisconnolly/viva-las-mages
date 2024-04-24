@@ -16,6 +16,8 @@ public class PokerUIController : MonoBehaviour
         instance = this;
     }
 
+    public AK.Wwise.Event PlayMore;
+    public AK.Wwise.Event Bet;
     public TextMeshProUGUI healthValueText, enemyHealthValueText;
     public TextMeshPro exitHealthValueText;
     public TextMeshProUGUI betValueText;
@@ -172,12 +174,13 @@ public class PokerUIController : MonoBehaviour
 
     public void PlaceBet()
     {
-        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { BattleController.instance.PlaceBet(int.Parse(betSlider.currentBet.text)); }
+        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { BattleController.instance.PlaceBet(int.Parse(betSlider.currentBet.text)); Bet.Post(gameObject); }
     }
 
     public void PlayAgain()
     {     
-        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { BattleController.instance.PlayAgain(); }
+        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { BattleController.instance.PlayAgain(); PlayMore.Post(gameObject); }
+
     }
 
     public void Leave()

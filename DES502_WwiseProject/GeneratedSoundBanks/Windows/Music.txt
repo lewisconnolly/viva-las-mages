@@ -8,8 +8,10 @@ State	ID	Name	State Group			Notes
 	748895195	None	Music			
 	1413413702	Basement	Music			
 	1859141876	Poker	Music			
+	3604647259	MainMenu	Music			
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	203706025	BasementMusic	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\BasementMusic_FBC78EF0.wem		\Interactive Music Hierarchy\Default Work Unit\Music\Music\Basement\BasementMusic\BasementMusic		11953840
+	247490158	MainMenu1	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\MainMenu1_FBC78EF0.wem		\Interactive Music Hierarchy\Default Work Unit\Music\Music\MainMenu\MainMenu1\MainMenu1		7526544
 	924852720	PokerMusic	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\PokerMusic_FBC78EF0.wem		\Interactive Music Hierarchy\Default Work Unit\Music\Music\Poker\PokerMusic\PokerMusic		14725708
 

@@ -11,14 +11,29 @@
 					</ReferenceList>
 					<ChildrenList>
 						<Bus Name="Music Audio Bus" ID="{B4BCF74F-9D5B-41A6-A588-1D42ADBA303D}">
-							<PropertyList>
-								<Property Name="BusVolume" Type="Real64">
-									<ValueList>
-										<Value>-15</Value>
-									</ValueList>
-								</Property>
-							</PropertyList>
+							<ObjectLists>
+								<ObjectList Name="Effects">
+									<Reference>
+										<Local>
+											<EffectSlot Name="" ID="{7BA0EED4-45FF-4279-95F4-193112AC4687}" ShortID="721368866">
+												<ReferenceList>
+													<Reference Name="Effect">
+														<Custom>
+															<Effect Name="Gain (Custom)" ID="{5AB4DC1C-FDDD-4ED4-B024-BE36802BCBF1}" ShortID="1066270524" PluginName="Wwise Gain" CompanyID="0" PluginID="139" PluginType="3">
+																<PropertyList>
+																	<Property Name="FullBandGain" Type="Real32" Value="-10.5"/>
+																</PropertyList>
+															</Effect>
+														</Custom>
+													</Reference>
+												</ReferenceList>
+											</EffectSlot>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
 						</Bus>
+						<Bus Name="SFX Audio Bus" ID="{43FC1A4A-A2CC-4D77-B996-C26867A6507C}"/>
 					</ChildrenList>
 				</Bus>
 			</ChildrenList>

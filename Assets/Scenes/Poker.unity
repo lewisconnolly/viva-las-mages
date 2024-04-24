@@ -1658,6 +1658,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b653d7b18680f94ba6285e64204136b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayMore:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 565337db1ef6a934c8c27c3abe2ccc54,
+      type: 2}
+  Bet:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
   healthValueText: {fileID: 197192436}
   enemyHealthValueText: {fileID: 749337846}
   exitHealthValueText: {fileID: 1699923260}

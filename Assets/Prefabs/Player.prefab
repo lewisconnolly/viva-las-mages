@@ -456,6 +456,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5511e969bb07f3342a5f913912bda0c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FootStep:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 76293c84b18ff90429f3fa0c2235932b,
+      type: 2}
   speed: 12
   gravity: -9.81
   jumpHeight: 0.25

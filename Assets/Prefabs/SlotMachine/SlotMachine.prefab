@@ -206,6 +206,11 @@ MonoBehaviour:
   rewardCard: {fileID: 0}
   numSpins: 0
   paidOut: 0
+  slotMachineWin:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 88463f2422f39544eb5965bbe964d30c,
+      type: 2}
 --- !u!4 &6493317657435437540 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6454487573871231397, guid: 26dd076888bd80b439fe29cbf9cfa9fc,

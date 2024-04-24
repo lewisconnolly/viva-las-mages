@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Security.Cryptography;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,6 +11,14 @@ public class PlayerMovement : MonoBehaviour
     public static PlayerMovement instance;
 
     float unfreezeWait = 3.0f;
+
+    //Audio queues and footstep timers
+    public AK.Wwise.Event FootStep;
+    private float timer = 0.0f;
+    private float footstepSpeed = 0.4f;
+    Vector3 lastposition;
+    float moveMin = 0.01f;
+    private bool isMoving = false;
 
     private void Awake()
     {
@@ -50,6 +59,11 @@ public class PlayerMovement : MonoBehaviour
         isFrozen = false;
     }
 
+    private void FixedUpdate()
+    {
+        lastposition = transform.position;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -81,6 +95,34 @@ public class PlayerMovement : MonoBehaviour
 
             // Apply velocity vector to controller movement (gravity equation requires time squared so multiply by deltaTime again)
             controller.Move(velocity * Time.deltaTime);
+
+            // Footstep sound on timer
+            CheckMoving();
+
+            if (isGrounded && isMoving)
+            {
+                if (timer > footstepSpeed)
+                {
+                    FootStep.Post(gameObject);
+                    timer = 0.0f;                   
+                }
+
+                timer += Time.deltaTime;
+            }
+            
+            
         }
-    }      
+        void CheckMoving()
+        {
+            float distance = Vector3.Distance(transform.position, lastposition);
+            if(distance > moveMin)
+            {
+                isMoving = true;
+            }
+            else
+            {
+                isMoving = false;
+            }
+        }
+    }          
 }

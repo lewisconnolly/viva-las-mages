@@ -14,6 +14,7 @@ public class SlotMachine : MonoBehaviour, IInteractable
     public CardScriptableObject rewardCard;
     public int numSpins = 0;
     public bool paidOut = false;
+    public AK.Wwise.Event slotMachineWin;
 
     public bool Interact(Interactor interactor)
     {        
@@ -74,6 +75,7 @@ public class SlotMachine : MonoBehaviour, IInteractable
             {
                 player.GetComponent<Interactor>().interactionPromptUI.Close();
                 prompt = "Paid Out!";
+                slotMachineWin.Post(gameObject);
             }
         }
 

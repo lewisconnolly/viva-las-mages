@@ -1,8 +1,29 @@
 Event	ID	Name			Wwise Object Path	Notes
+	446279794	Bet			\Default Work Unit\Bet	
+	723374694	CardShuffle			\Default Work Unit\CardShuffle	
+	2127906762	SlotMachineWin			\Default Work Unit\SlotMachineWin	
+	2385628198	Footsteps			\Default Work Unit\Footsteps	
+	3140745524	SplashScreen			\Default Work Unit\SplashScreen	
+	3760300016	VivaLasMages			\Default Work Unit\VivaLasMages	
 	4206845685	CardPlay			\Default Work Unit\CardPlay	
 
+Effect plug-ins	ID	Name	Type				Notes
+	447537854	Static_Sibilance_Remover_Male (Custom)	Wwise Parametric EQ			
+	3851006675	Secret_message_Distant	Wwise Harmonizer			
+
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	21082198	CardShuffle	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\CardShuffle_C2A3E27A.wem		\Actor-Mixer Hierarchy\Default Work Unit\CardShuffle		129568
+	246502203	FootStep5	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\FootStep5_441E637B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\FootStep5		36772
 	281327463	CardPlay2	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\CardPlay2_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\CardPlay\CardPlay2		44564
+	320646118	FootStep3	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\FootStep3_F3C72450.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\FootStep3		47088
+	406348161	VivaLasSplashScreen	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\VivaLasMages_F1C6D11C.wem		\Actor-Mixer Hierarchy\Default Work Unit\VivaLasSplashScreen		580556
+	477192504	FootStep2	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\FootStep2_995A477B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\FootStep2		38348
 	522322369	CardPlay3	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\CardPlay3_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\CardPlay\CardPlay3		35816
+	552838930	FootStep6	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\FootStep6_7DDD25BD.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\FootStep6		49380
+	564346088	SlotMachineWin	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\slotmachineWin_26756C0F.wem		\Actor-Mixer Hierarchy\Default Work Unit\SlotMachineWin		305820
+	599570550	SplashScreen	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\SplashScreen_37DC3F40.wem		\Actor-Mixer Hierarchy\Default Work Unit\SplashScreen		546856
 	655079680	CardPlay1	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\CardPlay1_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\CardPlay\CardPlay1		46524
+	828054099	FootStep4	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\FootStep4_F178E5A3.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\FootStep4		45944
+	1008269798	FootStep1	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\FootStep1_9010B704.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\FootStep1		35484
+	1019678272	Bet	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\Bet_FC51DF98.wem		\Actor-Mixer Hierarchy\Default Work Unit\Bet		49496
 

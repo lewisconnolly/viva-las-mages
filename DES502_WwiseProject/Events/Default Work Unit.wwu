@@ -25,6 +25,72 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="CardShuffle" ID="{4B4C49C3-0C97-42EB-B875-2B19BE5C2242}">
+					<ChildrenList>
+						<Action Name="" ID="{9908AE26-9CE6-4F31-96EE-FC895CA109E6}" ShortID="1070553877">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="CardShuffle" ID="{A794ED9A-3224-4053-B067-AAE929459311}" WorkUnitID="{A66E9D4F-FFAB-42CD-961A-AF51BCBE2AF2}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="VivaLasMages" ID="{414950B8-B6C2-47D1-927A-B6C17DB0A1BD}">
+					<ChildrenList>
+						<Action Name="" ID="{4824BCDE-C1DF-4E44-9065-114F86F209C2}" ShortID="110264675">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="VivaLasSplashScreen" ID="{5EA8F2D6-85F3-49CD-B14A-7F5A610A52A5}" WorkUnitID="{A66E9D4F-FFAB-42CD-961A-AF51BCBE2AF2}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Footsteps" ID="{CB043B91-134D-4B3B-A9EE-6AFCAB87F887}">
+					<ChildrenList>
+						<Action Name="" ID="{BAC83E4B-CF55-48F6-98C9-B812A9840866}" ShortID="53142332">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Footsteps" ID="{70916AD7-A2AF-419A-AD68-AA5884DD7087}" WorkUnitID="{A66E9D4F-FFAB-42CD-961A-AF51BCBE2AF2}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="SplashScreen" ID="{FF538FD6-1A00-4BBE-B9D3-23B48F31AE08}">
+					<ChildrenList>
+						<Action Name="" ID="{B65BD73E-8124-4583-B016-5D96BA4D57B3}" ShortID="366432847">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="SplashScreen" ID="{BBF2499D-AEC2-4019-BE54-CADC176E64B0}" WorkUnitID="{A66E9D4F-FFAB-42CD-961A-AF51BCBE2AF2}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Bet" ID="{4B476F7B-5FD4-4F0F-AF3E-7F51E27AF52C}">
+					<ChildrenList>
+						<Action Name="" ID="{0B4B7DCE-9D01-4EF1-A346-7CC2A7DCA329}" ShortID="138244579">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Bet" ID="{11B3D856-6776-434C-BA1D-A80A781D762C}" WorkUnitID="{A66E9D4F-FFAB-42CD-961A-AF51BCBE2AF2}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="SlotMachineWin" ID="{E837933C-B197-4719-82DA-95E708CBFDD4}">
+					<ChildrenList>
+						<Action Name="" ID="{2669B968-947F-497E-9AA5-8DF24BEDF8CD}" ShortID="696544704">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="SlotMachineWin" ID="{36187532-D6DF-4B99-ACA9-EA0D373E56D4}" WorkUnitID="{A66E9D4F-FFAB-42CD-961A-AF51BCBE2AF2}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

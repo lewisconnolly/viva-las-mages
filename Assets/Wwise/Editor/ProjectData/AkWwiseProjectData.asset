@@ -38,7 +38,7 @@ MonoBehaviour:
     ParentPath: Master-Mixer Hierarchy\Default Work Unit
     guid: 6520efe4ebd65d41bedcccfec1a2db7f
     GuidInternal: 
-    m_lastTime: -8584878898186160891
+    m_lastTime: -8584876287930168037
     List:
     - name: Master Audio Bus
       guid: d8a41415a61d2a41a17e75ca0c2149f3
@@ -72,6 +72,23 @@ MonoBehaviour:
         guid: 4ff7bcb45b9da641a5881d42adba303d
       Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Music Audio
         Bus
+    - name: SFX Audio Bus
+      guid: 4a1afc43cca2774db996c26867a6507c
+      id: 4084199202
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 6520efe4ebd65d41bedcccfec1a2db7f
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: SFX Audio Bus
+        ObjectType: 2
+        guid: 4a1afc43cca2774db996c26867a6507c
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\SFX Audio Bus
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     PathAndIcons:
@@ -84,7 +101,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: f2447ec76069e842bc90e2a3c1bc6a0d
     GuidInternal: 
-    m_lastTime: -8584878898184846929
+    m_lastTime: -8584876179705997810
     List:
     - name: CommonEvents
       guid: 76dbe5716303ea4a86c85abf37133f27
@@ -126,8 +143,25 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: d62c319f63e7f349b6bc73e971905b50
     GuidInternal: 
-    m_lastTime: -8584878898189647382
+    m_lastTime: -8584876179737280572
     List:
+    - name: Bet
+      guid: 7b6f474bd45f0f4faf3e7f51e27af52c
+      id: 446279794
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: Bet
+        ObjectType: 3
+        guid: 7b6f474bd45f0f4faf3e7f51e27af52c
+      Path: Events\Default Work Unit\Bet
+      maxAttenuation: 0
+      maxDuration: 0.3140147
+      minDuration: 0.2797553
     - name: CardPlay
       guid: 2e584478d1631c45813814193a9e57da
       id: 4206845685
@@ -145,6 +179,40 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0.3316078
       minDuration: 0.17027676
+    - name: CardShuffle
+      guid: c3494c4b970ceb42b8752b19be5c2242
+      id: 723374694
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: CardShuffle
+        ObjectType: 3
+        guid: c3494c4b970ceb42b8752b19be5c2242
+      Path: Events\Default Work Unit\CardShuffle
+      maxAttenuation: 0
+      maxDuration: 0.8238515
+      minDuration: 0.6538914
+    - name: Footsteps
+      guid: 913b04cb4d133b4ba9ee6afcab87f887
+      id: 2385628198
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: Footsteps
+        ObjectType: 3
+        guid: 913b04cb4d133b4ba9ee6afcab87f887
+      Path: Events\Default Work Unit\Footsteps
+      maxAttenuation: 0
+      maxDuration: 0.31360212
+      minDuration: 0.1787252
     - name: Music
       guid: 67194e8b62a8084eb21fddd0060c0e92
       id: 3991942870
@@ -162,6 +230,57 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: SlotMachineWin
+      guid: 3c9337e897b1194782da95e708cbfdd4
+      id: 2127906762
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: SlotMachineWin
+        ObjectType: 3
+        guid: 3c9337e897b1194782da95e708cbfdd4
+      Path: Events\Default Work Unit\SlotMachineWin
+      maxAttenuation: 0
+      maxDuration: 1.7328571
+      minDuration: 1.4571533
+    - name: SplashScreen
+      guid: d68f53ff001abe4bb9d323b48f31ae08
+      id: 3140745524
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: SplashScreen
+        ObjectType: 3
+        guid: d68f53ff001abe4bb9d323b48f31ae08
+      Path: Events\Default Work Unit\SplashScreen
+      maxAttenuation: 0
+      maxDuration: 3.333567
+      minDuration: 2.975325
+    - name: VivaLasMages
+      guid: b8504941c2b6d147927ab6c17db0a1bd
+      id: 3760300016
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: VivaLasMages
+        ObjectType: 3
+        guid: b8504941c2b6d147927ab6c17db0a1bd
+      Path: Events\Default Work Unit\VivaLasMages
+      maxAttenuation: 0
+      maxDuration: 3.1969128
+      minDuration: 3.1969128
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     PathAndIcons:
@@ -188,7 +307,7 @@ MonoBehaviour:
     ParentPath: States\Default Work Unit
     guid: c737ba394227fb4987b02262ac8cd691
     GuidInternal: 
-    m_lastTime: -8584878898184846929
+    m_lastTime: -8584876306431944750
     List:
     - name: Music
       guid: ed17c68722ef0e4e8c963c274e06a23f
@@ -221,6 +340,22 @@ MonoBehaviour:
         - ElementName: Basement
           ObjectType: 8
           guid: f0b1a58768782547b444663dce01744f
+      - name: MainMenu
+        guid: 45f0357eb954174c86b8baeaff92054c
+        id: 3604647259
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: c737ba394227fb4987b02262ac8cd691
+        - ElementName: Music
+          ObjectType: 9
+          guid: ed17c68722ef0e4e8c963c274e06a23f
+        - ElementName: MainMenu
+          ObjectType: 8
+          guid: 45f0357eb954174c86b8baeaff92054c
       - name: None
         guid: 204b0a4232f0834ab88c2a0edd732762
         id: 748895195
@@ -285,7 +420,7 @@ MonoBehaviour:
     m_lastTime: -8584894080508666048
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 01000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e000000
+  ExpandedWaapiItemIds: 0100000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e000000c0000000c1000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0

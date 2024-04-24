@@ -8,6 +8,7 @@
 						<State Name="None" ID="{420A4B20-F032-4A83-B88C-2A0EDD732762}"/>
 						<State Name="Poker" ID="{CEF5FF35-E37B-424D-8C99-692A43825169}"/>
 						<State Name="Basement" ID="{87A5B1F0-7868-4725-B444-663DCE01744F}"/>
+						<State Name="MainMenu" ID="{7E35F045-54B9-4C17-86B8-BAEAFF92054C}"/>
 					</ChildrenList>
 				</StateGroup>
 			</ChildrenList>

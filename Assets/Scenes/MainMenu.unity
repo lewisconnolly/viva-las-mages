@@ -955,7 +955,7 @@ PrefabInstance:
         type: 3}
       propertyPath: data.WwiseObjectReference
       value: 
-      objectReference: {fileID: 11400000, guid: ff64a396c5890a946bf39b9266fd2a6c,
+      objectReference: {fileID: 11400000, guid: f3c72e50c54139044bfef901ba3145a9,
         type: 2}
     - target: {fileID: 8092505041007763279, guid: 10850efaf7203fc40aa35a175f7ebbce,
         type: 3}
