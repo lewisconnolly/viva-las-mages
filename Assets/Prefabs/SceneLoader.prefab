@@ -179,7 +179,7 @@ MonoBehaviour:
     type: 3}
   exitCostStartingPosition: {x: 0, y: 10, z: 0}
   exitCostStartingRotation: {x: 0, y: 0, z: 0, w: 1}
-  tvcPrefab: {fileID: 8462604734402257873, guid: 25c69f1b07bf51045b163a84646f6470,
+  tvcPrefab: {fileID: 8077942664660717712, guid: b26834a173c0e05459a840b4c85a3093,
     type: 3}
   canvasCamera: {fileID: 0}
 --- !u!1 &8855128777431778386

@@ -138,8 +138,12 @@ public class SceneLoader : MonoBehaviour
         GameObject tvc = GameObject.FindGameObjectWithTag("TVC");
         if (tvc == null)
         {
-            //Instantiate(tvcPrefab, Vector3.zero, Quaternion.identity);            
+            Instantiate(tvcPrefab, Vector3.zero, Quaternion.identity);
         }
+
+        tvc = GameObject.FindGameObjectWithTag("TVC");
+        tvc.GetComponent<Canvas>().worldCamera = canvasCamera;
+
     }
 
     public void LoadRoom(string nextSceneName)
@@ -207,6 +211,9 @@ public class SceneLoader : MonoBehaviour
                     MeshRenderer[] enemyMeshRenderers = enemy.GetComponentsInChildren<MeshRenderer>();
                     foreach (MeshRenderer mr in enemyMeshRenderers) { mr.enabled = false; };
 
+                    SkinnedMeshRenderer[] enemySkinnedMeshRenderers = enemy.GetComponentsInChildren<SkinnedMeshRenderer>();
+                    foreach (SkinnedMeshRenderer smr in enemySkinnedMeshRenderers) { smr.enabled = false; };
+
                     enemy.GetComponentInChildren<UIDealerController>().gameObject.SetActive(false);
                     enemy.GetComponentInChildren<CapsuleCollider>().enabled = false;
                 }
@@ -234,6 +241,9 @@ public class SceneLoader : MonoBehaviour
                 {
                     MeshRenderer[] enemyMeshRenderers = enemy.GetComponentsInChildren<MeshRenderer>();
                     foreach (MeshRenderer mr in enemyMeshRenderers) { mr.enabled = true; };
+
+                    SkinnedMeshRenderer[] enemySkinnedMeshRenderers = enemy.GetComponentsInChildren<SkinnedMeshRenderer>();
+                    foreach (SkinnedMeshRenderer smr in enemySkinnedMeshRenderers) { smr.enabled = true; };
 
                     enemy.GetComponentInChildren<UIDealerController>(true).gameObject.SetActive(true);
                     enemy.GetComponentInChildren<CapsuleCollider>().enabled = true;
