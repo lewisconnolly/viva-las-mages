@@ -28,8 +28,12 @@ public class ExitCost : MonoBehaviour
     public void SetHealth(int health) { exitHealthCost = health; }
 
     public void TakeDamage(int damage)
-    {
+    {               
         exitHealthCost -= damage;
+
+        VFXController.instance.hit.Play();
+
+        ExitController.instance.ShowFloatingText(damage);
 
         if (exitHealthCost <= 0)
         {

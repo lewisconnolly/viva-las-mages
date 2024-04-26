@@ -261,7 +261,15 @@ public class BattleController : MonoBehaviour
                 HandEvaluator.HandRank playerHandRank = HandEvaluator.instance.EvaluateHand(HandController.instance.playedCards, true);
 
                 // Increase rank by number of UpgradeRank power cards
-                playerHandRank += PowerCardController.instance.numRanksToUpgrade;
+                if ((int)playerHandRank + PowerCardController.instance.numRanksToUpgrade > 9)
+                {
+                    playerHandRank = (HandEvaluator.HandRank)9;
+                }
+                else
+                {
+                    playerHandRank += PowerCardController.instance.numRanksToUpgrade;
+                }
+
                 // Gain heart for each GainHeart power card
                 PlayerHealth.instance.IncreaseHealth(PowerCardController.instance.numHeartsToGain);
 

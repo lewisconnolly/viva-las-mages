@@ -9,7 +9,6 @@ public class Dealer : MonoBehaviour, IInteractable
 {
     [SerializeField] public string prompt;
     public string transitionVideoUrl;
-    
 
     public string InteractionPrompt => prompt;
 

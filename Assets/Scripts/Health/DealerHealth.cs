@@ -14,10 +14,15 @@ public class DealerHealth : MonoBehaviour
     public int currentHealth;
     public bool activeEnemy;
     public int pcntChanceOfRandomHand;
+    public Sprite uiIcon;
 
     // Start is called before the first frame update
     void Start()
     {                      
+    }
+
+    private void Update()
+    {
     }
 
     public int GetHealth() { return currentHealth; }    

@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static System.TimeZoneInfo;
+using UnityEngine.Rendering.PostProcessing;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -22,6 +19,10 @@ public class PlayerHealth : MonoBehaviour
 
     public bool isGameOver = false;
 
+    private float vignetteIntensity = 0;
+    UnityEngine.Rendering.VolumeProfile volumeProfile;
+    UnityEngine.Rendering.Universal.Vignette vignette;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +31,7 @@ public class PlayerHealth : MonoBehaviour
         if (SceneManager.GetActiveScene().name != "Poker")
         {
             UIController.instance.SetHealthText(currentHealth);
-        }
+        }        
     }
 
     // Update is called once per frame
@@ -46,8 +47,22 @@ public class PlayerHealth : MonoBehaviour
     public int GetHealth() { return currentHealth; }
 
     public void TakeDamage(int damage)
-    {
+    {        
         currentHealth -= damage;
+
+        // Display damage post process vignette effect        
+        volumeProfile = FindAnyObjectByType<UnityEngine.Rendering.Volume>()?.profile;
+        
+        if (!volumeProfile) throw new System.NullReferenceException(nameof(UnityEngine.Rendering.VolumeProfile));
+
+        if (!volumeProfile.TryGet(out vignette)) throw new System.NullReferenceException(nameof(vignette));
+
+        if (!vignette)
+        {
+            Debug.Log("error, vignette empty");
+        }
+
+        StartCoroutine(TakeDamageEffect());
 
         if (currentHealth <= 0)
         {
@@ -64,6 +79,32 @@ public class PlayerHealth : MonoBehaviour
             UIController.instance.SetHealthText(currentHealth);
             if (isGameOver) { EndGame(); }
         }
+    }
+
+    private IEnumerator TakeDamageEffect()
+    {
+        vignette.active = true;
+
+        vignetteIntensity = 0.5f;
+
+        vignette.intensity.Override(vignetteIntensity);
+
+        yield return new WaitForSeconds(0.4f);
+
+        while (vignetteIntensity > 0)
+        {
+            vignetteIntensity -= 0.01f;
+
+            if (vignetteIntensity < 0) vignetteIntensity = 0;
+
+            vignette.intensity.Override(vignetteIntensity);
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        vignette.active = false;
+        
+        yield break;
     }
 
     private void EndGame()

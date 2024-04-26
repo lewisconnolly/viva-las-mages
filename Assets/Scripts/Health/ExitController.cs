@@ -6,6 +6,7 @@ using TMPro;
 public class ExitController : MonoBehaviour
 {
     public static ExitController instance;
+    public GameObject floatingTextPrefab;
 
     private void Awake()
     {
@@ -30,4 +31,17 @@ public class ExitController : MonoBehaviour
     }
 
     public void SetHealthText(int health) { healthValueText.text = health.ToString(); }
+
+    public void ShowFloatingText(int damage)
+    {
+        GameObject floatingText;
+
+        if (floatingTextPrefab != null)
+        {
+            floatingText = Instantiate(floatingTextPrefab);
+
+            floatingText.GetComponent<TextMeshPro>().text = damage.ToString();
+        }
+        
+    }
 }

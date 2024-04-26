@@ -33,6 +33,8 @@ public class PokerUIController : MonoBehaviour
     public Transform enemyBetIconTarget;
     private bool showBetIcons;
     public BetSlider betSlider;
+    public Image enemyIcon;
+    public GameObject hitSpritePrefab;
 
     public GameObject placeBetButton, swapCardButton, playHandButton, playAgainButton, leaveButton, endGameButton;
 
@@ -90,7 +92,10 @@ public class PokerUIController : MonoBehaviour
         leaveButton.SetActive(false);
         HideBetIcons();        
 
-        if (GameObject.FindGameObjectWithTag("Enemy") != null) { SetEnemyHealthText(BattleController.instance.activeEnemy.GetHealth()); }
+        if (GameObject.FindGameObjectWithTag("Enemy") != null) {
+            SetEnemyHealthText(BattleController.instance.activeEnemy.GetHealth());
+            enemyIcon.sprite = BattleController.instance.activeEnemy.uiIcon;
+        }
 
         if (GameObject.FindGameObjectWithTag("ExitCost") != null) { SetExitHealthText(ExitCost.instance.GetHealth()); }
 
@@ -135,8 +140,25 @@ public class PokerUIController : MonoBehaviour
     }
 
     public void SetHealthText(int health) { healthValueText.text = health.ToString(); }
-    
-    public void SetEnemyHealthText(int health) { enemyHealthValueText.text = health.ToString(); }
+
+    public void SetEnemyHealthText(int health)
+    {
+        if (int.Parse(enemyHealthValueText.text) > health)
+        {
+            ShowHitSprite();
+        }
+
+        enemyHealthValueText.text = health.ToString();
+    }
+
+    public void ShowHitSprite()
+    {
+        if (hitSpritePrefab != null)
+        {
+           Instantiate(hitSpritePrefab, enemyIcon.transform);            
+        }
+
+    }
 
     public void SetExitHealthText(int health) { exitHealthValueText.text = health.ToString(); }
 
