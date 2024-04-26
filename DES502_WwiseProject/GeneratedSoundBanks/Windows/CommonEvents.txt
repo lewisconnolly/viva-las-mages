@@ -20,7 +20,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	477192504	FootStep2	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\FootStep2_03395070.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\FootStep2		38348
 	522322369	CardPlay3	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\CardPlay3_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\CardPlay\CardPlay3		35816
 	552838930	FootStep6	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\FootStep6_C119EB5A.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\FootStep6		49380
-	564346088	SlotMachineWin	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\slotmachineWin_5BBCE8D8.wem		\Actor-Mixer Hierarchy\Default Work Unit\SlotMachineWin		305820
+	564346088	SlotMachineWin	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\slotmachineWin_9E5CD947.wem		\Actor-Mixer Hierarchy\Default Work Unit\SlotMachineWin		305820
 	599570550	SplashScreen	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\SplashScreen_D0D0607A.wem		\Actor-Mixer Hierarchy\Default Work Unit\SplashScreen		546856
 	655079680	CardPlay1	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\CardPlay1_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\CardPlay\CardPlay1		46524
 	828054099	FootStep4	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\FootStep4_C917E432.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\FootStep4		45944

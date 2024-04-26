@@ -49,7 +49,7 @@
 				</StateGroup>
 			</StateGroups>
 		</SoundBank>
-		<SoundBank Id="2159622017" Type="User" Language="SFX" Hash="{26A6C46B-A18B-CC90-AE4C-227475F103CA}">
+		<SoundBank Id="2159622017" Type="User" Language="SFX" Hash="{2D11B6B9-8ED9-2A3F-86A4-CF2B9B0CEAEE}">
 			<ShortName>CommonEvents</ShortName>
 			<Path>CommonEvents.bnk</Path>
 			<Media>
@@ -87,7 +87,7 @@
 				</File>
 				<File Id="564346088" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>slotmachineWin.wav</ShortName>
-					<CachePath>SFX/slotmachineWin_5BBCE8D8.wem</CachePath>
+					<CachePath>SFX/slotmachineWin_9E5CD947.wem</CachePath>
 				</File>
 				<File Id="599570550" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SplashScreen.wav</ShortName>
@@ -173,7 +173,7 @@
 				</Event>
 			</Events>
 		</SoundBank>
-		<SoundBank Id="3991942870" Type="User" Language="SFX" Hash="{F9B551D3-1BF3-2913-D626-1AC0B5E1E007}">
+		<SoundBank Id="3991942870" Type="User" Language="SFX" Hash="{73B5D75A-BFBC-BBD5-85A8-A73670A1F95A}">
 			<ShortName>Music</ShortName>
 			<Path>Music.bnk</Path>
 			<Media>
@@ -297,5 +297,5 @@
 			</StateGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{36F1EB7B-6796-C4FE-9D2C-7D6FEE5FA8F1}</FileHash>
+	<FileHash>{AB0B0DE2-3F4D-2EEC-744E-31F10C127AF0}</FileHash>
 </SoundBanksInfo>
