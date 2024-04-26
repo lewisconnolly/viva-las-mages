@@ -148,7 +148,7 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadRoom(string nextSceneName)
     {        
-        if (SceneManager.GetActiveScene().name.StartsWith("Room") && nextSceneName.StartsWith("Room"))
+        if (SceneManager.GetActiveScene().name.Contains("Room") && nextSceneName.Contains("Room"))
         {            
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
             if (enemies.Length > 0)
@@ -167,9 +167,24 @@ public class SceneLoader : MonoBehaviour
     }
 
     public void LoadPoker()
-    {                
-        PlayerInventory.instance.prevScene = SceneManager.GetActiveScene().name;        
-        StartCoroutine(LoadNextScene("Poker"));
+    {
+        PlayerInventory.instance.prevScene = SceneManager.GetActiveScene().name;
+
+        //if (SceneManager.GetActiveScene().name.Contains("Basement"))
+        //{
+            StartCoroutine(LoadNextScene("Poker"));
+        //}
+
+        //if (SceneManager.GetActiveScene().name.Contains("ServiceFloor"))
+        //{
+        //    StartCoroutine(LoadNextScene("ServiceFloorPoker"));
+        //}
+
+        //if (SceneManager.GetActiveScene().name.Contains("Casino"))
+        //{
+        //    StartCoroutine(LoadNextScene("CasinoPoker"));
+        //}
+
     }
 
     public void LoadMainMenu()

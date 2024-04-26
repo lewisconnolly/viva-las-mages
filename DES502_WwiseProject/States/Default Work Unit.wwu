@@ -9,6 +9,12 @@
 						<State Name="Poker" ID="{CEF5FF35-E37B-424D-8C99-692A43825169}"/>
 						<State Name="Basement" ID="{87A5B1F0-7868-4725-B444-663DCE01744F}"/>
 						<State Name="MainMenu" ID="{7E35F045-54B9-4C17-86B8-BAEAFF92054C}"/>
+						<State Name="PokerLvl2" ID="{F5F87C0B-E8E6-4601-BADA-02531C770F5A}"/>
+						<State Name="ServiceArea" ID="{9AFFA6FF-1C46-40B5-9DA7-46B3CD4E997B}"/>
+						<State Name="PokerLvl3" ID="{C413EE0B-D115-4A02-BC9C-B88271210A40}"/>
+						<State Name="PokerWizard" ID="{83DB253D-59EB-4140-9FA5-DFC7EB6CBC02}"/>
+						<State Name="Casino" ID="{A52EFC9B-D4EC-489B-A8E8-A4F9D3345B3D}"/>
+						<State Name="WizardOffice" ID="{1350BFD9-6635-4A96-8A62-307681BB9AA9}"/>
 					</ChildrenList>
 				</StateGroup>
 			</ChildrenList>

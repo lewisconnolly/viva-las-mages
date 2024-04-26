@@ -278,7 +278,7 @@ public class PokerUIController : MonoBehaviour
         if (player != null) { Destroy(player); }
         if (exit != null) { Destroy(exit); }
 
-        SceneManager.LoadScene("Room1");
+        SceneManager.LoadScene("BasementRoom1");
     }
 
     public void GameOver()

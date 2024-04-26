@@ -24,7 +24,7 @@ MonoBehaviour:
     ParentPath: Virtual Acoustics\Default Work Unit
     guid: 8d6184b3b4cb804ba79f8ca51f872126
     GuidInternal: 
-    m_lastTime: -8584894080508666048
+    m_lastTime: -8584894080494775808
     List: []
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
@@ -293,7 +293,7 @@ MonoBehaviour:
     ParentPath: Game Parameters\Default Work Unit
     guid: c159986efaa2f44fbc8fd3326b0eccf3
     GuidInternal: 
-    m_lastTime: -8584894080517657115
+    m_lastTime: -8584894080514775808
     List: []
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
@@ -307,7 +307,7 @@ MonoBehaviour:
     ParentPath: States\Default Work Unit
     guid: c737ba394227fb4987b02262ac8cd691
     GuidInternal: 
-    m_lastTime: -8584875359072575434
+    m_lastTime: -8584875224714775808
     List:
     - name: Music
       guid: ed17c68722ef0e4e8c963c274e06a23f
@@ -340,6 +340,22 @@ MonoBehaviour:
         - ElementName: Basement
           ObjectType: 8
           guid: f0b1a58768782547b444663dce01744f
+      - name: Casino
+        guid: 9bfc2ea5ecd49b48a8e8a4f9d3345b3d
+        id: 200935300
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: c737ba394227fb4987b02262ac8cd691
+        - ElementName: Music
+          ObjectType: 9
+          guid: ed17c68722ef0e4e8c963c274e06a23f
+        - ElementName: Casino
+          ObjectType: 8
+          guid: 9bfc2ea5ecd49b48a8e8a4f9d3345b3d
       - name: MainMenu
         guid: 45f0357eb954174c86b8baeaff92054c
         id: 3604647259
@@ -388,6 +404,86 @@ MonoBehaviour:
         - ElementName: Poker
           ObjectType: 8
           guid: 35fff5ce7be34d428c99692a43825169
+      - name: PokerLvl2
+        guid: 0b7cf8f5e6e80146bada02531c770f5a
+        id: 1493892136
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: c737ba394227fb4987b02262ac8cd691
+        - ElementName: Music
+          ObjectType: 9
+          guid: ed17c68722ef0e4e8c963c274e06a23f
+        - ElementName: PokerLvl2
+          ObjectType: 8
+          guid: 0b7cf8f5e6e80146bada02531c770f5a
+      - name: PokerLvl3
+        guid: 0bee13c415d1024abc9cb88271210a40
+        id: 1493892137
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: c737ba394227fb4987b02262ac8cd691
+        - ElementName: Music
+          ObjectType: 9
+          guid: ed17c68722ef0e4e8c963c274e06a23f
+        - ElementName: PokerLvl3
+          ObjectType: 8
+          guid: 0bee13c415d1024abc9cb88271210a40
+      - name: PokerWizard
+        guid: 3d25db83eb5940419fa5dfc7eb6cbc02
+        id: 1996063713
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: c737ba394227fb4987b02262ac8cd691
+        - ElementName: Music
+          ObjectType: 9
+          guid: ed17c68722ef0e4e8c963c274e06a23f
+        - ElementName: PokerWizard
+          ObjectType: 8
+          guid: 3d25db83eb5940419fa5dfc7eb6cbc02
+      - name: ServiceArea
+        guid: ffa6ff9a461cb5409da746b3cd4e997b
+        id: 698426525
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: c737ba394227fb4987b02262ac8cd691
+        - ElementName: Music
+          ObjectType: 9
+          guid: ed17c68722ef0e4e8c963c274e06a23f
+        - ElementName: ServiceArea
+          ObjectType: 8
+          guid: ffa6ff9a461cb5409da746b3cd4e997b
+      - name: WizardOffice
+        guid: d9bf50133566964a8a62307681bb9aa9
+        id: 3789859536
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: c737ba394227fb4987b02262ac8cd691
+        - ElementName: Music
+          ObjectType: 9
+          guid: ed17c68722ef0e4e8c963c274e06a23f
+        - ElementName: WizardOffice
+          ObjectType: 8
+          guid: d9bf50133566964a8a62307681bb9aa9
       ValueGuids: []
       ValueIcons: []
       valuesInternal: []
@@ -403,7 +499,7 @@ MonoBehaviour:
     ParentPath: Switches\Default Work Unit
     guid: e4f17a2baafe08438b260dec0f798937
     GuidInternal: 
-    m_lastTime: -8584879738407970933
+    m_lastTime: -8584879738394775808
     List: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
@@ -417,10 +513,10 @@ MonoBehaviour:
     ParentPath: Triggers\Default Work Unit
     guid: 592e04adbd854748adfd9d5aa3905808
     GuidInternal: 
-    m_lastTime: -8584894080508666048
+    m_lastTime: -8584894080494775808
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 0100000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e000000c0000000c1000000
+  ExpandedWaapiItemIds: 0100000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000c0000000c1000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0

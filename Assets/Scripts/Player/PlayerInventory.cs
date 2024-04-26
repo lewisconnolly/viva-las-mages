@@ -50,15 +50,15 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public void DeleteDeck()
-    {
-        string[] playerDeckFolder = { "Assets/Resources/Cards/PlayerDeck" };
-        foreach (var asset in AssetDatabase.FindAssets("", playerDeckFolder))
-        {
-            var path = AssetDatabase.GUIDToAssetPath(asset);
-            AssetDatabase.DeleteAsset(path);
-        }
-    }
+    //public void DeleteDeck()
+    //{
+    //    string[] playerDeckFolder = { "Assets/Resources/Cards/PlayerDeck" };
+    //    foreach (var asset in AssetDatabase.FindAssets("", playerDeckFolder))
+    //    {
+    //        var path = AssetDatabase.GUIDToAssetPath(asset);
+    //        AssetDatabase.DeleteAsset(path);
+    //    }
+    //}
 
     public void AddRewardCardtoDeck(CardScriptableObject cardToAdd)
     {

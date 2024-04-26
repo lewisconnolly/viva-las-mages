@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        StartCoroutine(LoadNextScene("Room1"));
+        StartCoroutine(LoadNextScene("BasementRoom1"));
     }
 
     IEnumerator LoadNextScene(string sceneName)

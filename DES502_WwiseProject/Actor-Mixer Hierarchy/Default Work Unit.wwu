@@ -489,9 +489,7 @@
 						<ObjectList Name="Effects">
 							<Reference>
 								<Local>
-									<EffectSlot Name="" ID="{EAB56779-1E6E-47CA-97E1-90A3915DBDCE}" ShortID="967118958">
-										<ReferenceList/>
-									</EffectSlot>
+									<EffectSlot Name="" ID="{EAB56779-1E6E-47CA-97E1-90A3915DBDCE}" ShortID="967118958"/>
 								</Local>
 							</Reference>
 						</ObjectList>
@@ -542,9 +540,7 @@
 						<ObjectList Name="Effects">
 							<Reference>
 								<Local>
-									<EffectSlot Name="" ID="{A73E3513-1122-425F-9CF5-E274AF501961}" ShortID="352473590">
-										<ReferenceList/>
-									</EffectSlot>
+									<EffectSlot Name="" ID="{A73E3513-1122-425F-9CF5-E274AF501961}" ShortID="352473590"/>
 								</Local>
 							</Reference>
 							<Reference>
@@ -614,7 +610,6 @@
 					</ReferenceList>
 					<ChildrenList>
 						<AudioFileSource Name="Bet" ID="{4762108F-DD55-46BD-A19F-114CEB3D0BAA}">
-							<Comment> </Comment>
 							<PropertyList>
 								<Property Name="FadeOutDuration" Type="Real64" Value="0.140155728587319"/>
 								<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
@@ -634,6 +629,11 @@
 				</Sound>
 				<Sound Name="SlotMachineWin" ID="{36187532-D6DF-4B99-ACA9-EA0D373E56D4}" ShortID="968584228">
 					<PropertyList>
+						<Property Name="MakeUpGain" Type="Real64">
+							<ValueList>
+								<Value>-20</Value>
+							</ValueList>
+						</Property>
 						<Property Name="Pitch" Type="int32">
 							<ModifierList>
 								<ModifierInfo>
@@ -658,8 +658,8 @@
 					<ChildrenList>
 						<AudioFileSource Name="slotmachineWin" ID="{CF3A64A9-BBE9-4C8B-9AEE-1887870C2457}">
 							<PropertyList>
-								<Property Name="FadeInDuration" Type="Real64" Value="0.0212029238836803"/>
-								<Property Name="FadeOutDuration" Type="Real64" Value="0.690058795487049"/>
+								<Property Name="FadeInDuration" Type="Real64" Value="0.00240340796512779"/>
+								<Property Name="FadeOutDuration" Type="Real64" Value="1.34859257793207"/>
 							</PropertyList>
 							<Language>SFX</Language>
 							<AudioFile>slotmachineWin.wav</AudioFile>
