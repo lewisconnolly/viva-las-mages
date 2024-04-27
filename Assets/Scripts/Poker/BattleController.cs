@@ -162,6 +162,16 @@ public class BattleController : MonoBehaviour
         //checkCardsDiscarded = true;
     }
 
+    public void DiscardHeldCards()
+    {
+        for (int i = 0; i < EnemyController.instance.heldCards.Count; i++)
+        {            
+            EnemyController.instance.heldCards[i].moveSpeed = 1.75f;
+            EnemyController.instance.heldCards[i].MakeTransparent();
+            EnemyController.instance.heldCards[i].MoveToPoint(enemyDiscardPosition.position, enemyDiscardPosition.rotation);
+        }
+    }
+
     public void ResetPlayedCards()
     {
         for (int i = 0; i < HandController.instance.playedCards.Count; i++)
@@ -271,7 +281,10 @@ public class BattleController : MonoBehaviour
                 }
 
                 // Gain heart for each GainHeart power card
-                PlayerHealth.instance.IncreaseHealth(PowerCardController.instance.numHeartsToGain);
+                if (PowerCardController.instance.numHeartsToGain > 0)
+                {
+                    PlayerHealth.instance.IncreaseHealth(PowerCardController.instance.numHeartsToGain);
+                }
 
                 HandEvaluator.HandRank enemyHandRank = HandEvaluator.instance.EvaluateHand(EnemyController.instance.playedCards, true);
 
@@ -287,7 +300,10 @@ public class BattleController : MonoBehaviour
                     PokerUIController.instance.SetWinnerText(winnerText + "\nYou've Gone Bust!");
                     PokerUIController.instance.winnerText.gameObject.SetActive(true);
                     PokerUIController.instance.swapCardButton.SetActive(false);
-                    PokerUIController.instance.endGameButton.SetActive(true);                    
+                    PokerUIController.instance.endGameButton.SetActive(true);
+                    PokerUIController.instance.healthValueText.gameObject.SetActive(false);
+                    //PokerUIController.instance.playerHeart.SetActive(false);
+                    PokerUIController.instance.playerBet.SetActive(false);
                 }
                 else if (activeEnemy.GetHealth() != 0)
                 {
@@ -298,11 +314,17 @@ public class BattleController : MonoBehaviour
                     PokerUIController.instance.leaveButton.SetActive(true);
                 }                                
                 else
-                {                
+                {
+                    DiscardHeldCards();
+                    VFXController.instance.sparkles.Play();
                     RewardCardUI.instance.rewardCardParentObject.SetActive(true);
                     PlayerInventory.instance.AddRewardCardtoDeck(RewardCardUI.instance.rewardCard.cardSO);
                     PokerUIController.instance.swapCardButton.SetActive(false);
                     PokerUIController.instance.leaveButton.SetActive(true);                    
+                    PokerUIController.instance.enemyIconOverlayDefeated.SetActive(true);
+                    //PokerUIController.instance.enemyHealthValueText.gameObject.SetActive(false);
+                    //PokerUIController.instance.enemyHeart.SetActive(false);
+                    PokerUIController.instance.enemyBet.SetActive(false);
                 }
 
                 break;

@@ -115,6 +115,17 @@ public class SceneLoader : MonoBehaviour
                 enemy.GetComponent<EnemyReward>().SetUpCard();
             }
         }
+        else
+        {
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                
+                if (enemies[i].GetComponent<DealerHealth>().currentHealth <= 0)
+                {
+                    enemies[i].GetComponent<DealerHealth>().DestroySelf();
+                }
+            }
+        }
     }
 
     public void InstantiateExitCost()

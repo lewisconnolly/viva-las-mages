@@ -13,6 +13,8 @@ public class VFXController : MonoBehaviour
     }
 
     public VisualEffect hit;
+    public VisualEffect smokePuff;
+    public VisualEffect sparkles;
 
     // Start is called before the first frame update
     void Start()

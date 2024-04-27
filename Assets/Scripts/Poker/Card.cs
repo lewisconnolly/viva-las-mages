@@ -230,7 +230,7 @@ public class Card : MonoBehaviour
         hc.SelectCard(this);
         hc.SortSelectedCards();
                
-        MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(-0.2f, 0.4f, 0), hc.cardHandRotations[handPosition]);
+        MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(-0.2f, 0.2f, 0), hc.cardHandRotations[handPosition]);
         
         isInSelectedPosition = true;
     }

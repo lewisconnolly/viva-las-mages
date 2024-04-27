@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.VFX;
 
 public class ExitController : MonoBehaviour
 {
     public static ExitController instance;
     public GameObject floatingTextPrefab;
+    public GameObject padlockModel;
+
+    public VisualEffect hit;
+    public VisualEffect smokePuff;
 
     private void Awake()
     {
@@ -20,7 +25,14 @@ public class ExitController : MonoBehaviour
     {
         if (ExitCost.instance != null)
         {
-            SetHealthText(ExitCost.instance.GetHealth());
+            if (ExitCost.instance.GetHealth() <= 0)
+            {
+                padlockModel.SetActive(false);
+            }
+            else
+            {
+                SetHealthText(ExitCost.instance.GetHealth());
+            }
         }
     }
 
@@ -30,7 +42,17 @@ public class ExitController : MonoBehaviour
 
     }
 
-    public void SetHealthText(int health) { healthValueText.text = health.ToString(); }
+    public void SetHealthText(int health)
+    {
+        healthValueText.text = health.ToString();
+
+        if (health <= 0)
+        {
+            smokePuff.Play();
+            //VFXController.instance.smokePuff.Play();
+            padlockModel.SetActive(false);
+        }
+    }
 
     public void ShowFloatingText(int damage)
     {
@@ -40,7 +62,7 @@ public class ExitController : MonoBehaviour
         {
             floatingText = Instantiate(floatingTextPrefab);
 
-            floatingText.GetComponent<TextMeshPro>().text = damage.ToString();
+            floatingText.GetComponent<TextMeshPro>().text = "-" + damage.ToString();
         }
         
     }

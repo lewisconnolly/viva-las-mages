@@ -42,8 +42,16 @@ public class RewardCardUI : MonoBehaviour
     {
         bool isPaused;
         if (SceneManager.GetActiveScene().name != "Poker") { isPaused = UIController.isPaused; } else { isPaused = PokerUIController.isPaused; }
-        
-        if(Input.GetMouseButtonDown(0) && !isPaused) { rewardCardParentObject.SetActive(false); }
+
+        if (Input.GetMouseButtonDown(0) && !isPaused)
+        {
+            rewardCardParentObject.SetActive(false);
+
+            if (SceneManager.GetActiveScene().name != "Poker")
+            {
+                VFXController.instance.sparkles.Stop();
+            }
+        }
     }
 
     public void SlotMachineReward(CardScriptableObject smRewardCard)

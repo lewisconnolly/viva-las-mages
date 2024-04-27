@@ -73,6 +73,7 @@ public class PlayerHealth : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Poker")
         {
             PokerUIController.instance.SetHealthText(currentHealth);
+            PokerUIController.instance.ShowHealthChangeText(-damage, false);
         }
         else
         {
@@ -126,6 +127,7 @@ public class PlayerHealth : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Poker")
         {
             PokerUIController.instance.SetHealthText(currentHealth);
+            PokerUIController.instance.ShowHealthChangeText(health, false);
         }
         else
         {

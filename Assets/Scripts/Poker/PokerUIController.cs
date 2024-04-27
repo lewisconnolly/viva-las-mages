@@ -35,6 +35,16 @@ public class PokerUIController : MonoBehaviour
     public BetSlider betSlider;
     public Image enemyIcon;
     public GameObject hitSpritePrefab;
+    public GameObject enemyIconOverlayDamagePf;
+    public GameObject enemyIconOverlayDefeated;
+    public GameObject enemyHeart;
+    public GameObject playerHeart;
+    public GameObject healthChangeText;
+    public GameObject enemyBet;
+    public GameObject playerBet;
+
+    public TMP_FontAsset redGlow;
+    public TMP_FontAsset greenGlow;
 
     public GameObject placeBetButton, swapCardButton, playHandButton, playAgainButton, leaveButton, endGameButton;
 
@@ -143,11 +153,6 @@ public class PokerUIController : MonoBehaviour
 
     public void SetEnemyHealthText(int health)
     {
-        if (int.Parse(enemyHealthValueText.text) > health)
-        {
-            ShowHitSprite();
-        }
-
         enemyHealthValueText.text = health.ToString();
     }
 
@@ -158,9 +163,48 @@ public class PokerUIController : MonoBehaviour
            Instantiate(hitSpritePrefab, enemyIcon.transform);            
         }
 
+        if (enemyIconOverlayDamagePf != null)
+        {
+            Instantiate(enemyIconOverlayDamagePf, enemyIcon.transform);
+        }
     }
 
-    public void SetExitHealthText(int health) { exitHealthValueText.text = health.ToString(); }
+    public void ShowHealthChangeText(int change, bool isEnemy)
+    {
+        Transform parentTransform;
+        
+        if (healthChangeText != null)
+        {
+            if (isEnemy)
+            {
+                parentTransform = enemyHeart.transform;
+            }
+            else
+            {
+                parentTransform = playerHeart.transform;
+            }
+
+            GameObject healthChange = Instantiate(healthChangeText, parentTransform);
+
+            if (change < 0)
+            {
+                healthChange.GetComponent<TextMeshProUGUI>().text = change.ToString();
+                healthChange.GetComponent<TextMeshProUGUI>().color = Color.red;
+                healthChange.GetComponent<TextMeshProUGUI>().font = redGlow;
+            }
+            else
+            {
+                healthChange.GetComponent<TextMeshProUGUI>().text = "+" + change.ToString();
+                healthChange.GetComponent<TextMeshProUGUI>().color = Color.green;
+                healthChange.GetComponent<TextMeshProUGUI>().font = greenGlow;
+            }
+        }
+    }
+
+    public void SetExitHealthText(int health)
+    {
+        exitHealthValueText.text = health.ToString();
+    }
 
     public void SetHandText(string playerHand, string enemyHand)
     {
