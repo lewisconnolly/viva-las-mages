@@ -56,6 +56,20 @@ public class EnemyController : MonoBehaviour
     {
         activeCards.Clear();
 
+        // Add reward card to enemy deck
+        for (int i = 0; i < deckToUse.Count; i++)
+        {
+            if (deckToUse[i].value == RewardCardUI.instance.rewardCard.cardSO.value &&
+                deckToUse[i].suit == RewardCardUI.instance.rewardCard.cardSO.suit)
+            {
+                deckToUse[i].powerCardType = RewardCardUI.instance.rewardCard.cardSO.powerCardType;
+            }
+            else
+            {
+                deckToUse[i].powerCardType = PowerCardController.PowerCardType.None;
+            }
+        }
+
         List<CardScriptableObject> tempDeck = new List<CardScriptableObject>();
         tempDeck.AddRange(deckToUse);
 

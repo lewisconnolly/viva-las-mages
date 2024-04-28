@@ -47,7 +47,7 @@ public class RewardCardUI : MonoBehaviour
         {
             rewardCardParentObject.SetActive(false);
 
-            if (SceneManager.GetActiveScene().name != "Poker")
+            if (SceneManager.GetActiveScene().name == "Poker")
             {
                 VFXController.instance.sparkles.Stop();
             }

@@ -42,6 +42,7 @@ public class SceneLoader : MonoBehaviour
         InstantiateEnemy();
         InstantiateExitCost();        
         InstantiateTVC();        
+        InstantiateSlotMachine();        
     }
 
     public void InstantiatePlayer()
@@ -154,7 +155,25 @@ public class SceneLoader : MonoBehaviour
 
         tvc = GameObject.FindGameObjectWithTag("TVC");
         tvc.GetComponent<Canvas>().worldCamera = canvasCamera;
+    }
 
+    public void InstantiateSlotMachine()
+    {
+        GameObject[] slotMachines = GameObject.FindGameObjectsWithTag("SlotMachine");
+
+        // Check if slot machine been loaded before
+        if (slotMachines.Where(sm => sm.GetComponentInChildren<SlotMachine>().isTheOriginal == true).ToList().Count > 0)
+        {
+            // Destroy new slot machine
+            GameObject newSm =  slotMachines.Where(sm => sm.GetComponentInChildren<SlotMachine>().isTheOriginal == false).ToList().First();
+            Destroy(newSm);
+        }
+        else
+        {
+            // Mark new slot machine as original
+            GameObject newSm = slotMachines.Where(sm => sm.GetComponentInChildren<SlotMachine>().isTheOriginal == false).ToList().First();
+            newSm.GetComponentInChildren<SlotMachine>().isTheOriginal = true;
+        }
     }
 
     public void LoadRoom(string nextSceneName)
@@ -169,9 +188,9 @@ public class SceneLoader : MonoBehaviour
 
             GameObject exit = GameObject.FindGameObjectWithTag("ExitCost");
             if (exit != null) { Destroy(exit); }
-
+            
             PlayerMovement.instance.FreezePlayer();
-            PlayerMovement.instance.moveToStartingPosition = true;            
+            PlayerMovement.instance.moveToStartingPosition = true;                        
         }
 
         StartCoroutine(LoadNextScene(nextSceneName));

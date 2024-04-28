@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class Interactor : MonoBehaviour
 {
@@ -24,12 +23,16 @@ public class Interactor : MonoBehaviour
         if(numFound > 0)
         {
             // Get component implementing IInteractable on the collider
-            interactable = colliders[0].GetComponent<IInteractable>();                     
+            //interactable = colliders[0].GetComponent<IInteractable>();
+            int nearestIndex = GetNearestCollider(interactionPoint, colliders.Where(col => col != null).ToArray());
+            
+            interactable = colliders[nearestIndex].GetComponent<IInteractable>();
 
             if (interactable != null )
             {
                 // Change the UI text on the interaction prompt panel based on the prompt text of the interactable and display it
-                if (!interactionPromptUI.isDisplayed) interactionPromptUI.SetUp(interactable.InteractionPrompt);
+                if (!interactionPromptUI.isDisplayed ||
+                    interactionPromptUI.prompText.text != interactable.InteractionPrompt) interactionPromptUI.SetUp(interactable.InteractionPrompt);
 
                 // Interact with the interactable if e was pressed this frame
                 if (Keyboard.current.eKey.wasPressedThisFrame && !UIController.isPaused && !PlayerHealth.instance.isGameOver) interactable.Interact(this);
@@ -42,6 +45,25 @@ public class Interactor : MonoBehaviour
             // Stop displaying interaction prompt panel
             if (interactionPromptUI.isDisplayed) interactionPromptUI.Close();
         }
+    }
+
+    int GetNearestCollider(Transform interactionPoint, Collider[] colliders)
+    {
+        int nearestCol = 0;
+        float nearestDistance = float.MaxValue;
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            float distance = (colliders[i].transform.position - interactionPoint.position).sqrMagnitude;
+            
+            if (distance < nearestDistance)
+            {
+                nearestCol = i;
+                nearestDistance = distance;
+            }
+        }
+
+        return nearestCol;
     }
 
     private void OnDrawGizmos()

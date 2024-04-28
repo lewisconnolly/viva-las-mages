@@ -16,6 +16,8 @@ public class SlotMachine : MonoBehaviour, IInteractable
     public bool paidOut = false;
     public AK.Wwise.Event slotMachineWin;
 
+    public bool isTheOriginal;
+
     public bool Interact(Interactor interactor)
     {        
         GameObject player = GameObject.FindGameObjectWithTag("Player");

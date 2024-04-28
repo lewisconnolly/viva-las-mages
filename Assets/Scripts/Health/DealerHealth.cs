@@ -70,7 +70,9 @@ public class DealerHealth : MonoBehaviour
     }
 
     IEnumerator DestroySelfEffect()
-    {        
+    {
+        yield return new WaitForSeconds(2);
+
         model.SetActive(false);
         ui.SetActive(false);
         
