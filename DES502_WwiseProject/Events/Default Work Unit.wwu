@@ -91,6 +91,43 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Folder Name="Dialogue" ID="{DC36C4DF-9610-4189-AABD-720EEA29325C}" ShortID="214924515">
+					<ChildrenList>
+						<Event Name="Win" ID="{470E7DC8-D71C-404A-B2F6-2D805DBC4F47}">
+							<ChildrenList>
+								<Action Name="" ID="{08A0F801-CC5B-4623-8DBC-CC4B3DD7B8D6}" ShortID="1046893160">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Win" ID="{334EF041-41DE-46E4-87B3-80E08354FD11}" WorkUnitID="{A66E9D4F-FFAB-42CD-961A-AF51BCBE2AF2}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Lose" ID="{F048E90E-212A-48A9-B5A5-787BF93932E0}">
+							<ChildrenList>
+								<Action Name="" ID="{9CB8524F-CB75-42A0-B219-67DAE8D5D843}" ShortID="274683223">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Lose" ID="{0831AC76-33C4-4E94-ABE6-624C2FB4EE12}" WorkUnitID="{A66E9D4F-FFAB-42CD-961A-AF51BCBE2AF2}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+				<Event Name="SmokePuff" ID="{3B871D66-78CB-4997-BE78-AFF9B4907C11}">
+					<ChildrenList>
+						<Action Name="" ID="{4EF2786A-D7CC-4EF8-A7D5-94AA7A187F45}" ShortID="552370486">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="SmokePuff" ID="{22E9C598-474B-4AE0-80B0-C7E33D5E1841}" WorkUnitID="{A66E9D4F-FFAB-42CD-961A-AF51BCBE2AF2}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
