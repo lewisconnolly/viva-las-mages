@@ -264,6 +264,11 @@ MonoBehaviour:
   ui: {fileID: 4086557897797679987}
   enemyType: 6
   collider: {fileID: 3645308031298886746}
+  poofSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 67f9cb6430c522743914324cd08d321a,
+      type: 2}
 --- !u!114 &85312512235876811
 MonoBehaviour:
   m_ObjectHideFlags: 0

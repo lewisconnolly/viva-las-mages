@@ -10,6 +10,7 @@ public class Merchant : MonoBehaviour, IInteractable
 {
     [SerializeField] public string prompt;
 
+    public AK.Wwise.Event merchantSpeak;
     public string InteractionPrompt => prompt;
 
     public List<CardScriptableObject> shopCards;
@@ -60,6 +61,7 @@ public class Merchant : MonoBehaviour, IInteractable
         if (!WSCController.instance.merchantShopParent.activeSelf)
         {            
             MerchantShop.instance.ShowShop();
+            merchantSpeak.Post(gameObject);
         }
 
         return true;

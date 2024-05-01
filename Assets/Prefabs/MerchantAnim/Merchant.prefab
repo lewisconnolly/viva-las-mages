@@ -82,7 +82,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: Got some rare things on sale, stranger
+  merchantSpeak:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 00c1ef91416d21d4fa904c192ab237d8,
+      type: 2}
   shopCards: []
+  cardsGenerated: 0
   card1Sold: 0
   card2Sold: 0
   card3Sold: 0

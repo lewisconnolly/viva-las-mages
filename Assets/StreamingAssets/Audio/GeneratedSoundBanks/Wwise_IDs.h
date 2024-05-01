@@ -17,7 +17,9 @@ namespace AK
         static const AkUniqueID CARDPLAY = 4206845685U;
         static const AkUniqueID CARDSHUFFLE = 723374694U;
         static const AkUniqueID FOOTSTEPS = 2385628198U;
+        static const AkUniqueID LAMPSPEAK = 77602827U;
         static const AkUniqueID LOSE = 221232726U;
+        static const AkUniqueID MERCHANTSPEAK = 2143137657U;
         static const AkUniqueID MUSIC = 3991942870U;
         static const AkUniqueID SLOTMACHINEWIN = 2127906762U;
         static const AkUniqueID SMOKEPUFF = 3240102813U;

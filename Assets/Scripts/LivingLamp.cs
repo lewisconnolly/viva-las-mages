@@ -8,6 +8,8 @@ public class LivingLamp : MonoBehaviour, IInteractable
 {
     [SerializeField] public string prompt;
 
+    public AK.Wwise.Event lampSpeak;
+
     public string InteractionPrompt => prompt;
 
     private string initPrompt = "Hi friend, d'you want some help getting out of here? [E]";
@@ -51,14 +53,18 @@ public class LivingLamp : MonoBehaviour, IInteractable
             prompt = "Good luck! Remember: [E] to interact, [I] to view your deck, and [H] to view the guide";
             initPrompt = prompt;
             tutorialRead = true;
+            lampSpeak.Stop(gameObject);
+            lampSpeak.Post(gameObject);
         }
         else
         {
             prompt = tutorialPrompts[currentPrompt];
-
+            lampSpeak.Stop(gameObject);
+            lampSpeak.Post(gameObject);
             currentPrompt++;
         }
 
+        
         return true;
     }
 

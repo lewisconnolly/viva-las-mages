@@ -101,7 +101,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: f2447ec76069e842bc90e2a3c1bc6a0d
     GuidInternal: 
-    m_lastTime: -8584872807936010246
+    m_lastTime: -8584870104658400501
     List:
     - name: CommonEvents
       guid: 76dbe5716303ea4a86c85abf37133f27
@@ -143,7 +143,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: d62c319f63e7f349b6bc73e971905b50
     GuidInternal: 
-    m_lastTime: -8584872806552098507
+    m_lastTime: -8584870100504392109
     List:
     - name: Bet
       guid: 7b6f474bd45f0f4faf3e7f51e27af52c
@@ -230,6 +230,23 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0.31360212
       minDuration: 0.1787252
+    - name: LampSpeak
+      guid: 5d1d0e9150d41f4dbe4cc001790b0904
+      id: 77602827
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: LampSpeak
+        ObjectType: 3
+        guid: 5d1d0e9150d41f4dbe4cc001790b0904
+      Path: Events\Default Work Unit\LampSpeak
+      maxAttenuation: 0
+      maxDuration: 0.62167186
+      minDuration: 0.34279117
     - name: Lose
       guid: 0ee948f02a21a948b5a5787bf93932e0
       id: 221232726
@@ -250,6 +267,23 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 3.807687
       minDuration: 1.0331066
+    - name: MerchantSpeak
+      guid: 745e0fc1d3c2c048ad8fcbfbdf4fc059
+      id: 2143137657
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: MerchantSpeak
+        ObjectType: 3
+        guid: 745e0fc1d3c2c048ad8fcbfbdf4fc059
+      Path: Events\Default Work Unit\MerchantSpeak
+      maxAttenuation: 0
+      maxDuration: 1.2032446
+      minDuration: 0.64995
     - name: Music
       guid: 67194e8b62a8084eb21fddd0060c0e92
       id: 3991942870
@@ -736,7 +770,7 @@ MonoBehaviour:
     m_lastTime: -8584874568665753109
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 0100000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000018000000190000001a000000c0000000c1000000
+  ExpandedWaapiItemIds: 0100000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000018000000190000001a0000007d0000007e000000c0000000c1000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0

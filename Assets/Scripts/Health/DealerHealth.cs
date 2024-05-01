@@ -24,7 +24,9 @@ public class DealerHealth : MonoBehaviour
     public GameObject ui;
     public EnemyType enemyType;
     public Collider collider;
-    
+
+    public AK.Wwise.Event poofSound;
+
 
     // Start is called before the first frame update
     void Start()
@@ -81,7 +83,7 @@ public class DealerHealth : MonoBehaviour
         model.SetActive(false);
         ui.SetActive(false);
         collider.enabled = false;
-        
+        poofSound.Post(gameObject);
         smokePuff.Play();
 
         yield return new WaitForSeconds(3);

@@ -68,6 +68,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: Hi there, wanna know how to get out of here? [E]
+  lampSpeak:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 01cda1968eafea2418125693f7594271,
+      type: 2}
 --- !u!1001 &1210158803818879296
 PrefabInstance:
   m_ObjectHideFlags: 0

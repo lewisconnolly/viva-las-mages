@@ -1,9 +1,11 @@
 Event	ID	Name			Wwise Object Path	Notes
+	77602827	LampSpeak			\Default Work Unit\LampSpeak	
 	221232726	Lose			\Default Work Unit\Dialogue\Lose	
 	446279794	Bet			\Default Work Unit\Bet	
 	723374694	CardShuffle			\Default Work Unit\CardShuffle	
 	979765101	Win			\Default Work Unit\Dialogue\Win	
 	2127906762	SlotMachineWin			\Default Work Unit\SlotMachineWin	
+	2143137657	MerchantSpeak			\Default Work Unit\MerchantSpeak	
 	2385628198	Footsteps			\Default Work Unit\Footsteps	
 	3140745524	SplashScreen			\Default Work Unit\SplashScreen	
 	3240102813	SmokePuff			\Default Work Unit\SmokePuff	
@@ -29,6 +31,7 @@ Effect plug-ins	ID	Name	Type				Notes
 	1252796875	Light_Expander	Wwise Expander			
 	3851006675	Secret_message_Distant	Wwise Harmonizer			
 	3948262040	Octave_Down	Wwise Pitch Shifter			
+	4202347640	Repeat_after_me	Wwise Harmonizer			
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	21082198	CardShuffle	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\CardShuffle_C2A3E27A.wem		\Actor-Mixer Hierarchy\Default Work Unit\CardShuffle		129568
@@ -36,6 +39,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	72610720	SkeletonLose2VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\SkeletonLose2VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Lose\SkeletonLose\SkeletonLose2VL		275768
 	90556042	SlimeLose1VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\SlimeLose1VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Lose\SlimeLose\SlimeLose1VL		182336
 	101436057	HarlequinLose2VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\HarlequinLose2VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Lose\HarlequinLose\HarlequinLose2VL		279668
+	110639380	MerchantSpeak3	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\MerchantSpeak3_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\MerchantVoice\MerchantSpeak3		177008
 	115945111	WizardLose2VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\WizardLose2VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Lose\WizardLose\WizardLose2VL		244392
 	135631757	DreadPatronLose2VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\DreadPatronLose2VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Lose\DreadPatronLose\DreadPatronLose2VL		266028
 	146363578	SlimeWin1VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\SlimeWin1VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Win\SlimeWIn\SlimeWin1VL		345936
@@ -54,6 +58,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	406348161	VivaLasSplashScreen	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\VivaLasMages_40BBC9BE.wem		\Actor-Mixer Hierarchy\Default Work Unit\VivaLasSplashScreen		580556
 	434401296	RatLoseVL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\RatLoseVL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Lose\RatLose\RatLoseVL		262648
 	442831581	RatWinVL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\RatWinVL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Win\RatWin\RatWinVL		352352
+	467276958	LampSpeak3	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\LampSpeak3_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\LampVoice\LampSpeak3		71960
 	472751316	RatWin2VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\RatWin2VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Win\RatWin\RatWin2VL		462096
 	477192504	FootStep2	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\FootStep2_03395070.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\FootStep2		38348
 	494183269	WizardWin1VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\WizardWin1VL_E24E8B80.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Win\WizardWin\WizardWin1VL		590404
@@ -62,6 +67,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	519396977	WizardWin2VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\WizardWin2VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Win\WizardWin\WizardWin2VL		427576
 	522322369	CardPlay3	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\CardPlay3_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\CardPlay\CardPlay3		35816
 	552838930	FootStep6	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\FootStep6_C119EB5A.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\FootStep6		49380
+	559131181	MerchantSpeak2	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\MerchantSpeak2_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\MerchantVoice\MerchantSpeak2		136440
 	564346088	SlotMachineWin	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\slotmachineWin_9E5CD947.wem		\Actor-Mixer Hierarchy\Default Work Unit\SlotMachineWin		305820
 	581837591	WizardLose3VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\WizardLose3VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Lose\WizardLose\WizardLose3VL		671820
 	583465700	RatLose2VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\RatLose2VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Lose\RatLose\RatLose2VL		253636
@@ -72,6 +78,9 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	639437876	DreadPatronLose1VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\DreadPatronLose1VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Lose\DreadPatronLose\DreadPatronLose1VL		468704
 	645544646	SnakeWin1VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\SnakeWin1VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Win\SnakeWIn\SnakeWin1VL		483504
 	655079680	CardPlay1	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\CardPlay1_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\CardPlay\CardPlay1		46524
+	678300970	LampSpeak2	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\LampSpeak2_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\LampVoice\LampSpeak2		64160
+	735522241	MerchantSpeak1	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\MerchantSpeak1_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\MerchantVoice\MerchantSpeak1		252508
+	815387628	LampSpeak1	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\LampSpeak1_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\LampVoice\LampSpeak1		103604
 	827235702	HarlequinWin1VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\HarlequinWin1VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Win\HarlequinWin\HarlequinWin1VL		422940
 	828054099	FootStep4	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\FootStep4_C917E432.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\FootStep4		45944
 	916764331	ManagerLose1VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\ManagerLose1VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Lose\ManageressLose\ManagerLose1VL		382372

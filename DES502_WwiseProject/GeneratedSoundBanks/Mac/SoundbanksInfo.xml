@@ -63,7 +63,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2159622017" Type="User" Language="SFX" Hash="{7C55FC89-DB9E-B91C-8F0F-4719312F2114}">
+		<SoundBank Id="2159622017" Type="User" Language="SFX" Hash="{00E2F702-71E7-E39F-A773-560F2D5B1F48}">
 			<ShortName>CommonEvents</ShortName>
 			<Path>CommonEvents.bnk</Path>
 			<Media>
@@ -86,6 +86,10 @@
 				<File Id="101436057" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>HarlequinLose2VL.wav</ShortName>
 					<CachePath>SFX/HarlequinLose2VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="110639380" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>MerchantSpeak3.wav</ShortName>
+					<CachePath>SFX/MerchantSpeak3_818F3B66.wem</CachePath>
 				</File>
 				<File Id="115945111" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>WizardLose2VL.wav</ShortName>
@@ -159,6 +163,10 @@
 					<ShortName>RatWinVL.wav</ShortName>
 					<CachePath>SFX/RatWinVL_818F3B66.wem</CachePath>
 				</File>
+				<File Id="467276958" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>LampSpeak3.wav</ShortName>
+					<CachePath>SFX/LampSpeak3_818F3B66.wem</CachePath>
+				</File>
 				<File Id="472751316" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>RatWin2VL.wav</ShortName>
 					<CachePath>SFX/RatWin2VL_818F3B66.wem</CachePath>
@@ -190,6 +198,10 @@
 				<File Id="552838930" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>FootStep6.wav</ShortName>
 					<CachePath>SFX/FootStep6_C119EB5A.wem</CachePath>
+				</File>
+				<File Id="559131181" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>MerchantSpeak2.wav</ShortName>
+					<CachePath>SFX/MerchantSpeak2_818F3B66.wem</CachePath>
 				</File>
 				<File Id="564346088" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>slotmachineWin.wav</ShortName>
@@ -230,6 +242,18 @@
 				<File Id="655079680" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>CardPlay1.wav</ShortName>
 					<CachePath>SFX/CardPlay1_818F3B66.wem</CachePath>
+				</File>
+				<File Id="678300970" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>LampSpeak2.wav</ShortName>
+					<CachePath>SFX/LampSpeak2_818F3B66.wem</CachePath>
+				</File>
+				<File Id="735522241" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>MerchantSpeak1.wav</ShortName>
+					<CachePath>SFX/MerchantSpeak1_818F3B66.wem</CachePath>
+				</File>
+				<File Id="815387628" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>LampSpeak1.wav</ShortName>
+					<CachePath>SFX/LampSpeak1_818F3B66.wem</CachePath>
 				</File>
 				<File Id="827235702" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>HarlequinWin1VL.wav</ShortName>
@@ -273,6 +297,7 @@
 					<Plugin Id="1252796875" Name="Light_Expander" LibName="Wwise Expander" LibId="7143427"/>
 					<Plugin Id="3851006675" Name="Secret_message_Distant" LibName="Wwise Harmonizer" LibId="9043971"/>
 					<Plugin Id="3948262040" Name="Octave_Down" LibName="Wwise Pitch Shifter" LibId="8912899"/>
+					<Plugin Id="4202347640" Name="Repeat_after_me" LibName="Wwise Harmonizer" LibId="9043971"/>
 				</ShareSets>
 			</Plugins>
 			<Events>
@@ -302,6 +327,18 @@
 						<MediaRef Id="828054099"/>
 						<MediaRef Id="1008269798"/>
 					</MediaRefs>
+				</Event>
+				<Event Id="77602827" Name="LampSpeak" DurationType="OneShot" DurationMin="0.34279117" DurationMax="0.62167186">
+					<MediaRefs>
+						<MediaRef Id="467276958"/>
+						<MediaRef Id="678300970"/>
+						<MediaRef Id="815387628"/>
+					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="4202347640"/>
+						</ShareSets>
+					</PluginRefs>
 				</Event>
 				<Event Id="221232726" Name="Lose" DurationType="OneShot" DurationMin="1.0331066" DurationMax="3.807687">
 					<SwitchContainers>
@@ -368,6 +405,18 @@
 							</MediaRefs>
 						</SwitchContainer>
 					</SwitchContainers>
+				</Event>
+				<Event Id="2143137657" Name="MerchantSpeak" DurationType="OneShot" DurationMin="0.64995" DurationMax="1.2032446">
+					<MediaRefs>
+						<MediaRef Id="110639380"/>
+						<MediaRef Id="559131181"/>
+						<MediaRef Id="735522241"/>
+					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="992902880"/>
+						</ShareSets>
+					</PluginRefs>
 				</Event>
 				<Event Id="2127906762" Name="SlotMachineWin" DurationType="OneShot" DurationMin="1.4571533" DurationMax="1.7328571">
 					<MediaRefs>
@@ -611,5 +660,5 @@
 			</StateGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{1C0EB61A-D974-0A2B-0CA4-AC0E2A0EED08}</FileHash>
+	<FileHash>{554191FC-F394-4B82-72EB-15F5B3D9D33E}</FileHash>
 </SoundBanksInfo>
