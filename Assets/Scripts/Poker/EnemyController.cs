@@ -203,12 +203,12 @@ public class EnemyController : MonoBehaviour
         List<Card> duplicards = new List<Card>();
         List<Card> handToCheck = heldCards;
         // Duplicate duplicards before checking then add back in later
-        for (int i = 0; i < handToCheck.Count; i++)
+        for (int i = 0; i < heldCards.Count; i++)
         {
-            if (handToCheck[i].powerCardType == PowerCardType.Duplicard)
+            if (heldCards[i].powerCardType == PowerCardType.Duplicard)
             {
-                duplicards.Add(handToCheck[i]);
-                handToCheck = ReplaceDuplicard(handToCheck, i);
+                duplicards.Add(heldCards[i]);
+                handToCheck = ReplaceDuplicard(handToCheck, heldCards[i]);
             }
         }
 
@@ -323,7 +323,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    List<Card> ReplaceDuplicard(List<Card> hand, int cardIndex)
+    List<Card> ReplaceDuplicard(List<Card> hand, Card card)
     {
         List<Card> newHand = hand;
 
@@ -331,14 +331,16 @@ public class EnemyController : MonoBehaviour
         // (not a member of heldCards, selectedCards, or playedCards so won't be destroyed until scene unloaded and has no game object)
         Card duplicateCard = Instantiate(DeckController.instance.cardToSpawn, PowerCardController.instance.autoPairSpawnPosition.position, PowerCardController.instance.autoPairSpawnPosition.rotation);
         duplicateCard.isPlayer = false;
-        duplicateCard.value = newHand[cardIndex].value;
-        duplicateCard.suit = newHand[cardIndex].suit;
+        duplicateCard.value = card.value;
+        duplicateCard.suit = card.suit;
         duplicateCard.powerCardType = PowerCardType.None;
 
-        newHand.Add(duplicateCard);
+        // Remove power up from original
+        int index = newHand.IndexOf(newHand.Where(duplicard => duplicard.value == card.value && duplicard.suit == card.suit).ToList().First());
+        newHand[index].powerCardType = PowerCardType.None;
 
-        // Remove duplicard powerup from original
-        newHand[cardIndex].powerCardType = PowerCardType.None; 
+        // Add duplicate        
+        newHand.Add(duplicateCard);
 
         return newHand;
     }

@@ -173,7 +173,8 @@ public class Merchant : MonoBehaviour, IInteractable
             CardScriptableObject baseRewardCard = chooseFrom[UnityEngine.Random.Range(0, chooseFrom.Count)];
             PowerCardType powerup = powerCardTypesFiltered[UnityEngine.Random.Range(0, powerCardTypesFiltered.Count)];
 
-            CardScriptableObject shopCard = ScriptableObject.CreateInstance<CardScriptableObject>();
+            //CardScriptableObject shopCard = ScriptableObject.CreateInstance<CardScriptableObject>();
+            CardScriptableObject shopCard = Instantiate(baseRewardCard);
             string name = baseRewardCard.value.ToString() + baseRewardCard.suit + powerup.ToString();
             shopCard.name = name;
             shopCard.value = baseRewardCard.value;

@@ -245,7 +245,7 @@ MonoBehaviour:
   model: {fileID: 1908870394368358939}
   ui: {fileID: 8444513301723191270}
   enemyType: 4
-  collider: {fileID: 3623029184951174653}
+  _collider: {fileID: 3623029184951174653}
   poofSound:
     idInternal: 0
     valueGuidInternal: 

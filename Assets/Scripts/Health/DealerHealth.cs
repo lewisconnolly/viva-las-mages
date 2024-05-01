@@ -1,11 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.VFX;
-using static System.TimeZoneInfo;
 
 public class DealerHealth : MonoBehaviour
 {
@@ -23,7 +19,7 @@ public class DealerHealth : MonoBehaviour
     public GameObject model;
     public GameObject ui;
     public EnemyType enemyType;
-    public Collider collider;
+    public Collider _collider;
 
     public AK.Wwise.Event poofSound;
 
@@ -82,7 +78,7 @@ public class DealerHealth : MonoBehaviour
 
         model.SetActive(false);
         ui.SetActive(false);
-        collider.enabled = false;
+        _collider.enabled = false;
         poofSound.Post(gameObject);
         smokePuff.Play();
 

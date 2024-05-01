@@ -41,7 +41,7 @@ public class LivingLamp : MonoBehaviour, IInteractable
 
     void Update()
     {
-        transform.position = transform.position + Vector3.up * Mathf.Sin(Time.frameCount/100) / 7.5f * Time.deltaTime;
+        transform.position = transform.position + Vector3.up * Mathf.Sin(Time.frameCount/100) / 30f * Time.deltaTime;
     }
 
     public bool Interact(Interactor interactor)

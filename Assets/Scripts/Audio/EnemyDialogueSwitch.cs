@@ -9,9 +9,10 @@ public class EnemyDialogueSwitch : MonoBehaviour
 
     void Start()
     {
-        enemySwitch = PokerUIController.instance.enemyIcon.sprite.ToString();
+        //enemySwitch = PokerUIController.instance.enemyIcon.sprite.ToString();
+        enemySwitch = BattleController.instance.activeEnemy.ToString();
 
-        if(enemySwitch.Contains("RatIcon"))
+        if (enemySwitch.Contains("RatIcon"))
         {
             MySwitches.Find(x => x.ToString() == "Rat").SetValue(gameObject);
         }
