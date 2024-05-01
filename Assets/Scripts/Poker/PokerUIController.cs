@@ -99,7 +99,7 @@ public class PokerUIController : MonoBehaviour
     {
         betIconOrigin = betIcon.transform.position;
         enemyBetIconOrigin = enemyBetIcon.transform.position;
-        leaveButton.SetActive(false);
+        
         HideBetIcons();        
 
         if (GameObject.FindGameObjectWithTag("Enemy") != null) {
@@ -235,17 +235,31 @@ public class PokerUIController : MonoBehaviour
     }
     public void PlayHand()
     {
-        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { BattleController.instance.PlayHand(); }
+        if (!isPaused &&
+            !(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf))
+        {
+            BattleController.instance.PlayHand();
+        }
     }
 
     public void PlaceBet()
     {
-        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { BattleController.instance.PlaceBet(int.Parse(betSlider.currentBet.text)); Bet.Post(gameObject); }
+        if (!isPaused &&
+            !(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf))
+        {
+            BattleController.instance.PlaceBet(int.Parse(betSlider.currentBet.text));
+            Bet.Post(gameObject);
+        }
     }
 
     public void PlayAgain()
     {     
-        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { BattleController.instance.PlayAgain(); PlayMore.Post(gameObject); }
+        if (!isPaused &&
+            !(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf))
+        {
+            BattleController.instance.PlayAgain();
+            PlayMore.Post(gameObject);
+        }
 
     }
 
@@ -260,7 +274,11 @@ public class PokerUIController : MonoBehaviour
 
     public void SwapCards()
     {
-        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { HandController.instance.SwapCards(); }
+        if (!isPaused &&
+            !(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf))
+        {
+            HandController.instance.SwapCards();
+        }
     }
 
     public void PauseUnpause()
@@ -344,7 +362,7 @@ public class PokerUIController : MonoBehaviour
         if (player != null) { Destroy(player); }
         if (exit != null) { Destroy(exit); }
 
-        SceneManager.LoadScene("BasementRoom1");
+        SceneManager.LoadScene("T1BasementRoom1");
     }
 
     public void GameOver()

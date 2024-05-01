@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isFrozen && !DeckViewer.instance.deckViewerParent.activeSelf)
+        if (!isFrozen && !(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf || WSCController.instance.merchantShopParent.activeSelf))
         {
             // Test if sphere with radius groundDistance around Ground Check object is in contact with the Ground layer
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);

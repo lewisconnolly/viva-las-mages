@@ -6,20 +6,20 @@ using static System.TimeZoneInfo;
 
 public class MainMenu : MonoBehaviour
 {
-    public Sprite[] sprites;
-    public Image backgroundImage;
+    //public Sprite[] sprites;
+    //public Image backgroundImage;
     public Animator transition;
     public float transitionTime = 1f;
 
     // Start is called before the first frame update
     void Start()
     {
-        backgroundImage.sprite = sprites[Random.Range(0, sprites.Length)];
+        //backgroundImage.sprite = sprites[Random.Range(0, sprites.Length)];
     }
 
     public void StartGame()
     {
-        StartCoroutine(LoadNextScene("BasementRoom1"));
+        StartCoroutine(LoadNextScene("T1BasementRoom1"));
     }
 
     IEnumerator LoadNextScene(string sceneName)

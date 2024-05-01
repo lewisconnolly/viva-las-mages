@@ -185,6 +185,7 @@ public class HandController : MonoBehaviour
         {
             // Damage player for amount of swapped cards - free swaps
             int numFreeSwaps = selectedCards.Where(card => card.powerCardType == PowerCardController.PowerCardType.FreeSwap).ToList().Count;
+                        
             PlayerHealth.instance.TakeDamage(selectedCards.Count - numFreeSwaps);
         }
                 

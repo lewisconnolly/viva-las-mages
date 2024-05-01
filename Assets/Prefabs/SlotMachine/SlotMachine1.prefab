@@ -224,6 +224,10 @@ MonoBehaviour:
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 88463f2422f39544eb5965bbe964d30c,
       type: 2}
+  isTheOriginal: 0
+  materials:
+  - {fileID: 2100000, guid: 5760a5e9fe360e04c94dcde4befbea30, type: 2}
+  - {fileID: 2100000, guid: 918d38b2627c77f4db531d1bf330a20e, type: 2}
 --- !u!4 &6493317657435437540 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6454487573871231397, guid: 26dd076888bd80b439fe29cbf9cfa9fc,

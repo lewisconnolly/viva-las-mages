@@ -13,6 +13,8 @@ public class DealerHealth : MonoBehaviour
     {
     }
 
+    public enum EnemyType { DreadPatron, Harlequin, Manageress, Rat, SkeletonDealer, SlimeChef, Snake }
+
     public int currentHealth;
     public bool activeEnemy;
     public int pcntChanceOfRandomHand;
@@ -20,6 +22,8 @@ public class DealerHealth : MonoBehaviour
     public VisualEffect smokePuff;
     public GameObject model;
     public GameObject ui;
+    public EnemyType enemyType;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +49,7 @@ public class DealerHealth : MonoBehaviour
             dealerInteractable.prompt = "";
         }
 
-        if (SceneManager.GetActiveScene().name == "Poker")
+        if (SceneManager.GetActiveScene().name.Contains("Poker"))
         {
             PokerUIController.instance.SetEnemyHealthText(currentHealth);
             PokerUIController.instance.ShowHitSprite();
@@ -57,7 +61,7 @@ public class DealerHealth : MonoBehaviour
     {
         currentHealth += health;
 
-        if (SceneManager.GetActiveScene().name == "Poker")
+        if (SceneManager.GetActiveScene().name.Contains("Poker"))
         {
             PokerUIController.instance.SetEnemyHealthText(currentHealth);
             PokerUIController.instance.ShowHealthChangeText(health, true);

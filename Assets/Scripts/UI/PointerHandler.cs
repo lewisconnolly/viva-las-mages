@@ -10,8 +10,8 @@ public class PointerHandler : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         parent.SetActive(false);
-
-        if (SceneManager.GetActiveScene().name != "Poker")
+        
+        if (!SceneManager.GetActiveScene().name.Contains("Poker"))
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;

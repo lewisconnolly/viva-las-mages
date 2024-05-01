@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Linq;
+using System.Collections.Generic;
 
 public class Interactor : MonoBehaviour
 {
@@ -40,6 +41,12 @@ public class Interactor : MonoBehaviour
         }
         else
         {
+            // Reset all interactables
+            List<IInteractable> interactables = FindObjectsOfType<MonoBehaviour>().OfType<IInteractable>().ToList();
+            foreach (IInteractable i in interactables)
+            {
+                i.ResetInteractable();
+            }
             // Null out interactable
             if (interactable != null) interactable = null;
             // Stop displaying interaction prompt panel

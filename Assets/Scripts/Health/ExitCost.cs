@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,7 +20,6 @@ public class ExitCost : MonoBehaviour
 
     void Start()
     {               
-        //UIExitController.instance.SetHealthText(exitHealthCost);
         ExitController.instance.SetHealthText(exitHealthCost);
     }
 
@@ -33,7 +33,6 @@ public class ExitCost : MonoBehaviour
         {
             exitHealthCost -= damage;
 
-            //VFXController.instance.hit.Play();
             ExitController.instance.hit.Play();
 
             ExitController.instance.ShowFloatingText(damage);
@@ -43,18 +42,14 @@ public class ExitCost : MonoBehaviour
                 exitHealthCost = 0;
             }
 
-            //if (SceneManager.GetActiveScene().name == "Poker")
-            //{
-            //    PokerUIController.instance.SetExitHealthText(exitHealthCost);
-            //}
-            //else
-            //{
-            //    //UIExitController.instance.SetHealthText(exitHealthCost);
-            //    ExitController.instance.SetHealthText(exitHealthCost);
-            //}
-
             ExitController.instance.SetHealthText(exitHealthCost);
 
+        }
+        
+        if (exitHealthCost <= 0)
+        {            
+            Door doorInteractable = FindObjectOfType<Door>();
+            doorInteractable.prompt = "Open Door";
         }
     }
 }

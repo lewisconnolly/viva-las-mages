@@ -12,21 +12,63 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 6b446a866a00c0344ba92a13a7e75b0e
   - enabled: 1
-    path: Assets/Scenes/Basement/BasementRoom1.unity
+    path: Assets/Scenes/Basement/T1BasementRoom1.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Basement/BasementRoom2.unity
+    path: Assets/Scenes/Basement/T2BasementRoom1.unity
     guid: 8909be0d7996166458da992ff76fe472
   - enabled: 1
-    path: Assets/Scenes/Basement/BasementRoom3.unity
+    path: Assets/Scenes/Basement/T3BasementRoom1.unity
     guid: 6f3f805c4457e2e4b8cdc98c463945ad
   - enabled: 1
-    path: Assets/Scenes/ServiceFloor/ServiceFloorRoom1.unity
+    path: Assets/Scenes/ServiceFloor/T1ServiceFloorRoom1.unity
     guid: 4b9b4926191e68543893db3dc9e72721
   - enabled: 1
-    path: Assets/Scenes/Casino/CasinoRoom1.unity
+    path: Assets/Scenes/Casino/T1CasinoRoom1.unity
     guid: 9747217e3189add42a33d615141488f5
   - enabled: 1
-    path: Assets/Scenes/Poker/Poker.unity
+    path: Assets/Scenes/_PokerScenes/BasementPoker.unity
     guid: dad3bbc7645423a47ae40bbf8f6bd497
+  - enabled: 1
+    path: Assets/Scenes/_PokerScenes/ServiceFloorPoker.unity
+    guid: 2576376d9886e114ea2bade94a02b6ce
+  - enabled: 1
+    path: Assets/Scenes/Basement/T2BasementRoom2.unity
+    guid: d0387c84e2108804cba6e139fad26d9f
+  - enabled: 1
+    path: Assets/Scenes/Basement/T2BasementRoom3.unity
+    guid: 9892135dbbdd4c4478c0eee795e0a957
+  - enabled: 1
+    path: Assets/Scenes/Basement/T3BasementRoom2.unity
+    guid: dd866e57440e12c458810a706280dd7b
+  - enabled: 1
+    path: Assets/Scenes/Basement/T3BasementRoom3.unity
+    guid: e5d60f0d18b3bbb4890910917dc6eb48
+  - enabled: 1
+    path: Assets/Scenes/ServiceFloor/T2ServiceFloorRoom1.unity
+    guid: 7d0900ad1db7cad4a9651259dfe84912
+  - enabled: 1
+    path: Assets/Scenes/ServiceFloor/T3ServiceFloorRoom1.unity
+    guid: b91b3df41b03b5c4980e26ab54a7b32d
+  - enabled: 1
+    path: Assets/Scenes/Casino/T2CasinoRoom1.unity
+    guid: 5c30aff430d3ab94787209c2cc161193
+  - enabled: 1
+    path: Assets/Scenes/Casino/T3CasinoRoom1.unity
+    guid: 488919e169d4b0346bfb40c0a7166f5b
+  - enabled: 1
+    path: Assets/Scenes/WizardTower/T1WizardTowerRoom1.unity
+    guid: 54d163e299c0806479355798b68e19dd
+  - enabled: 1
+    path: Assets/Scenes/WizardTower/T2WizardTowerRoom1.unity
+    guid: 4582075976ebaf64eba8ace83e233a1b
+  - enabled: 1
+    path: Assets/Scenes/WizardTower/T3WizardTowerRoom1.unity
+    guid: bd1c29c877075de4e9e71a69fed7dd9c
+  - enabled: 1
+    path: Assets/Scenes/_PokerScenes/CasinoPoker.unity
+    guid: d81d5881c4eca6043bec55e6a653cfda
+  - enabled: 1
+    path: Assets/Scenes/_PokerScenes/WizardTowerPoker.unity
+    guid: 80fdff6b0b74eaa40ae4b4c58535335e
   m_configObjects: {}

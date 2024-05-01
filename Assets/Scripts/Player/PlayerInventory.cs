@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.VFX;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -20,11 +22,22 @@ public class PlayerInventory : MonoBehaviour
     public List<CardScriptableObject> playerDeck;
     public string prevScene;
 
+    public bool hasTalkedToLamp;    
+
     public void LoadDeck()
     {                
         CardScriptableObject[] baseCards = Resources.LoadAll<CardScriptableObject>("Cards/PlayerDeck");        
         playerDeck.Clear();
-        foreach (CardScriptableObject baseCard in baseCards) { playerDeck.Add(baseCard); }
+        foreach (CardScriptableObject baseCard in baseCards) {
+            CardScriptableObject newCard = ScriptableObject.CreateInstance<CardScriptableObject>();
+            string name = baseCard.value.ToString() + baseCard.suit + baseCard.ToString();
+            newCard.name = name;
+            newCard.value = baseCard.value;
+            newCard.suit = baseCard.suit;
+            newCard.material = baseCard.material;
+            newCard.powerCardType = baseCard.powerCardType;
+            playerDeck.Add(newCard);
+        }
     }
 
     public void ResetDeck()

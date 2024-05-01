@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static PowerCardController;
+using UnityEngine.XR;
 
 public class EnemyController : MonoBehaviour
 {
@@ -54,24 +56,35 @@ public class EnemyController : MonoBehaviour
 
     public void SetUpDeck()
     {
+        List<CardScriptableObject> deckToDeal = deckToUse;        
+        
+        // Don't shuffle in cards still in hand
+        for (int i = 0; i < heldCards.Count; i++)
+        {
+            for (int j = 0; j < deckToDeal.Count; j++)
+            {
+                if (deckToDeal[j].name == heldCards[i].cardSO.name) { deckToDeal.RemoveAt(j); }
+            }
+        }  
+
         activeCards.Clear();
 
         // Add reward card to enemy deck
-        for (int i = 0; i < deckToUse.Count; i++)
+        for (int i = 0; i < deckToDeal.Count; i++)
         {
-            if (deckToUse[i].value == RewardCardUI.instance.rewardCard.cardSO.value &&
-                deckToUse[i].suit == RewardCardUI.instance.rewardCard.cardSO.suit)
+            if (deckToDeal[i].value == RewardCardUI.instance.rewardCard.cardSO.value &&
+                deckToDeal[i].suit == RewardCardUI.instance.rewardCard.cardSO.suit)
             {
-                deckToUse[i].powerCardType = RewardCardUI.instance.rewardCard.cardSO.powerCardType;
+                deckToDeal[i].powerCardType = RewardCardUI.instance.rewardCard.cardSO.powerCardType;
             }
             else
             {
-                deckToUse[i].powerCardType = PowerCardController.PowerCardType.None;
+                deckToDeal[i].powerCardType = PowerCardController.PowerCardType.None;
             }
         }
 
         List<CardScriptableObject> tempDeck = new List<CardScriptableObject>();
-        tempDeck.AddRange(deckToUse);
+        tempDeck.AddRange(deckToDeal);
 
         int iterations = 0;
         while (tempDeck.Count > 0 && iterations < 500)
@@ -186,11 +199,25 @@ public class EnemyController : MonoBehaviour
     {
         int randomNumToTest = Random.Range(1, 101);
 
+        
+        List<Card> duplicards = new List<Card>();
+        List<Card> handToCheck = heldCards;
+        // Duplicate duplicards before checking then add back in later
+        for (int i = 0; i < handToCheck.Count; i++)
+        {
+            if (handToCheck[i].powerCardType == PowerCardType.Duplicard)
+            {
+                duplicards.Add(handToCheck[i]);
+                handToCheck = ReplaceDuplicard(handToCheck, i);
+            }
+        }
+
         // pcntChanceOfRandomHand% of time number will be less than pcntChanceOfRandomHand, resulting in a random hand to be chosen
         if (randomNumToTest > pcntChanceOfRandomHand)
         {
-            List<List<Card>> handCombinations = GenerateSelections(heldCards);
-            List<int> handRanks = new List<int>(new int[handCombinations.Count]);
+            //List<List<Card>> handCombinations = GenerateSelections(heldCards);
+            List<List<Card>> handCombinations = GenerateSelections(handToCheck);
+            //List<int> handRanks = new List<int>(new int[handCombinations.Count]);
 
             List<List<Card>> GenerateSelections(List<Card> cardsInHand)
             {
@@ -240,19 +267,48 @@ public class EnemyController : MonoBehaviour
                 }
             }
 
-            // Rank each hand combination
-            for (int i = 0; i < handCombinations.Count; i++)
+            List<List<Card>> combinationsToRank = handCombinations;
+            // Remove hand combinations that use only one of the duplicated duplicards (invalid)
+            if (duplicards.Count > 0)
             {
-                var handRank = HandEvaluator.instance.EvaluateHand(handCombinations[i], true);
+                combinationsToRank = FilterCombinations(duplicards, combinationsToRank);
+            }
+
+            //for (int i = 0; i < handCombinations.Count; i++)
+            //{ 
+            //    var handRank = HandEvaluator.instance.EvaluateHand(handCombinations[i], true);
+            //    handRanks[i] = (int)handRank;
+            //}
+
+            List<int> handRanks = new List<int>(new int[combinationsToRank.Count]);
+            // Rank each hand combination
+            for (int i = 0; i < combinationsToRank.Count; i++)
+            {
+                var handRank = HandEvaluator.instance.EvaluateHand(combinationsToRank[i], true);
                 handRanks[i] = (int)handRank;
             }
 
             // Play hand with highest rank
             int handIndex = handRanks.IndexOf(handRanks.Max());
-            for (int i = 0; i < handCombinations[handIndex].Count; i++)
+
+            //List<Card> cardsToSelect = handCombinations[handIndex];
+            List<Card> cardsToSelect = combinationsToRank[handIndex];
+            // Check for duplicards in best hand
+            if (duplicards.Count > 0)
             {
-                selectedCards.Add(handCombinations[handIndex][i]);
-                heldCards.Remove(handCombinations[handIndex][i]);
+                cardsToSelect = ReAddDuplicard(duplicards, cardsToSelect);
+            }            
+
+            //for (int i = 0; i < handCombinations[handIndex].Count; i++)
+            //{
+            //    selectedCards.Add(handCombinations[handIndex][i]);
+            //    heldCards.Remove(handCombinations[handIndex][i]);
+            //}
+
+            for (int i = 0; i < cardsToSelect.Count; i++)
+            {
+                selectedCards.Add(cardsToSelect[i]);
+                heldCards.Remove(cardsToSelect[i]);
             }
         }
         else
@@ -265,6 +321,100 @@ public class EnemyController : MonoBehaviour
                 heldCards.Remove(heldCards[ri]);
             }
         }
+    }
+
+    List<Card> ReplaceDuplicard(List<Card> hand, int cardIndex)
+    {
+        List<Card> newHand = hand;
+
+        // Duplicate auto pair card and add to hand
+        // (not a member of heldCards, selectedCards, or playedCards so won't be destroyed until scene unloaded and has no game object)
+        Card duplicateCard = Instantiate(DeckController.instance.cardToSpawn, PowerCardController.instance.autoPairSpawnPosition.position, PowerCardController.instance.autoPairSpawnPosition.rotation);
+        duplicateCard.isPlayer = false;
+        duplicateCard.value = newHand[cardIndex].value;
+        duplicateCard.suit = newHand[cardIndex].suit;
+        duplicateCard.powerCardType = PowerCardType.None;
+
+        newHand.Add(duplicateCard);
+
+        // Remove duplicard powerup from original
+        newHand[cardIndex].powerCardType = PowerCardType.None; 
+
+        return newHand;
+    }
+
+    List<Card> ReAddDuplicard(List<Card> duplicards, List<Card> handToCheck)
+    {
+        bool match = false;
+
+        List<Card> newHand = new List<Card> { };
+
+        for (int i = 0; i < duplicards.Count; i++)
+        {
+            if (handToCheck.Where(card => card.suit == duplicards[i].suit && card.value == duplicards[i].value).ToList().Count > 0)
+            {
+                match = true;
+            }
+        }
+
+        if (match)
+        {
+            newHand = handToCheck.Distinct().ToList(); // Remove duplicates
+        }
+        else
+        {
+            return handToCheck;
+        }
+
+        // Find and replace duplicard
+        for (int i = 0; i < newHand.Count; i++)
+        {
+            // There will now only be one match as checking distinct version of hand
+            for (int j = 0; j < duplicards.Count; j++)
+            {
+                if (newHand[i].value == duplicards[j].value && newHand[i].suit == duplicards[j].suit)
+                {
+                    newHand[i] = duplicards[j];
+                }
+            }
+        }
+
+        return newHand;
+    }
+
+    List<List<Card>> FilterCombinations(List<Card> duplicards, List<List<Card>> combinations)
+    {        
+        List<List<Card>> newCombinations = new List<List<Card>> { };
+
+        // For each combination
+        for (int i = 0; i < combinations.Count; i++)
+        {
+            bool isValid = true;
+
+            // Check combination for duplicards
+            for (int j = 0; j < duplicards.Count; j++)
+            {
+                // Get duplicards in hand
+                List<Card> duplicardsInHand = combinations[i].Where(card => card.suit == duplicards[j].suit && card.value == duplicards[j].value).ToList();
+
+                if (duplicardsInHand.Count > 0)
+                {
+                    // If duplicard in hand but only one, then hand is invalid
+                    if (duplicardsInHand.Count < 2)
+                    {
+                        isValid = false;
+                    }
+                }
+            }
+
+            // If contains no duplicards or two of duplicard then a valid combination
+            if (isValid)
+            {
+                newCombinations.Add(combinations[i]);
+            }
+        }
+
+        return newCombinations;
     }
 
     public void PlayHand()
@@ -281,6 +431,7 @@ public class EnemyController : MonoBehaviour
         selectedCards.Clear();
         SetCardPositionsInHandCentered();
     }
+
     public void DrawCardToHand()
     {        
         // Create a new card based on the card prefab

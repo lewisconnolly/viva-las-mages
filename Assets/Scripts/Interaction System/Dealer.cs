@@ -17,19 +17,24 @@ public class Dealer : MonoBehaviour, IInteractable
         GetComponentInParent<DealerHealth>().activeEnemy = true;
 
         // Play transition video
-        if (transitionVideoUrl != "")
-        {
-            GameObject canvas = GameObject.FindGameObjectWithTag("TVC");
-            canvas.GetComponentInChildren<MeshRenderer>().enabled = true;
-            VideoPlayer vp = canvas.GetComponentInChildren<VideoPlayer>();
+        //if (transitionVideoUrl != "")
+        //{
+        //    GameObject canvas = GameObject.FindGameObjectWithTag("TVC");
+        //    canvas.GetComponentInChildren<MeshRenderer>().enabled = true;
+        //    VideoPlayer vp = canvas.GetComponentInChildren<VideoPlayer>();
 
-            vp.url = transitionVideoUrl;
-            vp.Play();
-            vp.loopPointReached += EndReached;
-        }
+        //    vp.url = transitionVideoUrl;
+        //    vp.Play();
+        //    vp.loopPointReached += EndReached;
+        //}
 
         SceneLoader.instance.LoadPoker();        
 
+        return true;
+    }
+
+    public bool ResetInteractable()
+    {
         return true;
     }
 

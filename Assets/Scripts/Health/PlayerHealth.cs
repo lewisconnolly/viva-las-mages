@@ -10,10 +10,8 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        currentHealth = maxHealth;
     }
 
-    public int maxHealth = 10;
     public int currentHealth;
     private bool updateHealthText;
 
@@ -28,7 +26,7 @@ public class PlayerHealth : MonoBehaviour
     {
         SceneManager.activeSceneChanged += ChangedActiveScene;
 
-        if (SceneManager.GetActiveScene().name != "Poker")
+        if (!SceneManager.GetActiveScene().name.Contains("Poker"))
         {
             UIController.instance.SetHealthText(currentHealth);
         }        
@@ -47,38 +45,41 @@ public class PlayerHealth : MonoBehaviour
     public int GetHealth() { return currentHealth; }
 
     public void TakeDamage(int damage)
-    {        
-        currentHealth -= damage;
-
-        // Display damage post process vignette effect        
-        volumeProfile = FindAnyObjectByType<UnityEngine.Rendering.Volume>()?.profile;
-        
-        if (!volumeProfile) throw new System.NullReferenceException(nameof(UnityEngine.Rendering.VolumeProfile));
-
-        if (!volumeProfile.TryGet(out vignette)) throw new System.NullReferenceException(nameof(vignette));
-
-        if (!vignette)
+    {
+        if (damage > 0)
         {
-            Debug.Log("error, vignette empty");
-        }
+            currentHealth -= damage;
 
-        StartCoroutine(TakeDamageEffect());
+            // Display damage post process vignette effect        
+            volumeProfile = FindAnyObjectByType<UnityEngine.Rendering.Volume>()?.profile;
 
-        if (currentHealth <= 0)
-        {
-            currentHealth = 0;
-            isGameOver = true;
-        }
+            if (!volumeProfile) throw new System.NullReferenceException(nameof(UnityEngine.Rendering.VolumeProfile));
 
-        if (SceneManager.GetActiveScene().name == "Poker")
-        {
-            PokerUIController.instance.SetHealthText(currentHealth);
-            PokerUIController.instance.ShowHealthChangeText(-damage, false);
-        }
-        else
-        {
-            UIController.instance.SetHealthText(currentHealth);
-            if (isGameOver) { EndGame(); }
+            if (!volumeProfile.TryGet(out vignette)) throw new System.NullReferenceException(nameof(vignette));
+
+            if (!vignette)
+            {
+                Debug.Log("error, vignette empty");
+            }
+
+            StartCoroutine(TakeDamageEffect());
+
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                isGameOver = true;
+            }
+
+            if (SceneManager.GetActiveScene().name.Contains("Poker"))
+            {
+                PokerUIController.instance.SetHealthText(currentHealth);
+                PokerUIController.instance.ShowHealthChangeText(-damage, false);
+            }
+            else
+            {
+                UIController.instance.SetHealthText(currentHealth);
+                if (isGameOver) { EndGame(); }
+            }
         }
     }
 
@@ -121,17 +122,20 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void IncreaseHealth(int health)
-    {        
-        currentHealth += health;
+    {
+        if (health > 0)
+        {
+            currentHealth += health;
 
-        if (SceneManager.GetActiveScene().name == "Poker")
-        {
-            PokerUIController.instance.SetHealthText(currentHealth);
-            PokerUIController.instance.ShowHealthChangeText(health, false);
-        }
-        else
-        {
-            UIController.instance.SetHealthText(currentHealth);
+            if (SceneManager.GetActiveScene().name.Contains("Poker"))
+            {
+                PokerUIController.instance.SetHealthText(currentHealth);
+                PokerUIController.instance.ShowHealthChangeText(health, false);
+            }
+            else
+            {
+                UIController.instance.SetHealthText(currentHealth);
+            }
         }
     }
 
@@ -147,7 +151,7 @@ public class PlayerHealth : MonoBehaviour
         string currentName = current.name;
         string nextName = next.name;
 
-        if (nextName == "Poker")
+        if (nextName.Contains("Poker"))
         {
         }
         else

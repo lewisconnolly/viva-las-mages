@@ -41,15 +41,22 @@ public class RewardCardUI : MonoBehaviour
     private void Update()
     {
         bool isPaused;
-        if (SceneManager.GetActiveScene().name != "Poker") { isPaused = UIController.isPaused; } else { isPaused = PokerUIController.isPaused; }
+        if (!SceneManager.GetActiveScene().name.Contains("Poker")) { isPaused = UIController.isPaused; } else { isPaused = PokerUIController.isPaused; }
 
         if (Input.GetMouseButtonDown(0) && !isPaused)
         {
             rewardCardParentObject.SetActive(false);
 
-            if (SceneManager.GetActiveScene().name == "Poker")
+            if (SceneManager.GetActiveScene().name.Contains("Poker"))
             {
                 VFXController.instance.sparkles.Stop();
+            }
+            else
+            {
+                if (PlayerVfx.instance.sparkles != null)
+                {
+                    PlayerVfx.instance.sparkles.Stop();
+                }
             }
         }
     }
@@ -65,7 +72,12 @@ public class RewardCardUI : MonoBehaviour
 
         rewardCardText.text = rewardCard.powerCardType.ToString() + " Won";
 
-        rewardCardParentObject.SetActive(true);
+        if (PlayerVfx.instance.sparkles != null)
+        {
+            PlayerVfx.instance.sparkles.Play();
+        }
+
+        rewardCardParentObject.SetActive(true);       
         PlayerInventory.instance.AddRewardCardtoDeck(rewardCard.cardSO);
     }
 }

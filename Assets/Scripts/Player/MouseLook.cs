@@ -21,7 +21,7 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!DeckViewer.instance.deckViewerParent.activeSelf)
+        if (!(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf || WSCController.instance.merchantShopParent.activeSelf))
         {
             // Get mouse input and multiply by sensitivity variable and delta time to be frame rate independent
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;

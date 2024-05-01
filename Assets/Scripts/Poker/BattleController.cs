@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 //using static HandEvaluator;
 
 public class BattleController : MonoBehaviour
@@ -27,24 +28,32 @@ public class BattleController : MonoBehaviour
     public Transform playerDiscardPosition;
     public Transform enemyDiscardPosition;
     public bool checkCardsDiscarded;
+
+    public int numAutoPairs;
+
+    private int heartsToGain;
+    private int ranksToGain;
     
     // Start is called before the first frame update
     void Start()
     {
         PokerUIController.instance.placeBetButton.SetActive(true);        
         PokerUIController.instance.betSlider.gameObject.SetActive(true);
+        PokerUIController.instance.leaveButton.SetActive(true);
         PokerUIController.instance.playHandButton.SetActive(false);
         PokerUIController.instance.swapCardButton.SetActive(false);
         PokerUIController.instance.playAgainButton.SetActive(false);
 
         checkCardsDiscarded = false;
+
+        numAutoPairs = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
         // Get number of auto pairs in selected cards
-        int numAutoPairs = HandController.instance.selectedCards.Where(card => card.powerCardType == PowerCardController.PowerCardType.AutoPair).ToList().Count;
+        numAutoPairs = HandController.instance.selectedCards.Where(card => card.powerCardType == PowerCardController.PowerCardType.Duplicard).ToList().Count;
 
         if (HandController.instance.selectedCards.Count == (HandController.instance.numCardsRequiredToPlay - numAutoPairs))
         {
@@ -189,37 +198,53 @@ public class BattleController : MonoBehaviour
     {
         PokerUIController.instance.SetHandText(playerHandRank.ToString(), enemyHandRank.ToString());
 
-        if (playerHandRank > enemyHandRank)
+        if (playerHandRank > enemyHandRank) // Player won hand
         {
             PokerUIController.instance.SetWinnerText("You Win!");
-            PlayerHealth.instance.IncreaseHealth(currentBet);           
+            PlayerHealth.instance.IncreaseHealth(currentBet + heartsToGain);           
             activeEnemy.TakeDamage(currentBet);
         }
-        else if (playerHandRank < enemyHandRank)
+        else if (playerHandRank < enemyHandRank) // Enemy won hand
         {
             PokerUIController.instance.SetWinnerText("Enemy Wins");
             PlayerHealth.instance.TakeDamage(currentBet);
+            
+            PlayerHealth.instance.IncreaseHealth(heartsToGain);
         }
-        else
+        else // Possible tie
         {
-            HandEvaluator.TieWinner tieWinner = HandEvaluator.instance.BreakTie(HandController.instance.playedCards.OrderBy(c => c.value).ToList(),
-                                EnemyController.instance.playedCards.OrderBy(c => c.value).ToList(),
-                                playerHandRank);
-
-            if (tieWinner == HandEvaluator.TieWinner.Player)
-            {
-                PokerUIController.instance.SetWinnerText("You Win!");
-                PlayerHealth.instance.IncreaseHealth(currentBet);
-                activeEnemy.TakeDamage(currentBet);
-            }
-            else if (tieWinner == HandEvaluator.TieWinner.Enemy)
+            if (ranksToGain > 0) // Enemy win
             {
                 PokerUIController.instance.SetWinnerText("Enemy Wins");
                 PlayerHealth.instance.TakeDamage(currentBet);
+
+                PlayerHealth.instance.IncreaseHealth(heartsToGain);
             }
             else
             {
-                PokerUIController.instance.SetWinnerText("Tie");
+                HandEvaluator.TieWinner tieWinner = HandEvaluator.instance.BreakTie(HandController.instance.playedCards.OrderBy(c => c.value).ToList(),
+                                    EnemyController.instance.playedCards.OrderBy(c => c.value).ToList(),
+                                    playerHandRank);
+
+                if (tieWinner == HandEvaluator.TieWinner.Player) // Player won hand
+                {
+                    PokerUIController.instance.SetWinnerText("You Win!");
+                    PlayerHealth.instance.IncreaseHealth(currentBet + heartsToGain);
+                    activeEnemy.TakeDamage(currentBet);
+                }
+                else if (tieWinner == HandEvaluator.TieWinner.Enemy) // Enemy won hand
+                {
+                    PokerUIController.instance.SetWinnerText("Enemy Wins");
+                    PlayerHealth.instance.TakeDamage(currentBet);
+
+                    PlayerHealth.instance.IncreaseHealth(heartsToGain);
+                }
+                else // Tie
+                {
+                    PokerUIController.instance.SetWinnerText("Tie");
+
+                    PlayerHealth.instance.IncreaseHealth(heartsToGain);
+                }
             }
         }
     }
@@ -240,7 +265,7 @@ public class BattleController : MonoBehaviour
                 PokerUIController.instance.enemyHandText.gameObject.SetActive(false);
                 PokerUIController.instance.winnerText.gameObject.SetActive(false);
                 PokerUIController.instance.playAgainButton.SetActive(false);
-                PokerUIController.instance.leaveButton.SetActive(false);
+                PokerUIController.instance.leaveButton.SetActive(true);
                 PokerUIController.instance.placeBetButton.SetActive(true);
                 PokerUIController.instance.betSlider.gameObject.SetActive(true);                
                 PokerUIController.instance.playHandButton.SetActive(false);
@@ -250,8 +275,9 @@ public class BattleController : MonoBehaviour
 
             case TurnOrder.playerActive:
 
+                PokerUIController.instance.leaveButton.SetActive(false);
                 PokerUIController.instance.placeBetButton.SetActive(false);
-                PokerUIController.instance.betSlider.gameObject.SetActive(false);
+                PokerUIController.instance.betSlider.gameObject.SetActive(false);                
                 PokerUIController.instance.playHandButton.SetActive(true);
                 PokerUIController.instance.playHandButton.GetComponent<Button>().interactable = false;
                 PokerUIController.instance.swapCardButton.SetActive(true);                                
@@ -268,22 +294,30 @@ public class BattleController : MonoBehaviour
 
             case TurnOrder.resolveHands:
 
+                heartsToGain = 0;
+                ranksToGain = 0;
+
                 HandEvaluator.HandRank playerHandRank = HandEvaluator.instance.EvaluateHand(HandController.instance.playedCards, true);
 
                 // Increase rank by number of UpgradeRank power cards
-                if ((int)playerHandRank + PowerCardController.instance.numRanksToUpgrade > 9)
+                ranksToGain = PowerCardController.instance.numRanksToUpgrade;
+
+                if (ranksToGain > 0)
                 {
-                    playerHandRank = (HandEvaluator.HandRank)9;
-                }
-                else
-                {
-                    playerHandRank += PowerCardController.instance.numRanksToUpgrade;
+                    if ((int)playerHandRank + ranksToGain > 9)
+                    {
+                        playerHandRank = (HandEvaluator.HandRank)9;
+                    }
+                    else
+                    {
+                        playerHandRank += ranksToGain;
+                    }
                 }
 
-                // Gain heart for each GainHeart power card
+                //Gain heart for each GainHeart power card
                 if (PowerCardController.instance.numHeartsToGain > 0)
                 {
-                    PlayerHealth.instance.IncreaseHealth(PowerCardController.instance.numHeartsToGain);
+                    heartsToGain = PowerCardController.instance.numHeartsToGain;
                 }
 
                 HandEvaluator.HandRank enemyHandRank = HandEvaluator.instance.EvaluateHand(EnemyController.instance.playedCards, true);
@@ -313,7 +347,7 @@ public class BattleController : MonoBehaviour
                     PokerUIController.instance.swapCardButton.SetActive(false);
                     PokerUIController.instance.leaveButton.SetActive(true);
                 }                                
-                else
+                else // Enemy lost all health
                 {
                     DiscardHeldCards();
                     VFXController.instance.sparkles.Play();
@@ -329,5 +363,5 @@ public class BattleController : MonoBehaviour
 
                 break;
         }
-    }    
+    }
 }

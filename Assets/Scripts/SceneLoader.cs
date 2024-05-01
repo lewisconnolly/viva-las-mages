@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine.Rendering.Universal;
+using Unity.VisualScripting;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -42,7 +43,8 @@ public class SceneLoader : MonoBehaviour
         InstantiateEnemy();
         InstantiateExitCost();        
         InstantiateTVC();        
-        InstantiateSlotMachine();        
+        InstantiateSlotMachine();
+        InstantiateMerchant();
     }
 
     public void InstantiatePlayer()
@@ -68,7 +70,7 @@ public class SceneLoader : MonoBehaviour
             }
         }
 
-        if (SceneManager.GetActiveScene().name == "Poker")
+        if (SceneManager.GetActiveScene().name.Contains("Poker"))
         {
             PlayerMovement.instance.FreezePlayer();
             PlayerCamera.instance.DisablePlayerCamera();
@@ -90,7 +92,7 @@ public class SceneLoader : MonoBehaviour
         if (proxyEnemies.Length > 0)
         {
             foreach (GameObject e in proxyEnemies)
-            {                
+            {
                 enemyNames.Add(e.name.Replace("Proxy",""));
                 enemyStartingPositions.Add(e.transform.position);
                 enemyStartingRotations.Add(e.transform.rotation);
@@ -105,7 +107,7 @@ public class SceneLoader : MonoBehaviour
         if (enemies.Length == 0)
         {
             for (int i = 0; i < enemyStartingPositions.Count; i++)
-            {
+            {                
                 GameObject enemyPrefab = enemyPrefabs.Where(prefab => prefab.name == enemyNames[i]).ToList<GameObject>().First();
                 GameObject enemy = Instantiate(enemyPrefab, enemyStartingPositions[i], enemyStartingRotations[i]);
                 enemy.GetComponent<DealerHealth>().currentHealth = enemyStartingHealthValues[i];
@@ -157,22 +159,59 @@ public class SceneLoader : MonoBehaviour
         tvc.GetComponent<Canvas>().worldCamera = canvasCamera;
     }
 
-    public void InstantiateSlotMachine()
+    private void InstantiateSlotMachine()
     {
-        GameObject[] slotMachines = GameObject.FindGameObjectsWithTag("SlotMachine");
+        if (!SceneManager.GetActiveScene().name.Contains("Poker"))
+        {
+            GameObject[] slotMachines = GameObject.FindGameObjectsWithTag("SlotMachine");
 
-        // Check if slot machine been loaded before
-        if (slotMachines.Where(sm => sm.GetComponentInChildren<SlotMachine>().isTheOriginal == true).ToList().Count > 0)
-        {
-            // Destroy new slot machine
-            GameObject newSm =  slotMachines.Where(sm => sm.GetComponentInChildren<SlotMachine>().isTheOriginal == false).ToList().First();
-            Destroy(newSm);
+            if (slotMachines.Length > 0)
+            {
+                // Check if any slot machines have been loaded before
+                if (slotMachines.Where(sm => sm.GetComponentInChildren<SlotMachine>().isTheOriginal == true).ToList().Count > 0)
+                {                    
+                    // Destroy new slot machines
+                    List<GameObject> newSms = slotMachines.Where(sm => sm.GetComponentInChildren<SlotMachine>().isTheOriginal == false).ToList();
+
+                    foreach (GameObject newSm in newSms)
+                    {
+                        Destroy(newSm);
+                    }
+                }
+                else
+                {
+                    // Mark new slot machines as original
+                    List<GameObject> newSms = slotMachines.Where(sm => sm.GetComponentInChildren<SlotMachine>().isTheOriginal == false).ToList();
+
+                    foreach (GameObject newSm in newSms)
+                    {
+                        newSm.GetComponentInChildren<SlotMachine>().isTheOriginal = true;
+                    }
+                }
+            }
         }
-        else
-        {
-            // Mark new slot machine as original
-            GameObject newSm = slotMachines.Where(sm => sm.GetComponentInChildren<SlotMachine>().isTheOriginal == false).ToList().First();
-            newSm.GetComponentInChildren<SlotMachine>().isTheOriginal = true;
+    }
+
+    private void InstantiateMerchant()
+    {
+        if (!SceneManager.GetActiveScene().name.Contains("Poker"))
+        {            
+            GameObject[] merchants = GameObject.FindGameObjectsWithTag("Merchant");
+            if (merchants.Length > 0)            
+            {
+                // Check if merchant loaded before
+                if (merchants.Where(merch => merch.GetComponent<Merchant>().isTheOriginal == true).ToList().Count > 0)
+                {
+                    // Destroy new merchant
+                    GameObject newMerch = merchants.Where(merch => merch.GetComponent<Merchant>().isTheOriginal == false).ToList().First();
+                    Destroy(newMerch);                    
+                }
+                else
+                {
+                    // Mark new merchant as original
+                    merchants[0].GetComponent<Merchant>().isTheOriginal = true;
+                }
+            }            
         }
     }
 
@@ -188,7 +227,16 @@ public class SceneLoader : MonoBehaviour
 
             GameObject exit = GameObject.FindGameObjectWithTag("ExitCost");
             if (exit != null) { Destroy(exit); }
-            
+
+            GameObject[] slotMachines = GameObject.FindGameObjectsWithTag("SlotMachine");            
+            foreach (GameObject sm in slotMachines)
+            {
+                if (sm != null) { Destroy(sm); }
+            }
+
+            GameObject merchant = GameObject.FindGameObjectWithTag("Merchant");
+            if (merchant != null) { Destroy(merchant); }
+
             PlayerMovement.instance.FreezePlayer();
             PlayerMovement.instance.moveToStartingPosition = true;                        
         }
@@ -199,22 +247,26 @@ public class SceneLoader : MonoBehaviour
     public void LoadPoker()
     {
         PlayerInventory.instance.prevScene = SceneManager.GetActiveScene().name;
+        
+        if (SceneManager.GetActiveScene().name.Contains("Basement"))
+        {
+            StartCoroutine(LoadNextScene("BasementPoker"));
+        }
 
-        //if (SceneManager.GetActiveScene().name.Contains("Basement"))
-        //{
-            StartCoroutine(LoadNextScene("Poker"));
-        //}
+        if (SceneManager.GetActiveScene().name.Contains("ServiceFloor"))
+        {
+            StartCoroutine(LoadNextScene("ServiceFloorPoker"));
+        }
 
-        //if (SceneManager.GetActiveScene().name.Contains("ServiceFloor"))
-        //{
-        //    StartCoroutine(LoadNextScene("ServiceFloorPoker"));
-        //}
+        if (SceneManager.GetActiveScene().name.Contains("Casino"))
+        {
+            StartCoroutine(LoadNextScene("CasinoPoker"));
+        }
 
-        //if (SceneManager.GetActiveScene().name.Contains("Casino"))
-        //{
-        //    StartCoroutine(LoadNextScene("CasinoPoker"));
-        //}
-
+        if (SceneManager.GetActiveScene().name.Contains("WizardTower"))
+        {
+            StartCoroutine(LoadNextScene("WizardTowerPoker"));
+        }
     }
 
     public void LoadMainMenu()
@@ -232,36 +284,81 @@ public class SceneLoader : MonoBehaviour
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject[] slotMachines = GameObject.FindGameObjectsWithTag("SlotMachine");
+        GameObject merchant = GameObject.FindGameObjectWithTag("Merchant");
 
         if (sceneName == "MainMenu")
         {
             GameObject exit = GameObject.FindGameObjectWithTag("ExitCost");
-
+            GameObject tvc = GameObject.FindGameObjectWithTag("TVC");
+            
             foreach (GameObject enemy in enemies)
             {
                 if (enemy != null) { Destroy(enemy); }
             }
 
+            foreach (GameObject sm in slotMachines)
+            {
+                if (sm != null) { Destroy(sm); }
+            }
+
             if (player != null) { Destroy(player); }
+            
+            if (merchant != null) { Destroy(merchant); }
 
             if (exit != null) { Destroy(exit); }
-        }
-        else if (sceneName == "Poker")
-        {
 
+            if (tvc != null) { Destroy(tvc); }
+        }
+        else if (sceneName.Contains("Poker"))
+        {
             foreach (GameObject enemy in enemies)
             {
                 if (enemy != null)
                 {
+                    if (!enemy.IsDestroyed())
+                    {
+                        if (enemy.GetComponentInChildren<Animator>(true) != null)
+                        {
+                            enemy.GetComponentInChildren<Animator>(true).enabled = false;
+                        }
+
+                        if (enemy.GetComponentInChildren<UIDealerController>(true) != null)
+                        {
+                            enemy.GetComponentInChildren<UIDealerController>(true).gameObject.SetActive(false);
+                        }
+
+                        if (enemy.GetComponentInChildren<Collider>(true) != null)
+                        {
+                            enemy.GetComponentInChildren<Collider>(true).enabled = false;
+                        }
+                    }
+
                     MeshRenderer[] enemyMeshRenderers = enemy.GetComponentsInChildren<MeshRenderer>();
                     foreach (MeshRenderer mr in enemyMeshRenderers) { mr.enabled = false; };
-
+                    
                     SkinnedMeshRenderer[] enemySkinnedMeshRenderers = enemy.GetComponentsInChildren<SkinnedMeshRenderer>();
-                    foreach (SkinnedMeshRenderer smr in enemySkinnedMeshRenderers) { smr.enabled = false; };
-
-                    enemy.GetComponentInChildren<UIDealerController>().gameObject.SetActive(false);
-                    enemy.GetComponentInChildren<CapsuleCollider>().enabled = false;
+                    foreach (SkinnedMeshRenderer smr in enemySkinnedMeshRenderers) { smr.enabled = false; };                    
                 }
+            }
+
+            foreach (GameObject sm in slotMachines)
+            {
+                if (sm != null)
+                {
+                    MeshRenderer[] smMeshRenderers = sm.GetComponentsInChildren<MeshRenderer>();
+                    foreach (MeshRenderer mr in smMeshRenderers) { mr.enabled = false; };
+                }
+
+                sm.GetComponentInChildren<Collider>().enabled = false;
+            }
+
+            if (merchant != null)
+            {
+                SkinnedMeshRenderer[] merchantSkinnedMeshRenderers = merchant.GetComponentsInChildren<SkinnedMeshRenderer>();
+                foreach (SkinnedMeshRenderer smr in merchantSkinnedMeshRenderers) { smr.enabled = false; };
+                
+                merchant.GetComponent<Collider>().enabled = false;
             }
 
             if (player != null)
@@ -269,7 +366,7 @@ public class SceneLoader : MonoBehaviour
                 player.GetComponentInChildren<MeshRenderer>().enabled = false;
                 player.GetComponent<Interactor>().interactionPromptUI.Close();
                 player.GetComponent<Interactor>().enabled = false;
-
+                player.GetComponent<CharacterController>().enabled = false; 
             }
 
             PlayerMovement.instance.FreezePlayer();
@@ -284,24 +381,62 @@ public class SceneLoader : MonoBehaviour
             {
                 if (enemy != null)
                 {
+                    Animator enemyAnimator = enemy.GetComponentInChildren<Animator>();
+                    enemyAnimator.enabled = true;
+
+                    if (!enemy.IsDestroyed())
+                    {
+                        if (enemy.GetComponentInChildren<Animator>(true) != null)
+                        {
+                            enemy.GetComponentInChildren<Animator>(true).enabled = true;
+                        }
+
+                        if (enemy.GetComponentInChildren<UIDealerController>(true) != null)
+                        {
+                            enemy.GetComponentInChildren<UIDealerController>(true).gameObject.SetActive(true);
+                        }
+
+                        if (enemy.GetComponentInChildren<Collider>(true) != null)
+                        {
+                            enemy.GetComponentInChildren<Collider>(true).enabled = true;
+                        }
+                    }
+
                     MeshRenderer[] enemyMeshRenderers = enemy.GetComponentsInChildren<MeshRenderer>();
                     foreach (MeshRenderer mr in enemyMeshRenderers) { mr.enabled = true; };
 
                     SkinnedMeshRenderer[] enemySkinnedMeshRenderers = enemy.GetComponentsInChildren<SkinnedMeshRenderer>();
-                    foreach (SkinnedMeshRenderer smr in enemySkinnedMeshRenderers) { smr.enabled = true; };
-
-                    enemy.GetComponentInChildren<UIDealerController>(true).gameObject.SetActive(true);
-                    enemy.GetComponentInChildren<CapsuleCollider>().enabled = true;
+                    foreach (SkinnedMeshRenderer smr in enemySkinnedMeshRenderers) { smr.enabled = true; };                    
 
                     enemy.GetComponent<DealerHealth>().SetHealthText();
                 }
+            }
+
+            foreach (GameObject sm in slotMachines)
+            {
+                if (sm != null)
+                {
+                    MeshRenderer[] smMeshRenderers = sm.GetComponentsInChildren<MeshRenderer>();
+                    foreach (MeshRenderer mr in smMeshRenderers) { mr.enabled = true; };
+                }
+
+                sm.GetComponentInChildren<Collider>().enabled = true;
+            }
+
+            if (merchant != null)
+            {
+                SkinnedMeshRenderer[] merchantSkinnedMeshRenderers = merchant.GetComponentsInChildren<SkinnedMeshRenderer>();
+                foreach (SkinnedMeshRenderer smr in merchantSkinnedMeshRenderers) { smr.enabled = true; };
+
+                merchant.GetComponent<Collider>().enabled = true;
             }
 
             if (player != null)
             {
                 player.GetComponentInChildren<MeshRenderer>().enabled = true;
                 player.GetComponent<Interactor>().enabled = true;
+                player.GetComponent<CharacterController>().enabled = true;
             }            
         }
-    }    
+    }        
 }

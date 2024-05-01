@@ -12,6 +12,7 @@ TagManager:
   - MusicObj
   - SlotMachine
   - TVC
+  - Merchant
   layers:
   - Default
   - TransparentFX

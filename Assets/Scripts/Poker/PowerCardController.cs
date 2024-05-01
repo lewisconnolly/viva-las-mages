@@ -11,8 +11,8 @@ public class PowerCardController : MonoBehaviour
         instance = this;
     }
 
-    public enum PowerCardType { None, Wildcard, FreeSwap, HandSwap, HalfClubs, HalfSpades, HalfHearts, HalfDiamonds, AutoPair, UpgradeRank, GainHeart }
-
+    public enum PowerCardType { None, Wildcard, FreeSwap, HandSwap, TwoInOneClubs, TwoInOneSpades, TwoInOneHearts, TwoInOneDiamonds, Duplicard, RankUpgrade, Health }
+    
     public Material noneMaterial;
     public Material wildcardMaterial;
     public Material freeSwapMaterial;
@@ -43,14 +43,14 @@ public class PowerCardController : MonoBehaviour
         // so will change what suits wild card and half and half become
         for (int i = 0; i < hand.Count; i++)
         {
-            if (hand[i].powerCardType == PowerCardType.AutoPair) { newHand = DuplicateAutoPair(newHand, i); }
+            if (hand[i].powerCardType == PowerCardType.Duplicard) { newHand = DuplicateAutoPair(newHand, i); }
         }
 
         // Half and half cards next as more restricted in which suit they can choose
         for (int i = 0; i < hand.Count; i++)
         {
-            if (hand[i].powerCardType == PowerCardType.HalfClubs || hand[i].powerCardType == PowerCardType.HalfSpades ||
-                hand[i].powerCardType == PowerCardType.HalfHearts || hand[i].powerCardType == PowerCardType.HalfDiamonds)
+            if (hand[i].powerCardType == PowerCardType.TwoInOneClubs || hand[i].powerCardType == PowerCardType.TwoInOneSpades ||
+                hand[i].powerCardType == PowerCardType.TwoInOneHearts || hand[i].powerCardType == PowerCardType.TwoInOneDiamonds)
             {
                 newHand = ChooseHalfAndHalfSuit(newHand, i);
             }
@@ -65,8 +65,8 @@ public class PowerCardController : MonoBehaviour
         // Determine number of ranks to upgrade and hearts to gain
         for (int i = 0; i < hand.Count; i++)
         {
-            if (hand[i].powerCardType == PowerCardType.UpgradeRank) { numRanksToUpgrade++; }
-            if (hand[i].powerCardType == PowerCardType.GainHeart) { numHeartsToGain++; }
+            if (hand[i].powerCardType == PowerCardType.RankUpgrade) { numRanksToUpgrade++; }
+            if (hand[i].powerCardType == PowerCardType.Health) { numHeartsToGain++; }
         }
 
         return newHand;
@@ -106,7 +106,7 @@ public class PowerCardController : MonoBehaviour
         string topSuit = suitGroups.First().ToList().First().suit;
 
         // Get added suit
-        string addedSuit = newHand[cardIndex].powerCardType.ToString().Replace("Half", "");
+        string addedSuit = newHand[cardIndex].powerCardType.ToString().Replace("TwoInOne", "");
 
         // If the original suit of the card isn't the top suit already and the added suit is the same as top suit, make the original suit the top suit
         if (newHand[cardIndex].suit != topSuit && addedSuit == topSuit)

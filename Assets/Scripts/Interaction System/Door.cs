@@ -29,4 +29,9 @@ public class Door : MonoBehaviour, IInteractable
 
         return true;
     }
+
+    public bool ResetInteractable()
+    {
+        return true;
+    }
 }

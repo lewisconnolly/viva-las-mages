@@ -8,6 +8,7 @@ public class ExitController : MonoBehaviour
 {
     public static ExitController instance;
     public GameObject floatingTextPrefab;
+    public Transform floatingTextPos;
     public GameObject padlockModel;
 
     public VisualEffect hit;
@@ -60,7 +61,7 @@ public class ExitController : MonoBehaviour
 
         if (floatingTextPrefab != null)
         {
-            floatingText = Instantiate(floatingTextPrefab);
+            floatingText = Instantiate(floatingTextPrefab, floatingTextPos.transform);
 
             floatingText.GetComponent<TextMeshPro>().text = "-" + damage.ToString();
         }
