@@ -136,7 +136,8 @@ public class SlotMachine : MonoBehaviour, IInteractable
             CardScriptableObject baseRewardCard = normalCards[UnityEngine.Random.Range(0, normalCards.Count)];
             PowerCardType powerup = powerCardTypesFiltered[UnityEngine.Random.Range(0, powerCardTypesFiltered.Count)];
 
-            rewardCard = ScriptableObject.CreateInstance<CardScriptableObject>();
+            //rewardCard = ScriptableObject.CreateInstance<CardScriptableObject>();
+            rewardCard = Instantiate(baseRewardCard);
             string name = baseRewardCard.value.ToString() + baseRewardCard.suit + powerup.ToString();
             rewardCard.name = name;
             rewardCard.value = baseRewardCard.value;

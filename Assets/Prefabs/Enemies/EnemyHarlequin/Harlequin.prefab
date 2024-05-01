@@ -546,6 +546,7 @@ MonoBehaviour:
   model: {fileID: 6160728184135090714}
   ui: {fileID: 4143322677021182680}
   enemyType: 1
+  collider: {fileID: 3313551151061528585}
 --- !u!114 &6577222362235244573
 MonoBehaviour:
   m_ObjectHideFlags: 0

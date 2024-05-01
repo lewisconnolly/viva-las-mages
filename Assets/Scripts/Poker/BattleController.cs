@@ -207,18 +207,30 @@ public class BattleController : MonoBehaviour
         else if (playerHandRank < enemyHandRank) // Enemy won hand
         {
             PokerUIController.instance.SetWinnerText("Enemy Wins");
-            PlayerHealth.instance.TakeDamage(currentBet);
             
-            PlayerHealth.instance.IncreaseHealth(heartsToGain);
+            if (currentBet - heartsToGain > 0)
+            {
+                PlayerHealth.instance.TakeDamage(currentBet - heartsToGain);
+            }
+            else
+            {
+                PlayerHealth.instance.IncreaseHealth((currentBet - heartsToGain) * -1);
+            }
         }
         else // Possible tie
         {
             if (ranksToGain > 0) // Enemy win
             {
                 PokerUIController.instance.SetWinnerText("Enemy Wins");
-                PlayerHealth.instance.TakeDamage(currentBet);
 
-                PlayerHealth.instance.IncreaseHealth(heartsToGain);
+                if (currentBet - heartsToGain > 0)
+                {
+                    PlayerHealth.instance.TakeDamage(currentBet - heartsToGain);
+                }
+                else
+                {
+                    PlayerHealth.instance.IncreaseHealth((currentBet - heartsToGain) * -1);
+                }
             }
             else
             {
@@ -235,9 +247,15 @@ public class BattleController : MonoBehaviour
                 else if (tieWinner == HandEvaluator.TieWinner.Enemy) // Enemy won hand
                 {
                     PokerUIController.instance.SetWinnerText("Enemy Wins");
-                    PlayerHealth.instance.TakeDamage(currentBet);
 
-                    PlayerHealth.instance.IncreaseHealth(heartsToGain);
+                    if (currentBet - heartsToGain > 0)
+                    {
+                        PlayerHealth.instance.TakeDamage(currentBet - heartsToGain);
+                    }
+                    else
+                    {
+                        PlayerHealth.instance.IncreaseHealth((currentBet - heartsToGain) * -1);
+                    }
                 }
                 else // Tie
                 {

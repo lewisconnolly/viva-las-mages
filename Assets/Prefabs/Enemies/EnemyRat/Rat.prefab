@@ -57,6 +57,7 @@ MonoBehaviour:
   model: {fileID: 5007982737354403610}
   ui: {fileID: 6737158248060122211}
   enemyType: 3
+  collider: {fileID: 3231594238628828106}
 --- !u!114 &5264201322052554490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,6 +640,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a17bd9268c2a4c4cba7451d765642be, type: 3}
+--- !u!136 &3231594238628828106 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 1232772963846214061, guid: 1a17bd9268c2a4c4cba7451d765642be,
+    type: 3}
+  m_PrefabInstance: {fileID: 4450503851118281319}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5007982737354403610 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8700022541301181821, guid: 1a17bd9268c2a4c4cba7451d765642be,

@@ -23,6 +23,7 @@ public class DealerHealth : MonoBehaviour
     public GameObject model;
     public GameObject ui;
     public EnemyType enemyType;
+    public Collider collider;
     
 
     // Start is called before the first frame update
@@ -79,6 +80,7 @@ public class DealerHealth : MonoBehaviour
 
         model.SetActive(false);
         ui.SetActive(false);
+        collider.enabled = false;
         
         smokePuff.Play();
 

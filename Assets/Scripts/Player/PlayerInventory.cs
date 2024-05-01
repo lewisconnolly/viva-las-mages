@@ -29,7 +29,7 @@ public class PlayerInventory : MonoBehaviour
         CardScriptableObject[] baseCards = Resources.LoadAll<CardScriptableObject>("Cards/PlayerDeck");        
         playerDeck.Clear();
         foreach (CardScriptableObject baseCard in baseCards) {
-            CardScriptableObject newCard = ScriptableObject.CreateInstance<CardScriptableObject>();
+            CardScriptableObject newCard = Instantiate(baseCard);            
             string name = baseCard.value.ToString() + baseCard.suit + baseCard.ToString();
             newCard.name = name;
             newCard.value = baseCard.value;
