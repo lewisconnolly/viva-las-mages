@@ -12,6 +12,11 @@ public class BattleController : MonoBehaviour
     public static BattleController instance;
     public DealerHealth activeEnemy;
 
+    public AK.Wwise.Event enemyWin;
+    public AK.Wwise.Event enemyLose;
+
+
+
     private void Awake()
     {
         instance = this;
@@ -203,10 +208,12 @@ public class BattleController : MonoBehaviour
             PokerUIController.instance.SetWinnerText("You Win!");
             PlayerHealth.instance.IncreaseHealth(currentBet + heartsToGain);           
             activeEnemy.TakeDamage(currentBet);
+            enemyLose.Post(gameObject);
         }
         else if (playerHandRank < enemyHandRank) // Enemy won hand
         {
             PokerUIController.instance.SetWinnerText("Enemy Wins");
+            enemyWin.Post(gameObject);
             
             if (currentBet - heartsToGain > 0)
             {
@@ -222,6 +229,7 @@ public class BattleController : MonoBehaviour
             if (ranksToGain > 0) // Enemy win
             {
                 PokerUIController.instance.SetWinnerText("Enemy Wins");
+                enemyWin.Post(gameObject);
 
                 if (currentBet - heartsToGain > 0)
                 {
@@ -243,10 +251,12 @@ public class BattleController : MonoBehaviour
                     PokerUIController.instance.SetWinnerText("You Win!");
                     PlayerHealth.instance.IncreaseHealth(currentBet + heartsToGain);
                     activeEnemy.TakeDamage(currentBet);
+                    enemyLose.Post(gameObject);
                 }
                 else if (tieWinner == HandEvaluator.TieWinner.Enemy) // Enemy won hand
                 {
                     PokerUIController.instance.SetWinnerText("Enemy Wins");
+                    enemyWin.Post(gameObject);
 
                     if (currentBet - heartsToGain > 0)
                     {

@@ -4665,6 +4665,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1030555645}
   - component: {fileID: 1030555644}
+  - component: {fileID: 1030555646}
   m_Layer: 0
   m_Name: BattleController
   m_TagString: Untagged
@@ -4685,6 +4686,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeEnemy: {fileID: 0}
+  enemyWin:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 956e4420f03dccc478c9a55409c64211,
+      type: 2}
+  enemyLose:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 628141e1ba403334cb1391abb9d68975,
+      type: 2}
   startingCardsAmount: 7
   currentBet: 0
   currentPhase: 0
@@ -4709,6 +4720,68 @@ Transform:
   - {fileID: 1728407943}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1030555646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030555643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 812d00c621e472a479ba50b79531a6de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MySwitches:
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: e557ed3ac51d2a04b8778086814a4927,
+      type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: e8145d153d863754a895d037d3711bc8,
+      type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 6c591156890edda4685ff6ad787dc5ba,
+      type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: de65ade3ed3ef0749a755efdfdf6b406,
+      type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 9fd9f219202bb1f4fae98d7d8087ef19,
+      type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 4cef4b4dbc6a3b94cb5d9d7fb13ec3b7,
+      type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 10ae856d43cc8d34ab4e2520bdc5a0e8,
+      type: 2}
+  - idInternal: 0
+    valueGuidInternal: 
+    groupIdInternal: 0
+    groupGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: 65b0052611485a2479aba5d4d5adf4f0,
+      type: 2}
+  enemySwitch: 
 --- !u!1 &1078685772
 GameObject:
   m_ObjectHideFlags: 0
@@ -9483,7 +9556,7 @@ PrefabInstance:
         type: 3}
       propertyPath: data.WwiseObjectReference
       value: 
-      objectReference: {fileID: 11400000, guid: 7d5dce1317fbafa4d93a05f8371fb185,
+      objectReference: {fileID: 11400000, guid: 2063acb0dbf4ba248a3861187063cf95,
         type: 2}
     - target: {fileID: 8092505041007763279, guid: 10850efaf7203fc40aa35a175f7ebbce,
         type: 3}

@@ -2461,6 +2461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatingTextPrefab: {fileID: 0}
+  floatingTextPos: {fileID: 0}
   padlockModel: {fileID: 0}
   hit: {fileID: 0}
   smokePuff: {fileID: 0}

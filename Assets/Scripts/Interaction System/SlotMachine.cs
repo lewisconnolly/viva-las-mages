@@ -67,6 +67,7 @@ public class SlotMachine : MonoBehaviour, IInteractable
                 if (randomNum == 1)
                 {
                     RewardCardUI.instance.SlotMachineReward(rewardCard);
+                    slotMachineWin.Post(gameObject);
 
                     prompt = "";
                     paidOut = true;
@@ -109,8 +110,7 @@ public class SlotMachine : MonoBehaviour, IInteractable
             }
             else
             {
-                prompt = "Paid Out!";
-                slotMachineWin.Post(gameObject);
+                prompt = "Paid Out!";                
 
                 player.GetComponent<Interactor>().interactionPromptUI.prompText.text = prompt;
             }
