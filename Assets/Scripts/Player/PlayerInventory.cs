@@ -16,13 +16,16 @@ public class PlayerInventory : MonoBehaviour
         instance = this;
         
         ResetDeck();
-        LoadDeck();        
+        LoadDeck();
+
+        PlayerInventory.instance.fullTutorialRead = false;
     }
 
     public List<CardScriptableObject> playerDeck;
     public string prevScene;
 
     public bool hasTalkedToLamp;    
+    public bool fullTutorialRead;    
 
     public void LoadDeck()
     {                

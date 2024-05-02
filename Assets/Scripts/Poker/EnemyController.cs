@@ -41,7 +41,7 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetUpDeck();        
+        SetUpDeck();
 
         pcntChanceOfRandomHand = BattleController.instance.activeEnemy.pcntChanceOfRandomHand;
 
@@ -51,13 +51,13 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SetUpDeck()
     {
-        List<CardScriptableObject> deckToDeal = deckToUse;        
-        
+        List<CardScriptableObject> deckToDeal = deckToUse;
+
         // Don't shuffle in cards still in hand
         for (int i = 0; i < heldCards.Count; i++)
         {
@@ -65,23 +65,23 @@ public class EnemyController : MonoBehaviour
             {
                 if (deckToDeal[j].name == heldCards[i].cardSO.name) { deckToDeal.RemoveAt(j); }
             }
-        }  
+        }
 
         activeCards.Clear();
 
         // Add reward card to enemy deck
-        for (int i = 0; i < deckToDeal.Count; i++)
-        {
-            if (deckToDeal[i].value == RewardCardUI.instance.rewardCard.cardSO.value &&
-                deckToDeal[i].suit == RewardCardUI.instance.rewardCard.cardSO.suit)
-            {
-                deckToDeal[i].powerCardType = RewardCardUI.instance.rewardCard.cardSO.powerCardType;
-            }
-            else
-            {
-                deckToDeal[i].powerCardType = PowerCardController.PowerCardType.None;
-            }
-        }
+        //for (int i = 0; i < deckToDeal.Count; i++)
+        //{
+        //    if (deckToDeal[i].value == RewardCardUI.instance.rewardCard.cardSO.value &&
+        //        deckToDeal[i].suit == RewardCardUI.instance.rewardCard.cardSO.suit)
+        //    {
+        //        deckToDeal[i].powerCardType = RewardCardUI.instance.rewardCard.cardSO.powerCardType;
+        //    }
+        //    else
+        //    {
+        //        deckToDeal[i].powerCardType = PowerCardController.PowerCardType.None;
+        //    }
+        //}
 
         List<CardScriptableObject> tempDeck = new List<CardScriptableObject>();
         tempDeck.AddRange(deckToDeal);
@@ -94,7 +94,7 @@ public class EnemyController : MonoBehaviour
             tempDeck.RemoveAt(selected);
             iterations++;
         }
-    }    
+    }
 
     public void SetCardPositionsInHand()
     {
@@ -149,7 +149,7 @@ public class EnemyController : MonoBehaviour
             heldCards[i].inHand = true;
             heldCards[i].handPosition = i;
         }
-    }    
+    }
 
     public void SetCardPositionsOnTable()
     {
@@ -181,7 +181,7 @@ public class EnemyController : MonoBehaviour
     public void AddCardToTable(Card cardToAdd)
     {
         playedCards.Add(cardToAdd);
-        SetCardPositionsOnTable();        
+        SetCardPositionsOnTable();
     }
 
     public void SelectCard(Card cardToSelect)
@@ -197,9 +197,10 @@ public class EnemyController : MonoBehaviour
 
     public void SelectHand()
     {
+        selectedCards = new List<Card>();
+
         int randomNumToTest = Random.Range(1, 101);
 
-        
         List<Card> duplicards = new List<Card>();
         List<Card> handToCheck = heldCards;
         // Duplicate duplicards before checking then add back in later
@@ -212,114 +213,95 @@ public class EnemyController : MonoBehaviour
             }
         }
 
-        // pcntChanceOfRandomHand% of time number will be less than pcntChanceOfRandomHand, resulting in a random hand to be chosen
+        List<List<Card>> handCombinations = GenerateSelections(handToCheck);
+
+        List<List<Card>> GenerateSelections(List<Card> cardsInHand)
+        {
+            // Make an array to tell whether
+            // an item is in the current selection.
+            bool[] inSelection = new bool[cardsInHand.Count];
+
+            // Make a result list.
+            List<List<Card>> handCombinations = new List<List<Card>>();
+
+            // Build the combinations recursively.
+            SelectItems(cardsInHand, inSelection, handCombinations, numCardsRequiredToPlay, 0);
+
+            // Return the results.
+            return handCombinations;
+        }
+
+        // Recursively select n additional items with indexes >= firstItem.
+        // If n == 0, add the current combination to the results.
+        void SelectItems(List<Card> cardsInHand, bool[] inSelection, List<List<Card>> handCombinations, int numCards, int firstItem)
+        {
+            if (numCards == 0)
+            {
+                // Add the current selection to the results.
+                List<Card> selection = new List<Card>();
+                for (int i = 0; i < cardsInHand.Count; i++)
+                {
+                    // If this item is selected, add it to the selection.
+                    if (inSelection[i]) selection.Add(cardsInHand[i]);
+                }
+                handCombinations.Add(selection);
+            }
+            else
+            {
+                // Try adding each of the remaining items.
+                for (int i = firstItem; i < cardsInHand.Count; i++)
+                {
+                    // Try adding this item.
+                    inSelection[i] = true;
+
+                    // Recursively add the rest of the required items.
+                    SelectItems(cardsInHand, inSelection, handCombinations, numCards - 1, i + 1);
+
+                    // Remove this item from the selection.
+                    inSelection[i] = false;
+                }
+            }
+        }
+
+        List<List<Card>> combinationsToRank = handCombinations;
+        // Remove hand combinations that use only one of the duplicated duplicards (invalid)
+        if (duplicards.Count > 0)
+        {
+            combinationsToRank = FilterCombinations(duplicards, combinationsToRank);
+        }
+
+        List<int> handRanks = new List<int>(new int[combinationsToRank.Count]);
+        // Rank each hand combination
+        for (int i = 0; i < combinationsToRank.Count; i++)
+        {
+            var handRank = HandEvaluator.instance.EvaluateHand(combinationsToRank[i], true);
+            handRanks[i] = (int)handRank;
+        }
+
+        int handIndex;
         if (randomNumToTest > pcntChanceOfRandomHand)
         {
-            //List<List<Card>> handCombinations = GenerateSelections(heldCards);
-            List<List<Card>> handCombinations = GenerateSelections(handToCheck);
-            //List<int> handRanks = new List<int>(new int[handCombinations.Count]);
-
-            List<List<Card>> GenerateSelections(List<Card> cardsInHand)
-            {
-                // Make an array to tell whether
-                // an item is in the current selection.
-                bool[] inSelection = new bool[cardsInHand.Count];
-
-                // Make a result list.
-                List<List<Card>> handCombinations = new List<List<Card>>();
-
-                // Build the combinations recursively.
-                SelectItems(cardsInHand, inSelection, handCombinations, numCardsRequiredToPlay, 0);
-
-                // Return the results.
-                return handCombinations;
-            }
-
-            // Recursively select n additional items with indexes >= firstItem.
-            // If n == 0, add the current combination to the results.
-            void SelectItems(List<Card> cardsInHand, bool[] inSelection, List<List<Card>> handCombinations, int numCards, int firstItem)
-            {
-                if (numCards == 0)
-                {
-                    // Add the current selection to the results.
-                    List<Card> selection = new List<Card>();
-                    for (int i = 0; i < cardsInHand.Count; i++)
-                    {
-                        // If this item is selected, add it to the selection.
-                        if (inSelection[i]) selection.Add(cardsInHand[i]);
-                    }
-                    handCombinations.Add(selection);
-                }
-                else
-                {
-                    // Try adding each of the remaining items.
-                    for (int i = firstItem; i < cardsInHand.Count; i++)
-                    {
-                        // Try adding this item.
-                        inSelection[i] = true;
-
-                        // Recursively add the rest of the required items.
-                        SelectItems(cardsInHand, inSelection, handCombinations, numCards - 1, i + 1);
-
-                        // Remove this item from the selection.
-                        inSelection[i] = false;
-                    }
-                }
-            }
-
-            List<List<Card>> combinationsToRank = handCombinations;
-            // Remove hand combinations that use only one of the duplicated duplicards (invalid)
-            if (duplicards.Count > 0)
-            {
-                combinationsToRank = FilterCombinations(duplicards, combinationsToRank);
-            }
-
-            //for (int i = 0; i < handCombinations.Count; i++)
-            //{ 
-            //    var handRank = HandEvaluator.instance.EvaluateHand(handCombinations[i], true);
-            //    handRanks[i] = (int)handRank;
-            //}
-
-            List<int> handRanks = new List<int>(new int[combinationsToRank.Count]);
-            // Rank each hand combination
-            for (int i = 0; i < combinationsToRank.Count; i++)
-            {
-                var handRank = HandEvaluator.instance.EvaluateHand(combinationsToRank[i], true);
-                handRanks[i] = (int)handRank;
-            }
-
             // Play hand with highest rank
-            int handIndex = handRanks.IndexOf(handRanks.Max());
-
-            //List<Card> cardsToSelect = handCombinations[handIndex];
-            List<Card> cardsToSelect = combinationsToRank[handIndex];
-            // Check for duplicards in best hand
-            if (duplicards.Count > 0)
-            {
-                cardsToSelect = ReAddDuplicard(duplicards, cardsToSelect);
-            }            
-
-            //for (int i = 0; i < handCombinations[handIndex].Count; i++)
-            //{
-            //    selectedCards.Add(handCombinations[handIndex][i]);
-            //    heldCards.Remove(handCombinations[handIndex][i]);
-            //}
-
-            for (int i = 0; i < cardsToSelect.Count; i++)
-            {
-                selectedCards.Add(cardsToSelect[i]);
-                heldCards.Remove(cardsToSelect[i]);
-            }
+            handIndex = handRanks.IndexOf(handRanks.Max());
         }
         else
         {
-            // Select 5 random cards
-            for (int i = 0; i < 5; i++)
-            {
-                int ri = Random.Range(0, 7 - i);
-                selectedCards.Add(heldCards[ri]);
-                heldCards.Remove(heldCards[ri]);
-            }
+            // Play random hand
+            handIndex = Random.Range(0, handRanks.Count);
+        }
+
+        List<Card> cardsToSelect = combinationsToRank[handIndex];
+        // Check for duplicards in chosen hand
+        if (duplicards.Count > 0)
+        {
+            // Deduplicate duplicated duplicards if in chosen hand
+            cardsToSelect = ReAddDuplicard(duplicards, cardsToSelect);
+        }
+
+        for (int i = 0; i < cardsToSelect.Count; i++)
+        {
+            selectedCards.Add(cardsToSelect[i]);
+            heldCards.Remove(cardsToSelect[i]);
         }
     }
 
@@ -347,45 +329,38 @@ public class EnemyController : MonoBehaviour
 
     List<Card> ReAddDuplicard(List<Card> duplicards, List<Card> handToCheck)
     {
-        bool match = false;
+        List<Card> newHand = new List<Card>();
 
-        List<Card> newHand = new List<Card> { };
+        List<Card> toRemove = new List<Card>();
 
         for (int i = 0; i < duplicards.Count; i++)
         {
             if (handToCheck.Where(card => card.suit == duplicards[i].suit && card.value == duplicards[i].value).ToList().Count > 0)
             {
-                match = true;
+                toRemove.Add(duplicards[i]);
             }
         }
 
-        if (match)
-        {
-            newHand = handToCheck.Distinct().ToList(); // Remove duplicates
-        }
-        else
+        if (toRemove.Count == 0)
         {
             return handToCheck;
         }
 
-        // Find and replace duplicard
-        for (int i = 0; i < newHand.Count; i++)
+        for (int i = 0; i < toRemove.Count; i++)
         {
-            // There will now only be one match as checking distinct version of hand
-            for (int j = 0; j < duplicards.Count; j++)
-            {
-                if (newHand[i].value == duplicards[j].value && newHand[i].suit == duplicards[j].suit)
-                {
-                    newHand[i] = duplicards[j];
-                }
-            }
+            // Remove all duplicard copies
+            newHand = handToCheck.Where(card => card.suit != toRemove[i].suit || card.value != toRemove[i].value).ToList();
+
+            // Add back in one of duplicard
+            toRemove[i].powerCardType = PowerCardType.Duplicard;
+            newHand.Add(toRemove[i]);
         }
 
         return newHand;
     }
 
     List<List<Card>> FilterCombinations(List<Card> duplicards, List<List<Card>> combinations)
-    {        
+    {
         List<List<Card>> newCombinations = new List<List<Card>> { };
 
         // For each combination
@@ -435,13 +410,13 @@ public class EnemyController : MonoBehaviour
     }
 
     public void DrawCardToHand()
-    {        
+    {
         // Create a new card based on the card prefab
         Card newCard = Instantiate(cardToSpawn, drawFrom.position, drawFrom.rotation);
         // Use the next active card to set up the card to spawn
         newCard.cardSO = activeCards[0];
         newCard.isPlayer = false;
-        newCard.SetUpCard();        
+        newCard.SetUpCard();
         // Remove used active card
         activeCards.RemoveAt(0);
 
@@ -460,7 +435,7 @@ public class EnemyController : MonoBehaviour
 
     // Draw multiple cards coroutine
     IEnumerator DrawMultipleCo(int amountToDraw)
-    {        
+    {
         for (int i = 0; i < amountToDraw; i++)
         {
             DrawCardToHand();

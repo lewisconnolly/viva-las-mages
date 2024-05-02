@@ -68,6 +68,16 @@ public class Card : MonoBehaviour
         suit = cardSO.suit;        
         powerCardType = cardSO.powerCardType;
 
+        if (!isPlayer)
+        {
+            // Add reward card to enemy's hand
+
+            if (value == RewardCardUI.instance.rewardCard.cardSO.value && suit == RewardCardUI.instance.rewardCard.cardSO.suit)
+            {
+                powerCardType = RewardCardUI.instance.rewardCard.cardSO.powerCardType;
+            }
+        }
+
         SetPowerCardMaterial();
     }
 

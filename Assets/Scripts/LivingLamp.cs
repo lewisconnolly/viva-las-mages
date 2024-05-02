@@ -31,14 +31,17 @@ public class LivingLamp : MonoBehaviour, IInteractable
 
     private int currentPrompt;
 
-    private bool tutorialRead;
-
     void Start()
     {
         currentPrompt = 0;
-        tutorialRead = false;
-    }
+        //tutorialRead = false;
 
+        if (PlayerInventory.instance != null && PlayerInventory.instance.fullTutorialRead)
+        {
+            prompt = "Good luck! Remember: [E] to interact, [I] to view your deck, and [H] to view the guide";
+            initPrompt = prompt;
+        }
+    }
     void Update()
     {
         transform.position = transform.position + Vector3.up * Mathf.Sin(Time.frameCount/100) / 30f * Time.deltaTime;
@@ -48,11 +51,11 @@ public class LivingLamp : MonoBehaviour, IInteractable
     {
         PlayerInventory.instance.hasTalkedToLamp = true;
 
-        if (currentPrompt >= tutorialPrompts.Length || tutorialRead)
+        if (currentPrompt >= tutorialPrompts.Length || PlayerInventory.instance.fullTutorialRead)
         {
             prompt = "Good luck! Remember: [E] to interact, [I] to view your deck, and [H] to view the guide";
             initPrompt = prompt;
-            tutorialRead = true;
+            PlayerInventory.instance.fullTutorialRead = true;
             lampSpeak.Stop(gameObject);
             lampSpeak.Post(gameObject);
         }

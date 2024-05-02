@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine.Rendering.Universal;
 using Unity.VisualScripting;
+using UnityEngine.VFX;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -331,6 +332,11 @@ public class SceneLoader : MonoBehaviour
                         if (enemy.GetComponentInChildren<Collider>(true) != null)
                         {
                             enemy.GetComponentInChildren<Collider>(true).enabled = false;
+                        }
+
+                        if(enemy.GetComponent<DealerHealth>().currentHealth <= 0)
+                        {
+                            enemy.GetComponentInChildren<VisualEffect>(true).enabled = false;
                         }
                     }
 
