@@ -588,7 +588,7 @@ MonoBehaviour:
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 76293c84b18ff90429f3fa0c2235932b,
       type: 2}
-  speed: 12
+  speed: 5
   gravity: -9.81
   jumpHeight: 0.25
   controller: {fileID: 3708503749453170393}
@@ -630,7 +630,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d938ceb6fa488a43a5f5ed1c0cdff40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 15
   currentHealth: 15
   isGameOver: 0
 --- !u!114 &1810605483035068754
@@ -696,6 +695,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b029340db3af7ae499a4a061e7bc622a, type: 2}
   prevScene: 
   hasTalkedToLamp: 0
+  fullTutorialRead: 0
 --- !u!1 &6485078001255206360
 GameObject:
   m_ObjectHideFlags: 0

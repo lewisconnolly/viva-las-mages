@@ -139,9 +139,9 @@ public class Merchant : MonoBehaviour, IInteractable
         MerchantShop.instance.shopCard2Price = shopCard2Price;
         MerchantShop.instance.shopCard3Price = shopCard3Price;
 
-        MerchantShop.instance.shopCard1ButtonText.text = "Buy\n(-" + shopCard1Price + " Hearts)";
-        MerchantShop.instance.shopCard2ButtonText.text = "Buy\n(-" + shopCard2Price + " Hearts)";
-        MerchantShop.instance.shopCard3ButtonText.text = "Buy\n(-" + shopCard3Price + " Hearts)";
+        MerchantShop.instance.shopCard1ButtonText.text = "Buy\n(-" + shopCard1Price + " HP)";
+        MerchantShop.instance.shopCard2ButtonText.text = "Buy\n(-" + shopCard2Price + " HP)";
+        MerchantShop.instance.shopCard3ButtonText.text = "Buy\n(-" + shopCard3Price + " HP)";
     }
 
     void GenerateShopCards()

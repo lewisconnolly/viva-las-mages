@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         unfreezeWait = 0.5f;
     }
 
-    public float speed = 12f;
+    public float speed = 5f;
     public float gravity = -9.81f;
     public float jumpHeight = 0.25f;
         

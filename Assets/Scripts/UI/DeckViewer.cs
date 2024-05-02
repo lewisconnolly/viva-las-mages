@@ -49,6 +49,9 @@ public class DeckViewer : MonoBehaviour
                 buttonText += $" ({playerDeck[i].powerCardType})";
             }
 
+            buttonText = buttonText.Replace("11", "Jack");
+            buttonText = buttonText.Replace("12", "Queen");
+            buttonText = buttonText.Replace("13", "King");
             buttonText = buttonText.Replace("14", "Ace");
 
             selectCardButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = buttonText;

@@ -9030,6 +9030,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3218981085774266262, guid: 6335278efa5c8d84d90c6e11f52f853b,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3218981085774266262, guid: 6335278efa5c8d84d90c6e11f52f853b,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -9086,6 +9091,11 @@ PrefabInstance:
     - target: {fileID: 3218981085774266262, guid: 6335278efa5c8d84d90c6e11f52f853b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3218981085774266262, guid: 6335278efa5c8d84d90c6e11f52f853b,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4697743042942206423, guid: 6335278efa5c8d84d90c6e11f52f853b,
@@ -9149,7 +9159,15 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3370846480322069907, guid: 6335278efa5c8d84d90c6e11f52f853b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 2289502977020562848, guid: 6335278efa5c8d84d90c6e11f52f853b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 6335278efa5c8d84d90c6e11f52f853b, type: 3}
 --- !u!1001 &5682683456682242935
 PrefabInstance:
