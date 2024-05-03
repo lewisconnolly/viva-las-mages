@@ -304,6 +304,11 @@ MonoBehaviour:
   padlockModel: {fileID: 3112284810421309962}
   hit: {fileID: 1287109529148424573}
   smokePuff: {fileID: 1349074803861400452}
+  unlockDoor:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: c6a22c7ee853da14ebf43ff4656d416f,
+      type: 2}
   healthValueText: {fileID: 6186815535134363281}
 --- !u!1 &6340684312630009504
 GameObject:

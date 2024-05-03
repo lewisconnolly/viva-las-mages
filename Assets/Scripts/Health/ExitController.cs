@@ -13,6 +13,7 @@ public class ExitController : MonoBehaviour
 
     public VisualEffect hit;
     public VisualEffect smokePuff;
+    public AK.Wwise.Event unlockDoor;
 
     private void Awake()
     {
@@ -49,6 +50,7 @@ public class ExitController : MonoBehaviour
 
         if (health <= 0)
         {
+            unlockDoor.Post(gameObject);
             smokePuff.Play();
             //VFXController.instance.smokePuff.Play();
             padlockModel.SetActive(false);
