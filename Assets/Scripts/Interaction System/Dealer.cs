@@ -14,21 +14,24 @@ public class Dealer : MonoBehaviour, IInteractable
 
     public bool Interact(Interactor interactor)
     {
-        GetComponentInParent<DealerHealth>().activeEnemy = true;
+        if (GetComponentInParent<DealerHealth>().currentHealth > 0)
+        {
+            GetComponentInParent<DealerHealth>().activeEnemy = true;
 
-        // Play transition video
-        //if (transitionVideoUrl != "")
-        //{
-        //    GameObject canvas = GameObject.FindGameObjectWithTag("TVC");
-        //    canvas.GetComponentInChildren<MeshRenderer>().enabled = true;
-        //    VideoPlayer vp = canvas.GetComponentInChildren<VideoPlayer>();
+            // Play transition video
+            //if (transitionVideoUrl != "")
+            //{
+            //    GameObject canvas = GameObject.FindGameObjectWithTag("TVC");
+            //    canvas.GetComponentInChildren<MeshRenderer>().enabled = true;
+            //    VideoPlayer vp = canvas.GetComponentInChildren<VideoPlayer>();
 
-        //    vp.url = transitionVideoUrl;
-        //    vp.Play();
-        //    vp.loopPointReached += EndReached;
-        //}
+            //    vp.url = transitionVideoUrl;
+            //    vp.Play();
+            //    vp.loopPointReached += EndReached;
+            //}
 
-        SceneLoader.instance.LoadPoker();        
+            SceneLoader.instance.LoadPoker();
+        }
 
         return true;
     }

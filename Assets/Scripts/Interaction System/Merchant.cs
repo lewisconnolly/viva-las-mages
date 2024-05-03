@@ -127,9 +127,9 @@ public class Merchant : MonoBehaviour, IInteractable
         string shopCard2Text = shopCards[1].value + " of " + shopCards[1].suit + "\n" + shopCards[1].powerCardType.ToString();
         string shopCard3Text = shopCards[2].value + " of " + shopCards[2].suit + "\n" + shopCards[2].powerCardType.ToString();
 
-        MerchantShop.instance.shopCard1Text.text = shopCard1Text;
-        MerchantShop.instance.shopCard2Text.text = shopCard2Text;
-        MerchantShop.instance.shopCard3Text.text = shopCard3Text;
+        MerchantShop.instance.shopCard1Text.text = shopCard1Text.Replace("11", "Jack").Replace("12", "Queen").Replace("13", "King").Replace("14", "Ace");
+        MerchantShop.instance.shopCard2Text.text = shopCard2Text.Replace("11", "Jack").Replace("12", "Queen").Replace("13", "King").Replace("14", "Ace");
+        MerchantShop.instance.shopCard3Text.text = shopCard3Text.Replace("11", "Jack").Replace("12", "Queen").Replace("13", "King").Replace("14", "Ace");
 
         int shopCard1Price = prices[(int)shopCards[0].powerCardType];
         int shopCard2Price = prices[(int)shopCards[1].powerCardType];

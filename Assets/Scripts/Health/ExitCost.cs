@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,7 @@ public class ExitCost : MonoBehaviour
     }
 
     public int exitHealthCost = 2;
+    public GameObject heartLockUIIcon;
 
     private void Update()
     {        
@@ -44,6 +46,13 @@ public class ExitCost : MonoBehaviour
 
             ExitController.instance.SetHealthText(exitHealthCost);
 
+
+            if (!SceneManager.GetActiveScene().name.Contains("Poker"))
+            {
+                Destroy(GameObject.Find("HeartLockIcon(Clone)"));
+                heartLockUIIcon.GetComponentInChildren<TextMeshPro>().text = exitHealthCost.ToString();
+                Instantiate(heartLockUIIcon, GameObject.Find("WorldSpaceCanvas1").GetComponentInChildren<CanvasRenderer>().gameObject.transform);
+            }
         }
         
         if (exitHealthCost <= 0)

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exitHealthCost: 4
-  floatingTextPrefab: {fileID: 2384238722813322727, guid: 900d4239e5a8e0740aa7e0a2ab94cf0c,
+  heartLockUIIcon: {fileID: 8945462390159170225, guid: ea376125b6b315b489268f480080ec05,
     type: 3}
 --- !u!114 &94433094888204869
 MonoBehaviour:

@@ -15,8 +15,6 @@ public class BattleController : MonoBehaviour
     public AK.Wwise.Event enemyWin;
     public AK.Wwise.Event enemyLose;
 
-
-
     private void Awake()
     {
         instance = this;

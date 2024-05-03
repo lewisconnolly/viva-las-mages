@@ -54,6 +54,16 @@ public class MerchantShop : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (WSCController.instance.merchantShopParent.activeSelf)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
+    }
+
     public void ShowShop()
     {
         if (WSCController.instance.cheatSheetParent.activeSelf)
