@@ -146,7 +146,7 @@ public class PokerUIController : MonoBehaviour
         }
 
         currentSensitivity.text = Mathf.Round((sensitivitySlider.value - 10f) / 10f).ToString();
-        currentVolume.text = Mathf.Round((volumeSlider.value + 80f) * 1.25f).ToString();
+        currentVolume.text = Mathf.Round((volumeSlider.value)).ToString();
     }
 
     public void SetHealthText(int health) { healthValueText.text = health.ToString(); }

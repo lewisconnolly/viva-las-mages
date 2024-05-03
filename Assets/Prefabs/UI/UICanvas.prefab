@@ -4125,7 +4125,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 37.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5883,6 +5883,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3067411200221276973}
   - component: {fileID: 8226774261737188835}
+  - component: {fileID: 6968541233124314962}
   m_Layer: 5
   m_Name: VolumeSlider
   m_TagString: Untagged
@@ -5956,25 +5957,41 @@ MonoBehaviour:
   m_FillRect: {fileID: 944115180589850347}
   m_HandleRect: {fileID: 3965000411632733886}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 0
+  m_MinValue: 0
+  m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 75
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8953462666186237459}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: SetVolume
-        m_Mode: 0
+      - m_Target: {fileID: 6968541233124314962}
+        m_TargetAssemblyTypeName: ChangeVolumeLevels, Assembly-CSharp
+        m_MethodName: SetSpecificVolume
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: volume
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6968541233124314962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8030060904643010684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1545eb383f424f4fb23c57e19a84a1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisSlider: {fileID: 8226774261737188835}
+  masterVolume: 0
+  musicVolume: 0
+  SFXVolume: 0
 --- !u!1 &8198816659436089614
 GameObject:
   m_ObjectHideFlags: 0

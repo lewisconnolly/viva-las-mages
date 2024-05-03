@@ -9,11 +9,14 @@ public class ChangeVolumeLevels : MonoBehaviour
     public float masterVolume;
     public float musicVolume;
     public float SFXVolume;
-
+    public float sliderValue;
+    float value;
+    int type = 1;
     // Start is called before the first frame update
     void Start()
     {
-        
+        AkSoundEngine.GetRTPCValue("MasterVolume", gameObject, 0, out value, ref type);
+        thisSlider.value = value;
     }
 
     // Update is called once per frame
@@ -24,12 +27,12 @@ public class ChangeVolumeLevels : MonoBehaviour
 
     public void SetSpecificVolume(string whichValue)
     {
-        float sliderValue = thisSlider.value;
+       sliderValue = thisSlider.value;
 
-        if(whichValue.Contains("ALL"))
+        if(whichValue.Contains("volume"))
         {
             masterVolume = this.thisSlider.value;
-            AkSoundEngine.SetRTPCValue("MasterVolume", masterVolume);
+            AkSoundEngine.SetRTPCValue("MasterVolume", masterVolume);            
         }
 
         if (whichValue.Contains("MUSIC"))

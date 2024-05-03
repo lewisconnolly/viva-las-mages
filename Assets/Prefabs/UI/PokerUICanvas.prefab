@@ -10491,6 +10491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3623029334349012465}
   - component: {fileID: 5082705202765676255}
+  - component: {fileID: 1092800555063357725}
   m_Layer: 5
   m_Name: VolumeSlider
   m_TagString: Untagged
@@ -10564,25 +10565,42 @@ MonoBehaviour:
   m_FillRect: {fileID: 6671547215846008422}
   m_HandleRect: {fileID: 8210994473307243281}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 0
+  m_MinValue: 0
+  m_MaxValue: 100
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4030967245944454144}
-        m_TargetAssemblyTypeName: PokerUIController, Assembly-CSharp
-        m_MethodName: SetVolume
-        m_Mode: 0
+      - m_Target: {fileID: 1092800555063357725}
+        m_TargetAssemblyTypeName: ChangeVolumeLevels, Assembly-CSharp
+        m_MethodName: SetSpecificVolume
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: volume
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1092800555063357725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8749207830796818637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1545eb383f424f4fb23c57e19a84a1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisSlider: {fileID: 5082705202765676255}
+  masterVolume: 0
+  musicVolume: 0
+  SFXVolume: 0
+  sliderValue: 0
 --- !u!1 &9004841999312724478
 GameObject:
   m_ObjectHideFlags: 0
