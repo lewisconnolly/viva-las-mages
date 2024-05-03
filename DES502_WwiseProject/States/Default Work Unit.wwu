@@ -15,6 +15,8 @@
 						<State Name="PokerWizard" ID="{83DB253D-59EB-4140-9FA5-DFC7EB6CBC02}"/>
 						<State Name="Casino" ID="{A52EFC9B-D4EC-489B-A8E8-A4F9D3345B3D}"/>
 						<State Name="WizardOffice" ID="{1350BFD9-6635-4A96-8A62-307681BB9AA9}"/>
+						<State Name="WizardTower" ID="{B5B4EBFB-3082-48E4-B4D9-09335BBAAFE6}"/>
+						<State Name="WizardTowerPoker" ID="{09F0949E-7747-49FE-8882-FC615D66965A}"/>
 					</ChildrenList>
 				</StateGroup>
 			</ChildrenList>

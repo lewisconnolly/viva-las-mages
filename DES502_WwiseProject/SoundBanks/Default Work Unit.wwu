@@ -7,6 +7,7 @@
 					<ObjectInclusionList>
 						<ObjectRef Name="Win" ID="{470E7DC8-D71C-404A-B2F6-2D805DBC4F47}" WorkUnitID="{9F312CD6-E763-49F3-B6BC-73E971905B50}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="CardShuffle" ID="{4B4C49C3-0C97-42EB-B875-2B19BE5C2242}" WorkUnitID="{9F312CD6-E763-49F3-B6BC-73E971905B50}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="DoorUnlock" ID="{F3467403-F02F-44B2-9CD8-ED4FFB2F915E}" WorkUnitID="{9F312CD6-E763-49F3-B6BC-73E971905B50}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="CardPlay" ID="{7844582E-63D1-451C-8138-14193A9E57DA}" WorkUnitID="{9F312CD6-E763-49F3-B6BC-73E971905B50}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="SlotMachineWin" ID="{E837933C-B197-4719-82DA-95E708CBFDD4}" WorkUnitID="{9F312CD6-E763-49F3-B6BC-73E971905B50}" Origin="Manual" Filter="7"/>
 						<ObjectRef Name="VivaLasMages" ID="{414950B8-B6C2-47D1-927A-B6C17DB0A1BD}" WorkUnitID="{9F312CD6-E763-49F3-B6BC-73E971905B50}" Origin="Manual" Filter="7"/>

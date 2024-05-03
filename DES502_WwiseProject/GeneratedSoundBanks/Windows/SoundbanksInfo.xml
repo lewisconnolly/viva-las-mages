@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{7878C789-EF4E-6EFC-ECED-BFB3EE729100}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{E2E33C4E-0B60-EA7B-0176-C3181871D7C0}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -32,12 +32,19 @@
 				<Bus Id="3803692087" Name="Master Audio Bus"/>
 				<Bus Id="4084199202" Name="SFX Audio Bus"/>
 			</Busses>
+			<GameParameters>
+				<GameParameter Id="988953028" Name="SFXVolume"/>
+				<GameParameter Id="2346531308" Name="MusicVolume"/>
+				<GameParameter Id="2918011349" Name="MasterVolume"/>
+			</GameParameters>
 			<StateGroups>
 				<StateGroup Id="3991942870" Name="Music">
 					<States>
 						<State Id="200935300" Name="Casino"/>
 						<State Id="698426525" Name="ServiceArea"/>
 						<State Id="748895195" Name="None"/>
+						<State Id="925236326" Name="WizardTowerPoker"/>
+						<State Id="1259911375" Name="WizardTower"/>
 						<State Id="1413413702" Name="Basement"/>
 						<State Id="1493892136" Name="PokerLvl2"/>
 						<State Id="1493892137" Name="PokerLvl3"/>
@@ -63,7 +70,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2159622017" Type="User" Language="SFX" Hash="{00E2F702-71E7-E39F-A773-560F2D5B1F48}">
+		<SoundBank Id="2159622017" Type="User" Language="SFX" Hash="{907831E2-B3B2-B630-711F-08E6C0798FA8}">
 			<ShortName>CommonEvents</ShortName>
 			<Path>CommonEvents.bnk</Path>
 			<Media>
@@ -251,6 +258,10 @@
 					<ShortName>MerchantSpeak1.wav</ShortName>
 					<CachePath>SFX/MerchantSpeak1_818F3B66.wem</CachePath>
 				</File>
+				<File Id="788092165" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DoorUnlock.wav</ShortName>
+					<CachePath>SFX/DoorUnlock_818F3B66.wem</CachePath>
+				</File>
 				<File Id="815387628" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>LampSpeak1.wav</ShortName>
 					<CachePath>SFX/LampSpeak1_818F3B66.wem</CachePath>
@@ -316,6 +327,11 @@
 				<Event Id="723374694" Name="CardShuffle" DurationType="OneShot" DurationMin="0.6538914" DurationMax="0.8238515">
 					<MediaRefs>
 						<MediaRef Id="21082198"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="1553818165" Name="DoorUnlock" DurationType="OneShot" DurationMin="1.1538548" DurationMax="1.1538548">
+					<MediaRefs>
+						<MediaRef Id="788092165"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="2385628198" Name="Footsteps" DurationType="OneShot" DurationMin="0.1787252" DurationMax="0.31360212">
@@ -536,7 +552,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3991942870" Type="User" Language="SFX" Hash="{A997FD12-E4A1-F781-941B-6FB2C830C430}">
+		<SoundBank Id="3991942870" Type="User" Language="SFX" Hash="{EED45575-28F9-CEF4-8E50-8748C00F8011}">
 			<ShortName>Music</ShortName>
 			<Path>Music.bnk</Path>
 			<Media>
@@ -547,6 +563,10 @@
 				<File Id="203706025" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>BasementMusic.wav</ShortName>
 					<CachePath>SFX/BasementMusic_FBC78EF0.wem</CachePath>
+				</File>
+				<File Id="228756205" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>WizardTower.wav</ShortName>
+					<CachePath>SFX/WizardTower_FBC78EF0.wem</CachePath>
 				</File>
 				<File Id="247490158" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>MainMenu1.wav</ShortName>
@@ -571,6 +591,10 @@
 				<File Id="727609667" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>WizardPokerPart2.wav</ShortName>
 					<CachePath>SFX/WizardPokerPart2_FBC78EF0.wem</CachePath>
+				</File>
+				<File Id="772039864" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>WizardTowerPoker.wav</ShortName>
+					<CachePath>SFX/WizardTowerPoker_FBC78EF0.wem</CachePath>
 				</File>
 				<File Id="828980842" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>CasinoPoker.wav</ShortName>
@@ -639,6 +663,18 @@
 								<MediaRef Id="153740171"/>
 							</MediaRefs>
 						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="3991942870" Id="1259911375"/>
+							<MediaRefs>
+								<MediaRef Id="228756205"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="3991942870" Id="925236326"/>
+							<MediaRefs>
+								<MediaRef Id="772039864"/>
+							</MediaRefs>
+						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
 			</Events>
@@ -648,6 +684,8 @@
 						<State Id="200935300" Name="Casino"/>
 						<State Id="698426525" Name="ServiceArea"/>
 						<State Id="748895195" Name="None"/>
+						<State Id="925236326" Name="WizardTowerPoker"/>
+						<State Id="1259911375" Name="WizardTower"/>
 						<State Id="1413413702" Name="Basement"/>
 						<State Id="1493892136" Name="PokerLvl2"/>
 						<State Id="1493892137" Name="PokerLvl3"/>
@@ -660,5 +698,5 @@
 			</StateGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{3C169F05-643F-D58D-F4C0-85F6E62A47CC}</FileHash>
+	<FileHash>{59415962-E8A9-EAF9-4FFF-E3E54FCC3DE6}</FileHash>
 </SoundBanksInfo>

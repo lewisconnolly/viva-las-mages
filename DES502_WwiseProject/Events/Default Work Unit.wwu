@@ -150,6 +150,17 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="DoorUnlock" ID="{F3467403-F02F-44B2-9CD8-ED4FFB2F915E}">
+					<ChildrenList>
+						<Action Name="" ID="{1E326B87-79D7-4B1D-BC44-2DC6A8839F6A}" ShortID="619140244">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="DoorUnlock" ID="{D299137C-8B6E-4663-B505-93631E76752F}" WorkUnitID="{A66E9D4F-FFAB-42CD-961A-AF51BCBE2AF2}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

@@ -16,6 +16,7 @@ namespace AK
         static const AkUniqueID BET = 446279794U;
         static const AkUniqueID CARDPLAY = 4206845685U;
         static const AkUniqueID CARDSHUFFLE = 723374694U;
+        static const AkUniqueID DOORUNLOCK = 1553818165U;
         static const AkUniqueID FOOTSTEPS = 2385628198U;
         static const AkUniqueID LAMPSPEAK = 77602827U;
         static const AkUniqueID LOSE = 221232726U;
@@ -46,6 +47,8 @@ namespace AK
                 static const AkUniqueID POKERWIZARD = 1996063713U;
                 static const AkUniqueID SERVICEAREA = 698426525U;
                 static const AkUniqueID WIZARDOFFICE = 3789859536U;
+                static const AkUniqueID WIZARDTOWER = 1259911375U;
+                static const AkUniqueID WIZARDTOWERPOKER = 925236326U;
             } // namespace STATE
         } // namespace MUSIC
 
@@ -71,6 +74,13 @@ namespace AK
         } // namespace ENEMYTYPE
 
     } // namespace SWITCHES
+
+    namespace GAME_PARAMETERS
+    {
+        static const AkUniqueID MASTERVOLUME = 2918011349U;
+        static const AkUniqueID MUSICVOLUME = 2346531308U;
+        static const AkUniqueID SFXVOLUME = 988953028U;
+    } // namespace GAME_PARAMETERS
 
     namespace BANKS
     {

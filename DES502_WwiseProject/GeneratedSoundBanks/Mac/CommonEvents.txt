@@ -4,6 +4,7 @@ Event	ID	Name			Wwise Object Path	Notes
 	446279794	Bet			\Default Work Unit\Bet	
 	723374694	CardShuffle			\Default Work Unit\CardShuffle	
 	979765101	Win			\Default Work Unit\Dialogue\Win	
+	1553818165	DoorUnlock			\Default Work Unit\DoorUnlock	
 	2127906762	SlotMachineWin			\Default Work Unit\SlotMachineWin	
 	2143137657	MerchantSpeak			\Default Work Unit\MerchantSpeak	
 	2385628198	Footsteps			\Default Work Unit\Footsteps	
@@ -80,6 +81,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	655079680	CardPlay1	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Mac\SFX\CardPlay1_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\CardPlay\CardPlay1		46524
 	678300970	LampSpeak2	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Mac\SFX\LampSpeak2_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\LampVoice\LampSpeak2		64160
 	735522241	MerchantSpeak1	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Mac\SFX\MerchantSpeak1_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\MerchantVoice\MerchantSpeak1		252508
+	788092165	DoorUnlock	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Mac\SFX\DoorUnlock_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\DoorUnlock		203684
 	815387628	LampSpeak1	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Mac\SFX\LampSpeak1_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\LampVoice\LampSpeak1		103604
 	827235702	HarlequinWin1VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Mac\SFX\HarlequinWin1VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Win\HarlequinWin\HarlequinWin1VL		422940
 	828054099	FootStep4	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Mac\SFX\FootStep4_C917E432.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\FootStep4		45944
