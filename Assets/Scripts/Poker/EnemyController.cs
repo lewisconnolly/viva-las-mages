@@ -179,7 +179,7 @@ public class EnemyController : MonoBehaviour
     }
 
     public void AddCardToTable(Card cardToAdd)
-    {
+    {        
         playedCards.Add(cardToAdd);
         SetCardPositionsOnTable();
     }
@@ -198,7 +198,6 @@ public class EnemyController : MonoBehaviour
     public void SelectHand()
     {
         selectedCards = new List<Card>();
-
         int randomNumToTest = Random.Range(1, 101);
 
         List<Card> duplicards = new List<Card>();
@@ -296,8 +295,9 @@ public class EnemyController : MonoBehaviour
         {
             // Deduplicate duplicated duplicards if in chosen hand
             cardsToSelect = ReAddDuplicard(duplicards, cardsToSelect);
+            DestroyDuplicates();
         }
-
+        
         for (int i = 0; i < cardsToSelect.Count; i++)
         {
             selectedCards.Add(cardsToSelect[i]);
@@ -305,9 +305,22 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    void DestroyDuplicates()
+    {
+        Card[] cards = FindObjectsOfType<Card>();
+        foreach (Card card in cards)
+        {
+            if (!card.isPlayer && card.isDuplicate)
+            {
+                Destroy(card);
+            }
+        }
+    }
+
     List<Card> ReplaceDuplicard(List<Card> hand, Card card)
     {
-        List<Card> newHand = hand;
+        List<Card> newHand = new List<Card>();
+        newHand.AddRange(hand);
 
         // Duplicate auto pair card and add to hand
         // (not a member of heldCards, selectedCards, or playedCards so won't be destroyed until scene unloaded and has no game object)
@@ -316,6 +329,7 @@ public class EnemyController : MonoBehaviour
         duplicateCard.value = card.value;
         duplicateCard.suit = card.suit;
         duplicateCard.powerCardType = PowerCardType.None;
+        duplicateCard.isDuplicate = true;
 
         // Remove power up from original
         int index = newHand.IndexOf(newHand.Where(duplicard => duplicard.value == card.value && duplicard.suit == card.suit).ToList().First());
@@ -333,11 +347,17 @@ public class EnemyController : MonoBehaviour
 
         List<Card> toRemove = new List<Card>();
 
+        // Get duplicards to remove
+        bool match;
         for (int i = 0; i < duplicards.Count; i++)
         {
-            if (handToCheck.Where(card => card.suit == duplicards[i].suit && card.value == duplicards[i].value).ToList().Count > 0)
+            match = false;
+            for (int j = 0; j < handToCheck.Count; j++)
             {
-                toRemove.Add(duplicards[i]);
+                if (handToCheck[j].value == duplicards[i].value && handToCheck[j].suit == duplicards[i].suit)
+                {
+                    toRemove.Add(duplicards[i]);
+                }
             }
         }
 
@@ -346,14 +366,40 @@ public class EnemyController : MonoBehaviour
             return handToCheck;
         }
 
+        // Remove duplicards
+        for (int j = 0; j < handToCheck.Count; j++)
+        {
+            match = false;
+            for (int i = 0; i < toRemove.Count; i++)
+            {
+                if (handToCheck[j].value == toRemove[i].value && handToCheck[j].suit == toRemove[i].suit)
+                {
+                    match = true;
+                }
+            }
+
+            if (!match) newHand.Add(handToCheck[j]);
+        }
+
+        // Add one of each duplicard and give duplicard power type        
         for (int i = 0; i < toRemove.Count; i++)
         {
-            // Remove all duplicard copies
-            newHand = handToCheck.Where(card => card.suit != toRemove[i].suit || card.value != toRemove[i].value).ToList();
+            match = false;
+            // Check if in new hand already
+            for (int j = 0; j < newHand.Count; j++)
+            {
+                if (newHand[j].value == toRemove[i].value && newHand[j].suit == toRemove[i].suit)
+                {
+                    match = true;
+                }
+            }
 
-            // Add back in one of duplicard
-            toRemove[i].powerCardType = PowerCardType.Duplicard;
-            newHand.Add(toRemove[i]);
+            if (!match)
+            {
+                // Add back in one of duplicard
+                toRemove[i].powerCardType = PowerCardType.Duplicard;
+                newHand.Add(toRemove[i]);
+            }
         }
 
         return newHand;
@@ -398,7 +444,7 @@ public class EnemyController : MonoBehaviour
     {
         SelectHand();
         SortSelectedCards();
-
+        
         foreach (Card card in selectedCards)
         {
             AddCardToTable(card);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static UnityEngine.GraphicsBuffer;
@@ -42,6 +43,8 @@ public class Card : MonoBehaviour
     private Color lerpedColour;
     private float alphaChangeSpeed = 6.75f;
     private bool isMouseOverAndHasFadedOut = false;
+
+    public bool isDuplicate;
 
     // Start is called before the first frame update
     void Start()
@@ -236,10 +239,14 @@ public class Card : MonoBehaviour
             && hc.selectedCards.Count < (HandController.instance.numCardsRequiredToPlay - BattleController.instance.numAutoPairs)
             && !isSelected && !PokerUIController.isPaused && !PlayerHealth.instance.isGameOver
             && !(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf))
-        {            
+        {
             //hc.SetTransparency(this, "select");
 
-            isSelected = true;
+            if (!(HandController.instance.numCardsRequiredToPlay - BattleController.instance.numAutoPairs - hc.selectedCards.Count == 1 &&
+                this.powerCardType == PowerCardController.PowerCardType.Duplicard))
+            {
+                isSelected = true;
+            }
         }
     }
 

@@ -158,13 +158,22 @@ public class BattleController : MonoBehaviour
     {
         for (int i = 0; i < HandController.instance.playedCards.Count; i++)
         {
-            HandController.instance.playedCards[i].moveSpeed = 1.75f;
-            HandController.instance.playedCards[i].MakeTransparent();
-            HandController.instance.playedCards[i].MoveToPoint(playerDiscardPosition.position, playerDiscardPosition.rotation);
+            if (HandController.instance.playedCards[i] != null)
+            {
+                HandController.instance.playedCards[i].moveSpeed = 1.75f;
+                HandController.instance.playedCards[i].MakeTransparent();
+                HandController.instance.playedCards[i].MoveToPoint(playerDiscardPosition.position, playerDiscardPosition.rotation);
+            }
+        }
 
-            EnemyController.instance.playedCards[i].moveSpeed = 1.75f;
-            EnemyController.instance.playedCards[i].MakeTransparent();
-            EnemyController.instance.playedCards[i].MoveToPoint(enemyDiscardPosition.position, enemyDiscardPosition.rotation);            
+        for (int i = 0; i < EnemyController.instance.playedCards.Count; i++)
+        {
+            if (EnemyController.instance.playedCards[i] != null)
+            {
+                EnemyController.instance.playedCards[i].moveSpeed = 1.75f;
+                EnemyController.instance.playedCards[i].MakeTransparent();
+                EnemyController.instance.playedCards[i].MoveToPoint(enemyDiscardPosition.position, enemyDiscardPosition.rotation);
+            }
         }
 
         HandController.instance.playedCards.Clear();
@@ -177,10 +186,13 @@ public class BattleController : MonoBehaviour
     public void DiscardHeldCards()
     {
         for (int i = 0; i < EnemyController.instance.heldCards.Count; i++)
-        {            
-            EnemyController.instance.heldCards[i].moveSpeed = 1.75f;
-            EnemyController.instance.heldCards[i].MakeTransparent();
-            EnemyController.instance.heldCards[i].MoveToPoint(enemyDiscardPosition.position, enemyDiscardPosition.rotation);
+        {
+            if (EnemyController.instance.heldCards[i] != null)
+            {
+                EnemyController.instance.heldCards[i].moveSpeed = 1.75f;
+                EnemyController.instance.heldCards[i].MakeTransparent();
+                EnemyController.instance.heldCards[i].MoveToPoint(enemyDiscardPosition.position, enemyDiscardPosition.rotation);
+            }
         }
     }
 
@@ -350,6 +362,9 @@ public class BattleController : MonoBehaviour
 
                 ResolveHands(playerHandRank, enemyHandRank);
 
+                // Destroy player duplicates
+                PowerCardController.instance.DestroyDuplicates();
+
                 PokerUIController.instance.playerHandText.gameObject.SetActive(true);
                 PokerUIController.instance.enemyHandText.gameObject.SetActive(true);                
                 PokerUIController.instance.HideBetIcons();
@@ -362,7 +377,6 @@ public class BattleController : MonoBehaviour
                     PokerUIController.instance.swapCardButton.SetActive(false);
                     PokerUIController.instance.endGameButton.SetActive(true);
                     PokerUIController.instance.healthValueText.gameObject.SetActive(false);
-                    //PokerUIController.instance.playerHeart.SetActive(false);
                     PokerUIController.instance.playerBet.SetActive(false);
                 }
                 else if (activeEnemy.GetHealth() != 0)
@@ -382,8 +396,6 @@ public class BattleController : MonoBehaviour
                     PokerUIController.instance.swapCardButton.SetActive(false);
                     PokerUIController.instance.leaveButton.SetActive(true);                    
                     PokerUIController.instance.enemyIconOverlayDefeated.SetActive(true);
-                    //PokerUIController.instance.enemyHealthValueText.gameObject.SetActive(false);
-                    //PokerUIController.instance.enemyHeart.SetActive(false);
                     PokerUIController.instance.enemyBet.SetActive(false);
                 }
 

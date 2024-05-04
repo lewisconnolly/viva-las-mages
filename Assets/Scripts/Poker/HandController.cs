@@ -147,7 +147,7 @@ public class HandController : MonoBehaviour
     }
 
     public void AddCardToTable(Card cardToAdd)
-    {
+    {        
         playedCards.Add(cardToAdd);
         SetCardPositionsOnTable();
     }

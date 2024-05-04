@@ -128,9 +128,22 @@ public class PowerCardController : MonoBehaviour
         duplicateCard.value = newHand[cardIndex].value;
         duplicateCard.suit = newHand[cardIndex].suit;
         duplicateCard.powerCardType = PowerCardType.None;
+        duplicateCard.isDuplicate = true;
 
         newHand.Add(duplicateCard);
 
         return newHand;
+    }
+
+    public void DestroyDuplicates()
+    {
+        Card[] cards = FindObjectsOfType<Card>();
+        foreach (Card card in cards)
+        {
+            if (card.isPlayer && card.isDuplicate)
+            {
+                Destroy(card);
+            }
+        }        
     }
 }
