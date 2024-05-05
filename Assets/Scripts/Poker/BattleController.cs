@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 //using static HandEvaluator;
 
 public class BattleController : MonoBehaviour
@@ -375,8 +376,7 @@ public class BattleController : MonoBehaviour
                     PokerUIController.instance.SetWinnerText(winnerText + "\nYou've Gone Bust!");
                     PokerUIController.instance.winnerText.gameObject.SetActive(true);
                     PokerUIController.instance.swapCardButton.SetActive(false);
-                    PokerUIController.instance.endGameButton.SetActive(true);
-                    PokerUIController.instance.healthValueText.gameObject.SetActive(false);
+                    PokerUIController.instance.endGameButton.SetActive(true);                    
                     PokerUIController.instance.playerBet.SetActive(false);
                 }
                 else if (activeEnemy.GetHealth() != 0)
@@ -390,11 +390,22 @@ public class BattleController : MonoBehaviour
                 else // Enemy lost all health
                 {
                     DiscardHeldCards();
-                    VFXController.instance.sparkles.Play();
-                    RewardCardUI.instance.rewardCardParentObject.SetActive(true);
-                    PlayerInventory.instance.AddRewardCardtoDeck(RewardCardUI.instance.rewardCard.cardSO);
-                    PokerUIController.instance.swapCardButton.SetActive(false);
-                    PokerUIController.instance.leaveButton.SetActive(true);                    
+
+                    if (SceneManager.GetActiveScene().name != "FinalBossPokerRoom")
+                    {
+                        VFXController.instance.sparkles.Play();
+                        RewardCardUI.instance.rewardCardParentObject.SetActive(true);
+                        PlayerInventory.instance.AddRewardCardtoDeck(RewardCardUI.instance.rewardCard.cardSO);
+                        PokerUIController.instance.leaveButton.SetActive(true);
+                    }
+                    else
+                    {
+                        PokerUIController.instance.endGameButton.SetActive(true);
+                        activeEnemy.smokePuff.Play();
+                        activeEnemy.model.SetActive(false);
+                    }
+                    
+                    PokerUIController.instance.swapCardButton.SetActive(false);                    
                     PokerUIController.instance.enemyIconOverlayDefeated.SetActive(true);
                     PokerUIController.instance.enemyBet.SetActive(false);
                 }

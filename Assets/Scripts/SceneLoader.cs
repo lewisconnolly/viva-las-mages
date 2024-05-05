@@ -71,7 +71,7 @@ public class SceneLoader : MonoBehaviour
             }
         }
 
-        if (SceneManager.GetActiveScene().name.Contains("Poker"))
+        if (SceneManager.GetActiveScene().name.Contains("Poker") || SceneManager.GetActiveScene().name == "FinalBossRoom")
         {
             PlayerMovement.instance.FreezePlayer();
             PlayerCamera.instance.DisablePlayerCamera();
@@ -135,7 +135,7 @@ public class SceneLoader : MonoBehaviour
     public void InstantiateExitCost()
     {             
         GameObject exit = GameObject.FindGameObjectWithTag("ExitCost");
-        if (exit == null)
+        if (exit == null && SceneManager.GetActiveScene().name != "FinalBossPokerRoom")
         {
             Instantiate(exitCostPrefab, exitCostStartingPosition, exitCostStartingRotation);
             
@@ -157,7 +157,7 @@ public class SceneLoader : MonoBehaviour
         }
 
         tvc = GameObject.FindGameObjectWithTag("TVC");
-        tvc.GetComponent<Canvas>().worldCamera = canvasCamera;
+        //tvc.GetComponent<Canvas>().worldCamera = canvasCamera;
     }
 
     private void InstantiateSlotMachine()
@@ -275,6 +275,11 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadNextScene("MainMenu"));
     }
 
+    public void LoadCredits()
+    {
+        StartCoroutine(LoadNextScene("Credits"));
+    }
+
     IEnumerator LoadNextScene(string sceneName)
     {
         transition.SetTrigger("Start");        
@@ -288,7 +293,7 @@ public class SceneLoader : MonoBehaviour
         GameObject[] slotMachines = GameObject.FindGameObjectsWithTag("SlotMachine");
         GameObject merchant = GameObject.FindGameObjectWithTag("Merchant");
 
-        if (sceneName == "MainMenu")
+        if (sceneName == "MainMenu" || sceneName == "Credits")
         {
             GameObject exit = GameObject.FindGameObjectWithTag("ExitCost");
             GameObject tvc = GameObject.FindGameObjectWithTag("TVC");

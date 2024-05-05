@@ -143,7 +143,8 @@ public class PlayerHealth : MonoBehaviour
     {
         PokerUIController.instance.SetBetText(bet);
         PokerUIController.instance.ShowBetIcons();
-        ExitCost.instance.TakeDamage(bet);
+        
+        if (SceneManager.GetActiveScene().name != "FinalBossPokerRoom") ExitCost.instance.TakeDamage(bet);
     }
 
     private void ChangedActiveScene(Scene current, Scene next)

@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: Enter Poker Game
-  transitionVideoUrl: Resources/TransitionVideos/SlimeChef_Transition.mp4
+  transitionVideoUrl: Assets/Resources/TransitionVideos/SlimeChef_Transition.mp4
 --- !u!1 &2445482282862378161
 GameObject:
   m_ObjectHideFlags: 0

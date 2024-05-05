@@ -24,8 +24,8 @@ public class LivingLamp : MonoBehaviour, IInteractable
         "I know pal, it's daunting, but it's the only way to progress...",
         "If you're able to wipe the dealer out, you might get something that'll tip the odds in your favour...",
         "Also, keep an eye out for other ways to chip away at those locks...",
-        "Here's a deck to get you started, you can view it by pressing [I]...",
-        "And take this guide too [H]...",
+        "You should have a deck on you, you can view it by pressing [I]...",
+        "And I put this guide in your pocket [H]...",
         "Play your cards right, friend, and with a bit of luck this'll be our first and last conversation"
     };
 

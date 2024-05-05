@@ -71,4 +71,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/_PokerScenes/WizardTowerPoker.unity
     guid: 80fdff6b0b74eaa40ae4b4c58535335e
+  - enabled: 1
+    path: Assets/Scenes/_PokerScenes/FinalBossPokerRoom.unity
+    guid: 9f7ef105625a8c848acd22d26b0e3014
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 1a97c5f6e744e2748b8e6e6ea59ed1fd
   m_configObjects: {}

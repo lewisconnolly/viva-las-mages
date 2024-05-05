@@ -367,7 +367,14 @@ public class PokerUIController : MonoBehaviour
 
     public void GameOver()
     {
-        gameOverScreen.SetActive(true);
-        gameOverTransition.Play(0);
+        if (SceneManager.GetActiveScene().name != "FinalBossPokerRoom")
+        {
+            gameOverScreen.SetActive(true);
+            gameOverTransition.Play(0);
+        }
+        else
+        {
+            SceneLoader.instance.LoadCredits();
+        }
     }
 }

@@ -25,7 +25,7 @@ public class RewardCardUI : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         List<GameObject> activeEnemies = enemies.Where(enemy => enemy.GetComponent<DealerHealth>().activeEnemy == true).ToList();
 
-        if (activeEnemies.Count > 0)
+        if (activeEnemies.Count > 0 && SceneManager.GetActiveScene().name != "FinalBossPokerRoom")
         {
             GameObject activeEnemy = activeEnemies.First();
             EnemyReward enemyReward = activeEnemy.GetComponent<EnemyReward>();

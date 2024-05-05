@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -74,12 +75,23 @@ public class Card : MonoBehaviour
         if (!isPlayer)
         {
             // Add reward card to enemy's hand
-
             if (value == RewardCardUI.instance.rewardCard.cardSO.value && suit == RewardCardUI.instance.rewardCard.cardSO.suit)
             {
                 powerCardType = RewardCardUI.instance.rewardCard.cardSO.powerCardType;
             }
-        }
+
+            // Add player's card to wizard's hand
+            if (SceneManager.GetActiveScene().name == "FinalBossPokerRoom")
+            {
+                for (int i = 0; i < PlayerInventory.instance.playerDeck.Count; i++)
+                {
+                    if (value == PlayerInventory.instance.playerDeck[i].value && suit == PlayerInventory.instance.playerDeck[i].suit)
+                    {
+                        powerCardType = PlayerInventory.instance.playerDeck[i].powerCardType;
+                    }
+                }
+            }
+        }        
 
         SetPowerCardMaterial();
     }

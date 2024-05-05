@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: Enter Poker Game
-  transitionVideoUrl: Resources/TransitionVideos/DreadPatron_Transition.mp4
+  transitionVideoUrl: Assets/Resources/TransitionVideos/DreadPatron_Transition.mp4
 --- !u!1 &7394614818834498694
 GameObject:
   m_ObjectHideFlags: 0

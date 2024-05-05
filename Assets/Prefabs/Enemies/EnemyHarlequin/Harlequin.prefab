@@ -592,7 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: Enter Poker Game
-  transitionVideoUrl: Assets/TransitionVideos/Harlequin_Transition.mp4
+  transitionVideoUrl: Assets/Resources/TransitionVideos/Harlequin_Transition.mp4
 --- !u!136 &3313551151061528585
 CapsuleCollider:
   m_ObjectHideFlags: 0

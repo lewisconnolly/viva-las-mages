@@ -585,6 +585,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5838721866359009413}
     m_Modifications:
+    - target: {fileID: 4595642024485043072, guid: 1a17bd9268c2a4c4cba7451d765642be,
+        type: 3}
+      propertyPath: transitionVideoUrl
+      value: Assets/Resources/TransitionVideos/Rat_Transition.mp4
+      objectReference: {fileID: 0}
     - target: {fileID: 8356254030729951175, guid: 1a17bd9268c2a4c4cba7451d765642be,
         type: 3}
       propertyPath: m_LocalPosition.x

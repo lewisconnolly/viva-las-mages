@@ -9,7 +9,7 @@ public class DealerHealth : MonoBehaviour
     {
     }
 
-    public enum EnemyType { DreadPatron, Harlequin, Manageress, Rat, SkeletonDealer, SlimeChef, Snake }
+    public enum EnemyType { DreadPatron, Harlequin, Manageress, Rat, SkeletonDealer, SlimeChef, Snake, Wizard }
 
     public int currentHealth;
     public bool activeEnemy;
@@ -31,6 +31,10 @@ public class DealerHealth : MonoBehaviour
 
     private void Update()
     {
+        if (enemyType == EnemyType.Wizard)
+        {
+            transform.position = transform.position + Vector3.up * Mathf.Sin(Time.frameCount / 110) / 5f * Time.deltaTime;
+        }
     }
 
     public int GetHealth() { return currentHealth; }
@@ -45,7 +49,7 @@ public class DealerHealth : MonoBehaviour
         {
             currentHealth = 0;
             Dealer dealerInteractable = GetComponentInChildren<Dealer>();
-            dealerInteractable.prompt = "";
+            if (dealerInteractable != null) dealerInteractable.prompt = "";
         }
 
         if (SceneManager.GetActiveScene().name.Contains("Poker"))
@@ -53,6 +57,14 @@ public class DealerHealth : MonoBehaviour
             PokerUIController.instance.SetEnemyHealthText(currentHealth);
             PokerUIController.instance.ShowHitSprite();
             PokerUIController.instance.ShowHealthChangeText(-damage, true);
+        }
+
+        if (SceneManager.GetActiveScene().name == "FinalBossPokerRoom")
+        {
+            for (int i = 0; i < damage; i++)
+            {
+                GameObject.Find("WizardHit").GetComponent<VisualEffect>().Play();
+            }
         }
     }
 

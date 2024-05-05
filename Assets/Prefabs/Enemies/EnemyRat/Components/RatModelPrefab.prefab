@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: Enter Poker Game
-  transitionVideoUrl: Resources/TransitionVideos/Rat_Transition.mp4
+  transitionVideoUrl: Assets/Resources/TransitionVideos/Rat_Transition.mp4
 --- !u!95 &6637551121523420292
 Animator:
   serializedVersion: 5

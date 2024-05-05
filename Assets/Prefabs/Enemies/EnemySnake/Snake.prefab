@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: Enter Poker Game
-  transitionVideoUrl: 
+  transitionVideoUrl: Assets/Resources/TransitionVideos/Snake_Transition.mp4
 --- !u!135 &3645308031298886746
 SphereCollider:
   m_ObjectHideFlags: 0

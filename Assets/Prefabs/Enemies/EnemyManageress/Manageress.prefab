@@ -480,7 +480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prompt: Enter Poker Game
-  transitionVideoUrl: Resources/TransitionVideos/Manageress_Transition.mp4
+  transitionVideoUrl: Assets/Resources/TransitionVideos/Manageress_Transition.mp4
 --- !u!136 &5781369172280058304
 CapsuleCollider:
   m_ObjectHideFlags: 0
