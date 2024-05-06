@@ -66,7 +66,7 @@ public class DeckViewer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I) && PlayerInventory.instance.hasTalkedToLamp)
+        if (Input.GetKeyDown(KeyCode.I))
         {
             if (SceneManager.GetActiveScene().name.Contains("Poker") && RewardCardUI.instance.rewardCardParentObject.activeSelf)
             {

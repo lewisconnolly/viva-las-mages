@@ -116,7 +116,7 @@ public class HandController : MonoBehaviour
         // Shift mid point to right by half a card if number of cards being played is even
         midTablePos = new Vector3(midTablePos.x, midTablePos.y, midTablePos.z + distanceBetweenPoints / 2 * Mathf.Max(0, 1 - selectedCards.Count % 2));
 
-        // Start from mid point and move left times the number of cards
+        // Start from mid point and move left times the number of cards /2
         Vector3 firstCardPos = new Vector3(midTablePos.x, midTablePos.y, midTablePos.z - distanceBetweenPoints * Mathf.Floor(selectedCards.Count / 2));
 
         for (int i = 0; i < selectedCards.Count; i++)

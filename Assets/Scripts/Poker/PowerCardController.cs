@@ -75,12 +75,7 @@ public class PowerCardController : MonoBehaviour
     List<Card> ChooseWildcardSuit(List<Card> hand, int cardIndex)
     {
         List<Card> newHand = hand;
-        //HandEvaluator.HandRank handRank = HandEvaluator.instance.EvaluateHand(hand, false);
 
-        // Wildcard only affects straight and high card hands
-        //if (handRank == HandEvaluator.HandRank.Straight ||
-        //    handRank == HandEvaluator.HandRank.HighCard)
-        //{
         // Get the suit that appears the most in the hand
         var suitGroups = hand.GroupBy(card => card.suit).OrderByDescending(group => group.Count());
         string topSuit = suitGroups.First().ToList().First().suit;
@@ -94,13 +89,8 @@ public class PowerCardController : MonoBehaviour
 
     List<Card> ChooseHalfAndHalfSuit(List<Card> hand, int cardIndex)
     {
-        List<Card> newHand = hand;
-        //HandEvaluator.HandRank handRank = HandEvaluator.instance.EvaluateHand(hand, false);
+        List<Card> newHand = hand;       
 
-        // Half and half only affects straight and high card hands
-        //if (handRank == HandEvaluator.HandRank.Straight ||
-        //    handRank == HandEvaluator.HandRank.HighCard)
-        //{
         // Get the suit that appears the most in the hand
         var suitGroups = hand.GroupBy(card => card.suit).OrderByDescending(group => group.Count());
         string topSuit = suitGroups.First().ToList().First().suit;
@@ -112,8 +102,7 @@ public class PowerCardController : MonoBehaviour
         if (newHand[cardIndex].suit != topSuit && addedSuit == topSuit)
         {
             newHand[cardIndex].suit = topSuit; // suit will be reset back to original on cardSO when card is drawn again
-        }
-        //}
+        }        
 
         return newHand;
     }

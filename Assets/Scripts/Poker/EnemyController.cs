@@ -69,20 +69,6 @@ public class EnemyController : MonoBehaviour
 
         activeCards.Clear();
 
-        // Add reward card to enemy deck
-        //for (int i = 0; i < deckToDeal.Count; i++)
-        //{
-        //    if (deckToDeal[i].value == RewardCardUI.instance.rewardCard.cardSO.value &&
-        //        deckToDeal[i].suit == RewardCardUI.instance.rewardCard.cardSO.suit)
-        //    {
-        //        deckToDeal[i].powerCardType = RewardCardUI.instance.rewardCard.cardSO.powerCardType;
-        //    }
-        //    else
-        //    {
-        //        deckToDeal[i].powerCardType = PowerCardController.PowerCardType.None;
-        //    }
-        //}
-
         List<CardScriptableObject> tempDeck = new List<CardScriptableObject>();
         tempDeck.AddRange(deckToDeal);
 
@@ -354,7 +340,7 @@ public class EnemyController : MonoBehaviour
             match = false;
             for (int j = 0; j < handToCheck.Count; j++)
             {
-                if (handToCheck[j].value == duplicards[i].value && handToCheck[j].suit == duplicards[i].suit)
+                if (handToCheck[j].value == duplicards[i].value && handToCheck[j].suit == duplicards[i].suit && handToCheck[j].powerCardType == PowerCardType.None)
                 {
                     toRemove.Add(duplicards[i]);
                 }
@@ -372,7 +358,7 @@ public class EnemyController : MonoBehaviour
             match = false;
             for (int i = 0; i < toRemove.Count; i++)
             {
-                if (handToCheck[j].value == toRemove[i].value && handToCheck[j].suit == toRemove[i].suit)
+                if (handToCheck[j].value == toRemove[i].value && handToCheck[j].suit == toRemove[i].suit && handToCheck[j].powerCardType == PowerCardType.None)
                 {
                     match = true;
                 }
@@ -388,7 +374,7 @@ public class EnemyController : MonoBehaviour
             // Check if in new hand already
             for (int j = 0; j < newHand.Count; j++)
             {
-                if (newHand[j].value == toRemove[i].value && newHand[j].suit == toRemove[i].suit)
+                if (newHand[j].value == toRemove[i].value && newHand[j].suit == toRemove[i].suit && newHand[j].powerCardType == PowerCardType.Duplicard)
                 {
                     match = true;
                 }
@@ -418,7 +404,7 @@ public class EnemyController : MonoBehaviour
             for (int j = 0; j < duplicards.Count; j++)
             {
                 // Get duplicards in hand
-                List<Card> duplicardsInHand = combinations[i].Where(card => card.suit == duplicards[j].suit && card.value == duplicards[j].value).ToList();
+                List<Card> duplicardsInHand = combinations[i].Where(card => card.suit == duplicards[j].suit && card.value == duplicards[j].value && card.powerCardType == PowerCardType.None).ToList();
 
                 if (duplicardsInHand.Count > 0)
                 {

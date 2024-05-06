@@ -141,6 +141,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4942502927811725657}
   - {fileID: 7867186813507174213}
   - {fileID: 5534414378673747116}
   m_Father: {fileID: 0}
@@ -263,6 +264,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WizardModelPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 4423192501096819848, guid: 395ce387e88ce2744ad5131c4d97a4fb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4733299589812735664, guid: 395ce387e88ce2744ad5131c4d97a4fb,
         type: 3}
       propertyPath: m_CastShadows
@@ -289,4 +295,78 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3902798477540488754, guid: 395ce387e88ce2744ad5131c4d97a4fb,
     type: 3}
   m_PrefabInstance: {fileID: 6558466120016660855}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8324915558888320429
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7707781882311455483}
+    m_Modifications:
+    - target: {fileID: 3971971109521384692, guid: 1eb39a741d57cea4887b0ece9d4020f0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3971971109521384692, guid: 1eb39a741d57cea4887b0ece9d4020f0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3971971109521384692, guid: 1eb39a741d57cea4887b0ece9d4020f0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3971971109521384692, guid: 1eb39a741d57cea4887b0ece9d4020f0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3971971109521384692, guid: 1eb39a741d57cea4887b0ece9d4020f0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3971971109521384692, guid: 1eb39a741d57cea4887b0ece9d4020f0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3971971109521384692, guid: 1eb39a741d57cea4887b0ece9d4020f0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3971971109521384692, guid: 1eb39a741d57cea4887b0ece9d4020f0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3971971109521384692, guid: 1eb39a741d57cea4887b0ece9d4020f0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3971971109521384692, guid: 1eb39a741d57cea4887b0ece9d4020f0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4347264478263557710, guid: 1eb39a741d57cea4887b0ece9d4020f0,
+        type: 3}
+      propertyPath: m_Name
+      value: WizardModelPrefabAnim1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1eb39a741d57cea4887b0ece9d4020f0, type: 3}
+--- !u!4 &4942502927811725657 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3971971109521384692, guid: 1eb39a741d57cea4887b0ece9d4020f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 8324915558888320429}
   m_PrefabAsset: {fileID: 0}

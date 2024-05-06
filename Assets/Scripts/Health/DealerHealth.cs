@@ -70,12 +70,15 @@ public class DealerHealth : MonoBehaviour
 
     public void IncreaseHealth(int health)
     {
-        currentHealth += health;
-
-        if (SceneManager.GetActiveScene().name.Contains("Poker"))
+        if (health > 0)
         {
-            PokerUIController.instance.SetEnemyHealthText(currentHealth);
-            PokerUIController.instance.ShowHealthChangeText(health, true);
+            currentHealth += health;
+
+            if (SceneManager.GetActiveScene().name.Contains("Poker"))
+            {
+                PokerUIController.instance.SetEnemyHealthText(currentHealth);
+                PokerUIController.instance.ShowHealthChangeText(health, true);
+            }
         }
     }
 

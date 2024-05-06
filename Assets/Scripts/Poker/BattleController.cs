@@ -37,13 +37,16 @@ public class BattleController : MonoBehaviour
 
     private int heartsToGain;
     private int ranksToGain;
-    
+
+    private int enemyHeartsToGain;
+    private int enemyRanksToGain;
+
     // Start is called before the first frame update
     void Start()
     {
         PokerUIController.instance.placeBetButton.SetActive(true);        
         PokerUIController.instance.betSlider.gameObject.SetActive(true);
-        PokerUIController.instance.leaveButton.SetActive(true);
+        if (SceneManager.GetActiveScene().name != "FinalBossPokerRoom") PokerUIController.instance.leaveButton.SetActive(true);
         PokerUIController.instance.playHandButton.SetActive(false);
         PokerUIController.instance.swapCardButton.SetActive(false);
         PokerUIController.instance.playAgainButton.SetActive(false);
@@ -218,40 +221,66 @@ public class BattleController : MonoBehaviour
         {
             PokerUIController.instance.SetWinnerText("You Win!");
             PlayerHealth.instance.IncreaseHealth(currentBet + heartsToGain);           
-            activeEnemy.TakeDamage(currentBet);
+            //activeEnemy.TakeDamage(currentBet);
+            ChangeEnemyHealthOnLoss();
             enemyLose.Post(gameObject);
         }
         else if (playerHandRank < enemyHandRank) // Enemy won hand
         {
             PokerUIController.instance.SetWinnerText("Enemy Wins");
             enemyWin.Post(gameObject);
-            
-            if (currentBet - heartsToGain > 0)
-            {
-                PlayerHealth.instance.TakeDamage(currentBet - heartsToGain);
-            }
-            else
-            {
-                PlayerHealth.instance.IncreaseHealth((currentBet - heartsToGain) * -1);
-            }
+            activeEnemy.IncreaseHealth(enemyHeartsToGain);
+
+            ChangePlayerHealthOnLoss();
         }
         else // Possible tie
         {
-            if (ranksToGain > 0) // Enemy win
+            if (ranksToGain > 0 && enemyRanksToGain == 0) // Enemy win because player used rank upgrade
             {
                 PokerUIController.instance.SetWinnerText("Enemy Wins");
                 enemyWin.Post(gameObject);
+                activeEnemy.IncreaseHealth(enemyHeartsToGain);
 
-                if (currentBet - heartsToGain > 0)
+                ChangePlayerHealthOnLoss();                
+
+            }
+            else if (ranksToGain == 0 && enemyRanksToGain > 0) // Player win because enemy used rank upgrade
+            {
+                PokerUIController.instance.SetWinnerText("You Win!");
+                PlayerHealth.instance.IncreaseHealth(currentBet + heartsToGain);
+                //activeEnemy.TakeDamage(currentBet);
+                ChangeEnemyHealthOnLoss();
+
+                enemyLose.Post(gameObject);
+            }
+            else if (ranksToGain > 0 && enemyRanksToGain > 0) // Both used rank upgrade
+            {
+                if (ranksToGain < enemyRanksToGain) // Player win because used fewer rank upgrades
                 {
-                    PlayerHealth.instance.TakeDamage(currentBet - heartsToGain);
+                    PokerUIController.instance.SetWinnerText("You Win!");
+                    PlayerHealth.instance.IncreaseHealth(currentBet + heartsToGain);
+                    //activeEnemy.TakeDamage(currentBet);
+                    ChangeEnemyHealthOnLoss();
+
+                    enemyLose.Post(gameObject);
                 }
-                else
+                else if (ranksToGain > enemyRanksToGain) // Enemy win because used fewer rank upgrades
                 {
-                    PlayerHealth.instance.IncreaseHealth((currentBet - heartsToGain) * -1);
+                    PokerUIController.instance.SetWinnerText("Enemy Wins");
+                    enemyWin.Post(gameObject);
+                    activeEnemy.IncreaseHealth(enemyHeartsToGain);
+
+                    ChangePlayerHealthOnLoss();
+                }
+                else // Tie because used same amount
+                {
+                    PokerUIController.instance.SetWinnerText("Tie");
+
+                    PlayerHealth.instance.IncreaseHealth(heartsToGain);
+                    activeEnemy.IncreaseHealth(enemyHeartsToGain);
                 }
             }
-            else
+            else // No rank upgrades
             {
                 HandEvaluator.TieWinner tieWinner = HandEvaluator.instance.BreakTie(HandController.instance.playedCards.OrderBy(c => c.value).ToList(),
                                     EnemyController.instance.playedCards.OrderBy(c => c.value).ToList(),
@@ -261,30 +290,51 @@ public class BattleController : MonoBehaviour
                 {
                     PokerUIController.instance.SetWinnerText("You Win!");
                     PlayerHealth.instance.IncreaseHealth(currentBet + heartsToGain);
-                    activeEnemy.TakeDamage(currentBet);
+                    //activeEnemy.TakeDamage(currentBet);
+                    ChangeEnemyHealthOnLoss();
+
                     enemyLose.Post(gameObject);
                 }
                 else if (tieWinner == HandEvaluator.TieWinner.Enemy) // Enemy won hand
                 {
                     PokerUIController.instance.SetWinnerText("Enemy Wins");
                     enemyWin.Post(gameObject);
+                    activeEnemy.IncreaseHealth(enemyHeartsToGain);
 
-                    if (currentBet - heartsToGain > 0)
-                    {
-                        PlayerHealth.instance.TakeDamage(currentBet - heartsToGain);
-                    }
-                    else
-                    {
-                        PlayerHealth.instance.IncreaseHealth((currentBet - heartsToGain) * -1);
-                    }
+                    ChangePlayerHealthOnLoss();
                 }
                 else // Tie
                 {
                     PokerUIController.instance.SetWinnerText("Tie");
 
                     PlayerHealth.instance.IncreaseHealth(heartsToGain);
+                    activeEnemy.IncreaseHealth(enemyHeartsToGain);
                 }
             }
+        }
+    }
+    
+    public void ChangePlayerHealthOnLoss()
+    {
+        if (currentBet - heartsToGain > 0)
+        {
+            PlayerHealth.instance.TakeDamage(currentBet - heartsToGain);
+        }
+        else
+        {
+            PlayerHealth.instance.IncreaseHealth((currentBet - heartsToGain) * -1);
+        }
+    }
+
+    public void ChangeEnemyHealthOnLoss()
+    {
+        if (currentBet - enemyHeartsToGain > 0)
+        {
+            activeEnemy.TakeDamage(currentBet - enemyHeartsToGain);
+        }
+        else
+        {
+            activeEnemy.IncreaseHealth(enemyHeartsToGain);
         }
     }
 
@@ -304,7 +354,7 @@ public class BattleController : MonoBehaviour
                 PokerUIController.instance.enemyHandText.gameObject.SetActive(false);
                 PokerUIController.instance.winnerText.gameObject.SetActive(false);
                 PokerUIController.instance.playAgainButton.SetActive(false);
-                PokerUIController.instance.leaveButton.SetActive(true);
+                if (SceneManager.GetActiveScene().name != "FinalBossPokerRoom") PokerUIController.instance.leaveButton.SetActive(true);
                 PokerUIController.instance.placeBetButton.SetActive(true);
                 PokerUIController.instance.betSlider.gameObject.SetActive(true);                
                 PokerUIController.instance.playHandButton.SetActive(false);
@@ -361,6 +411,27 @@ public class BattleController : MonoBehaviour
 
                 HandEvaluator.HandRank enemyHandRank = HandEvaluator.instance.EvaluateHand(EnemyController.instance.playedCards, true);
 
+                // Increase rank by number of UpgradeRank power cards
+                enemyRanksToGain = PowerCardController.instance.numRanksToUpgrade;
+
+                if (ranksToGain > 0)
+                {
+                    if ((int)enemyHandRank + ranksToGain > 9)
+                    {
+                        enemyHandRank = (HandEvaluator.HandRank)9;
+                    }
+                    else
+                    {
+                        enemyHandRank += ranksToGain;
+                    }
+                }
+
+                //Gain heart for each GainHeart power card
+                if (PowerCardController.instance.numHeartsToGain > 0)
+                {
+                    enemyHeartsToGain = PowerCardController.instance.numHeartsToGain;
+                }
+
                 ResolveHands(playerHandRank, enemyHandRank);
 
                 // Destroy player duplicates
@@ -385,7 +456,7 @@ public class BattleController : MonoBehaviour
                     PokerUIController.instance.playAgainButton.SetActive(true);
                     PokerUIController.instance.playAgainButton.GetComponent<Button>().interactable = true;
                     PokerUIController.instance.swapCardButton.SetActive(false);
-                    PokerUIController.instance.leaveButton.SetActive(true);
+                    if (SceneManager.GetActiveScene().name != "FinalBossPokerRoom") PokerUIController.instance.leaveButton.SetActive(true);
                 }                                
                 else // Enemy lost all health
                 {
@@ -396,7 +467,7 @@ public class BattleController : MonoBehaviour
                         VFXController.instance.sparkles.Play();
                         RewardCardUI.instance.rewardCardParentObject.SetActive(true);
                         PlayerInventory.instance.AddRewardCardtoDeck(RewardCardUI.instance.rewardCard.cardSO);
-                        PokerUIController.instance.leaveButton.SetActive(true);
+                        if (SceneManager.GetActiveScene().name != "FinalBossPokerRoom") PokerUIController.instance.leaveButton.SetActive(true);
                     }
                     else
                     {
