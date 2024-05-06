@@ -237,7 +237,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 131747742}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66833cfb5b7ac20439bb71c248625852, type: 3}
   m_Name: 
@@ -930,7 +930,7 @@ PrefabInstance:
         type: 3}
       propertyPath: data.WwiseObjectReference
       value: 
-      objectReference: {fileID: 11400000, guid: ff64a396c5890a946bf39b9266fd2a6c,
+      objectReference: {fileID: 11400000, guid: a4e9a3f53bb82234380c5f7e4379eb8b,
         type: 2}
     - target: {fileID: 8092505041007763279, guid: 10850efaf7203fc40aa35a175f7ebbce,
         type: 3}

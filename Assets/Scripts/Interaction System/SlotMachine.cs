@@ -3,7 +3,7 @@ using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Experimental.GraphView;
+//using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static PowerCardController;
 
@@ -17,6 +17,7 @@ public class SlotMachine : MonoBehaviour, IInteractable
     public int numSpins = 0;
     public bool paidOut = false;
     public AK.Wwise.Event slotMachineWin;
+    public AK.Wwise.Event betSound;
 
     public bool isTheOriginal;
 
@@ -81,16 +82,19 @@ public class SlotMachine : MonoBehaviour, IInteractable
                     if (numSpins == 3)
                     {
                         prompt = "Out of Order. Unlucky!";
+                        betSound.Post(gameObject);
                     }
                     else
                     {
                         if (numSpins == 2)
                         {
                             prompt = $"No Dice! {3 - numSpins} Spin Remaining (-1 Heart)";
+                            betSound.Post(gameObject);
                         }
                         else
                         {
                             prompt = $"No Dice! {3 - numSpins} Spins Remaining (-1 Heart)";
+                            betSound.Post(gameObject);
                         }
                     }
 

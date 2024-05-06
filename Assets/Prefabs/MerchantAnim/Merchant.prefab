@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1553296424670578984}
   - component: {fileID: 8777018312498737991}
   - component: {fileID: 4880514672515701268}
-  - component: {fileID: 6824474296258661026}
   m_Layer: 8
   m_Name: Merchant
   m_TagString: Merchant
@@ -93,18 +92,6 @@ MonoBehaviour:
   card2Sold: 0
   card3Sold: 0
   isTheOriginal: 0
---- !u!114 &6824474296258661026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3557174636490262351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bda998430d72784bb7c0391f49e9cd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4371893006579831399
 PrefabInstance:
   m_ObjectHideFlags: 0

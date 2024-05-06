@@ -35,7 +35,7 @@
 																<PropertyList>
 																	<Property Name="FadeCurve" Type="int16" Value="1"/>
 																	<Property Name="FadeOffset" Type="Real64" Value="0.5"/>
-																	<Property Name="FadeTime" Type="Real64" Value="2"/>
+																	<Property Name="FadeTime" Type="Real64" Value="1.5"/>
 																	<Property Name="FadeType" Type="int16" Value="1"/>
 																</PropertyList>
 															</MusicFade>
@@ -43,6 +43,7 @@
 														<DestinationFadeIn>
 															<MusicFade Name="Destination Fade-in" ID="{9B71E000-7392-4AD5-AD7C-1EA7DE59395E}">
 																<PropertyList>
+																	<Property Name="FadeCurve" Type="int16" Value="6"/>
 																	<Property Name="FadeOffset" Type="Real64" Value="-0.25"/>
 																	<Property Name="FadeTime" Type="Real64" Value="0.5"/>
 																</PropertyList>

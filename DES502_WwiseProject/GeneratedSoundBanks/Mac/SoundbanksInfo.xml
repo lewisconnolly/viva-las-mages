@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{FD862100-0A8D-09AF-7A43-A37A6D88AD96}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{66D11EBF-35EF-AD8B-1FD3-F6ED9DB18304}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -70,7 +70,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2159622017" Type="User" Language="SFX" Hash="{907831E2-B3B2-B630-711F-08E6C0798FA8}">
+		<SoundBank Id="2159622017" Type="User" Language="SFX" Hash="{EA7EB9CA-B818-DB87-5B43-2AEBA69C6092}">
 			<ShortName>CommonEvents</ShortName>
 			<Path>CommonEvents.bnk</Path>
 			<Media>
@@ -292,7 +292,7 @@
 				</File>
 				<File Id="1019678272" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Bet.wav</ShortName>
-					<CachePath>SFX/Bet_23DA3042.wem</CachePath>
+					<CachePath>SFX/Bet_1BA421FD.wem</CachePath>
 				</File>
 				<File Id="1054698416" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SnakeLose1VL.wav</ShortName>
@@ -312,7 +312,7 @@
 				</ShareSets>
 			</Plugins>
 			<Events>
-				<Event Id="446279794" Name="Bet" DurationType="OneShot" DurationMin="0.2797553" DurationMax="0.3140147">
+				<Event Id="446279794" Name="Bet" DurationType="OneShot" DurationMin="0.15074737" DurationMax="0.16920818">
 					<MediaRefs>
 						<MediaRef Id="1019678272"/>
 					</MediaRefs>
@@ -552,7 +552,7 @@
 				</SwitchGroup>
 			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3991942870" Type="User" Language="SFX" Hash="{EED45575-28F9-CEF4-8E50-8748C00F8011}">
+		<SoundBank Id="3991942870" Type="User" Language="SFX" Hash="{62D3FEBD-F8E5-EA8E-2C0E-F3ED9C970311}">
 			<ShortName>Music</ShortName>
 			<Path>Music.bnk</Path>
 			<Media>
@@ -698,5 +698,5 @@
 			</StateGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{4AE4F125-1EE0-7214-1B6F-0C2480A83F38}</FileHash>
+	<FileHash>{7FEB6225-FE81-5184-A6DA-7F4D4EF3B3F1}</FileHash>
 </SoundBanksInfo>

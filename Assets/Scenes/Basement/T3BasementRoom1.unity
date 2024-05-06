@@ -425,7 +425,7 @@ PrefabInstance:
     - target: {fileID: 1963234214358907975, guid: f0cb10d8053c68e4a87a043dfcb21088,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -757,7 +757,7 @@ PrefabInstance:
     - target: {fileID: 1963234214358907975, guid: f0cb10d8053c68e4a87a043dfcb21088,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1117,9 +1117,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatingTextPrefab: {fileID: 0}
+  floatingTextPos: {fileID: 0}
   padlockModel: {fileID: 0}
   hit: {fileID: 0}
   smokePuff: {fileID: 0}
+  unlockDoor:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 0}
   healthValueText: {fileID: 1233710126}
 --- !u!4 &759066995 stripped
 Transform:
@@ -1208,7 +1213,7 @@ PrefabInstance:
     - target: {fileID: 1963234214358907975, guid: f0cb10d8053c68e4a87a043dfcb21088,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2158,7 +2163,7 @@ PrefabInstance:
     - target: {fileID: 1963234214358907975, guid: f0cb10d8053c68e4a87a043dfcb21088,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2423,7 +2428,7 @@ PrefabInstance:
     - target: {fileID: 1963234214358907975, guid: f0cb10d8053c68e4a87a043dfcb21088,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2931,7 +2936,7 @@ PrefabInstance:
     - target: {fileID: 1963234214358907975, guid: f0cb10d8053c68e4a87a043dfcb21088,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3399,7 +3404,7 @@ PrefabInstance:
     - target: {fileID: 1963234214358907975, guid: f0cb10d8053c68e4a87a043dfcb21088,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3605,7 +3610,7 @@ PrefabInstance:
     - target: {fileID: 1963234214358907975, guid: f0cb10d8053c68e4a87a043dfcb21088,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

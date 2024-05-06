@@ -574,6 +574,9 @@
 							</ValueList>
 						</Property>
 						<Property Name="Pitch" Type="int32">
+							<ValueList>
+								<Value>-30</Value>
+							</ValueList>
 							<ModifierList>
 								<ModifierInfo>
 									<Modifier Name="" ID="{F576D22C-FAE6-43B0-B5E9-8030756A8C3C}">
@@ -587,7 +590,7 @@
 						</Property>
 						<Property Name="Volume" Type="Real64">
 							<ValueList>
-								<Value>5</Value>
+								<Value>-8</Value>
 							</ValueList>
 							<ModifierList>
 								<ModifierInfo>
@@ -612,10 +615,9 @@
 					<ChildrenList>
 						<AudioFileSource Name="Bet" ID="{4762108F-DD55-46BD-A19F-114CEB3D0BAA}">
 							<PropertyList>
-								<Property Name="FadeOutDuration" Type="Real64" Value="0.140155728587319"/>
+								<Property Name="FadeOutDuration" Type="Real64" Value="0.147635935590841"/>
 								<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
-								<Property Name="TrimBegin" Type="Real64" Value="0.0406006674082314"/>
-								<Property Name="TrimEnd" Type="Real64" Value="0.32035595105673"/>
+								<Property Name="TrimEnd" Type="Real64" Value="0.148157617342046"/>
 							</PropertyList>
 							<Language>SFX</Language>
 							<AudioFile>Bet.wav</AudioFile>

@@ -224,6 +224,11 @@ MonoBehaviour:
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 88463f2422f39544eb5965bbe964d30c,
       type: 2}
+  betSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: c26eee52cfe3dab49a46a1f79ace5d97,
+      type: 2}
   isTheOriginal: 0
   materials:
   - {fileID: 2100000, guid: 5760a5e9fe360e04c94dcde4befbea30, type: 2}

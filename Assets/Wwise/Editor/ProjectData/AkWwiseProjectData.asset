@@ -38,7 +38,7 @@ MonoBehaviour:
     ParentPath: Master-Mixer Hierarchy\Default Work Unit
     guid: 6520efe4ebd65d41bedcccfec1a2db7f
     GuidInternal: 
-    m_lastTime: -8584868340614583307
+    m_lastTime: -8584865754011067932
     List:
     - name: Master Audio Bus
       guid: d8a41415a61d2a41a17e75ca0c2149f3
@@ -160,8 +160,8 @@ MonoBehaviour:
         guid: 7b6f474bd45f0f4faf3e7f51e27af52c
       Path: Events\Default Work Unit\Bet
       maxAttenuation: 0
-      maxDuration: 0.3140147
-      minDuration: 0.2797553
+      maxDuration: 0.16920818
+      minDuration: 0.15074737
     - name: CardPlay
       guid: 2e584478d1631c45813814193a9e57da
       id: 4206845685

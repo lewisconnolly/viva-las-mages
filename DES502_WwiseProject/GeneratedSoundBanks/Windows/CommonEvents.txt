@@ -89,6 +89,6 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	989986742	SnakeLose2VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\SnakeLose2VL_E8142F60.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Lose\SnakeLose\SnakeLose2VL		378712
 	1001551563	SlimeLose2VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\SlimeLose2VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Lose\SlimeLose\SlimeLose2VL		257456
 	1008269798	FootStep1	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\FootStep1_908481C5.wem		\Actor-Mixer Hierarchy\Default Work Unit\Footsteps\FootStep1		35484
-	1019678272	Bet	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\Bet_23DA3042.wem		\Actor-Mixer Hierarchy\Default Work Unit\Bet		49496
+	1019678272	Bet	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\Bet_1BA421FD.wem		\Actor-Mixer Hierarchy\Default Work Unit\Bet		26280
 	1054698416	SnakeLose1VL	D:\Unity Projects\Des207Game\DES502_WwiseProject\.cache\Windows\SFX\SnakeLose1VL_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Dialogue\Lose\SnakeLose\SnakeLose1VL		244056
 

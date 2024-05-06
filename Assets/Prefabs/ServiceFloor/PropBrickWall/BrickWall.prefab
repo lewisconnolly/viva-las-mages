@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5146373243193112147}
   - component: {fileID: 2179208859254344944}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: BrickWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ PrefabInstance:
     - target: {fileID: 2575450502680067673, guid: 157c49d2a2586734bbfc8a65268bfe58,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2951553454757700835, guid: 157c49d2a2586734bbfc8a65268bfe58,
         type: 3}

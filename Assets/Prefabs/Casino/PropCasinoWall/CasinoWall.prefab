@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6590976736236390879}
   - component: {fileID: 3511519522522958413}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: CasinoWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ PrefabInstance:
     - target: {fileID: 221070818540327909, guid: 9e48a5c77eb8f85428a9e01dee8d461c,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 377569131625983867, guid: 9e48a5c77eb8f85428a9e01dee8d461c,
         type: 3}
@@ -120,7 +120,7 @@ PrefabInstance:
     - target: {fileID: 591391909379843265, guid: 9e48a5c77eb8f85428a9e01dee8d461c,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1042220145965561281, guid: 9e48a5c77eb8f85428a9e01dee8d461c,
         type: 3}
@@ -130,32 +130,32 @@ PrefabInstance:
     - target: {fileID: 1042220145965561281, guid: 9e48a5c77eb8f85428a9e01dee8d461c,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5363617384953718556, guid: 9e48a5c77eb8f85428a9e01dee8d461c,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5428705982433664994, guid: 9e48a5c77eb8f85428a9e01dee8d461c,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5543607248800962226, guid: 9e48a5c77eb8f85428a9e01dee8d461c,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6512795221897506893, guid: 9e48a5c77eb8f85428a9e01dee8d461c,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7716233881126853456, guid: 9e48a5c77eb8f85428a9e01dee8d461c,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
