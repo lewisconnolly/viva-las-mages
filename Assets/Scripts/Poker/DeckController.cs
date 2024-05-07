@@ -30,7 +30,8 @@ public class DeckController : MonoBehaviour
     // Shuffle deck into active cards
     public void SetUpDeck()
     {
-        deckToUse = PlayerInventory.instance.playerDeck;
+        deckToUse.Clear();
+        deckToUse.AddRange(PlayerInventory.instance.playerDeck);
 
         // Don't shuffle in cards still in hand
         for (int i = 0; i < HandController.instance.heldCards.Count; i++)

@@ -80,7 +80,7 @@ public class Card : MonoBehaviour
                 powerCardType = RewardCardUI.instance.rewardCard.cardSO.powerCardType;
             }
 
-            // Add player's card to wizard's hand
+            //Add player's card to wizard's hand
             if (SceneManager.GetActiveScene().name == "FinalBossPokerRoom")
             {
                 for (int i = 0; i < PlayerInventory.instance.playerDeck.Count; i++)

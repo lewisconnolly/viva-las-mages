@@ -334,7 +334,7 @@ public class BattleController : MonoBehaviour
         }
         else
         {
-            activeEnemy.IncreaseHealth(enemyHeartsToGain);
+            activeEnemy.IncreaseHealth((currentBet - enemyHeartsToGain) * -1);
         }
     }
 
@@ -385,6 +385,8 @@ public class BattleController : MonoBehaviour
 
                 heartsToGain = 0;
                 ranksToGain = 0;
+                enemyHeartsToGain = 0;
+                enemyRanksToGain = 0;
 
                 HandEvaluator.HandRank playerHandRank = HandEvaluator.instance.EvaluateHand(HandController.instance.playedCards, true);
 
@@ -414,15 +416,15 @@ public class BattleController : MonoBehaviour
                 // Increase rank by number of UpgradeRank power cards
                 enemyRanksToGain = PowerCardController.instance.numRanksToUpgrade;
 
-                if (ranksToGain > 0)
+                if (enemyRanksToGain > 0)
                 {
-                    if ((int)enemyHandRank + ranksToGain > 9)
+                    if ((int)enemyHandRank + enemyRanksToGain > 9)
                     {
                         enemyHandRank = (HandEvaluator.HandRank)9;
                     }
                     else
                     {
-                        enemyHandRank += ranksToGain;
+                        enemyHandRank += enemyRanksToGain;
                     }
                 }
 
