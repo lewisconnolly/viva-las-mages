@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static System.TimeZoneInfo;
+using UnityEngine.Rendering.PostProcessing;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -13,24 +10,26 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        currentHealth = maxHealth;
     }
 
-    public int maxHealth = 10;
     public int currentHealth;
     private bool updateHealthText;
 
     public bool isGameOver = false;
+
+    private float vignetteIntensity = 0;
+    UnityEngine.Rendering.VolumeProfile volumeProfile;
+    UnityEngine.Rendering.Universal.Vignette vignette;
 
     // Start is called before the first frame update
     void Start()
     {
         SceneManager.activeSceneChanged += ChangedActiveScene;
 
-        if (SceneManager.GetActiveScene().name != "Poker")
+        if (!SceneManager.GetActiveScene().name.Contains("Poker"))
         {
             UIController.instance.SetHealthText(currentHealth);
-        }
+        }        
     }
 
     // Update is called once per frame
@@ -47,23 +46,67 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
+        if (damage > 0)
+        {
+            currentHealth -= damage;
 
-        if (currentHealth <= 0)
+            // Display damage post process vignette effect        
+            volumeProfile = FindAnyObjectByType<UnityEngine.Rendering.Volume>()?.profile;
+
+            if (!volumeProfile) throw new System.NullReferenceException(nameof(UnityEngine.Rendering.VolumeProfile));
+
+            if (!volumeProfile.TryGet(out vignette)) throw new System.NullReferenceException(nameof(vignette));
+
+            if (!vignette)
+            {
+                Debug.Log("error, vignette empty");
+            }
+
+            StartCoroutine(TakeDamageEffect());
+
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                isGameOver = true;
+            }
+
+            if (SceneManager.GetActiveScene().name.Contains("Poker"))
+            {
+                PokerUIController.instance.SetHealthText(currentHealth);
+                PokerUIController.instance.ShowHealthChangeText(-damage, false);
+            }
+            else
+            {
+                UIController.instance.SetHealthText(currentHealth);
+                if (isGameOver) { EndGame(); }
+            }
+        }
+    }
+
+    private IEnumerator TakeDamageEffect()
+    {
+        vignette.active = true;
+
+        vignetteIntensity = 0.5f;
+
+        vignette.intensity.Override(vignetteIntensity);
+
+        yield return new WaitForSeconds(0.4f);
+
+        while (vignetteIntensity > 0)
         {
-            currentHealth = 0;
-            isGameOver = true;
+            vignetteIntensity -= 0.01f;
+
+            if (vignetteIntensity < 0) vignetteIntensity = 0;
+
+            vignette.intensity.Override(vignetteIntensity);
+
+            yield return new WaitForSeconds(0.1f);
         }
 
-        if (SceneManager.GetActiveScene().name == "Poker")
-        {
-            PokerUIController.instance.SetHealthText(currentHealth);
-        }
-        else
-        {
-            UIController.instance.SetHealthText(currentHealth);
-            if (isGameOver) { EndGame(); }
-        }
+        vignette.active = false;
+        
+        yield break;
     }
 
     private void EndGame()
@@ -79,16 +122,20 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void IncreaseHealth(int health)
-    {        
-        currentHealth += health;
+    {
+        if (health > 0)
+        {
+            currentHealth += health;
 
-        if (SceneManager.GetActiveScene().name == "Poker")
-        {
-            PokerUIController.instance.SetHealthText(currentHealth);
-        }
-        else
-        {
-            UIController.instance.SetHealthText(currentHealth);
+            if (SceneManager.GetActiveScene().name.Contains("Poker"))
+            {
+                PokerUIController.instance.SetHealthText(currentHealth);
+                PokerUIController.instance.ShowHealthChangeText(health, false);
+            }
+            else
+            {
+                UIController.instance.SetHealthText(currentHealth);
+            }
         }
     }
 
@@ -96,7 +143,8 @@ public class PlayerHealth : MonoBehaviour
     {
         PokerUIController.instance.SetBetText(bet);
         PokerUIController.instance.ShowBetIcons();
-        ExitCost.instance.TakeDamage(bet);
+        
+        if (SceneManager.GetActiveScene().name != "FinalBossPokerRoom") ExitCost.instance.TakeDamage(bet);
     }
 
     private void ChangedActiveScene(Scene current, Scene next)
@@ -104,7 +152,7 @@ public class PlayerHealth : MonoBehaviour
         string currentName = current.name;
         string nextName = next.name;
 
-        if (nextName == "Poker")
+        if (nextName.Contains("Poker"))
         {
         }
         else

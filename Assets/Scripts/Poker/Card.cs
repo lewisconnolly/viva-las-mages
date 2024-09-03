@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static UnityEngine.GraphicsBuffer;
@@ -43,6 +45,8 @@ public class Card : MonoBehaviour
     private float alphaChangeSpeed = 6.75f;
     private bool isMouseOverAndHasFadedOut = false;
 
+    public bool isDuplicate;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +71,27 @@ public class Card : MonoBehaviour
         value = cardSO.value;
         suit = cardSO.suit;        
         powerCardType = cardSO.powerCardType;
+
+        if (!isPlayer)
+        {
+            // Add reward card to enemy's hand
+            if (value == RewardCardUI.instance.rewardCard.cardSO.value && suit == RewardCardUI.instance.rewardCard.cardSO.suit)
+            {
+                powerCardType = RewardCardUI.instance.rewardCard.cardSO.powerCardType;
+            }
+
+            //Add player's card to wizard's hand
+            if (SceneManager.GetActiveScene().name == "FinalBossPokerRoom")
+            {
+                for (int i = 0; i < PlayerInventory.instance.playerDeck.Count; i++)
+                {
+                    if (value == PlayerInventory.instance.playerDeck[i].value && suit == PlayerInventory.instance.playerDeck[i].suit)
+                    {
+                        powerCardType = PlayerInventory.instance.playerDeck[i].powerCardType;
+                    }
+                }
+            }
+        }        
 
         SetPowerCardMaterial();
     }
@@ -94,31 +119,31 @@ public class Card : MonoBehaviour
                 mats[1] = PowerCardController.instance.handSwapMaterial;
                 break;
 
-            case PowerCardController.PowerCardType.HalfClubs:
+            case PowerCardController.PowerCardType.TwoInOneClubs:
                 mats[1] = PowerCardController.instance.halfClubsMaterial;
                 break;
 
-            case PowerCardController.PowerCardType.HalfSpades:
+            case PowerCardController.PowerCardType.TwoInOneSpades:
                 mats[1] = PowerCardController.instance.halfSpadesMaterial;
                 break;
 
-            case PowerCardController.PowerCardType.HalfHearts:
+            case PowerCardController.PowerCardType.TwoInOneHearts:
                 mats[1] = PowerCardController.instance.halfHeartsMaterial;
                 break;
 
-            case PowerCardController.PowerCardType.HalfDiamonds:
+            case PowerCardController.PowerCardType.TwoInOneDiamonds:
                 mats[1] = PowerCardController.instance.halfDiamondsMaterial;
                 break;
 
-            case PowerCardController.PowerCardType.AutoPair:
+            case PowerCardController.PowerCardType.Duplicard:
                 mats[1] = PowerCardController.instance.autoPairMaterial;
                 break;
 
-            case PowerCardController.PowerCardType.UpgradeRank:
+            case PowerCardController.PowerCardType.RankUpgrade:
                 mats[1] = PowerCardController.instance.upgradeRankMaterial;
                 break;
 
-            case PowerCardController.PowerCardType.GainHeart:
+            case PowerCardController.PowerCardType.Health:
                 mats[1] = PowerCardController.instance.gainHeartMaterial;
                 break;
         }
@@ -147,7 +172,8 @@ public class Card : MonoBehaviour
             RaycastHit hit;              
 
             if (Input.GetMouseButtonDown(0) && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive &&
-                !PokerUIController.isPaused && !PlayerHealth.instance.isGameOver && !DeckViewer.instance.deckViewerParent.activeSelf)
+                !PokerUIController.isPaused && !PlayerHealth.instance.isGameOver &&
+                !(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf))
             {
                 if (Physics.Raycast(ray, out hit))
                 {
@@ -159,10 +185,14 @@ public class Card : MonoBehaviour
             }
 
             // Right click to return card to hand
-            if (Input.GetMouseButtonDown(1) && !PokerUIController.isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { ReturnToHand(); }                        
+            if (Input.GetMouseButtonDown(1) && !PokerUIController.isPaused &&
+                !(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf))
+            {
+                ReturnToHand();
+            }                        
         }
 
-        if (SceneManager.GetActiveScene().name == "Poker")
+        if (SceneManager.GetActiveScene().name.Contains("Poker"))
         {
             double zPos = Mathf.Round(transform.position.z);
             if (zPos == Mathf.Round(BattleController.instance.playerDiscardPosition.position.z) ||
@@ -184,7 +214,8 @@ public class Card : MonoBehaviour
     private void OnMouseOver()
     {
         if (inHand && isPlayer && !isSelected && !PokerUIController.isPaused &&
-            !PlayerHealth.instance.isGameOver && !DeckViewer.instance.deckViewerParent.activeSelf)
+            !PlayerHealth.instance.isGameOver &&
+            !(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf))
         {
             MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(0.1f, 0.1f, 0), hc.cardHandRotations[handPosition]);
             
@@ -201,7 +232,8 @@ public class Card : MonoBehaviour
     // Move card back down if mouse is no longer hovering over
     private void OnMouseExit()
     {
-        if (inHand && isPlayer && !isSelected && !PokerUIController.isPaused && !DeckViewer.instance.deckViewerParent.activeSelf)
+        if (inHand && isPlayer && !isSelected && !PokerUIController.isPaused &&
+            !(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf))
         {
             MoveToPoint(hc.cardHandPositions[handPosition], hc.cardHandRotations[handPosition]);
 
@@ -216,12 +248,17 @@ public class Card : MonoBehaviour
     private void OnMouseDown()
     {
         if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive && isPlayer
-            && hc.selectedCards.Count < 5 && !isSelected && !PokerUIController.isPaused && !PlayerHealth.instance.isGameOver
-            && !DeckViewer.instance.deckViewerParent.activeSelf)
-        {            
+            && hc.selectedCards.Count < (HandController.instance.numCardsRequiredToPlay - BattleController.instance.numAutoPairs)
+            && !isSelected && !PokerUIController.isPaused && !PlayerHealth.instance.isGameOver
+            && !(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf))
+        {
             //hc.SetTransparency(this, "select");
 
-            isSelected = true;
+            if (!(HandController.instance.numCardsRequiredToPlay - BattleController.instance.numAutoPairs - hc.selectedCards.Count == 1 &&
+                this.powerCardType == PowerCardController.PowerCardType.Duplicard))
+            {
+                isSelected = true;
+            }
         }
     }
 
@@ -230,7 +267,7 @@ public class Card : MonoBehaviour
         hc.SelectCard(this);
         hc.SortSelectedCards();
                
-        MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(-0.2f, 0.4f, 0), hc.cardHandRotations[handPosition]);
+        MoveToPoint(hc.cardHandPositions[handPosition] + new Vector3(-0.2f, 0.2f, 0), hc.cardHandRotations[handPosition]);
         
         isInSelectedPosition = true;
     }

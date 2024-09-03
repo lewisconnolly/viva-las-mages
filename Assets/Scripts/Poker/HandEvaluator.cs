@@ -116,7 +116,7 @@ public class HandEvaluator : MonoBehaviour
     private bool IsFourOfAKind(List<Card> hand)
     {
         var valueGroups = hand.GroupBy(card => card.value);
-        return valueGroups.Any(group => group.Count() == 4);
+        return valueGroups.Any(group => group.Count() >= 4);
     }
 
     private TieWinner BreakFourOfAKindTie(List<Card> PH, List<Card> EH)

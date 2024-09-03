@@ -71,7 +71,7 @@ public class UIController : MonoBehaviour
         }
 
         currentSensitivity.text = Mathf.Round((sensitivitySlider.value - 10f) / 10f).ToString();
-        currentVolume.text = Mathf.Round((volumeSlider.value + 80f) * 1.25f).ToString();
+        currentVolume.text = Mathf.Round((volumeSlider.value)).ToString();
     }
 
     public TextMeshProUGUI healthValueText;
@@ -94,7 +94,7 @@ public class UIController : MonoBehaviour
             Time.timeScale = 1f;
             isPaused = false;
 
-            if (!DeckViewer.instance.deckViewerParent.activeSelf)
+            if (!WSCController.instance.deckViewerParent.activeSelf)
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
@@ -161,12 +161,18 @@ public class UIController : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         GameObject exit = GameObject.FindGameObjectWithTag("ExitCost");
+        GameObject tvc = GameObject.FindGameObjectWithTag("TVC");
+        GameObject[] slotMachines = GameObject.FindGameObjectsWithTag("SlotMachine");
+        GameObject merchant = GameObject.FindGameObjectWithTag("Merchant");      
 
         foreach (GameObject enemy in enemies) { if (enemy != null) { Destroy(enemy); } }
+        foreach (GameObject sm in slotMachines) { if (sm != null) { Destroy(sm); } }
         if (player != null) { Destroy(player); }
         if (exit != null) { Destroy(exit); }
+        if (tvc != null) { Destroy(tvc); }
+        if (merchant != null) { Destroy(merchant); }
 
-        SceneManager.LoadScene("BasementRoom1");
+        SceneManager.LoadScene("T1BasementRoom1");
     }
 
     public void GameOver()

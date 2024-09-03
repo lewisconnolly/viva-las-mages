@@ -24,7 +24,7 @@ MonoBehaviour:
     ParentPath: Virtual Acoustics\Default Work Unit
     guid: 8d6184b3b4cb804ba79f8ca51f872126
     GuidInternal: 
-    m_lastTime: -8584874641954054305
+    m_lastTime: -8584870053562921702
     List: []
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
@@ -38,7 +38,7 @@ MonoBehaviour:
     ParentPath: Master-Mixer Hierarchy\Default Work Unit
     guid: 6520efe4ebd65d41bedcccfec1a2db7f
     GuidInternal: 
-    m_lastTime: -8584874641964331130
+    m_lastTime: -8584865346454792090
     List:
     - name: Master Audio Bus
       guid: d8a41415a61d2a41a17e75ca0c2149f3
@@ -101,7 +101,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: f2447ec76069e842bc90e2a3c1bc6a0d
     GuidInternal: 
-    m_lastTime: -8584874641954064269
+    m_lastTime: -8584868340612016594
     List:
     - name: CommonEvents
       guid: 76dbe5716303ea4a86c85abf37133f27
@@ -143,7 +143,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: d62c319f63e7f349b6bc73e971905b50
     GuidInternal: 
-    m_lastTime: -8584874641964571130
+    m_lastTime: -8584868340628142293
     List:
     - name: Bet
       guid: 7b6f474bd45f0f4faf3e7f51e27af52c
@@ -160,8 +160,8 @@ MonoBehaviour:
         guid: 7b6f474bd45f0f4faf3e7f51e27af52c
       Path: Events\Default Work Unit\Bet
       maxAttenuation: 0
-      maxDuration: 0.3140147
-      minDuration: 0.2797553
+      maxDuration: 0.16920818
+      minDuration: 0.15074737
     - name: CardPlay
       guid: 2e584478d1631c45813814193a9e57da
       id: 4206845685
@@ -177,7 +177,7 @@ MonoBehaviour:
         guid: 2e584478d1631c45813814193a9e57da
       Path: Events\Default Work Unit\CardPlay
       maxAttenuation: 0
-      maxDuration: 0.3316078
+      maxDuration: 0.31299606
       minDuration: 0.17027676
     - name: CardShuffle
       guid: c3494c4b970ceb42b8752b19be5c2242
@@ -196,6 +196,40 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0.8238515
       minDuration: 0.6538914
+    - name: Dialogue
+      guid: dfc436dc10968941aabd720eea29325c
+      id: 3930136735
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: Dialogue
+        ObjectType: 4
+        guid: dfc436dc10968941aabd720eea29325c
+      Path: Events\Default Work Unit\Dialogue
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: DoorUnlock
+      guid: 037446f32ff0b2449cd8ed4ffb2f915e
+      id: 1553818165
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: DoorUnlock
+        ObjectType: 3
+        guid: 037446f32ff0b2449cd8ed4ffb2f915e
+      Path: Events\Default Work Unit\DoorUnlock
+      maxAttenuation: 0
+      maxDuration: 1.1538548
+      minDuration: 1.1538548
     - name: Footsteps
       guid: 913b04cb4d133b4ba9ee6afcab87f887
       id: 2385628198
@@ -213,6 +247,60 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0.31360212
       minDuration: 0.1787252
+    - name: LampSpeak
+      guid: 5d1d0e9150d41f4dbe4cc001790b0904
+      id: 77602827
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: LampSpeak
+        ObjectType: 3
+        guid: 5d1d0e9150d41f4dbe4cc001790b0904
+      Path: Events\Default Work Unit\LampSpeak
+      maxAttenuation: 0
+      maxDuration: 0.62167186
+      minDuration: 0.34279117
+    - name: Lose
+      guid: 0ee948f02a21a948b5a5787bf93932e0
+      id: 221232726
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: Dialogue
+        ObjectType: 4
+        guid: dfc436dc10968941aabd720eea29325c
+      - ElementName: Lose
+        ObjectType: 3
+        guid: 0ee948f02a21a948b5a5787bf93932e0
+      Path: Events\Default Work Unit\Dialogue\Lose
+      maxAttenuation: 0
+      maxDuration: 3.807687
+      minDuration: 1.0331066
+    - name: MerchantSpeak
+      guid: 745e0fc1d3c2c048ad8fcbfbdf4fc059
+      id: 2143137657
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: MerchantSpeak
+        ObjectType: 3
+        guid: 745e0fc1d3c2c048ad8fcbfbdf4fc059
+      Path: Events\Default Work Unit\MerchantSpeak
+      maxAttenuation: 0
+      maxDuration: 1.2032446
+      minDuration: 0.64995
     - name: Music
       guid: 67194e8b62a8084eb21fddd0060c0e92
       id: 3991942870
@@ -247,6 +335,23 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 1.7328571
       minDuration: 1.4571533
+    - name: SmokePuff
+      guid: 661d873bcb789749be78aff9b4907c11
+      id: 3240102813
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: SmokePuff
+        ObjectType: 3
+        guid: 661d873bcb789749be78aff9b4907c11
+      Path: Events\Default Work Unit\SmokePuff
+      maxAttenuation: 60
+      maxDuration: 0.62090397
+      minDuration: 0.4390454
     - name: SplashScreen
       guid: d68f53ff001abe4bb9d323b48f31ae08
       id: 3140745524
@@ -281,6 +386,26 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 3.1969128
       minDuration: 3.1969128
+    - name: Win
+      guid: c87d0e471cd74a40b2f62d805dbc4f47
+      id: 979765101
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d62c319f63e7f349b6bc73e971905b50
+      - ElementName: Dialogue
+        ObjectType: 4
+        guid: dfc436dc10968941aabd720eea29325c
+      - ElementName: Win
+        ObjectType: 3
+        guid: c87d0e471cd74a40b2f62d805dbc4f47
+      Path: Events\Default Work Unit\Dialogue\Win
+      maxAttenuation: 0
+      maxDuration: 3.3461452
+      minDuration: 1.4285715
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     PathAndIcons:
@@ -293,8 +418,73 @@ MonoBehaviour:
     ParentPath: Game Parameters\Default Work Unit
     guid: c159986efaa2f44fbc8fd3326b0eccf3
     GuidInternal: 
-    m_lastTime: -8584874641964561129
-    List: []
+    m_lastTime: -8584868340628142293
+    List:
+    - name: MasterVolume
+      guid: 5357583122d04648a5373ee84b07ed77
+      id: 2918011349
+      PathAndIcons:
+      - ElementName: Game Parameters
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: c159986efaa2f44fbc8fd3326b0eccf3
+      - ElementName: Volumes
+        ObjectType: 4
+        guid: c54f28c2c0ff0949ab0450d9ecab868f
+      - ElementName: MasterVolume
+        ObjectType: 13
+        guid: 5357583122d04648a5373ee84b07ed77
+      Path: Game Parameters\Default Work Unit\Volumes\MasterVolume
+    - name: MusicVolume
+      guid: e71af2e3bb608b41aa010ad551504d51
+      id: 2346531308
+      PathAndIcons:
+      - ElementName: Game Parameters
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: c159986efaa2f44fbc8fd3326b0eccf3
+      - ElementName: Volumes
+        ObjectType: 4
+        guid: c54f28c2c0ff0949ab0450d9ecab868f
+      - ElementName: MusicVolume
+        ObjectType: 13
+        guid: e71af2e3bb608b41aa010ad551504d51
+      Path: Game Parameters\Default Work Unit\Volumes\MusicVolume
+    - name: SFXVolume
+      guid: c8bac31a3abc674e95b60aecb19a902c
+      id: 988953028
+      PathAndIcons:
+      - ElementName: Game Parameters
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: c159986efaa2f44fbc8fd3326b0eccf3
+      - ElementName: Volumes
+        ObjectType: 4
+        guid: c54f28c2c0ff0949ab0450d9ecab868f
+      - ElementName: SFXVolume
+        ObjectType: 13
+        guid: c8bac31a3abc674e95b60aecb19a902c
+      Path: Game Parameters\Default Work Unit\Volumes\SFXVolume
+    - name: Volumes
+      guid: c54f28c2c0ff0949ab0450d9ecab868f
+      id: 4043670282
+      PathAndIcons:
+      - ElementName: Game Parameters
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: c159986efaa2f44fbc8fd3326b0eccf3
+      - ElementName: Volumes
+        ObjectType: 4
+        guid: c54f28c2c0ff0949ab0450d9ecab868f
+      Path: Game Parameters\Default Work Unit\Volumes
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
     PathAndIcons:
@@ -307,7 +497,7 @@ MonoBehaviour:
     ParentPath: States\Default Work Unit
     guid: c737ba394227fb4987b02262ac8cd691
     GuidInternal: 
-    m_lastTime: -8584874641954054305
+    m_lastTime: -8584868340612016594
     List:
     - name: Music
       guid: ed17c68722ef0e4e8c963c274e06a23f
@@ -484,6 +674,38 @@ MonoBehaviour:
         - ElementName: WizardOffice
           ObjectType: 8
           guid: d9bf50133566964a8a62307681bb9aa9
+      - name: WizardTower
+        guid: fbebb4b58230e448b4d909335bbaafe6
+        id: 1259911375
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: c737ba394227fb4987b02262ac8cd691
+        - ElementName: Music
+          ObjectType: 9
+          guid: ed17c68722ef0e4e8c963c274e06a23f
+        - ElementName: WizardTower
+          ObjectType: 8
+          guid: fbebb4b58230e448b4d909335bbaafe6
+      - name: WizardTowerPoker
+        guid: 9e94f0094777fe498882fc615d66965a
+        id: 925236326
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: c737ba394227fb4987b02262ac8cd691
+        - ElementName: Music
+          ObjectType: 9
+          guid: ed17c68722ef0e4e8c963c274e06a23f
+        - ElementName: WizardTowerPoker
+          ObjectType: 8
+          guid: 9e94f0094777fe498882fc615d66965a
       ValueGuids: []
       ValueIcons: []
       valuesInternal: []
@@ -499,8 +721,154 @@ MonoBehaviour:
     ParentPath: Switches\Default Work Unit
     guid: e4f17a2baafe08438b260dec0f798937
     GuidInternal: 
-    m_lastTime: -8584874641954054305
-    List: []
+    m_lastTime: -8584870053192186366
+    List:
+    - name: EnemyType
+      guid: 2aaa690189c6524d857bbb7331082596
+      id: 3807720919
+      PathAndIcons:
+      - ElementName: Switches
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: e4f17a2baafe08438b260dec0f798937
+      - ElementName: EnemyType
+        ObjectType: 11
+        guid: 2aaa690189c6524d857bbb7331082596
+      Path: Switches\Default Work Unit\EnemyType
+      values:
+      - name: DreadPatron
+        guid: 952b55a9654e8d449f945a310beec93f
+        id: 2821599287
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: e4f17a2baafe08438b260dec0f798937
+        - ElementName: EnemyType
+          ObjectType: 11
+          guid: 2aaa690189c6524d857bbb7331082596
+        - ElementName: DreadPatron
+          ObjectType: 10
+          guid: 952b55a9654e8d449f945a310beec93f
+      - name: Harlequin
+        guid: e896216ebfebb448b4176dfd004c922d
+        id: 678048184
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: e4f17a2baafe08438b260dec0f798937
+        - ElementName: EnemyType
+          ObjectType: 11
+          guid: 2aaa690189c6524d857bbb7331082596
+        - ElementName: Harlequin
+          ObjectType: 10
+          guid: e896216ebfebb448b4176dfd004c922d
+      - name: Manageress
+        guid: 6cf74c3946159a4cbb77bc5b45e0759c
+        id: 434070397
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: e4f17a2baafe08438b260dec0f798937
+        - ElementName: EnemyType
+          ObjectType: 11
+          guid: 2aaa690189c6524d857bbb7331082596
+        - ElementName: Manageress
+          ObjectType: 10
+          guid: 6cf74c3946159a4cbb77bc5b45e0759c
+      - name: Rat
+        guid: 7ba674cbce3053479e0c852c8f64bda0
+        id: 1047714102
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: e4f17a2baafe08438b260dec0f798937
+        - ElementName: EnemyType
+          ObjectType: 11
+          guid: 2aaa690189c6524d857bbb7331082596
+        - ElementName: Rat
+          ObjectType: 10
+          guid: 7ba674cbce3053479e0c852c8f64bda0
+      - name: SkeletonDealer
+        guid: e631c3c649514845833528c19b20abf1
+        id: 442379379
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: e4f17a2baafe08438b260dec0f798937
+        - ElementName: EnemyType
+          ObjectType: 11
+          guid: 2aaa690189c6524d857bbb7331082596
+        - ElementName: SkeletonDealer
+          ObjectType: 10
+          guid: e631c3c649514845833528c19b20abf1
+      - name: Slime
+        guid: b1985fb4a1f10543bf25790c1841685f
+        id: 3803999823
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: e4f17a2baafe08438b260dec0f798937
+        - ElementName: EnemyType
+          ObjectType: 11
+          guid: 2aaa690189c6524d857bbb7331082596
+        - ElementName: Slime
+          ObjectType: 10
+          guid: b1985fb4a1f10543bf25790c1841685f
+      - name: Snake
+        guid: c299baf1e749814eaf904b9e07ad163a
+        id: 3187576023
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: e4f17a2baafe08438b260dec0f798937
+        - ElementName: EnemyType
+          ObjectType: 11
+          guid: 2aaa690189c6524d857bbb7331082596
+        - ElementName: Snake
+          ObjectType: 10
+          guid: c299baf1e749814eaf904b9e07ad163a
+      - name: Wizard
+        guid: 503aec8f480b4f4e8c99d3b9a1ed27ea
+        id: 3202541808
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: e4f17a2baafe08438b260dec0f798937
+        - ElementName: EnemyType
+          ObjectType: 11
+          guid: 2aaa690189c6524d857bbb7331082596
+        - ElementName: Wizard
+          ObjectType: 10
+          guid: 503aec8f480b4f4e8c99d3b9a1ed27ea
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
     PathAndIcons:
@@ -513,10 +881,10 @@ MonoBehaviour:
     ParentPath: Triggers\Default Work Unit
     guid: 592e04adbd854748adfd9d5aa3905808
     GuidInternal: 
-    m_lastTime: -8584874641954054305
+    m_lastTime: -8584870053562936773
     List: []
   ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 0100000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000c0000000c1000000
+  ExpandedWaapiItemIds: 0100000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000018000000190000001a0000007d0000007e000000c0000000c1000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0

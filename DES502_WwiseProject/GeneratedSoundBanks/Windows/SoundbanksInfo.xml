@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{A2E56429-4D1A-58CE-5BB2-7C3238899FFD}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{DAAF18D5-2AE9-DFCF-6175-28D2E0D14123}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -32,12 +32,19 @@
 				<Bus Id="3803692087" Name="Master Audio Bus"/>
 				<Bus Id="4084199202" Name="SFX Audio Bus"/>
 			</Busses>
+			<GameParameters>
+				<GameParameter Id="988953028" Name="SFXVolume"/>
+				<GameParameter Id="2346531308" Name="MusicVolume"/>
+				<GameParameter Id="2918011349" Name="MasterVolume"/>
+			</GameParameters>
 			<StateGroups>
 				<StateGroup Id="3991942870" Name="Music">
 					<States>
 						<State Id="200935300" Name="Casino"/>
 						<State Id="698426525" Name="ServiceArea"/>
 						<State Id="748895195" Name="None"/>
+						<State Id="925236326" Name="WizardTowerPoker"/>
+						<State Id="1259911375" Name="WizardTower"/>
 						<State Id="1413413702" Name="Basement"/>
 						<State Id="1493892136" Name="PokerLvl2"/>
 						<State Id="1493892137" Name="PokerLvl3"/>
@@ -48,14 +55,72 @@
 					</States>
 				</StateGroup>
 			</StateGroups>
+			<SwitchGroups>
+				<SwitchGroup Id="3807720919" Name="EnemyType">
+					<Switches>
+						<Switch Id="434070397" Name="Manageress"/>
+						<Switch Id="442379379" Name="SkeletonDealer"/>
+						<Switch Id="678048184" Name="Harlequin"/>
+						<Switch Id="1047714102" Name="Rat"/>
+						<Switch Id="2821599287" Name="DreadPatron"/>
+						<Switch Id="3187576023" Name="Snake"/>
+						<Switch Id="3202541808" Name="Wizard"/>
+						<Switch Id="3803999823" Name="Slime"/>
+					</Switches>
+				</SwitchGroup>
+			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="2159622017" Type="User" Language="SFX" Hash="{2D11B6B9-8ED9-2A3F-86A4-CF2B9B0CEAEE}">
+		<SoundBank Id="2159622017" Type="User" Language="SFX" Hash="{EA7EB9CA-B818-DB87-5B43-2AEBA69C6092}">
 			<ShortName>CommonEvents</ShortName>
 			<Path>CommonEvents.bnk</Path>
 			<Media>
 				<File Id="21082198" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>CardShuffle.wav</ShortName>
 					<CachePath>SFX/CardShuffle_C2A3E27A.wem</CachePath>
+				</File>
+				<File Id="34987519" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>PuffOfSmoke.wav</ShortName>
+					<CachePath>SFX/PuffOfSmoke_15984C2C.wem</CachePath>
+				</File>
+				<File Id="72610720" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SkeletonLose2VL.wav</ShortName>
+					<CachePath>SFX/SkeletonLose2VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="90556042" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SlimeLose1VL.wav</ShortName>
+					<CachePath>SFX/SlimeLose1VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="101436057" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>HarlequinLose2VL.wav</ShortName>
+					<CachePath>SFX/HarlequinLose2VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="110639380" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>MerchantSpeak3.wav</ShortName>
+					<CachePath>SFX/MerchantSpeak3_818F3B66.wem</CachePath>
+				</File>
+				<File Id="115945111" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>WizardLose2VL.wav</ShortName>
+					<CachePath>SFX/WizardLose2VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="135631757" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DreadPatronLose2VL.wav</ShortName>
+					<CachePath>SFX/DreadPatronLose2VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="146363578" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SlimeWin1VL.wav</ShortName>
+					<CachePath>SFX/SlimeWin1VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="151370063" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SnakeWin2VL.wav</ShortName>
+					<CachePath>SFX/SnakeWin2VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="226500119" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SkeletonWin2VL.wav</ShortName>
+					<CachePath>SFX/SkeletonWin2VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="242984577" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>HarlequinLose1VL.wav</ShortName>
+					<CachePath>SFX/HarlequinLose1VL_818F3B66.wem</CachePath>
 				</File>
 				<File Id="246502203" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>FootStep5.wav</ShortName>
@@ -65,17 +130,73 @@
 					<ShortName>CardPlay2.wav</ShortName>
 					<CachePath>SFX/CardPlay2_818F3B66.wem</CachePath>
 				</File>
+				<File Id="301750876" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>WizardLose1VL.wav</ShortName>
+					<CachePath>SFX/WizardLose1VL_818F3B66.wem</CachePath>
+				</File>
 				<File Id="320646118" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>FootStep3.wav</ShortName>
 					<CachePath>SFX/FootStep3_7930CC46.wem</CachePath>
+				</File>
+				<File Id="340383686" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SkeletonWin1VL.wav</ShortName>
+					<CachePath>SFX/SkeletonWin1VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="346616716" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SkeletonLose1VL.wav</ShortName>
+					<CachePath>SFX/SkeletonLose1VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="362710849" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>ManagerWin2VL.wav</ShortName>
+					<CachePath>SFX/ManagerWin2VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="363109706" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>WizardWin3VL.wav</ShortName>
+					<CachePath>SFX/WizardWin3VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="400853693" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DreadPatronWin2VL.wav</ShortName>
+					<CachePath>SFX/DreadPatronWin2VL_818F3B66.wem</CachePath>
 				</File>
 				<File Id="406348161" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>VivaLasMages.wav</ShortName>
 					<CachePath>SFX/VivaLasMages_40BBC9BE.wem</CachePath>
 				</File>
+				<File Id="434401296" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>RatLoseVL.wav</ShortName>
+					<CachePath>SFX/RatLoseVL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="442831581" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>RatWinVL.wav</ShortName>
+					<CachePath>SFX/RatWinVL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="467276958" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>LampSpeak3.wav</ShortName>
+					<CachePath>SFX/LampSpeak3_818F3B66.wem</CachePath>
+				</File>
+				<File Id="472751316" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>RatWin2VL.wav</ShortName>
+					<CachePath>SFX/RatWin2VL_818F3B66.wem</CachePath>
+				</File>
 				<File Id="477192504" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>FootStep2.wav</ShortName>
 					<CachePath>SFX/FootStep2_03395070.wem</CachePath>
+				</File>
+				<File Id="494183269" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>WizardWin1VL.wav</ShortName>
+					<CachePath>SFX/WizardWin1VL_E24E8B80.wem</CachePath>
+				</File>
+				<File Id="503821177" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>HarlequinWin2VL.wav</ShortName>
+					<CachePath>SFX/HarlequinWin2VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="504251328" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DreadPatronWin1VL.wav</ShortName>
+					<CachePath>SFX/DreadPatronWin1VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="519396977" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>WizardWin2VL.wav</ShortName>
+					<CachePath>SFX/WizardWin2VL_818F3B66.wem</CachePath>
 				</File>
 				<File Id="522322369" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>CardPlay3.wav</ShortName>
@@ -85,21 +206,85 @@
 					<ShortName>FootStep6.wav</ShortName>
 					<CachePath>SFX/FootStep6_C119EB5A.wem</CachePath>
 				</File>
+				<File Id="559131181" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>MerchantSpeak2.wav</ShortName>
+					<CachePath>SFX/MerchantSpeak2_818F3B66.wem</CachePath>
+				</File>
 				<File Id="564346088" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>slotmachineWin.wav</ShortName>
 					<CachePath>SFX/slotmachineWin_9E5CD947.wem</CachePath>
+				</File>
+				<File Id="581837591" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>WizardLose3VL.wav</ShortName>
+					<CachePath>SFX/WizardLose3VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="583465700" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>RatLose2VL.wav</ShortName>
+					<CachePath>SFX/RatLose2VL_818F3B66.wem</CachePath>
 				</File>
 				<File Id="599570550" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>SplashScreen.wav</ShortName>
 					<CachePath>SFX/SplashScreen_D0D0607A.wem</CachePath>
 				</File>
+				<File Id="605194448" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SlimeWin2VL.wav</ShortName>
+					<CachePath>SFX/SlimeWin2VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="620598437" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>ManagerWin1VL.wav</ShortName>
+					<CachePath>SFX/ManagerWin1VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="630088624" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>ManagerLose2VL.wav</ShortName>
+					<CachePath>SFX/ManagerLose2VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="639437876" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DreadPatronLose1VL.wav</ShortName>
+					<CachePath>SFX/DreadPatronLose1VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="645544646" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SnakeWin1VL.wav</ShortName>
+					<CachePath>SFX/SnakeWin1VL_818F3B66.wem</CachePath>
+				</File>
 				<File Id="655079680" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>CardPlay1.wav</ShortName>
 					<CachePath>SFX/CardPlay1_818F3B66.wem</CachePath>
 				</File>
+				<File Id="678300970" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>LampSpeak2.wav</ShortName>
+					<CachePath>SFX/LampSpeak2_818F3B66.wem</CachePath>
+				</File>
+				<File Id="735522241" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>MerchantSpeak1.wav</ShortName>
+					<CachePath>SFX/MerchantSpeak1_818F3B66.wem</CachePath>
+				</File>
+				<File Id="788092165" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>DoorUnlock.wav</ShortName>
+					<CachePath>SFX/DoorUnlock_818F3B66.wem</CachePath>
+				</File>
+				<File Id="815387628" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>LampSpeak1.wav</ShortName>
+					<CachePath>SFX/LampSpeak1_818F3B66.wem</CachePath>
+				</File>
+				<File Id="827235702" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>HarlequinWin1VL.wav</ShortName>
+					<CachePath>SFX/HarlequinWin1VL_818F3B66.wem</CachePath>
+				</File>
 				<File Id="828054099" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>FootStep4.wav</ShortName>
 					<CachePath>SFX/FootStep4_C917E432.wem</CachePath>
+				</File>
+				<File Id="916764331" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>ManagerLose1VL.wav</ShortName>
+					<CachePath>SFX/ManagerLose1VL_818F3B66.wem</CachePath>
+				</File>
+				<File Id="989986742" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SnakeLose2VL.wav</ShortName>
+					<CachePath>SFX/SnakeLose2VL_E8142F60.wem</CachePath>
+				</File>
+				<File Id="1001551563" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SlimeLose2VL.wav</ShortName>
+					<CachePath>SFX/SlimeLose2VL_818F3B66.wem</CachePath>
 				</File>
 				<File Id="1008269798" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>FootStep1.wav</ShortName>
@@ -107,7 +292,11 @@
 				</File>
 				<File Id="1019678272" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Bet.wav</ShortName>
-					<CachePath>SFX/Bet_23DA3042.wem</CachePath>
+					<CachePath>SFX/Bet_1BA421FD.wem</CachePath>
+				</File>
+				<File Id="1054698416" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>SnakeLose1VL.wav</ShortName>
+					<CachePath>SFX/SnakeLose1VL_818F3B66.wem</CachePath>
 				</File>
 			</Media>
 			<Plugins>
@@ -115,16 +304,20 @@
 					<Plugin Id="447537854" Name="Static_Sibilance_Remover_Male (Custom)" LibName="Wwise Parametric EQ" LibId="6881283"/>
 				</Custom>
 				<ShareSets>
+					<Plugin Id="992902880" Name="Small_Tiled_Room1" LibName="Wwise Matrix Reverb" LibId="7536643"/>
+					<Plugin Id="1252796875" Name="Light_Expander" LibName="Wwise Expander" LibId="7143427"/>
 					<Plugin Id="3851006675" Name="Secret_message_Distant" LibName="Wwise Harmonizer" LibId="9043971"/>
+					<Plugin Id="3948262040" Name="Octave_Down" LibName="Wwise Pitch Shifter" LibId="8912899"/>
+					<Plugin Id="4202347640" Name="Repeat_after_me" LibName="Wwise Harmonizer" LibId="9043971"/>
 				</ShareSets>
 			</Plugins>
 			<Events>
-				<Event Id="446279794" Name="Bet" DurationType="OneShot" DurationMin="0.2797553" DurationMax="0.3140147">
+				<Event Id="446279794" Name="Bet" DurationType="OneShot" DurationMin="0.15074737" DurationMax="0.16920818">
 					<MediaRefs>
 						<MediaRef Id="1019678272"/>
 					</MediaRefs>
 				</Event>
-				<Event Id="4206845685" Name="CardPlay" DurationType="OneShot" DurationMin="0.17027676" DurationMax="0.3316078">
+				<Event Id="4206845685" Name="CardPlay" DurationType="OneShot" DurationMin="0.17027676" DurationMax="0.31299606">
 					<MediaRefs>
 						<MediaRef Id="281327463"/>
 						<MediaRef Id="522322369"/>
@@ -134,6 +327,11 @@
 				<Event Id="723374694" Name="CardShuffle" DurationType="OneShot" DurationMin="0.6538914" DurationMax="0.8238515">
 					<MediaRefs>
 						<MediaRef Id="21082198"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="1553818165" Name="DoorUnlock" DurationType="OneShot" DurationMin="1.1538548" DurationMax="1.1538548">
+					<MediaRefs>
+						<MediaRef Id="788092165"/>
 					</MediaRefs>
 				</Event>
 				<Event Id="2385628198" Name="Footsteps" DurationType="OneShot" DurationMin="0.1787252" DurationMax="0.31360212">
@@ -146,10 +344,111 @@
 						<MediaRef Id="1008269798"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="77602827" Name="LampSpeak" DurationType="OneShot" DurationMin="0.34279117" DurationMax="0.62167186">
+					<MediaRefs>
+						<MediaRef Id="467276958"/>
+						<MediaRef Id="678300970"/>
+						<MediaRef Id="815387628"/>
+					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="4202347640"/>
+						</ShareSets>
+					</PluginRefs>
+				</Event>
+				<Event Id="221232726" Name="Lose" DurationType="OneShot" DurationMin="1.0331066" DurationMax="3.807687">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="3202541808"/>
+							<MediaRefs>
+								<MediaRef Id="115945111"/>
+								<MediaRef Id="301750876"/>
+								<MediaRef Id="581837591"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="434070397"/>
+							<MediaRefs>
+								<MediaRef Id="630088624"/>
+								<MediaRef Id="916764331"/>
+							</MediaRefs>
+							<PluginRefs>
+								<ShareSets>
+									<PluginRef Id="3948262040"/>
+								</ShareSets>
+							</PluginRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="1047714102"/>
+							<MediaRefs>
+								<MediaRef Id="434401296"/>
+								<MediaRef Id="583465700"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="2821599287"/>
+							<MediaRefs>
+								<MediaRef Id="135631757"/>
+								<MediaRef Id="639437876"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="3803999823"/>
+							<MediaRefs>
+								<MediaRef Id="90556042"/>
+								<MediaRef Id="1001551563"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="3187576023"/>
+							<MediaRefs>
+								<MediaRef Id="989986742"/>
+								<MediaRef Id="1054698416"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="442379379"/>
+							<MediaRefs>
+								<MediaRef Id="72610720"/>
+								<MediaRef Id="346616716"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="678048184"/>
+							<MediaRefs>
+								<MediaRef Id="101436057"/>
+								<MediaRef Id="242984577"/>
+							</MediaRefs>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
+				<Event Id="2143137657" Name="MerchantSpeak" DurationType="OneShot" DurationMin="0.64995" DurationMax="1.2032446">
+					<MediaRefs>
+						<MediaRef Id="110639380"/>
+						<MediaRef Id="559131181"/>
+						<MediaRef Id="735522241"/>
+					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="992902880"/>
+						</ShareSets>
+					</PluginRefs>
+				</Event>
 				<Event Id="2127906762" Name="SlotMachineWin" DurationType="OneShot" DurationMin="1.4571533" DurationMax="1.7328571">
 					<MediaRefs>
 						<MediaRef Id="564346088"/>
 					</MediaRefs>
+				</Event>
+				<Event Id="3240102813" Name="SmokePuff" MaxAttenuation="60" DurationType="OneShot" DurationMin="0.4390454" DurationMax="0.62090397">
+					<MediaRefs>
+						<MediaRef Id="34987519"/>
+					</MediaRefs>
+					<PluginRefs>
+						<ShareSets>
+							<PluginRef Id="992902880"/>
+							<PluginRef Id="1252796875"/>
+						</ShareSets>
+					</PluginRefs>
 				</Event>
 				<Event Id="3140745524" Name="SplashScreen" DurationType="OneShot" DurationMin="2.975325" DurationMax="3.333567">
 					<MediaRefs>
@@ -171,16 +470,92 @@
 						</Custom>
 					</PluginRefs>
 				</Event>
+				<Event Id="979765101" Name="Win" DurationType="OneShot" DurationMin="1.4285715" DurationMax="3.3461452">
+					<SwitchContainers>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="3202541808"/>
+							<MediaRefs>
+								<MediaRef Id="363109706"/>
+								<MediaRef Id="494183269"/>
+								<MediaRef Id="519396977"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="434070397"/>
+							<MediaRefs>
+								<MediaRef Id="362710849"/>
+								<MediaRef Id="620598437"/>
+							</MediaRefs>
+							<PluginRefs>
+								<ShareSets>
+									<PluginRef Id="3948262040"/>
+								</ShareSets>
+							</PluginRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="1047714102"/>
+							<MediaRefs>
+								<MediaRef Id="442831581"/>
+								<MediaRef Id="472751316"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="2821599287"/>
+							<MediaRefs>
+								<MediaRef Id="400853693"/>
+								<MediaRef Id="504251328"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="3803999823"/>
+							<MediaRefs>
+								<MediaRef Id="146363578"/>
+								<MediaRef Id="605194448"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="3187576023"/>
+							<MediaRefs>
+								<MediaRef Id="151370063"/>
+								<MediaRef Id="645544646"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="442379379"/>
+							<MediaRefs>
+								<MediaRef Id="226500119"/>
+								<MediaRef Id="340383686"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="Switch" GroupId="3807720919" Id="678048184"/>
+							<MediaRefs>
+								<MediaRef Id="503821177"/>
+								<MediaRef Id="827235702"/>
+							</MediaRefs>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
 			</Events>
+			<SwitchGroups>
+				<SwitchGroup Id="3807720919" Name="EnemyType">
+					<Switches>
+						<Switch Id="434070397" Name="Manageress"/>
+						<Switch Id="442379379" Name="SkeletonDealer"/>
+						<Switch Id="678048184" Name="Harlequin"/>
+						<Switch Id="1047714102" Name="Rat"/>
+						<Switch Id="2821599287" Name="DreadPatron"/>
+						<Switch Id="3187576023" Name="Snake"/>
+						<Switch Id="3202541808" Name="Wizard"/>
+						<Switch Id="3803999823" Name="Slime"/>
+					</Switches>
+				</SwitchGroup>
+			</SwitchGroups>
 		</SoundBank>
-		<SoundBank Id="3991942870" Type="User" Language="SFX" Hash="{73B5D75A-BFBC-BBD5-85A8-A73670A1F95A}">
+		<SoundBank Id="3991942870" Type="User" Language="SFX" Hash="{62D3FEBD-F8E5-EA8E-2C0E-F3ED9C970311}">
 			<ShortName>Music</ShortName>
 			<Path>Music.bnk</Path>
 			<Media>
-				<File Id="7108920" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>WizardFightPart2.wav</ShortName>
-					<CachePath>SFX/WizardFightPart2_FBC78EF0.wem</CachePath>
-				</File>
 				<File Id="153740171" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>WizardOffice.wav</ShortName>
 					<CachePath>SFX/WizardOffice_FBC78EF0.wem</CachePath>
@@ -188,6 +563,10 @@
 				<File Id="203706025" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>BasementMusic.wav</ShortName>
 					<CachePath>SFX/BasementMusic_FBC78EF0.wem</CachePath>
+				</File>
+				<File Id="228756205" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>WizardTower.wav</ShortName>
+					<CachePath>SFX/WizardTower_FBC78EF0.wem</CachePath>
 				</File>
 				<File Id="247490158" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>MainMenu1.wav</ShortName>
@@ -205,9 +584,17 @@
 					<ShortName>CasinoMusic.wav</ShortName>
 					<CachePath>SFX/CasinoMusic_FBC78EF0.wem</CachePath>
 				</File>
-				<File Id="649143456" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>WizardFightPart1.wav</ShortName>
-					<CachePath>SFX/WizardFightPart1_FBC78EF0.wem</CachePath>
+				<File Id="576841977" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>WizardPokerPart1.wav</ShortName>
+					<CachePath>SFX/WizardPokerPart1_FBC78EF0.wem</CachePath>
+				</File>
+				<File Id="727609667" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>WizardPokerPart2.wav</ShortName>
+					<CachePath>SFX/WizardPokerPart2_FBC78EF0.wem</CachePath>
+				</File>
+				<File Id="772039864" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>WizardTowerPoker.wav</ShortName>
+					<CachePath>SFX/WizardTowerPoker_FBC78EF0.wem</CachePath>
 				</File>
 				<File Id="828980842" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>CasinoPoker.wav</ShortName>
@@ -254,8 +641,8 @@
 						<SwitchContainer>
 							<SwitchValue GroupType="State" GroupId="3991942870" Id="1996063713"/>
 							<MediaRefs>
-								<MediaRef Id="7108920"/>
-								<MediaRef Id="649143456"/>
+								<MediaRef Id="576841977"/>
+								<MediaRef Id="727609667"/>
 							</MediaRefs>
 						</SwitchContainer>
 						<SwitchContainer>
@@ -276,6 +663,18 @@
 								<MediaRef Id="153740171"/>
 							</MediaRefs>
 						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="3991942870" Id="1259911375"/>
+							<MediaRefs>
+								<MediaRef Id="228756205"/>
+							</MediaRefs>
+						</SwitchContainer>
+						<SwitchContainer>
+							<SwitchValue GroupType="State" GroupId="3991942870" Id="925236326"/>
+							<MediaRefs>
+								<MediaRef Id="772039864"/>
+							</MediaRefs>
+						</SwitchContainer>
 					</SwitchContainers>
 				</Event>
 			</Events>
@@ -285,6 +684,8 @@
 						<State Id="200935300" Name="Casino"/>
 						<State Id="698426525" Name="ServiceArea"/>
 						<State Id="748895195" Name="None"/>
+						<State Id="925236326" Name="WizardTowerPoker"/>
+						<State Id="1259911375" Name="WizardTower"/>
 						<State Id="1413413702" Name="Basement"/>
 						<State Id="1493892136" Name="PokerLvl2"/>
 						<State Id="1493892137" Name="PokerLvl3"/>
@@ -297,5 +698,5 @@
 			</StateGroups>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{AB0B0DE2-3F4D-2EEC-744E-31F10C127AF0}</FileHash>
+	<FileHash>{8908F501-09A0-0A9B-4B73-CF32DA6EF784}</FileHash>
 </SoundBanksInfo>

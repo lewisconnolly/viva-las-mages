@@ -9,33 +9,40 @@ public class Dealer : MonoBehaviour, IInteractable
 {
     [SerializeField] public string prompt;
     public string transitionVideoUrl;
-    
 
     public string InteractionPrompt => prompt;
 
     public bool Interact(Interactor interactor)
     {
-        GetComponentInParent<DealerHealth>().activeEnemy = true;
-
-        // Play transition video
-        if (transitionVideoUrl != "")
+        if (GetComponentInParent<DealerHealth>().currentHealth > 0)
         {
-            GameObject canvas = GameObject.FindGameObjectWithTag("TVC");
-            canvas.GetComponentInChildren<MeshRenderer>().enabled = true;
-            VideoPlayer vp = canvas.GetComponentInChildren<VideoPlayer>();
+            GetComponentInParent<DealerHealth>().activeEnemy = true;
 
-            vp.url = transitionVideoUrl;
-            vp.Play();
-            vp.loopPointReached += EndReached;
+            //Play transition video
+            if (transitionVideoUrl != "")
+            {
+                GameObject canvas = GameObject.FindGameObjectWithTag("TVC");
+                canvas.GetComponentInChildren<RawImage>().enabled = true;
+                VideoPlayer vp = canvas.GetComponentInChildren<VideoPlayer>();
+
+                vp.url = transitionVideoUrl;
+                vp.Play();
+                vp.loopPointReached += EndReached;
+            }
+
+            SceneLoader.instance.LoadPoker();
         }
 
-        SceneLoader.instance.LoadPoker();        
+        return true;
+    }
 
+    public bool ResetInteractable()
+    {
         return true;
     }
 
     void EndReached(UnityEngine.Video.VideoPlayer vp)
     {
-        vp.gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
+        vp.gameObject.GetComponentInChildren<RawImage>().enabled = false;
     }
 }

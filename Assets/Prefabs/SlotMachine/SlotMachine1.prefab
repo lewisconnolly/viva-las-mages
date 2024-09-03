@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5135228422407566590}
+  - component: {fileID: 7022456273590660860}
   m_Layer: 0
   m_Name: SlotMachine1
   m_TagString: SlotMachine
@@ -32,6 +33,18 @@ Transform:
   - {fileID: 6493317657435437540}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7022456273590660860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938069440625703915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bda998430d72784bb7c0391f49e9cd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &256164502086711361
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -211,6 +224,15 @@ MonoBehaviour:
     valueGuidInternal: 
     WwiseObjectReference: {fileID: 11400000, guid: 88463f2422f39544eb5965bbe964d30c,
       type: 2}
+  betSound:
+    idInternal: 0
+    valueGuidInternal: 
+    WwiseObjectReference: {fileID: 11400000, guid: c26eee52cfe3dab49a46a1f79ace5d97,
+      type: 2}
+  isTheOriginal: 0
+  materials:
+  - {fileID: 2100000, guid: 5760a5e9fe360e04c94dcde4befbea30, type: 2}
+  - {fileID: 2100000, guid: 918d38b2627c77f4db531d1bf330a20e, type: 2}
 --- !u!4 &6493317657435437540 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6454487573871231397, guid: 26dd076888bd80b439fe29cbf9cfa9fc,

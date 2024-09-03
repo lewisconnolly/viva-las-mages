@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem.XR;
 
 public class DeckViewer : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class DeckViewer : MonoBehaviour
     public List<CardScriptableObject> playerDeck;
     public List<Button> selectCardButtons;
     public Card selectedCard;
-    public GameObject deckViewerParent;
+    //public GameObject deckViewerParent;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +49,9 @@ public class DeckViewer : MonoBehaviour
                 buttonText += $" ({playerDeck[i].powerCardType})";
             }
 
+            buttonText = buttonText.Replace("11", "Jack");
+            buttonText = buttonText.Replace("12", "Queen");
+            buttonText = buttonText.Replace("13", "King");
             buttonText = buttonText.Replace("14", "Ace");
 
             selectCardButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = buttonText;
@@ -64,16 +68,26 @@ public class DeckViewer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            if (SceneManager.GetActiveScene().name == "Poker" && RewardCardUI.instance.rewardCardParentObject.activeSelf)
+            if (SceneManager.GetActiveScene().name.Contains("Poker") && RewardCardUI.instance.rewardCardParentObject.activeSelf)
             {
                 RewardCardUI.instance.rewardCardParentObject.SetActive(false);
-            }            
+            }
 
-            if (deckViewerParent.activeSelf)
+            if (WSCController.instance.cheatSheetParent.activeSelf)
             {
-                deckViewerParent.SetActive(false);
+                WSCController.instance.cheatSheetParent.SetActive(false);
+            }
 
-                if (SceneManager.GetActiveScene().name != "Poker")
+            if (!SceneManager.GetActiveScene().name.Contains("Poker") && WSCController.instance.merchantShopParent.activeSelf)
+            {
+                WSCController.instance.merchantShopParent.SetActive(false);
+            }
+
+            if (WSCController.instance.deckViewerParent.activeSelf)
+            {
+                WSCController.instance.deckViewerParent.SetActive(false);
+
+                if (!SceneManager.GetActiveScene().name.Contains("Poker"))
                 {
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
@@ -81,7 +95,7 @@ public class DeckViewer : MonoBehaviour
             }
             else
             {
-                deckViewerParent.SetActive(true);
+                WSCController.instance.deckViewerParent.SetActive(true);
 
                 Initialise();
 

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +14,7 @@ public class ExitCost : MonoBehaviour
     }
 
     public int exitHealthCost = 2;
+    public GameObject heartLockUIIcon;
 
     private void Update()
     {        
@@ -19,7 +22,6 @@ public class ExitCost : MonoBehaviour
 
     void Start()
     {               
-        //UIExitController.instance.SetHealthText(exitHealthCost);
         ExitController.instance.SetHealthText(exitHealthCost);
     }
 
@@ -29,21 +31,34 @@ public class ExitCost : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        exitHealthCost -= damage;
+        if (exitHealthCost > 0)
+        {
+            exitHealthCost -= damage;
 
-        if (exitHealthCost <= 0)
-        {
-            exitHealthCost = 0;
-        }
+            ExitController.instance.hit.Play();
 
-        if (SceneManager.GetActiveScene().name == "Poker")
-        {
-            PokerUIController.instance.SetExitHealthText(exitHealthCost);
-        }
-        else
-        {
-            //UIExitController.instance.SetHealthText(exitHealthCost);
+            ExitController.instance.ShowFloatingText(damage);
+
+            if (exitHealthCost <= 0)
+            {
+                exitHealthCost = 0;
+            }
+
             ExitController.instance.SetHealthText(exitHealthCost);
-        }   
+
+
+            if (!SceneManager.GetActiveScene().name.Contains("Poker"))
+            {
+                Destroy(GameObject.Find("HeartLockIcon(Clone)"));
+                heartLockUIIcon.GetComponentInChildren<TextMeshPro>().text = exitHealthCost.ToString();
+                Instantiate(heartLockUIIcon, GameObject.Find("WorldSpaceCanvas1").GetComponentInChildren<CanvasRenderer>().gameObject.transform);
+            }
+        }
+        
+        if (exitHealthCost <= 0)
+        {            
+            Door doorInteractable = FindObjectOfType<Door>();
+            doorInteractable.prompt = "Open Door";
+        }
     }
 }

@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2379606804558817754}
-  m_Layer: 0
+  - component: {fileID: 6804308374135328632}
+  - component: {fileID: 3546719202850901520}
+  m_Layer: 8
   m_Name: BasementDoorNew
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,6 +34,41 @@ Transform:
   - {fileID: 9003685218870449362}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6804308374135328632
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3422365573951427923}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.6, y: 1.75, z: 1.33}
+  m_Center: {x: 0, y: -0.24, z: 0}
+--- !u!114 &3546719202850901520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3422365573951427923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca4e31de224255849a2dc6ca602e0446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prompt: Locked
+  sceneName: 
 --- !u!1001 &2921363555520647395
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40,6 +77,36 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2379606804558817754}
     m_Modifications:
+    - target: {fileID: 2392617794142679866, guid: 7e0dc9b588d77e54f9937fac5ecc49e6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3315827448744178907, guid: 7e0dc9b588d77e54f9937fac5ecc49e6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619301835920750789, guid: 7e0dc9b588d77e54f9937fac5ecc49e6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4802082306366791728, guid: 7e0dc9b588d77e54f9937fac5ecc49e6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221469108953549951, guid: 7e0dc9b588d77e54f9937fac5ecc49e6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5376031322432175336, guid: 7e0dc9b588d77e54f9937fac5ecc49e6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6086967479897277489, guid: 7e0dc9b588d77e54f9937fac5ecc49e6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -94,6 +161,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BasementDoorNewModelPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859703514865704587, guid: 7e0dc9b588d77e54f9937fac5ecc49e6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077964033276676315, guid: 7e0dc9b588d77e54f9937fac5ecc49e6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

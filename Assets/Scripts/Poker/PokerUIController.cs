@@ -33,6 +33,18 @@ public class PokerUIController : MonoBehaviour
     public Transform enemyBetIconTarget;
     private bool showBetIcons;
     public BetSlider betSlider;
+    public Image enemyIcon;
+    public GameObject hitSpritePrefab;
+    public GameObject enemyIconOverlayDamagePf;
+    public GameObject enemyIconOverlayDefeated;
+    public GameObject enemyHeart;
+    public GameObject playerHeart;
+    public GameObject healthChangeText;
+    public GameObject enemyBet;
+    public GameObject playerBet;
+
+    public TMP_FontAsset redGlow;
+    public TMP_FontAsset greenGlow;
 
     public GameObject placeBetButton, swapCardButton, playHandButton, playAgainButton, leaveButton, endGameButton;
 
@@ -87,10 +99,13 @@ public class PokerUIController : MonoBehaviour
     {
         betIconOrigin = betIcon.transform.position;
         enemyBetIconOrigin = enemyBetIcon.transform.position;
-        leaveButton.SetActive(false);
+        
         HideBetIcons();        
 
-        if (GameObject.FindGameObjectWithTag("Enemy") != null) { SetEnemyHealthText(BattleController.instance.activeEnemy.GetHealth()); }
+        if (GameObject.FindGameObjectWithTag("Enemy") != null) {
+            SetEnemyHealthText(BattleController.instance.activeEnemy.GetHealth());
+            enemyIcon.sprite = BattleController.instance.activeEnemy.uiIcon;
+        }
 
         if (GameObject.FindGameObjectWithTag("ExitCost") != null) { SetExitHealthText(ExitCost.instance.GetHealth()); }
 
@@ -131,14 +146,65 @@ public class PokerUIController : MonoBehaviour
         }
 
         currentSensitivity.text = Mathf.Round((sensitivitySlider.value - 10f) / 10f).ToString();
-        currentVolume.text = Mathf.Round((volumeSlider.value + 80f) * 1.25f).ToString();
+        currentVolume.text = Mathf.Round((volumeSlider.value)).ToString();
     }
 
     public void SetHealthText(int health) { healthValueText.text = health.ToString(); }
-    
-    public void SetEnemyHealthText(int health) { enemyHealthValueText.text = health.ToString(); }
 
-    public void SetExitHealthText(int health) { exitHealthValueText.text = health.ToString(); }
+    public void SetEnemyHealthText(int health)
+    {
+        enemyHealthValueText.text = health.ToString();
+    }
+
+    public void ShowHitSprite()
+    {
+        if (hitSpritePrefab != null)
+        {
+           Instantiate(hitSpritePrefab, enemyIcon.transform);            
+        }
+
+        if (enemyIconOverlayDamagePf != null)
+        {
+            Instantiate(enemyIconOverlayDamagePf, enemyIcon.transform);
+        }
+    }
+
+    public void ShowHealthChangeText(int change, bool isEnemy)
+    {
+        Transform parentTransform;
+        
+        if (healthChangeText != null)
+        {
+            if (isEnemy)
+            {
+                parentTransform = enemyHeart.transform;
+            }
+            else
+            {
+                parentTransform = playerHeart.transform;
+            }
+
+            GameObject healthChange = Instantiate(healthChangeText, parentTransform);
+
+            if (change < 0)
+            {
+                healthChange.GetComponent<TextMeshProUGUI>().text = change.ToString();
+                healthChange.GetComponent<TextMeshProUGUI>().color = Color.red;
+                healthChange.GetComponent<TextMeshProUGUI>().font = redGlow;
+            }
+            else
+            {
+                healthChange.GetComponent<TextMeshProUGUI>().text = "+" + change.ToString();
+                healthChange.GetComponent<TextMeshProUGUI>().color = Color.green;
+                healthChange.GetComponent<TextMeshProUGUI>().font = greenGlow;
+            }
+        }
+    }
+
+    public void SetExitHealthText(int health)
+    {
+        exitHealthValueText.text = health.ToString();
+    }
 
     public void SetHandText(string playerHand, string enemyHand)
     {
@@ -169,17 +235,31 @@ public class PokerUIController : MonoBehaviour
     }
     public void PlayHand()
     {
-        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { BattleController.instance.PlayHand(); }
+        if (!isPaused &&
+            !(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf))
+        {
+            BattleController.instance.PlayHand();
+        }
     }
 
     public void PlaceBet()
     {
-        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { BattleController.instance.PlaceBet(int.Parse(betSlider.currentBet.text)); Bet.Post(gameObject); }
+        if (!isPaused &&
+            !(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf))
+        {
+            BattleController.instance.PlaceBet(int.Parse(betSlider.currentBet.text));
+            Bet.Post(gameObject);
+        }
     }
 
     public void PlayAgain()
     {     
-        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { BattleController.instance.PlayAgain(); PlayMore.Post(gameObject); }
+        if (!isPaused &&
+            !(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf))
+        {
+            BattleController.instance.PlayAgain();
+            PlayMore.Post(gameObject);
+        }
 
     }
 
@@ -194,7 +274,11 @@ public class PokerUIController : MonoBehaviour
 
     public void SwapCards()
     {
-        if (!isPaused && !DeckViewer.instance.deckViewerParent.activeSelf) { HandController.instance.SwapCards(); }
+        if (!isPaused &&
+            !(WSCController.instance.deckViewerParent.activeSelf || WSCController.instance.cheatSheetParent.activeSelf))
+        {
+            HandController.instance.SwapCards();
+        }
     }
 
     public void PauseUnpause()
@@ -278,12 +362,19 @@ public class PokerUIController : MonoBehaviour
         if (player != null) { Destroy(player); }
         if (exit != null) { Destroy(exit); }
 
-        SceneManager.LoadScene("BasementRoom1");
+        SceneManager.LoadScene("T1BasementRoom1");
     }
 
     public void GameOver()
     {
-        gameOverScreen.SetActive(true);
-        gameOverTransition.Play(0);
+        if (SceneManager.GetActiveScene().name != "FinalBossPokerRoom")
+        {
+            gameOverScreen.SetActive(true);
+            gameOverTransition.Play(0);
+        }
+        else
+        {
+            SceneLoader.instance.LoadCredits();
+        }
     }
 }
